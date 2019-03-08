@@ -1,7 +1,7 @@
 
 # Miva Merchant API SDK for Swift 4.x
 
-This node library wraps the Miva Merchant JSON API introduced in
+This library wraps the Miva Merchant JSON API introduced in
 Miva Merchant 9.12. It allows you to quickly integrate your swift
 applications with a Miva Merchant store to fetch, create, and update
 store data.
