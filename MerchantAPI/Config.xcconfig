@@ -1,0 +1,7 @@
+SUPPORTED_PLATFORMS = macosx iphoneos iphonesimulator appletvos appletvsimulator watchos watchsimulator
+
+TARGETED_DEVICE_FAMILY = 1,2,3,4
+
+LD_RUNPATH_SEARCH_PATHS = @executable_path/Frameworks @loader_path/Frameworks $(inherited)
+LD_RUNPATH_SEARCH_PATHS[sdk=macosx*] = @executable_path/../Frameworks @loader_path/../Frameworks $(inherited)
+SDKROOT = $(SDKROOT)
