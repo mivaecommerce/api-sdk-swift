@@ -6,7 +6,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  *
- * $Id: Client.swift 73766 2019-03-05 17:33:13Z gidriss $
+ * $Id: Client.swift 76813 2019-07-10 22:11:48Z gidriss $
  */
 
 import Foundation
@@ -264,8 +264,8 @@ public class Client {
         var key = key
         
         if key.count > 0 {
-            if (key.count % 4 != 0){
-                key += String(repeating: "=", count: (key.count % 4))
+            if (key.count % 4 != 0) {
+                key += String(repeating: "=", count: (4 - (key.count % 4)))
             }
             
             self.signingKey = Data(base64Encoded: key) ?? Data()

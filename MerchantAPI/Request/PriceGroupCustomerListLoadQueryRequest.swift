@@ -4,17 +4,17 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  *
- * $Id$
+ * $Id: PriceGroupCustomerListLoadQueryRequest.swift 77298 2019-08-07 22:16:46Z gidriss $
  */
 
 import Foundation
 
 /**
- Handles API Request CategoryProductList_Load_Query.
+ Handles API Request PriceGroupCustomerList_Load_Query.
 
- - SeeAlso: https://docs.miva.com/json-api/functions/categoryproductlist_load_query
+ - SeeAlso: https://docs.miva.com/json-api/functions/pricegroupcustomerlist_load_query
  */
-public class CategoryProductListLoadQueryRequest : ListQueryRequest {
+public class PriceGroupCustomerListLoadQueryRequest : ListQueryRequest {
     /**
      The API function name. 
 
@@ -22,7 +22,7 @@ public class CategoryProductListLoadQueryRequest : ListQueryRequest {
      - Returns: String
      */
     override var function : String {
-        return "CategoryProductList_Load_Query"
+        return "PriceGroupCustomerList_Load_Query"
     }
 
     /**
@@ -35,14 +35,11 @@ public class CategoryProductListLoadQueryRequest : ListQueryRequest {
         return RequestScope.Store;
     }
     
-    /// Request field Category_ID.
-    var categoryId : Optional<Int>
+    /// Request field PriceGroup_ID.
+    var priceGroupId : Optional<Int>
 
-    /// Request field Category_Code.
-    var categoryCode : Optional<String>
-
-    /// Request field Edit_Category.
-    var editCategory : Optional<String>
+    /// Request field PriceGroup_Name.
+    var priceGroupName : Optional<String>
 
     /// Request field Assigned.
     var assigned : Optional<Bool>
@@ -60,24 +57,38 @@ public class CategoryProductListLoadQueryRequest : ListQueryRequest {
         get {
             return [
                 "id",
-                "code",
-                "sku",
-                "cancat_code",
-                "page_code",
-                "name",
-                "thumbnail",
-                "image",
-                "price",
-                "cost",
-                "descrip",
-                "weight",
-                "taxable",
-                "active",
-                "page_title",
+                "login",
+                "pw_email",
+                "ship_fname",
+                "ship_lname",
+                "ship_email",
+                "ship_comp",
+                "ship_phone",
+                "ship_fax",
+                "ship_addr1",
+                "ship_addr2",
+                "ship_city",
+                "ship_state",
+                "ship_zip",
+                "ship_cntry",
+                "ship_res",
+                "bill_fname",
+                "bill_lname",
+                "bill_email",
+                "bill_comp",
+                "bill_phone",
+                "bill_fax",
+                "bill_addr1",
+                "bill_addr2",
+                "bill_city",
+                "bill_state",
+                "bill_zip",
+                "bill_cntry",
+                "business_title",
+                "note_count",
                 "dt_created",
-                "dt_updated",
-                "category",
-                "product_inventory"
+                "dt_login",
+                "credit"
             ]
         }
     }
@@ -92,44 +103,38 @@ public class CategoryProductListLoadQueryRequest : ListQueryRequest {
         get {
             return [
                 "id",
-                "code",
-                "sku",
-                "cancat_code",
-                "page_code",
-                "name",
-                "thumbnail",
-                "image",
-                "price",
-                "cost",
-                "descrip",
-                "weight",
-                "taxable",
-                "active",
-                "page_title",
+                "login",
+                "pw_email",
+                "ship_fname",
+                "ship_lname",
+                "ship_email",
+                "ship_comp",
+                "ship_phone",
+                "ship_fax",
+                "ship_addr1",
+                "ship_addr2",
+                "ship_city",
+                "ship_state",
+                "ship_zip",
+                "ship_cntry",
+                "ship_res",
+                "bill_fname",
+                "bill_lname",
+                "bill_email",
+                "bill_comp",
+                "bill_phone",
+                "bill_fax",
+                "bill_addr1",
+                "bill_addr2",
+                "bill_city",
+                "bill_state",
+                "bill_zip",
+                "bill_cntry",
+                "business_title",
+                "note_count",
                 "dt_created",
-                "dt_updated"
-            ]
-        }
-    }
-    
-    /**
-     The available on demand columns applicable to the request.
-
-     - Returns: An array of strings.
-     - Note: Overrides
-     */
-    override var availableOnDemandColumns : [ String ] {
-        get {
-            return [
-                "descrip",
-                "catcount",
-                "productinventorysettings",
-                "attributes",
-                "productimagedata",
-                "categories",
-                "productshippingrules",
-                "relatedproducts",
-                "uris"
+                "dt_login",
+                "credit"
             ]
         }
     }
@@ -141,9 +146,8 @@ public class CategoryProductListLoadQueryRequest : ListQueryRequest {
      */
     private enum CodingKeys: String, CodingKey {
         case function = "Function"
-        case categoryId = "Category_ID"
-        case categoryCode = "Category_Code"
-        case editCategory = "Edit_Category"
+        case priceGroupId = "PriceGroup_ID"
+        case priceGroupName = "PriceGroup_Name"
         case assigned = "Assigned"
         case unassigned = "Unassigned"
     }
@@ -153,15 +157,15 @@ public class CategoryProductListLoadQueryRequest : ListQueryRequest {
 
      - Parameters:
         - client: A Client instance.
-        - category: An optional Category instance.
+        - priceGroup: An optional PriceGroup instance.
      */
-    public init(client: Optional<Client> = nil, category: Optional<Category> = nil) {
+    public init(client: Optional<Client> = nil, priceGroup: Optional<PriceGroup> = nil) {
         super.init(client: client)
-        if let category = category {
-            if category.id > 0 {
-                self.categoryId = category.id
-            } else if category.code.count > 0 {
-                self.editCategory = category.code
+        if let priceGroup = priceGroup {
+            if priceGroup.id > 0 {
+                self.priceGroupId = priceGroup.id
+            } else if priceGroup.name.count > 0 {
+                self.priceGroupName = priceGroup.name
             }
         }
     }
@@ -177,12 +181,10 @@ public class CategoryProductListLoadQueryRequest : ListQueryRequest {
     public override func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
 
-        if self.categoryId != nil {
-            try container.encodeIfPresent(self.categoryId, forKey: .categoryId)
-        } else if self.editCategory != nil {
-            try container.encode(self.editCategory, forKey: .editCategory)
-        } else if self.categoryCode != nil {
-            try container.encode(self.categoryCode, forKey: .categoryCode)
+        if self.priceGroupId != nil {
+            try container.encodeIfPresent(self.priceGroupId, forKey: .priceGroupId)
+        } else if self.priceGroupName != nil {
+            try container.encode(self.priceGroupName, forKey: .priceGroupName)
         }
 
         try container.encodeIfPresent(self.assigned, forKey: .assigned)
@@ -195,17 +197,17 @@ public class CategoryProductListLoadQueryRequest : ListQueryRequest {
      Send the request for a response.
 
      - Parameters:
-        - callback: The callback function with signature (CategoryProductListLoadQueryResponse?, Error?).
+        - callback: The callback function with signature (PriceGroupCustomerListLoadQueryResponse?, Error?).
      - Note: Overrides
      */
-     public override func send(client: Optional<Client> = nil, callback: @escaping (CategoryProductListLoadQueryResponse?, Error?) -> ()) throws {
+     public override func send(client: Optional<Client> = nil, callback: @escaping (PriceGroupCustomerListLoadQueryResponse?, Error?) -> ()) throws {
         if client != nil {
             client!.send(self) { request, response, error in
-                callback(response as? CategoryProductListLoadQueryResponse, error)
+                callback(response as? PriceGroupCustomerListLoadQueryResponse, error)
             }
         } else if self.client != nil {
             self.client!.send(self) { request, response, error in
-                callback(response as? CategoryProductListLoadQueryResponse, error)
+                callback(response as? PriceGroupCustomerListLoadQueryResponse, error)
             }
         } else {
             throw RequestError.noClientAssigned
@@ -220,13 +222,13 @@ public class CategoryProductListLoadQueryRequest : ListQueryRequest {
      - Throws: Error when unable to decode the response data.
      - Note: Overrides
      */
-    public override func createResponse(data : Data) throws -> CategoryProductListLoadQueryResponse {
+    public override func createResponse(data : Data) throws -> PriceGroupCustomerListLoadQueryResponse {
         let decoder = JSONDecoder()
         
         decoder.userInfo[Response.decoderRequestUserInfoKey]      = self
         decoder.userInfo[Response.decoderResponseDataUserInfoKey] = data
         
-        return try decoder.decode(CategoryProductListLoadQueryResponse.self, from: data)
+        return try decoder.decode(PriceGroupCustomerListLoadQueryResponse.self, from: data)
     }
 
     /**
@@ -236,34 +238,25 @@ public class CategoryProductListLoadQueryRequest : ListQueryRequest {
      - Note: Overrides
      */
     override public func getResponseType() -> Response.Type {
-        return CategoryProductListLoadQueryResponse.self
+        return PriceGroupCustomerListLoadQueryResponse.self
     }
     
     /**
-     Getter for Category_ID.
+     Getter for PriceGroup_ID.
      
      - Returns:  Optional<Int> 
      */
-    public func getCategoryId() -> Optional<Int> {
-        return self.categoryId
+    public func getPriceGroupId() -> Optional<Int> {
+        return self.priceGroupId
     }
     
     /**
-     Getter for Category_Code.
+     Getter for PriceGroup_Name.
 
      - Returns:  Optional<String> 
      */
-    public func getCategoryCode() -> Optional<String> {
-        return self.categoryCode
-    }
-    
-    /**
-     Getter for Edit_Category.
-
-     - Returns:  Optional<String> 
-     */
-    public func getEditCategory() -> Optional<String> {
-        return self.editCategory
+    public func getPriceGroupName() -> Optional<String> {
+        return self.priceGroupName
     }
     
     /**
@@ -285,41 +278,28 @@ public class CategoryProductListLoadQueryRequest : ListQueryRequest {
     }
     
     /**
-     Setter for Category_ID.
+     Setter for PriceGroup_ID.
      
      - Parameters:
         - value: Optional<Int>
      - Returns:  Self
      */
     @discardableResult
-    public func setCategoryId(_ value: Optional<Int>) -> Self {
-        self.categoryId = value
+    public func setPriceGroupId(_ value: Optional<Int>) -> Self {
+        self.priceGroupId = value
         return self
     }
     
     /**
-     Setter for Category_Code.
+     Setter for PriceGroup_Name.
 
      - Parameters:
         - value: Optional<String>
      - Returns:  Self
      */
     @discardableResult
-    public func setCategoryCode(_ value: Optional<String>) -> Self {
-        self.categoryCode = value
-        return self
-    }
-    
-    /**
-     Setter for Edit_Category.
-
-     - Parameters:
-        - value: Optional<String>
-     - Returns:  Self
-     */
-    @discardableResult
-    public func setEditCategory(_ value: Optional<String>) -> Self {
-        self.editCategory = value
+    public func setPriceGroupName(_ value: Optional<String>) -> Self {
+        self.priceGroupName = value
         return self
     }
     

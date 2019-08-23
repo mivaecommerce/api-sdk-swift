@@ -4,13 +4,13 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  *
- * $Id$
+ * $Id: PriceGroupCustomer.swift 77298 2019-08-07 22:16:46Z gidriss $
  */
 
 import Foundation
 
-/// PriceGroupProduct data model.
-public class PriceGroupProduct : Product {
+/// PriceGroupCustomer data model.
+public class PriceGroupCustomer : Customer {
 
     /// Model field assigned.
     var assigned : Bool
@@ -25,7 +25,7 @@ public class PriceGroupProduct : Product {
     }
 
     /**
-     PriceGroupProduct Constructor.
+     PriceGroupCustomer Constructor.
      */
     public override init() {
         self.assigned = false
@@ -34,7 +34,7 @@ public class PriceGroupProduct : Product {
     }
 
     /**
-     PriceGroupProduct Decodable Constructor.
+     PriceGroupCustomer Decodable Constructor.
 
      - Parameters:
         - decoder: The Decoder instance.

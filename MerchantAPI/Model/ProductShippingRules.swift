@@ -4,7 +4,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  *
- * $Id: ProductShippingRules.swift 73952 2019-03-07 22:36:32Z gidriss $
+ * $Id: ProductShippingRules.swift 77297 2019-08-07 22:14:29Z gidriss $
  */
 
 import Foundation
@@ -174,12 +174,12 @@ public class ProductShippingRules : Model {
      Add a ProductShippingMethod.
      
      - Parameters:
-        - methods: ProductShippingMethod
+        - method: ProductShippingMethod
      - Returns:  Self
      */
     @discardableResult
-    public func addMethods(_ methods: ProductShippingMethod) -> Self {
-        self.methods.append(methods)
+    public func addMethod(_ method: ProductShippingMethod) -> Self {
+        self.methods.append(method)
         return self
     }
 }

@@ -4,35 +4,35 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  *
- * $Id$
+ * $Id: PriceGroupCustomerListLoadQueryResponse.swift 77298 2019-08-07 22:16:46Z gidriss $
  */
 
 import Foundation
 
 /**
- API Response for CategoryProductList_Load_Query.
+ API Response for PriceGroupCustomerList_Load_Query.
  
- - SeeAlso: https://docs.miva.com/json-api/functions/categoryproductlist_load_query
+ - SeeAlso: https://docs.miva.com/json-api/functions/pricegroupcustomerlist_load_query
  */
-public class CategoryProductListLoadQueryResponse : ListQueryResponse {
+public class PriceGroupCustomerListLoadQueryResponse : ListQueryResponse {
 
     /// Holds a ListQuery result data
-    public var data : ListQueryResult<CategoryProduct>
+    public var data : ListQueryResult<PriceGroupCustomer>
 
     /// Named computed property for data
-    public var categoryProducts : [CategoryProduct] {
+    public var priceGroupCustomers : [PriceGroupCustomer] {
         get {
             return self.data.records
         }
     }
 
     /**
-     Getter for categoryProducts.
+     Getter for priceGroupCustomers.
 
-     - Returns: [CategoryProduct]
+     - Returns: [PriceGroupCustomer]
      */
-    public func getCategoryProducts() -> [CategoryProduct] {
-        return self.categoryProducts
+    public func getPriceGroupCustomers() -> [PriceGroupCustomer] {
+        return self.priceGroupCustomers
     }
 
     /**
@@ -53,7 +53,7 @@ public class CategoryProductListLoadQueryResponse : ListQueryResponse {
     public required init(from decoder: Decoder) throws {
         let container  = try decoder.container(keyedBy : CodingKeys.self)
 
-        self.data = try container.decodeIfPresent(ListQueryResult<CategoryProduct>.self, forKey: .data) ?? ListQueryResult<CategoryProduct>()
+        self.data = try container.decodeIfPresent(ListQueryResult<PriceGroupCustomer>.self, forKey: .data) ?? ListQueryResult<PriceGroupCustomer>()
         try super.init(from : decoder)
     }
 }

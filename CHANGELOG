@@ -1,2 +1,5 @@
+v1.1.0
+	- Added support for PriceGroupCustomer_ListLoad_Query
+	- Fixed base64 decoding issues when no padding exists
 v1.0.0
 	- Initial Release
