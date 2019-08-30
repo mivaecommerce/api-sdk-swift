@@ -1,0 +1,530 @@
+{
+  "warnings": [
+    {
+      "file": "/Users/gidriss/miva/tools/api-sdk/swift/MerchantAPI/Encodable.swift",
+      "line": 30,
+      "symbol": "AnyEncodable.init(_:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/gidriss/miva/tools/api-sdk/swift/MerchantAPI/ListQuery/FilterExpression.swift",
+      "line": 13,
+      "symbol": "FilterExpressionOperation",
+      "symbol_kind": "source.lang.swift.decl.struct",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/gidriss/miva/tools/api-sdk/swift/MerchantAPI/ListQuery/FilterExpression.swift",
+      "line": 21,
+      "symbol": "FilterExpressionEntry",
+      "symbol_kind": "source.lang.swift.decl.class",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/gidriss/miva/tools/api-sdk/swift/MerchantAPI/ListQuery/FilterExpression.swift",
+      "line": 125,
+      "symbol": "FilterValue.toFilterValue()",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/gidriss/miva/tools/api-sdk/swift/MerchantAPI/ListQuery/FilterExpression.swift",
+      "line": 133,
+      "symbol": "Float.toFilterValue()",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/gidriss/miva/tools/api-sdk/swift/MerchantAPI/ListQuery/FilterExpression.swift",
+      "line": 140,
+      "symbol": "Double.toFilterValue()",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/gidriss/miva/tools/api-sdk/swift/MerchantAPI/ListQuery/FilterExpression.swift",
+      "line": 147,
+      "symbol": "Int.toFilterValue()",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/gidriss/miva/tools/api-sdk/swift/MerchantAPI/ListQuery/FilterExpression.swift",
+      "line": 154,
+      "symbol": "String.toFilterValue()",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/gidriss/miva/tools/api-sdk/swift/MerchantAPI/ListQuery/FilterExpression.swift",
+      "line": 168,
+      "symbol": "FilterExpression.SearchType.FilterSearch",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/gidriss/miva/tools/api-sdk/swift/MerchantAPI/ListQuery/FilterExpression.swift",
+      "line": 169,
+      "symbol": "FilterExpression.SearchType.FilterSearchAnd",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/gidriss/miva/tools/api-sdk/swift/MerchantAPI/ListQuery/FilterExpression.swift",
+      "line": 170,
+      "symbol": "FilterExpression.SearchType.FilterSearchOr",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/gidriss/miva/tools/api-sdk/swift/MerchantAPI/ListQuery/ListQueryRequest.swift",
+      "line": 19,
+      "symbol": "ListQueryRequest.SortDirection.Ascending",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/gidriss/miva/tools/api-sdk/swift/MerchantAPI/ListQuery/ListQueryRequest.swift",
+      "line": 20,
+      "symbol": "ListQueryRequest.SortDirection.Descending",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/gidriss/miva/tools/api-sdk/swift/MerchantAPI/Model/Coupon.swift",
+      "line": 17,
+      "symbol": "Coupon.CustomerScope.AllShoppers",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/gidriss/miva/tools/api-sdk/swift/MerchantAPI/Model/Coupon.swift",
+      "line": 18,
+      "symbol": "Coupon.CustomerScope.SpecificCustomers",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/gidriss/miva/tools/api-sdk/swift/MerchantAPI/Model/Coupon.swift",
+      "line": 19,
+      "symbol": "Coupon.CustomerScope.AllLoggedIn",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/gidriss/miva/tools/api-sdk/swift/MerchantAPI/Model/Order.swift",
+      "line": 17,
+      "symbol": "Order.OrderStatus.Pending",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/gidriss/miva/tools/api-sdk/swift/MerchantAPI/Model/Order.swift",
+      "line": 18,
+      "symbol": "Order.OrderStatus.Processing",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/gidriss/miva/tools/api-sdk/swift/MerchantAPI/Model/Order.swift",
+      "line": 19,
+      "symbol": "Order.OrderStatus.Shipped",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/gidriss/miva/tools/api-sdk/swift/MerchantAPI/Model/Order.swift",
+      "line": 20,
+      "symbol": "Order.OrderStatus.PartiallyShipped",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/gidriss/miva/tools/api-sdk/swift/MerchantAPI/Model/Order.swift",
+      "line": 21,
+      "symbol": "Order.OrderStatus.Cancelled",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/gidriss/miva/tools/api-sdk/swift/MerchantAPI/Model/Order.swift",
+      "line": 22,
+      "symbol": "Order.OrderStatus.Backordered",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/gidriss/miva/tools/api-sdk/swift/MerchantAPI/Model/Order.swift",
+      "line": 23,
+      "symbol": "Order.OrderStatus.RmaIssued",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/gidriss/miva/tools/api-sdk/swift/MerchantAPI/Model/Order.swift",
+      "line": 24,
+      "symbol": "Order.OrderStatus.Returned",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/gidriss/miva/tools/api-sdk/swift/MerchantAPI/Model/Order.swift",
+      "line": 29,
+      "symbol": "Order.OrderPaymentStatus.Pending",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/gidriss/miva/tools/api-sdk/swift/MerchantAPI/Model/Order.swift",
+      "line": 30,
+      "symbol": "Order.OrderPaymentStatus.Authorized",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/gidriss/miva/tools/api-sdk/swift/MerchantAPI/Model/Order.swift",
+      "line": 31,
+      "symbol": "Order.OrderPaymentStatus.Captured",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/gidriss/miva/tools/api-sdk/swift/MerchantAPI/Model/Order.swift",
+      "line": 32,
+      "symbol": "Order.OrderPaymentStatus.PartiallyCaptured",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/gidriss/miva/tools/api-sdk/swift/MerchantAPI/Model/Order.swift",
+      "line": 37,
+      "symbol": "Order.OrderStockStatus.Available",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/gidriss/miva/tools/api-sdk/swift/MerchantAPI/Model/Order.swift",
+      "line": 38,
+      "symbol": "Order.OrderStockStatus.Unavailable",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/gidriss/miva/tools/api-sdk/swift/MerchantAPI/Model/Order.swift",
+      "line": 39,
+      "symbol": "Order.OrderStockStatus.Partial",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/gidriss/miva/tools/api-sdk/swift/MerchantAPI/Model/OrderItem.swift",
+      "line": 17,
+      "symbol": "OrderItem.OrderItemStatus.Pending",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/gidriss/miva/tools/api-sdk/swift/MerchantAPI/Model/OrderItem.swift",
+      "line": 18,
+      "symbol": "OrderItem.OrderItemStatus.Processing",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/gidriss/miva/tools/api-sdk/swift/MerchantAPI/Model/OrderItem.swift",
+      "line": 19,
+      "symbol": "OrderItem.OrderItemStatus.Shipped",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/gidriss/miva/tools/api-sdk/swift/MerchantAPI/Model/OrderItem.swift",
+      "line": 20,
+      "symbol": "OrderItem.OrderItemStatus.PartiallyShipped",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/gidriss/miva/tools/api-sdk/swift/MerchantAPI/Model/OrderItem.swift",
+      "line": 21,
+      "symbol": "OrderItem.OrderItemStatus.GiftCertNotRedeemed",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/gidriss/miva/tools/api-sdk/swift/MerchantAPI/Model/OrderItem.swift",
+      "line": 22,
+      "symbol": "OrderItem.OrderItemStatus.GiftCertRedeemed",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/gidriss/miva/tools/api-sdk/swift/MerchantAPI/Model/OrderItem.swift",
+      "line": 23,
+      "symbol": "OrderItem.OrderItemStatus.DigitalNotDownloaded",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/gidriss/miva/tools/api-sdk/swift/MerchantAPI/Model/OrderItem.swift",
+      "line": 24,
+      "symbol": "OrderItem.OrderItemStatus.DigitalDownloaded",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/gidriss/miva/tools/api-sdk/swift/MerchantAPI/Model/OrderItem.swift",
+      "line": 25,
+      "symbol": "OrderItem.OrderItemStatus.Cancelled",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/gidriss/miva/tools/api-sdk/swift/MerchantAPI/Model/OrderItem.swift",
+      "line": 26,
+      "symbol": "OrderItem.OrderItemStatus.Backordered",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/gidriss/miva/tools/api-sdk/swift/MerchantAPI/Model/OrderItem.swift",
+      "line": 27,
+      "symbol": "OrderItem.OrderItemStatus.RmaIssued",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/gidriss/miva/tools/api-sdk/swift/MerchantAPI/Model/OrderItem.swift",
+      "line": 28,
+      "symbol": "OrderItem.OrderItemStatus.Returned",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/gidriss/miva/tools/api-sdk/swift/MerchantAPI/Model/OrderPayment.swift",
+      "line": 17,
+      "symbol": "OrderPayment.OrderPaymentType.Declined",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/gidriss/miva/tools/api-sdk/swift/MerchantAPI/Model/OrderPayment.swift",
+      "line": 18,
+      "symbol": "OrderPayment.OrderPaymentType.LegacyAuth",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/gidriss/miva/tools/api-sdk/swift/MerchantAPI/Model/OrderPayment.swift",
+      "line": 19,
+      "symbol": "OrderPayment.OrderPaymentType.LegacyCapture",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/gidriss/miva/tools/api-sdk/swift/MerchantAPI/Model/OrderPayment.swift",
+      "line": 20,
+      "symbol": "OrderPayment.OrderPaymentType.Auth",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/gidriss/miva/tools/api-sdk/swift/MerchantAPI/Model/OrderPayment.swift",
+      "line": 21,
+      "symbol": "OrderPayment.OrderPaymentType.Capture",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/gidriss/miva/tools/api-sdk/swift/MerchantAPI/Model/OrderPayment.swift",
+      "line": 22,
+      "symbol": "OrderPayment.OrderPaymentType.AuthCapture",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/gidriss/miva/tools/api-sdk/swift/MerchantAPI/Model/OrderPayment.swift",
+      "line": 23,
+      "symbol": "OrderPayment.OrderPaymentType.Refund",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/gidriss/miva/tools/api-sdk/swift/MerchantAPI/Model/OrderPayment.swift",
+      "line": 24,
+      "symbol": "OrderPayment.OrderPaymentType.Void",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/gidriss/miva/tools/api-sdk/swift/MerchantAPI/Model/OrderShipment.swift",
+      "line": 17,
+      "symbol": "OrderShipment.OrderShipmentStatus.Pending",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/gidriss/miva/tools/api-sdk/swift/MerchantAPI/Model/OrderShipment.swift",
+      "line": 18,
+      "symbol": "OrderShipment.OrderShipmentStatus.Picking",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/gidriss/miva/tools/api-sdk/swift/MerchantAPI/Model/OrderShipment.swift",
+      "line": 19,
+      "symbol": "OrderShipment.OrderShipmentStatus.Shipped",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/gidriss/miva/tools/api-sdk/swift/MerchantAPI/Model/PriceGroup.swift",
+      "line": 17,
+      "symbol": "PriceGroup.Eligibility.Coupon",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/gidriss/miva/tools/api-sdk/swift/MerchantAPI/Model/PriceGroup.swift",
+      "line": 18,
+      "symbol": "PriceGroup.Eligibility.All",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/gidriss/miva/tools/api-sdk/swift/MerchantAPI/Model/PriceGroup.swift",
+      "line": 19,
+      "symbol": "PriceGroup.Eligibility.Customer",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/gidriss/miva/tools/api-sdk/swift/MerchantAPI/Model/PriceGroup.swift",
+      "line": 20,
+      "symbol": "PriceGroup.Eligibility.LoggedIn",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/gidriss/miva/tools/api-sdk/swift/MerchantAPI/Model/ProductSubscriptionTerm.swift",
+      "line": 17,
+      "symbol": "ProductSubscriptionTerm.TermFrequency.NDays",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/gidriss/miva/tools/api-sdk/swift/MerchantAPI/Model/ProductSubscriptionTerm.swift",
+      "line": 18,
+      "symbol": "ProductSubscriptionTerm.TermFrequency.NMonths",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/gidriss/miva/tools/api-sdk/swift/MerchantAPI/Model/ProductSubscriptionTerm.swift",
+      "line": 19,
+      "symbol": "ProductSubscriptionTerm.TermFrequency.Daily",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/gidriss/miva/tools/api-sdk/swift/MerchantAPI/Model/ProductSubscriptionTerm.swift",
+      "line": 20,
+      "symbol": "ProductSubscriptionTerm.TermFrequency.Weekly",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/gidriss/miva/tools/api-sdk/swift/MerchantAPI/Model/ProductSubscriptionTerm.swift",
+      "line": 21,
+      "symbol": "ProductSubscriptionTerm.TermFrequency.Biweekly",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/gidriss/miva/tools/api-sdk/swift/MerchantAPI/Model/ProductSubscriptionTerm.swift",
+      "line": 22,
+      "symbol": "ProductSubscriptionTerm.TermFrequency.Quarterly",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/gidriss/miva/tools/api-sdk/swift/MerchantAPI/Model/ProductSubscriptionTerm.swift",
+      "line": 23,
+      "symbol": "ProductSubscriptionTerm.TermFrequency.Semiannually",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/gidriss/miva/tools/api-sdk/swift/MerchantAPI/Model/ProductSubscriptionTerm.swift",
+      "line": 24,
+      "symbol": "ProductSubscriptionTerm.TermFrequency.Annually",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/gidriss/miva/tools/api-sdk/swift/MerchantAPI/Model/ProductSubscriptionTerm.swift",
+      "line": 25,
+      "symbol": "ProductSubscriptionTerm.TermFrequency.FixedWeekly",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/gidriss/miva/tools/api-sdk/swift/MerchantAPI/Model/ProductSubscriptionTerm.swift",
+      "line": 26,
+      "symbol": "ProductSubscriptionTerm.TermFrequency.FixedMonthly",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/gidriss/miva/tools/api-sdk/swift/MerchantAPI/Model/ProductSubscriptionTerm.swift",
+      "line": 27,
+      "symbol": "ProductSubscriptionTerm.TermFrequency.Dates",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/gidriss/miva/tools/api-sdk/swift/MerchantAPI/MultiCall/MultiCallOperation.swift",
+      "line": 17,
+      "symbol": "MultiCallOperationError.nestedMultiCall",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/gidriss/miva/tools/api-sdk/swift/MerchantAPI/MultiCall/MultiCallOperation.swift",
+      "line": 18,
+      "symbol": "MultiCallOperationError.requestNotOfSameType",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/gidriss/miva/tools/api-sdk/swift/MerchantAPI/Request.swift",
+      "line": 16,
+      "symbol": "RequestScope.Store",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/gidriss/miva/tools/api-sdk/swift/MerchantAPI/Request.swift",
+      "line": 17,
+      "symbol": "RequestScope.Domain",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/gidriss/miva/tools/api-sdk/swift/MerchantAPI/Request.swift",
+      "line": 22,
+      "symbol": "RequestError.noClientAssigned",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/gidriss/miva/tools/api-sdk/swift/MerchantAPI/Version.swift",
+      "line": 24,
+      "symbol": "Version.VERSION_STRING",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    }
+  ],
+  "source_directory": "/Users/gidriss/miva/tools/api-sdk/swift"
+}
