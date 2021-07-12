@@ -3,11 +3,12 @@
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
- *
- * $Id$
  */
 
 import Foundation
+#if os(Linux)
+import FoundationNetworking
+#endif
 
 /**
  Handles API Request ProductVariantList_Load_Product.
@@ -16,7 +17,7 @@ import Foundation
  */
 public class ProductVariantListLoadProductRequest : Request {
     /**
-     The API function name. 
+     The API function name.
 
      - Note: Overrides
      - Returns: String
@@ -26,7 +27,7 @@ public class ProductVariantListLoadProductRequest : Request {
     }
 
     /**
-     The request scope. 
+     The request scope.
 
      - Note: Overrides
      - Returns: RequestScope
@@ -34,31 +35,31 @@ public class ProductVariantListLoadProductRequest : Request {
     override var scope : RequestScope {
         return RequestScope.Store;
     }
-    
+
     /// Request field Product_ID.
-    var productId : Optional<Int>
+    var productId : Optional<Int> = nil
 
     /// Request field Product_Code.
-    var productCode : Optional<String>
+    var productCode : Optional<String> = nil
 
     /// Request field Edit_Product.
-    var editProduct : Optional<String>
+    var editProduct : Optional<String> = nil
 
     /// Request field Product_SKU.
-    var productSku : Optional<String>
+    var productSku : Optional<String> = nil
 
     /// Request field Include_Default_Variant.
-    var includeDefaultVariant : Optional<Bool>
+    var includeDefaultVariant : Optional<Bool> = nil
 
     /// Request field Limits.
     var limits : [ProductVariantLimit] = []
 
     /// Request field Exclusions.
     var exclusions : [ProductVariantExclusion] = []
-    
+
     /**
      CodingKeys used to map the request when encoding.
-     
+
      - SeeAlso: Encodable
      */
     private enum CodingKeys: String, CodingKey {
@@ -71,15 +72,15 @@ public class ProductVariantListLoadProductRequest : Request {
         case limits = "Limits"
         case exclusions = "Exclusions"
     }
-    
+
     /**
      Request constructor.
 
      - Parameters:
-        - client: A Client instance.
+        - client: A BaseClient instance.
         - product: An optional Product instance.
      */
-    public init(client: Optional<Client> = nil, product: Optional<Product> = nil) {
+    public init(client: Optional<BaseClient> = nil, product: Optional<Product> = nil) {
         super.init(client: client)
         if let product = product {
             if product.id > 0 {
@@ -91,7 +92,7 @@ public class ProductVariantListLoadProductRequest : Request {
             }
         }
     }
-    
+
     /**
      Implementation of Encodable.
 
@@ -119,7 +120,7 @@ public class ProductVariantListLoadProductRequest : Request {
 
         try super.encode(to : encoder)
     }
-    
+
     /**
      Send the request for a response.
 
@@ -127,13 +128,10 @@ public class ProductVariantListLoadProductRequest : Request {
         - callback: The callback function with signature (ProductVariantListLoadProductResponse?, Error?).
      - Note: Overrides
      */
-     public override func send(client: Optional<Client> = nil, callback: @escaping (ProductVariantListLoadProductResponse?, Error?) -> ()) throws {
-        if client != nil {
-            client!.send(self) { request, response, error in
-                callback(response as? ProductVariantListLoadProductResponse, error)
-            }
-        } else if self.client != nil {
-            self.client!.send(self) { request, response, error in
+
+     public override func send(client: Optional<BaseClient> = nil, callback: @escaping (ProductVariantListLoadProductResponse?, Error?) -> ()) throws {
+        if let client = client ?? self.client {
+            client.send(self) { request, response, error in
                 callback(response as? ProductVariantListLoadProductResponse, error)
             }
         } else {
@@ -145,16 +143,18 @@ public class ProductVariantListLoadProductRequest : Request {
      Create a response object by decoding the response data.
 
      - Parameters:
+        - httpResponse: The underlying HTTP response object
         - data: The response data to decode.
      - Throws: Error when unable to decode the response data.
      - Note: Overrides
      */
-    public override func createResponse(data : Data) throws -> ProductVariantListLoadProductResponse {
+    public override func createResponse(httpResponse: URLResponse, data : Data) throws -> ProductVariantListLoadProductResponse {
         let decoder = JSONDecoder()
-        
-        decoder.userInfo[Response.decoderRequestUserInfoKey]      = self
-        decoder.userInfo[Response.decoderResponseDataUserInfoKey] = data
-        
+
+        decoder.userInfo[Response.decoderRequestUserInfoKey]            = self
+        decoder.userInfo[Response.decoderHttpResponseDataUserInfoKey]   = httpResponse
+        decoder.userInfo[Response.decoderResponseDataUserInfoKey]       = data
+
         return try decoder.decode(ProductVariantListLoadProductResponse.self, from: data)
     }
 
@@ -167,73 +167,73 @@ public class ProductVariantListLoadProductRequest : Request {
     override public func getResponseType() -> Response.Type {
         return ProductVariantListLoadProductResponse.self
     }
-    
+
     /**
      Getter for Product_ID.
-     
-     - Returns:  Optional<Int> 
+
+     - Returns:  Optional<Int>
      */
     public func getProductId() -> Optional<Int> {
         return self.productId
     }
-    
+
     /**
      Getter for Product_Code.
 
-     - Returns:  Optional<String> 
+     - Returns:  Optional<String>
      */
     public func getProductCode() -> Optional<String> {
         return self.productCode
     }
-    
+
     /**
      Getter for Edit_Product.
 
-     - Returns:  Optional<String> 
+     - Returns:  Optional<String>
      */
     public func getEditProduct() -> Optional<String> {
         return self.editProduct
     }
-    
+
     /**
      Getter for Product_SKU.
 
-     - Returns:  Optional<String> 
+     - Returns:  Optional<String>
      */
     public func getProductSku() -> Optional<String> {
         return self.productSku
     }
-    
+
     /**
      Getter for Include_Default_Variant.
-     
-     - Returns:  Optional<Bool> 
+
+     - Returns:  Optional<Bool>
      */
     public func getIncludeDefaultVariant() -> Optional<Bool> {
         return self.includeDefaultVariant
     }
-    
+
     /**
      Getter for Limits.
-     
+
      - Returns:  [ProductVariantLimit]
      */
     public func getLimits() -> [ProductVariantLimit] {
         return self.limits
     }
-    
+
     /**
      Getter for Exclusions.
-     
+
      - Returns:  [ProductVariantExclusion]
      */
     public func getExclusions() -> [ProductVariantExclusion] {
         return self.exclusions
     }
-    
+
     /**
      Setter for Product_ID.
-     
+
      - Parameters:
         - value: Optional<Int>
      - Returns:  Self
@@ -243,7 +243,7 @@ public class ProductVariantListLoadProductRequest : Request {
         self.productId = value
         return self
     }
-    
+
     /**
      Setter for Product_Code.
 
@@ -256,7 +256,7 @@ public class ProductVariantListLoadProductRequest : Request {
         self.productCode = value
         return self
     }
-    
+
     /**
      Setter for Edit_Product.
 
@@ -269,7 +269,7 @@ public class ProductVariantListLoadProductRequest : Request {
         self.editProduct = value
         return self
     }
-    
+
     /**
      Setter for Product_SKU.
 
@@ -282,10 +282,10 @@ public class ProductVariantListLoadProductRequest : Request {
         self.productSku = value
         return self
     }
-    
+
     /**
      Setter for Include_Default_Variant.
-     
+
      - Parameters:
         - value: Optional<Bool>
      - Returns:  Self
@@ -295,12 +295,12 @@ public class ProductVariantListLoadProductRequest : Request {
         self.includeDefaultVariant = value
         return self
     }
-    
+
     /**
      Add a ProductVariantLimit.
 
      - Parameters:
-        - limit: ProductVariantLimit 
+        - limit: ProductVariantLimit
      - Returns: Self
      */
     @discardableResult
@@ -308,28 +308,28 @@ public class ProductVariantListLoadProductRequest : Request {
         self.limits.append(limit)
         return self
     }
-    
+
     /**
      Add an array of ProductVariantLimit.
 
      - Parameters:
         - limits: [ProductVariantLimit]
-     - Returns: Self 
+     - Returns: Self
      */
     @discardableResult
     public func addLimits(_ limits: [ProductVariantLimit]) -> Self {
         for l in limits {
             self.limits.append(l);
-        }       
+        }
 
         return self
     }
-    
+
     /**
      Add a ProductVariantExclusion.
 
      - Parameters:
-        - exclusion: ProductVariantExclusion 
+        - exclusion: ProductVariantExclusion
      - Returns: Self
      */
     @discardableResult
@@ -337,19 +337,19 @@ public class ProductVariantListLoadProductRequest : Request {
         self.exclusions.append(exclusion)
         return self
     }
-    
+
     /**
      Add an array of ProductVariantExclusion.
 
      - Parameters:
         - exclusions: [ProductVariantExclusion]
-     - Returns: Self 
+     - Returns: Self
      */
     @discardableResult
     public func addExclusions(_ exclusions: [ProductVariantExclusion]) -> Self {
         for e in exclusions {
             self.exclusions.append(e);
-        }       
+        }
 
         return self
     }

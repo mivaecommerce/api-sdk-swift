@@ -3,8 +3,6 @@
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
- *
- * $Id$
  */
 
 import Foundation
@@ -14,40 +12,28 @@ public class PrintQueueJob : Model {
 
     /// Model field id.
     var id : Int
-
     /// Model field queue_id.
     var queueId : Int
-
     /// Model field store_id.
     var storeId : Int
-
     /// Model field user_id.
     var userId : Int
-
     /// Model field descrip.
     var description : String
-
     /// Model field job_fmt.
     var jobFormat : String
-
     /// Model field job_data.
     var jobData : String
-
     /// Model field dt_created.
-    var dateTimeCreated : Int
-
+    var dateTimeCreated : Date
     /// Model field printqueue_descrip.
     var printQueueDescription : String
-
     /// Model field user_name.
     var userName : String
-
     /// Model field store_code.
     var storeCode : String
-
     /// Model field store_name.
     var storeName : String
-
     /**
      CodingKeys used to map the model when encoding and decoding.
 
@@ -79,7 +65,7 @@ public class PrintQueueJob : Model {
         self.description = ""
         self.jobFormat = ""
         self.jobData = ""
-        self.dateTimeCreated = 0
+        self.dateTimeCreated = Date(timeIntervalSince1970: 0)
         self.printQueueDescription = ""
         self.userName = ""
         self.storeCode = ""
@@ -106,7 +92,7 @@ public class PrintQueueJob : Model {
         self.description = try container.decodeIfPresent(String.self, forKey: .description) ?? ""
         self.jobFormat = try container.decodeIfPresent(String.self, forKey: .jobFormat) ?? ""
         self.jobData = try container.decodeIfPresent(String.self, forKey: .jobData) ?? ""
-        self.dateTimeCreated = try container.decodeIfPresent(Int.self, forKey: .dateTimeCreated) ?? 0
+        self.dateTimeCreated = Date(timeIntervalSince1970: Double(try container.decodeIfPresent(Int.self, forKey: .dateTimeCreated) ?? 0))
         self.printQueueDescription = try container.decodeIfPresent(String.self, forKey: .printQueueDescription) ?? ""
         self.userName = try container.decodeIfPresent(String.self, forKey: .userName) ?? ""
         self.storeCode = try container.decodeIfPresent(String.self, forKey: .storeCode) ?? ""
@@ -133,7 +119,7 @@ public class PrintQueueJob : Model {
         try container.encodeIfPresent(self.description, forKey: .description)
         try container.encodeIfPresent(self.jobFormat, forKey: .jobFormat)
         try container.encodeIfPresent(self.jobData, forKey: .jobData)
-        try container.encodeIfPresent(self.dateTimeCreated, forKey: .dateTimeCreated)
+        try container.encodeIfPresent(Int(self.dateTimeCreated.timeIntervalSince1970), forKey: .dateTimeCreated)
         try container.encodeIfPresent(self.printQueueDescription, forKey: .printQueueDescription)
         try container.encodeIfPresent(self.userName, forKey: .userName)
         try container.encodeIfPresent(self.storeCode, forKey: .storeCode)
@@ -141,110 +127,120 @@ public class PrintQueueJob : Model {
 
         try super.encode(to: encoder)
     }
-    
+
     /**
      Getter for id.
-     
+
      - Returns:  Int
+
      */
     public func getId() -> Int {
         return self.id
     }
-    
+
     /**
      Getter for queue_id.
-     
+
      - Returns:  Int
+
      */
     public func getQueueId() -> Int {
         return self.queueId
     }
-    
+
     /**
      Getter for store_id.
-     
+
      - Returns:  Int
+
      */
     public func getStoreId() -> Int {
         return self.storeId
     }
-    
+
     /**
      Getter for user_id.
-     
+
      - Returns:  Int
+
      */
     public func getUserId() -> Int {
         return self.userId
     }
-    
+
     /**
      Getter for descrip.
 
      - Returns:  String
+
      */
     public func getDescription() -> String {
         return self.description
     }
-    
+
     /**
      Getter for job_fmt.
 
      - Returns:  String
+
      */
     public func getJobFormat() -> String {
         return self.jobFormat
     }
-    
+
     /**
      Getter for job_data.
 
      - Returns:  String
+
      */
     public func getJobData() -> String {
         return self.jobData
     }
-    
+
     /**
      Getter for dt_created.
-     
-     - Returns:  Int
-     */
-    public func getDateTimeCreated() -> Int {
+
+     - Returns:  Date     */
+    public func getDateTimeCreated() -> Date {
         return self.dateTimeCreated
     }
-    
+
     /**
      Getter for printqueue_descrip.
 
      - Returns:  String
+
      */
     public func getPrintQueueDescription() -> String {
         return self.printQueueDescription
     }
-    
+
     /**
      Getter for user_name.
 
      - Returns:  String
+
      */
     public func getUserName() -> String {
         return self.userName
     }
-    
+
     /**
      Getter for store_code.
 
      - Returns:  String
+
      */
     public func getStoreCode() -> String {
         return self.storeCode
     }
-    
+
     /**
      Getter for store_name.
 
      - Returns:  String
+
      */
     public func getStoreName() -> String {
         return self.storeName

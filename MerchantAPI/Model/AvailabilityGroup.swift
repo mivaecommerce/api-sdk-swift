@@ -3,8 +3,6 @@
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
- *
- * $Id$
  */
 
 import Foundation
@@ -14,10 +12,10 @@ public class AvailabilityGroup : Model {
 
     /// Model field id.
     var id : Int
-
     /// Model field name.
     var name : String
-
+    /// Model field tax_exempt.
+    var taxExempt : Bool
     /**
      CodingKeys used to map the model when encoding and decoding.
 
@@ -26,6 +24,7 @@ public class AvailabilityGroup : Model {
     private enum CodingKeys: String, CodingKey {
         case id
         case name
+        case taxExempt = "tax_exempt"
     }
 
     /**
@@ -34,6 +33,7 @@ public class AvailabilityGroup : Model {
     public override init() {
         self.id = 0
         self.name = ""
+        self.taxExempt = false
 
         super.init()
     }
@@ -51,6 +51,7 @@ public class AvailabilityGroup : Model {
 
         self.id = try container.decodeIfPresent(Int.self, forKey: .id) ?? 0
         self.name = try container.decodeIfPresent(String.self, forKey: .name) ?? ""
+        self.taxExempt = try container.decodeIfPresent(Bool.self, forKey: .taxExempt) ?? false
 
         try super.init(from : decoder)
     }
@@ -68,25 +69,36 @@ public class AvailabilityGroup : Model {
 
         try container.encodeIfPresent(self.id, forKey: .id)
         try container.encodeIfPresent(self.name, forKey: .name)
+        try container.encodeIfPresent(self.taxExempt, forKey: .taxExempt)
 
         try super.encode(to: encoder)
     }
-    
+
     /**
      Getter for id.
-     
+
      - Returns:  Int
+
      */
     public func getId() -> Int {
         return self.id
     }
-    
+
     /**
      Getter for name.
 
      - Returns:  String
+
      */
     public func getName() -> String {
         return self.name
+    }
+
+    /**
+     Getter for tax_exempt.
+
+     - Returns:  Bool     */
+    public func getTaxExempt() -> Bool {
+        return self.taxExempt
     }
 }

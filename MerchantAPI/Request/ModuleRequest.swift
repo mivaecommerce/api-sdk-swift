@@ -3,11 +3,12 @@
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
- *
- * $Id$
  */
 
 import Foundation
+#if os(Linux)
+import FoundationNetworking
+#endif
 
 /**
  Handles API Request Module.
@@ -16,7 +17,7 @@ import Foundation
  */
 public class ModuleRequest : Request {
     /**
-     The API function name. 
+     The API function name.
 
      - Note: Overrides
      - Returns: String
@@ -26,7 +27,7 @@ public class ModuleRequest : Request {
     }
 
     /**
-     The request scope. 
+     The request scope.
 
      - Note: Overrides
      - Returns: RequestScope
@@ -34,19 +35,19 @@ public class ModuleRequest : Request {
     override var scope : RequestScope {
         return RequestScope.Store;
     }
-    
+
     /// Request field Module_Code.
-    var moduleCode : Optional<String>
+    var moduleCode : Optional<String> = nil
 
     /// Request field Module_Function.
-    var moduleFunction : Optional<String>
+    var moduleFunction : Optional<String> = nil
 
     /// User set request fields
     var moduleFields : [String:AnyEncodable] = [:]
-    
+
     /**
      CodingKeys used to map the request when encoding.
-     
+
      - SeeAlso: Encodable
      */
     private enum CodingKeys: String, CodingKey {
@@ -54,17 +55,17 @@ public class ModuleRequest : Request {
         case moduleCode = "Module_Code"
         case moduleFunction = "Module_Function"
     }
-    
+
     /**
      Request constructor.
-     
+
      - Parameters:
-        - client: A Client instance.
+        - client: A BaseClient instance.
      */
-    public override init(client: Optional<Client> = nil) {
+    public override init(client: Optional<BaseClient> = nil) {
         super.init(client: client)
     }
-    
+
     /**
      Implementation of Encodable.
 
@@ -78,7 +79,7 @@ public class ModuleRequest : Request {
 
         try container.encodeIfPresent(self.moduleCode, forKey: .moduleCode)
         try container.encodeIfPresent(self.moduleFunction, forKey: .moduleFunction)
-        
+
         var moduleFieldsContainer = encoder.container(keyedBy: RuntimeCodingKey.self)
 
         for (key,value) in self.moduleFields {
@@ -87,7 +88,7 @@ public class ModuleRequest : Request {
 
         try super.encode(to : encoder)
     }
-    
+
     /**
      Send the request for a response.
 
@@ -95,13 +96,10 @@ public class ModuleRequest : Request {
         - callback: The callback function with signature (ModuleResponse?, Error?).
      - Note: Overrides
      */
-     public override func send(client: Optional<Client> = nil, callback: @escaping (ModuleResponse?, Error?) -> ()) throws {
-        if client != nil {
-            client!.send(self) { request, response, error in
-                callback(response as? ModuleResponse, error)
-            }
-        } else if self.client != nil {
-            self.client!.send(self) { request, response, error in
+
+     public override func send(client: Optional<BaseClient> = nil, callback: @escaping (ModuleResponse?, Error?) -> ()) throws {
+        if let client = client ?? self.client {
+            client.send(self) { request, response, error in
                 callback(response as? ModuleResponse, error)
             }
         } else {
@@ -113,16 +111,18 @@ public class ModuleRequest : Request {
      Create a response object by decoding the response data.
 
      - Parameters:
+        - httpResponse: The underlying HTTP response object
         - data: The response data to decode.
      - Throws: Error when unable to decode the response data.
      - Note: Overrides
      */
-    public override func createResponse(data : Data) throws -> ModuleResponse {
+    public override func createResponse(httpResponse: URLResponse, data : Data) throws -> ModuleResponse {
         let decoder = JSONDecoder()
-        
-        decoder.userInfo[Response.decoderRequestUserInfoKey]      = self
-        decoder.userInfo[Response.decoderResponseDataUserInfoKey] = data
-        
+
+        decoder.userInfo[Response.decoderRequestUserInfoKey]            = self
+        decoder.userInfo[Response.decoderHttpResponseDataUserInfoKey]   = httpResponse
+        decoder.userInfo[Response.decoderResponseDataUserInfoKey]       = data
+
         return try decoder.decode(ModuleResponse.self, from: data)
     }
 
@@ -135,34 +135,34 @@ public class ModuleRequest : Request {
     override public func getResponseType() -> Response.Type {
         return ModuleResponse.self
     }
-    
+
     /**
      Getter for Module_Code.
 
-     - Returns:  Optional<String> 
+     - Returns:  Optional<String>
      */
     public func getModuleCode() -> Optional<String> {
         return self.moduleCode
     }
-    
+
     /**
      Getter for Module_Function.
 
-     - Returns:  Optional<String> 
+     - Returns:  Optional<String>
      */
     public func getModuleFunction() -> Optional<String> {
         return self.moduleFunction
     }
-    
+
     /**
      Get user set request fields.
-     
+
      - Returns:  [String:AnyEncodable]
      */
     public func getModuleFields() -> [String:AnyEncodable] {
         return self.moduleFields
     }
-    
+
     /**
      Setter for Module_Code.
 
@@ -175,7 +175,7 @@ public class ModuleRequest : Request {
         self.moduleCode = value
         return self
     }
-    
+
     /**
      Setter for Module_Function.
 
@@ -188,10 +188,10 @@ public class ModuleRequest : Request {
         self.moduleFunction = value
         return self
     }
-    
+
     /**
      Set user request data.
-     
+
      - Parameters:
         - name: String
         - value: Encodable

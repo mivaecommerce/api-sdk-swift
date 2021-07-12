@@ -3,11 +3,12 @@
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
- *
- * $Id$
  */
 
 import Foundation
+#if os(Linux)
+import FoundationNetworking
+#endif
 
 /**
  Handles API Request ProductList_Load_Query.
@@ -16,7 +17,7 @@ import Foundation
  */
 public class ProductListLoadQueryRequest : ListQueryRequest {
     /**
-     The API function name. 
+     The API function name.
 
      - Note: Overrides
      - Returns: String
@@ -26,7 +27,7 @@ public class ProductListLoadQueryRequest : ListQueryRequest {
     }
 
     /**
-     The request scope. 
+     The request scope.
 
      - Note: Overrides
      - Returns: RequestScope
@@ -34,7 +35,7 @@ public class ProductListLoadQueryRequest : ListQueryRequest {
     override var scope : RequestScope {
         return RequestScope.Store;
     }
-    
+
     /**
      The available search fields applicable to the request.
 
@@ -66,10 +67,10 @@ public class ProductListLoadQueryRequest : ListQueryRequest {
             ]
         }
     }
-    
+
     /**
      The available sort fields applicable to the request.
-     
+
      - Returns: An array of strings.
      - Note: Overrides
      */
@@ -96,7 +97,7 @@ public class ProductListLoadQueryRequest : ListQueryRequest {
             ]
         }
     }
-    
+
     /**
      The available on demand columns applicable to the request.
 
@@ -108,6 +109,9 @@ public class ProductListLoadQueryRequest : ListQueryRequest {
             return [
                 "descrip",
                 "catcount",
+                "cancat_code",
+                "page_code",
+                "product_inventory",
                 "productinventorysettings",
                 "attributes",
                 "productimagedata",
@@ -118,7 +122,7 @@ public class ProductListLoadQueryRequest : ListQueryRequest {
             ]
         }
     }
-    
+
     /**
      The available custom fileters applicable to the request.
 
@@ -132,17 +136,17 @@ public class ProductListLoadQueryRequest : ListQueryRequest {
             ]
         }
     }
-    
+
     /**
      Request constructor.
-     
+
      - Parameters:
-        - client: A Client instance.
+        - client: A BaseClient instance.
      */
-    public override init(client: Optional<Client> = nil) {
+    public override init(client: Optional<BaseClient> = nil) {
         super.init(client: client)
     }
-    
+
     /**
      Send the request for a response.
 
@@ -150,13 +154,10 @@ public class ProductListLoadQueryRequest : ListQueryRequest {
         - callback: The callback function with signature (ProductListLoadQueryResponse?, Error?).
      - Note: Overrides
      */
-     public override func send(client: Optional<Client> = nil, callback: @escaping (ProductListLoadQueryResponse?, Error?) -> ()) throws {
-        if client != nil {
-            client!.send(self) { request, response, error in
-                callback(response as? ProductListLoadQueryResponse, error)
-            }
-        } else if self.client != nil {
-            self.client!.send(self) { request, response, error in
+
+     public override func send(client: Optional<BaseClient> = nil, callback: @escaping (ProductListLoadQueryResponse?, Error?) -> ()) throws {
+        if let client = client ?? self.client {
+            client.send(self) { request, response, error in
                 callback(response as? ProductListLoadQueryResponse, error)
             }
         } else {
@@ -168,16 +169,18 @@ public class ProductListLoadQueryRequest : ListQueryRequest {
      Create a response object by decoding the response data.
 
      - Parameters:
+        - httpResponse: The underlying HTTP response object
         - data: The response data to decode.
      - Throws: Error when unable to decode the response data.
      - Note: Overrides
      */
-    public override func createResponse(data : Data) throws -> ProductListLoadQueryResponse {
+    public override func createResponse(httpResponse: URLResponse, data : Data) throws -> ProductListLoadQueryResponse {
         let decoder = JSONDecoder()
-        
-        decoder.userInfo[Response.decoderRequestUserInfoKey]      = self
-        decoder.userInfo[Response.decoderResponseDataUserInfoKey] = data
-        
+
+        decoder.userInfo[Response.decoderRequestUserInfoKey]            = self
+        decoder.userInfo[Response.decoderHttpResponseDataUserInfoKey]   = httpResponse
+        decoder.userInfo[Response.decoderResponseDataUserInfoKey]       = data
+
         return try decoder.decode(ProductListLoadQueryResponse.self, from: data)
     }
 

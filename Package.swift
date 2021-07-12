@@ -1,5 +1,10 @@
-// swift-tools-version:4.2
-// The swift-tools-version declares the minimum version of Swift required to build this package.
+// swift-tools-version:5.2
+/*
+ * (c) Miva Inc <https://www.miva.com/>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
 
 import PackageDescription
 
@@ -10,10 +15,20 @@ let package = Package(
             name: "MerchantAPI",
             targets: ["MerchantAPI"]),
     ],
+    dependencies: [
+        .package(name: "CryptorRSA", url: "https://github.com/IBM-Swift/BlueRSA.git", .upToNextMajor(from: "1.0.35")),
+        .package(name: "Cryptor", url: "https://github.com/IBM-Swift/BlueCryptor.git", .upToNextMajor(from: "1.0.32")),
+        .package(name: "Socket", url: "https://github.com/IBM-Swift/BlueSocket.git", .upToNextMajor(from: "1.0.52"))
+    ],
     targets: [
         .target(
             name: "MerchantAPI",
-            dependencies: [],
-            path: "MerchantAPI"),
+            dependencies: [
+                "CryptorRSA",
+                "Socket",
+                "Cryptor"
+            ],
+            path: "MerchantAPI")
+
     ]
 )

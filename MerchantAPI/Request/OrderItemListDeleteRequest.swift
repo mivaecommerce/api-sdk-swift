@@ -3,11 +3,12 @@
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
- *
- * $Id$
  */
 
 import Foundation
+#if os(Linux)
+import FoundationNetworking
+#endif
 
 /**
  Handles API Request OrderItemList_Delete.
@@ -16,7 +17,7 @@ import Foundation
  */
 public class OrderItemListDeleteRequest : Request {
     /**
-     The API function name. 
+     The API function name.
 
      - Note: Overrides
      - Returns: String
@@ -26,7 +27,7 @@ public class OrderItemListDeleteRequest : Request {
     }
 
     /**
-     The request scope. 
+     The request scope.
 
      - Note: Overrides
      - Returns: RequestScope
@@ -34,16 +35,16 @@ public class OrderItemListDeleteRequest : Request {
     override var scope : RequestScope {
         return RequestScope.Store;
     }
-    
+
     /// Request field Order_ID.
-    var orderId : Optional<Int>
+    var orderId : Optional<Int> = nil
 
     /// Request field Line_IDs.
     var lineIds : [Int] = []
-    
+
     /**
      CodingKeys used to map the request when encoding.
-     
+
      - SeeAlso: Encodable
      */
     private enum CodingKeys: String, CodingKey {
@@ -51,21 +52,21 @@ public class OrderItemListDeleteRequest : Request {
         case orderId = "Order_ID"
         case lineIds = "Line_IDs"
     }
-    
+
     /**
      Request constructor.
 
      - Parameters:
-        - client: A Client instance.
+        - client: A BaseClient instance.
         - order: An optional Order instance.
      */
-    public init(client: Optional<Client> = nil, order: Optional<Order> = nil) {
+    public init(client: Optional<BaseClient> = nil, order: Optional<Order> = nil) {
         super.init(client: client)
         if let order = order {
             self.orderId = order.id
         }
     }
-    
+
     /**
      Implementation of Encodable.
 
@@ -82,7 +83,7 @@ public class OrderItemListDeleteRequest : Request {
 
         try super.encode(to : encoder)
     }
-    
+
     /**
      Send the request for a response.
 
@@ -90,13 +91,10 @@ public class OrderItemListDeleteRequest : Request {
         - callback: The callback function with signature (OrderItemListDeleteResponse?, Error?).
      - Note: Overrides
      */
-     public override func send(client: Optional<Client> = nil, callback: @escaping (OrderItemListDeleteResponse?, Error?) -> ()) throws {
-        if client != nil {
-            client!.send(self) { request, response, error in
-                callback(response as? OrderItemListDeleteResponse, error)
-            }
-        } else if self.client != nil {
-            self.client!.send(self) { request, response, error in
+
+     public override func send(client: Optional<BaseClient> = nil, callback: @escaping (OrderItemListDeleteResponse?, Error?) -> ()) throws {
+        if let client = client ?? self.client {
+            client.send(self) { request, response, error in
                 callback(response as? OrderItemListDeleteResponse, error)
             }
         } else {
@@ -108,16 +106,18 @@ public class OrderItemListDeleteRequest : Request {
      Create a response object by decoding the response data.
 
      - Parameters:
+        - httpResponse: The underlying HTTP response object
         - data: The response data to decode.
      - Throws: Error when unable to decode the response data.
      - Note: Overrides
      */
-    public override func createResponse(data : Data) throws -> OrderItemListDeleteResponse {
+    public override func createResponse(httpResponse: URLResponse, data : Data) throws -> OrderItemListDeleteResponse {
         let decoder = JSONDecoder()
-        
-        decoder.userInfo[Response.decoderRequestUserInfoKey]      = self
-        decoder.userInfo[Response.decoderResponseDataUserInfoKey] = data
-        
+
+        decoder.userInfo[Response.decoderRequestUserInfoKey]            = self
+        decoder.userInfo[Response.decoderHttpResponseDataUserInfoKey]   = httpResponse
+        decoder.userInfo[Response.decoderResponseDataUserInfoKey]       = data
+
         return try decoder.decode(OrderItemListDeleteResponse.self, from: data)
     }
 
@@ -130,19 +130,19 @@ public class OrderItemListDeleteRequest : Request {
     override public func getResponseType() -> Response.Type {
         return OrderItemListDeleteResponse.self
     }
-    
+
     /**
      Getter for Order_ID.
-     
-     - Returns:  Optional<Int> 
+
+     - Returns:  Optional<Int>
      */
     public func getOrderId() -> Optional<Int> {
         return self.orderId
     }
-    
+
     /**
      Setter for Order_ID.
-     
+
      - Parameters:
         - value: Optional<Int>
      - Returns:  Self
@@ -152,7 +152,7 @@ public class OrderItemListDeleteRequest : Request {
         self.orderId = value
         return self
     }
-    
+
     /**
      Add Line_IDs.
 
@@ -165,13 +165,13 @@ public class OrderItemListDeleteRequest : Request {
         self.lineIds.append(lineId);
         return self
     }
-    
+
     /**
      Add OrderItem model.
 
      - Parameters:
         - orderItem: OrderItem
-     - Returns: Self 
+     - Returns: Self
      */
     @discardableResult
     public func addOrderItem(_ orderItem: OrderItem) -> Self {

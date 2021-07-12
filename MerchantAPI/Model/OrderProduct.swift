@@ -3,8 +3,6 @@
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
- *
- * $Id$
  */
 
 import Foundation
@@ -13,23 +11,17 @@ import Foundation
 public class OrderProduct : Model {
 
     /// Model field status.
-    var status : Int
-
+    var status : Optional<Int>
     /// Model field code.
     var code : String
-
     /// Model field sku.
-    var sku : String
-
+    var sku : Optional<String>
     /// Model field tracknum.
-    var trackingNumber : String
-
+    var trackingNumber : Optional<String>
     /// Model field tracktype.
-    var trackingType : String
-
+    var trackingType : Optional<String>
     /// Model field quantity.
     var quantity : Int
-
     /// Model field attributes.
     var attributes : [OrderProductAttribute]
 
@@ -52,11 +44,11 @@ public class OrderProduct : Model {
      OrderProduct Constructor.
      */
     public override init() {
-        self.status = 0
+        self.status = nil
         self.code = ""
-        self.sku = ""
-        self.trackingNumber = ""
-        self.trackingType = ""
+        self.sku = nil
+        self.trackingNumber = nil
+        self.trackingType = nil
         self.quantity = 0
         self.attributes = []
 
@@ -74,11 +66,11 @@ public class OrderProduct : Model {
     public required init(from decoder: Decoder) throws {
         let container  = try decoder.container(keyedBy: CodingKeys.self)
 
-        self.status = try container.decodeIfPresent(Int.self, forKey: .status) ?? 0
+        self.status = try container.decodeIfPresent(Int.self, forKey: .status) ?? nil
         self.code = try container.decodeIfPresent(String.self, forKey: .code) ?? ""
-        self.sku = try container.decodeIfPresent(String.self, forKey: .sku) ?? ""
-        self.trackingNumber = try container.decodeIfPresent(String.self, forKey: .trackingNumber) ?? ""
-        self.trackingType = try container.decodeIfPresent(String.self, forKey: .trackingType) ?? ""
+        self.sku = try container.decodeIfPresent(String.self, forKey: .sku) ?? nil
+        self.trackingNumber = try container.decodeIfPresent(String.self, forKey: .trackingNumber) ?? nil
+        self.trackingType = try container.decodeIfPresent(String.self, forKey: .trackingType) ?? nil
         self.quantity = try container.decodeIfPresent(Int.self, forKey: .quantity) ?? 0
         self.attributes = try container.decodeIfPresent([OrderProductAttribute].self, forKey: .attributes) ?? []
 
@@ -106,73 +98,79 @@ public class OrderProduct : Model {
 
         try super.encode(to: encoder)
     }
-    
+
     /**
      Getter for status.
-     
-     - Returns:  Int
+
+     - Returns:  Optional<Int>
+
      */
-    public func getStatus() -> Int {
+    public func getStatus() -> Optional<Int> {
         return self.status
     }
-    
+
     /**
      Getter for code.
 
      - Returns:  String
+
      */
     public func getCode() -> String {
         return self.code
     }
-    
+
     /**
      Getter for sku.
 
-     - Returns:  String
+     - Returns:  Optional<String>
+
      */
-    public func getSku() -> String {
+    public func getSku() -> Optional<String> {
         return self.sku
     }
-    
+
     /**
      Getter for tracknum.
 
-     - Returns:  String
+     - Returns:  Optional<String>
+
      */
-    public func getTrackingNumber() -> String {
+    public func getTrackingNumber() -> Optional<String> {
         return self.trackingNumber
     }
-    
+
     /**
      Getter for tracktype.
 
-     - Returns:  String
+     - Returns:  Optional<String>
+
      */
-    public func getTrackingType() -> String {
+    public func getTrackingType() -> Optional<String> {
         return self.trackingType
     }
-    
+
     /**
      Getter for quantity.
-     
+
      - Returns:  Int
+
      */
     public func getQuantity() -> Int {
         return self.quantity
     }
-    
+
     /**
      Getter for attributes.
-     
+
      - Returns:  [OrderProductAttribute]
      */
     public func getAttributes() -> [OrderProductAttribute] {
         return self.attributes
     }
-    
+
     /**
      Setter for status.
-     
+
      - Parameters:
         - value: Optional<Int>
      - Returns:  Self
@@ -234,10 +232,10 @@ public class OrderProduct : Model {
         self.trackingType = value
         return self
     }
-    
+
     /**
      Setter for quantity.
-     
+
      - Parameters:
         - value: Optional<Int>
      - Returns:  Self
@@ -247,10 +245,10 @@ public class OrderProduct : Model {
         self.quantity = value
         return self
     }
-    
+
     /**
      Add a OrderProductAttribute.
-     
+
      - Parameters:
         - attribute: OrderProductAttribute
      - Returns:  Self

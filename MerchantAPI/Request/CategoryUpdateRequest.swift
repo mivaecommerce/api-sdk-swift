@@ -3,11 +3,12 @@
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
- *
- * $Id$
  */
 
 import Foundation
+#if os(Linux)
+import FoundationNetworking
+#endif
 
 /**
  Handles API Request Category_Update.
@@ -16,7 +17,7 @@ import Foundation
  */
 public class CategoryUpdateRequest : Request {
     /**
-     The API function name. 
+     The API function name.
 
      - Note: Overrides
      - Returns: String
@@ -26,7 +27,7 @@ public class CategoryUpdateRequest : Request {
     }
 
     /**
-     The request scope. 
+     The request scope.
 
      - Note: Overrides
      - Returns: RequestScope
@@ -34,37 +35,37 @@ public class CategoryUpdateRequest : Request {
     override var scope : RequestScope {
         return RequestScope.Store;
     }
-    
+
     /// Request field Category_ID.
-    var categoryId : Optional<Int>
+    var categoryId : Optional<Int> = nil
 
     /// Request field Category_Code.
-    var categoryCode : Optional<String>
+    var categoryCode : Optional<String> = nil
 
     /// Request field Edit_Category.
-    var editCategory : Optional<String>
+    var editCategory : Optional<String> = nil
 
     /// Request field Category_Name.
-    var categoryName : Optional<String>
+    var categoryName : Optional<String> = nil
 
     /// Request field Category_Page_Title.
-    var categoryPageTitle : Optional<String>
+    var categoryPageTitle : Optional<String> = nil
 
     /// Request field Category_Active.
-    var categoryActive : Optional<Bool>
+    var categoryActive : Optional<Bool> = nil
 
     /// Request field Category_Parent_Category.
-    var categoryParentCategory : Optional<String>
+    var categoryParentCategory : Optional<String> = nil
 
     /// Request field Category_Alternate_Display_Page.
-    var categoryAlternateDisplayPage : Optional<String>
+    var categoryAlternateDisplayPage : Optional<String> = nil
 
     /// Request field CustomField_Values.
     var customFieldValues : CustomFieldValues
-    
+
     /**
      CodingKeys used to map the request when encoding.
-     
+
      - SeeAlso: Encodable
      */
     private enum CodingKeys: String, CodingKey {
@@ -79,15 +80,15 @@ public class CategoryUpdateRequest : Request {
         case categoryAlternateDisplayPage = "Category_Alternate_Display_Page"
         case customFieldValues = "CustomField_Values"
     }
-    
+
     /**
      Request constructor.
 
      - Parameters:
-        - client: A Client instance.
+        - client: A BaseClient instance.
         - category: An optional Category instance.
      */
-    public init(client: Optional<Client> = nil, category: Optional<Category> = nil) {
+    public init(client: Optional<BaseClient> = nil, category: Optional<Category> = nil) {
         self.customFieldValues = CustomFieldValues()
         super.init(client: client)
         if let category = category {
@@ -106,7 +107,7 @@ public class CategoryUpdateRequest : Request {
             self.customFieldValues = category.customFieldValues
         }
     }
-    
+
     /**
      Implementation of Encodable.
 
@@ -134,7 +135,7 @@ public class CategoryUpdateRequest : Request {
 
         try super.encode(to : encoder)
     }
-    
+
     /**
      Send the request for a response.
 
@@ -142,13 +143,10 @@ public class CategoryUpdateRequest : Request {
         - callback: The callback function with signature (CategoryUpdateResponse?, Error?).
      - Note: Overrides
      */
-     public override func send(client: Optional<Client> = nil, callback: @escaping (CategoryUpdateResponse?, Error?) -> ()) throws {
-        if client != nil {
-            client!.send(self) { request, response, error in
-                callback(response as? CategoryUpdateResponse, error)
-            }
-        } else if self.client != nil {
-            self.client!.send(self) { request, response, error in
+
+     public override func send(client: Optional<BaseClient> = nil, callback: @escaping (CategoryUpdateResponse?, Error?) -> ()) throws {
+        if let client = client ?? self.client {
+            client.send(self) { request, response, error in
                 callback(response as? CategoryUpdateResponse, error)
             }
         } else {
@@ -160,16 +158,18 @@ public class CategoryUpdateRequest : Request {
      Create a response object by decoding the response data.
 
      - Parameters:
+        - httpResponse: The underlying HTTP response object
         - data: The response data to decode.
      - Throws: Error when unable to decode the response data.
      - Note: Overrides
      */
-    public override func createResponse(data : Data) throws -> CategoryUpdateResponse {
+    public override func createResponse(httpResponse: URLResponse, data : Data) throws -> CategoryUpdateResponse {
         let decoder = JSONDecoder()
-        
-        decoder.userInfo[Response.decoderRequestUserInfoKey]      = self
-        decoder.userInfo[Response.decoderResponseDataUserInfoKey] = data
-        
+
+        decoder.userInfo[Response.decoderRequestUserInfoKey]            = self
+        decoder.userInfo[Response.decoderHttpResponseDataUserInfoKey]   = httpResponse
+        decoder.userInfo[Response.decoderResponseDataUserInfoKey]       = data
+
         return try decoder.decode(CategoryUpdateResponse.self, from: data)
     }
 
@@ -182,91 +182,91 @@ public class CategoryUpdateRequest : Request {
     override public func getResponseType() -> Response.Type {
         return CategoryUpdateResponse.self
     }
-    
+
     /**
      Getter for Category_ID.
-     
-     - Returns:  Optional<Int> 
+
+     - Returns:  Optional<Int>
      */
     public func getCategoryId() -> Optional<Int> {
         return self.categoryId
     }
-    
+
     /**
      Getter for Category_Code.
 
-     - Returns:  Optional<String> 
+     - Returns:  Optional<String>
      */
     public func getCategoryCode() -> Optional<String> {
         return self.categoryCode
     }
-    
+
     /**
      Getter for Edit_Category.
 
-     - Returns:  Optional<String> 
+     - Returns:  Optional<String>
      */
     public func getEditCategory() -> Optional<String> {
         return self.editCategory
     }
-    
+
     /**
      Getter for Category_Name.
 
-     - Returns:  Optional<String> 
+     - Returns:  Optional<String>
      */
     public func getCategoryName() -> Optional<String> {
         return self.categoryName
     }
-    
+
     /**
      Getter for Category_Page_Title.
 
-     - Returns:  Optional<String> 
+     - Returns:  Optional<String>
      */
     public func getCategoryPageTitle() -> Optional<String> {
         return self.categoryPageTitle
     }
-    
+
     /**
      Getter for Category_Active.
-     
-     - Returns:  Optional<Bool> 
+
+     - Returns:  Optional<Bool>
      */
     public func getCategoryActive() -> Optional<Bool> {
         return self.categoryActive
     }
-    
+
     /**
      Getter for Category_Parent_Category.
 
-     - Returns:  Optional<String> 
+     - Returns:  Optional<String>
      */
     public func getCategoryParentCategory() -> Optional<String> {
         return self.categoryParentCategory
     }
-    
+
     /**
      Getter for Category_Alternate_Display_Page.
 
-     - Returns:  Optional<String> 
+     - Returns:  Optional<String>
      */
     public func getCategoryAlternateDisplayPage() -> Optional<String> {
         return self.categoryAlternateDisplayPage
     }
-    
+
     /**
      Getter for CustomField_Values.
-     
+
      - Returns:  CustomFieldValues
      */
     public func getCustomFieldValues() -> CustomFieldValues {
         return self.customFieldValues
     }
-    
+
     /**
      Setter for Category_ID.
-     
+
      - Parameters:
         - value: Optional<Int>
      - Returns:  Self
@@ -276,7 +276,7 @@ public class CategoryUpdateRequest : Request {
         self.categoryId = value
         return self
     }
-    
+
     /**
      Setter for Category_Code.
 
@@ -289,7 +289,7 @@ public class CategoryUpdateRequest : Request {
         self.categoryCode = value
         return self
     }
-    
+
     /**
      Setter for Edit_Category.
 
@@ -302,7 +302,7 @@ public class CategoryUpdateRequest : Request {
         self.editCategory = value
         return self
     }
-    
+
     /**
      Setter for Category_Name.
 
@@ -315,7 +315,7 @@ public class CategoryUpdateRequest : Request {
         self.categoryName = value
         return self
     }
-    
+
     /**
      Setter for Category_Page_Title.
 
@@ -328,10 +328,10 @@ public class CategoryUpdateRequest : Request {
         self.categoryPageTitle = value
         return self
     }
-    
+
     /**
      Setter for Category_Active.
-     
+
      - Parameters:
         - value: Optional<Bool>
      - Returns:  Self
@@ -341,7 +341,7 @@ public class CategoryUpdateRequest : Request {
         self.categoryActive = value
         return self
     }
-    
+
     /**
      Setter for Category_Parent_Category.
 
@@ -354,7 +354,7 @@ public class CategoryUpdateRequest : Request {
         self.categoryParentCategory = value
         return self
     }
-    
+
     /**
      Setter for Category_Alternate_Display_Page.
 

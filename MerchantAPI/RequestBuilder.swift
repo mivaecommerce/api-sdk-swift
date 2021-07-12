@@ -5,18 +5,21 @@
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
- *
- * $Id: RequestBuilder.swift 73830 2019-03-05 23:40:40Z gidriss $
  */
+
+import Foundation
+#if os(Linux)
+import FoundationNetworking
+#endif
 
 /// Used to build custom requests.
 class RequestBuilder : Request {
     /// User supplied request scope
     var uscope : RequestScope = RequestScope.Store
-    
+
     /**
      Gets the scope of the Request.
-     
+
      - Returns: RequestScope
      - Note: This method must be overridden
      - Throws: When method not overridden by inheritor.
@@ -24,10 +27,10 @@ class RequestBuilder : Request {
     override var scope : RequestScope {
         return self.uscope
     }
-    
+
     /**
      Set the scope of the Request.
-     
+
      - Params:
         - scope: RequestScope
      - Returns: Self
@@ -37,42 +40,42 @@ class RequestBuilder : Request {
         self.uscope = scope
         return self
     }
-    
+
     /**
      The API function name.
-     
+
      - Note: Overrides
      - Returns: String
      */
     override var function : String {
         let funct = getField("Function")
-        
+
         if let funct = funct {
            return funct.value as? String ?? ""
         }
-        
+
         return ""
     }
-    
+
     /// Holds request data
     var data : [String:AnyEncodable ] = [:]
-    
+
     /**
      Constructor
-     
+
      - Parameters:
-         - client: Client
+         - client: BaseClient
          - data: [String:AnyEncodable]
      - Returns: Self
      */
-    public init(client: Client, data: [String:AnyEncodable] = [:]) {
+    public init(client: BaseClient, data: [String:AnyEncodable] = [:]) {
         self.data = data
         super.init(client: client)
     }
-    
+
     /**
      Set the function name.
-     
+
      - Parameters:
          - name: String
      - Returns: Self
@@ -82,10 +85,10 @@ class RequestBuilder : Request {
         self.data["Function"] = AnyEncodable(name)
         return self
     }
-    
+
     /**
      Set a field value.
-     
+
      - Parameters:
          - name: String
          - value: Encodable
@@ -96,10 +99,10 @@ class RequestBuilder : Request {
         self.data[name] = AnyEncodable(value)
         return self
     }
-    
+
     /**
      Get a field value.
-     
+
      - Parameters:
         - name: String
      - Returns: Optional<AnyEncodable>
@@ -107,10 +110,10 @@ class RequestBuilder : Request {
     public func getField(_ name: String) -> Optional<AnyEncodable> {
         return self.data[name]
     }
-    
+
     /**
      Set a field value.
-     
+
      - Parameters:
          - name: String
          - value: Encodable
@@ -124,7 +127,7 @@ class RequestBuilder : Request {
 
     /**
      Create a response object by decoding the response data.
-     
+
      - Parameters:
         - encode: A Encoder instance to encode to.
      - Throws: Error when unable to encode the request data.
@@ -132,22 +135,22 @@ class RequestBuilder : Request {
      */
     public override func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: RuntimeCodingKey.self)
-        
+
         for (key, value) in self.data {
             try container.encode(value, forKey: RuntimeCodingKey(stringValue: key)!)
         }
-        
+
         try super.encode(to : encoder)
     }
-    
+
     /**
      Send the request for a response.
-     
+
      - Parameters:
         - callback: The callback function with signature (Response?, Error?).
      - Note: Overrides
      */
-    public override func send(client: Optional<Client> = nil, callback: @escaping (Response?, Error?) -> ()) throws {
+    public override func send(client: Optional<BaseClient> = nil, callback: @escaping (Response?, Error?) -> ()) throws {
         if client != nil {
             client!.send(self) { request, response, error in
                 callback(response, error)
@@ -160,31 +163,69 @@ class RequestBuilder : Request {
             throw RequestError.noClientAssigned
         }
     }
-    
+
     /**
      Create a response object by decoding the response data.
-     
+
      - Parameters:
         - data: The response data to decode.
      - Throws: Error when unable to decode the response data.
      - Note: Overrides
      */
-    public override func createResponse(data : Data) throws -> Response {
+    public override func createResponse(httpResponse: URLResponse, data : Data) throws -> Response {
         let decoder = JSONDecoder()
-        
-        decoder.userInfo[Response.decoderRequestUserInfoKey]      = self
-        decoder.userInfo[Response.decoderResponseDataUserInfoKey] = data
-        
-        return try decoder.decode(OrderCustomFieldListLoadResponse.self, from: data)
+
+        decoder.userInfo[Response.decoderRequestUserInfoKey]            = self
+        decoder.userInfo[Response.decoderHttpResponseDataUserInfoKey]   = httpResponse
+        decoder.userInfo[Response.decoderResponseDataUserInfoKey]       = data
+
+        return try decoder.decode(RequestBuilderResponse.self, from: data)
     }
-    
+
     /**
      Get the Type of the Response this Request expects. Used in decoding MultiCall.
-     
+
      - Returns: Response.Type
      - Note: Overrides
      */
     override public func getResponseType() -> Response.Type {
-        return Response.self
+        return RequestBuilderResponse.self
+    }
+}
+
+public class RequestBuilderResponse : Response
+{
+    /// The underlying data the module returned, if any
+    var data : Optional<VariableValue> = nil
+
+    /**
+     Get the underlying data if available
+
+     - Returns: Optional<VariableValue>
+     */
+    public func getData() -> Optional<VariableValue> {
+        return data
+    }
+
+    /**
+     CodingKeys used to map the model when decoding.
+
+     - SeeAlso: Decodable
+     */
+    private enum CodingKeys: String, CodingKey {
+        case data = "data"
+    }
+
+    /**
+     Construct an instance from a decoder instance.
+
+     - Throws: Error when unable to decode.
+     - SeeAlso: Decodable
+     */
+    public required init(from decoder: Decoder) throws {
+        let container  = try decoder.container(keyedBy : CodingKeys.self)
+
+        self.data = try container.decodeIfPresent(VariableValue.self, forKey: .data) ?? nil
+        try super.init(from : decoder)
     }
 }

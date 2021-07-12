@@ -3,8 +3,6 @@
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
- *
- * $Id$
  */
 
 import Foundation
@@ -14,16 +12,12 @@ public class ProvisionMessage : Model {
 
     /// Model field dtstamp.
     var dateTimeStamp : String
-
     /// Model field lineno.
     var lineNumber : Int
-
     /// Model field tag.
     var tag : String
-
     /// Model field message.
     var message : String
-
     /**
      CodingKeys used to map the model when encoding and decoding.
 
@@ -85,38 +79,42 @@ public class ProvisionMessage : Model {
 
         try super.encode(to: encoder)
     }
-    
+
     /**
      Getter for dtstamp.
 
      - Returns:  String
+
      */
     public func getDateTimeStamp() -> String {
         return self.dateTimeStamp
     }
-    
+
     /**
      Getter for lineno.
-     
+
      - Returns:  Int
+
      */
     public func getLineNumber() -> Int {
         return self.lineNumber
     }
-    
+
     /**
      Getter for tag.
 
      - Returns:  String
+
      */
     public func getTag() -> String {
         return self.tag
     }
-    
+
     /**
      Getter for message.
 
      - Returns:  String
+
      */
     public func getMessage() -> String {
         return self.message

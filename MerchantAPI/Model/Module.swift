@@ -3,8 +3,6 @@
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
- *
- * $Id$
  */
 
 import Foundation
@@ -14,31 +12,22 @@ public class Module : Model {
 
     /// Model field id.
     var id : Int
-
     /// Model field code.
     var code : String
-
     /// Model field name.
     var name : String
-
     /// Model field provider.
     var provider : String
-
     /// Model field api_ver.
     var apiVersion : String
-
     /// Model field version.
     var version : String
-
     /// Model field module.
     var module : String
-
     /// Model field refcount.
     var referenceCount : Int
-
     /// Model field active.
     var active : Bool
-
     /**
      CodingKeys used to map the model when encoding and decoding.
 
@@ -120,84 +109,91 @@ public class Module : Model {
 
         try super.encode(to: encoder)
     }
-    
+
     /**
      Getter for id.
-     
+
      - Returns:  Int
+
      */
     public func getId() -> Int {
         return self.id
     }
-    
+
     /**
      Getter for code.
 
      - Returns:  String
+
      */
     public func getCode() -> String {
         return self.code
     }
-    
+
     /**
      Getter for name.
 
      - Returns:  String
+
      */
     public func getName() -> String {
         return self.name
     }
-    
+
     /**
      Getter for provider.
 
      - Returns:  String
+
      */
     public func getProvider() -> String {
         return self.provider
     }
-    
+
     /**
      Getter for api_ver.
 
      - Returns:  String
+
      */
     public func getApiVersion() -> String {
         return self.apiVersion
     }
-    
+
     /**
      Getter for version.
 
      - Returns:  String
+
      */
     public func getVersion() -> String {
         return self.version
     }
-    
+
     /**
      Getter for module.
 
      - Returns:  String
+
      */
     public func getModule() -> String {
         return self.module
     }
-    
+
     /**
      Getter for refcount.
-     
+
      - Returns:  Int
+
      */
     public func getReferenceCount() -> Int {
         return self.referenceCount
     }
-    
+
     /**
      Getter for active.
-     
-     - Returns:  Bool
-     */
+
+     - Returns:  Bool     */
     public func getActive() -> Bool {
         return self.active
     }

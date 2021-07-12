@@ -3,11 +3,12 @@
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
- *
- * $Id$
  */
 
 import Foundation
+#if os(Linux)
+import FoundationNetworking
+#endif
 
 /**
  Handles API Request Category_Delete.
@@ -16,7 +17,7 @@ import Foundation
  */
 public class CategoryDeleteRequest : Request {
     /**
-     The API function name. 
+     The API function name.
 
      - Note: Overrides
      - Returns: String
@@ -26,7 +27,7 @@ public class CategoryDeleteRequest : Request {
     }
 
     /**
-     The request scope. 
+     The request scope.
 
      - Note: Overrides
      - Returns: RequestScope
@@ -34,19 +35,19 @@ public class CategoryDeleteRequest : Request {
     override var scope : RequestScope {
         return RequestScope.Store;
     }
-    
+
     /// Request field Category_ID.
-    var categoryId : Optional<Int>
+    var categoryId : Optional<Int> = nil
 
     /// Request field Edit_Category.
-    var editCategory : Optional<String>
+    var editCategory : Optional<String> = nil
 
     /// Request field Category_Code.
-    var categoryCode : Optional<String>
-    
+    var categoryCode : Optional<String> = nil
+
     /**
      CodingKeys used to map the request when encoding.
-     
+
      - SeeAlso: Encodable
      */
     private enum CodingKeys: String, CodingKey {
@@ -55,15 +56,15 @@ public class CategoryDeleteRequest : Request {
         case editCategory = "Edit_Category"
         case categoryCode = "Category_Code"
     }
-    
+
     /**
      Request constructor.
 
      - Parameters:
-        - client: A Client instance.
+        - client: A BaseClient instance.
         - category: An optional Category instance.
      */
-    public init(client: Optional<Client> = nil, category: Optional<Category> = nil) {
+    public init(client: Optional<BaseClient> = nil, category: Optional<Category> = nil) {
         super.init(client: client)
         if let category = category {
             if category.id > 0 {
@@ -73,7 +74,7 @@ public class CategoryDeleteRequest : Request {
             }
         }
     }
-    
+
     /**
      Implementation of Encodable.
 
@@ -95,7 +96,7 @@ public class CategoryDeleteRequest : Request {
 
         try super.encode(to : encoder)
     }
-    
+
     /**
      Send the request for a response.
 
@@ -103,13 +104,10 @@ public class CategoryDeleteRequest : Request {
         - callback: The callback function with signature (CategoryDeleteResponse?, Error?).
      - Note: Overrides
      */
-     public override func send(client: Optional<Client> = nil, callback: @escaping (CategoryDeleteResponse?, Error?) -> ()) throws {
-        if client != nil {
-            client!.send(self) { request, response, error in
-                callback(response as? CategoryDeleteResponse, error)
-            }
-        } else if self.client != nil {
-            self.client!.send(self) { request, response, error in
+
+     public override func send(client: Optional<BaseClient> = nil, callback: @escaping (CategoryDeleteResponse?, Error?) -> ()) throws {
+        if let client = client ?? self.client {
+            client.send(self) { request, response, error in
                 callback(response as? CategoryDeleteResponse, error)
             }
         } else {
@@ -121,16 +119,18 @@ public class CategoryDeleteRequest : Request {
      Create a response object by decoding the response data.
 
      - Parameters:
+        - httpResponse: The underlying HTTP response object
         - data: The response data to decode.
      - Throws: Error when unable to decode the response data.
      - Note: Overrides
      */
-    public override func createResponse(data : Data) throws -> CategoryDeleteResponse {
+    public override func createResponse(httpResponse: URLResponse, data : Data) throws -> CategoryDeleteResponse {
         let decoder = JSONDecoder()
-        
-        decoder.userInfo[Response.decoderRequestUserInfoKey]      = self
-        decoder.userInfo[Response.decoderResponseDataUserInfoKey] = data
-        
+
+        decoder.userInfo[Response.decoderRequestUserInfoKey]            = self
+        decoder.userInfo[Response.decoderHttpResponseDataUserInfoKey]   = httpResponse
+        decoder.userInfo[Response.decoderResponseDataUserInfoKey]       = data
+
         return try decoder.decode(CategoryDeleteResponse.self, from: data)
     }
 
@@ -143,37 +143,37 @@ public class CategoryDeleteRequest : Request {
     override public func getResponseType() -> Response.Type {
         return CategoryDeleteResponse.self
     }
-    
+
     /**
      Getter for Category_ID.
-     
-     - Returns:  Optional<Int> 
+
+     - Returns:  Optional<Int>
      */
     public func getCategoryId() -> Optional<Int> {
         return self.categoryId
     }
-    
+
     /**
      Getter for Edit_Category.
 
-     - Returns:  Optional<String> 
+     - Returns:  Optional<String>
      */
     public func getEditCategory() -> Optional<String> {
         return self.editCategory
     }
-    
+
     /**
      Getter for Category_Code.
 
-     - Returns:  Optional<String> 
+     - Returns:  Optional<String>
      */
     public func getCategoryCode() -> Optional<String> {
         return self.categoryCode
     }
-    
+
     /**
      Setter for Category_ID.
-     
+
      - Parameters:
         - value: Optional<Int>
      - Returns:  Self
@@ -183,7 +183,7 @@ public class CategoryDeleteRequest : Request {
         self.categoryId = value
         return self
     }
-    
+
     /**
      Setter for Edit_Category.
 
@@ -196,7 +196,7 @@ public class CategoryDeleteRequest : Request {
         self.editCategory = value
         return self
     }
-    
+
     /**
      Setter for Category_Code.
 

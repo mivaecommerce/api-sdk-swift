@@ -3,8 +3,6 @@
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
- *
- * $Id$
  */
 
 import Foundation
@@ -13,17 +11,13 @@ import Foundation
 public class ProductInventoryAdjustment : Model {
 
     /// Model field product_id.
-    var productId : Int
-
+    var productId : Optional<Int>
     /// Model field product_code.
-    var productCode : String
-
+    var productCode : Optional<String>
     /// Model field product_sku.
-    var productSku : String
-
+    var productSku : Optional<String>
     /// Model field adjustment.
     var adjustment : Decimal
-
     /**
      CodingKeys used to map the model when encoding and decoding.
 
@@ -40,9 +34,9 @@ public class ProductInventoryAdjustment : Model {
      ProductInventoryAdjustment Constructor.
      */
     public override init() {
-        self.productId = 0
-        self.productCode = ""
-        self.productSku = ""
+        self.productId = nil
+        self.productCode = nil
+        self.productSku = nil
         self.adjustment = Decimal(0.00)
 
         super.init()
@@ -59,9 +53,9 @@ public class ProductInventoryAdjustment : Model {
     public required init(from decoder: Decoder) throws {
         let container  = try decoder.container(keyedBy: CodingKeys.self)
 
-        self.productId = try container.decodeIfPresent(Int.self, forKey: .productId) ?? 0
-        self.productCode = try container.decodeIfPresent(String.self, forKey: .productCode) ?? ""
-        self.productSku = try container.decodeIfPresent(String.self, forKey: .productSku) ?? ""
+        self.productId = try container.decodeIfPresent(Int.self, forKey: .productId) ?? nil
+        self.productCode = try container.decodeIfPresent(String.self, forKey: .productCode) ?? nil
+        self.productSku = try container.decodeIfPresent(String.self, forKey: .productSku) ?? nil
         self.adjustment = try container.decodeIfPresent(Decimal.self, forKey: .adjustment) ?? Decimal(0.00)
 
         try super.init(from : decoder)
@@ -85,46 +79,48 @@ public class ProductInventoryAdjustment : Model {
 
         try super.encode(to: encoder)
     }
-    
+
     /**
      Getter for product_id.
-     
-     - Returns:  Int
+
+     - Returns:  Optional<Int>
+
      */
-    public func getProductId() -> Int {
+    public func getProductId() -> Optional<Int> {
         return self.productId
     }
-    
+
     /**
      Getter for product_code.
 
-     - Returns:  String
+     - Returns:  Optional<String>
+
      */
-    public func getProductCode() -> String {
+    public func getProductCode() -> Optional<String> {
         return self.productCode
     }
-    
+
     /**
      Getter for product_sku.
 
-     - Returns:  String
+     - Returns:  Optional<String>
+
      */
-    public func getProductSku() -> String {
+    public func getProductSku() -> Optional<String> {
         return self.productSku
     }
-    
+
     /**
      Getter for adjustment.
-     
-     - Returns:  Decimal
-     */
+
+     - Returns:  Decimal     */
     public func getAdjustment() -> Decimal {
         return self.adjustment
     }
-    
+
     /**
      Setter for product_id.
-     
+
      - Parameters:
         - value: Optional<Int>
      - Returns:  Self
@@ -163,7 +159,7 @@ public class ProductInventoryAdjustment : Model {
 
     /**
      Setter for adjustment.
-     
+
      - Parameters:
         - value: Decimal
      - Returns:  Self

@@ -3,8 +3,6 @@
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
- *
- * $Id: ProductShippingRules.swift 77297 2019-08-07 22:14:29Z gidriss $
  */
 
 import Foundation
@@ -14,22 +12,16 @@ public class ProductShippingRules : Model {
 
     /// Model field product_id.
     var productId : Int
-
     /// Model field ownpackage.
     var ownPackage : Bool
-
     /// Model field width.
     var width : Decimal
-
     /// Model field length.
     var length : Decimal
-
     /// Model field height.
     var height : Decimal
-
     /// Model field limitmeths.
     var limitMethods : Bool
-
     /// Model field methods.
     var methods : [ProductShippingMethod]
 
@@ -106,80 +98,63 @@ public class ProductShippingRules : Model {
 
         try super.encode(to: encoder)
     }
-    
+
     /**
      Getter for product_id.
-     
+
      - Returns:  Int
+
      */
     public func getProductId() -> Int {
         return self.productId
     }
-    
+
     /**
      Getter for ownpackage.
-     
-     - Returns:  Bool
-     */
+
+     - Returns:  Bool     */
     public func getOwnPackage() -> Bool {
         return self.ownPackage
     }
-    
+
     /**
      Getter for width.
-     
-     - Returns:  Decimal
-     */
+
+     - Returns:  Decimal     */
     public func getWidth() -> Decimal {
         return self.width
     }
-    
+
     /**
      Getter for length.
-     
-     - Returns:  Decimal
-     */
+
+     - Returns:  Decimal     */
     public func getLength() -> Decimal {
         return self.length
     }
-    
+
     /**
      Getter for height.
-     
-     - Returns:  Decimal
-     */
+
+     - Returns:  Decimal     */
     public func getHeight() -> Decimal {
         return self.height
     }
-    
+
     /**
      Getter for limitmeths.
-     
-     - Returns:  Bool
-     */
+
+     - Returns:  Bool     */
     public func getLimitMethods() -> Bool {
         return self.limitMethods
     }
-    
+
     /**
      Getter for methods.
-     
+
      - Returns:  [ProductShippingMethod]
      */
     public func getMethods() -> [ProductShippingMethod] {
         return self.methods
-    }
-    
-    /**
-     Add a ProductShippingMethod.
-     
-     - Parameters:
-        - method: ProductShippingMethod
-     - Returns:  Self
-     */
-    @discardableResult
-    public func addMethod(_ method: ProductShippingMethod) -> Self {
-        self.methods.append(method)
-        return self
     }
 }

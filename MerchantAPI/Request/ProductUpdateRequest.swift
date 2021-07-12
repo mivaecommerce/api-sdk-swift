@@ -3,11 +3,12 @@
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
- *
- * $Id$
  */
 
 import Foundation
+#if os(Linux)
+import FoundationNetworking
+#endif
 
 /**
  Handles API Request Product_Update.
@@ -16,7 +17,7 @@ import Foundation
  */
 public class ProductUpdateRequest : Request {
     /**
-     The API function name. 
+     The API function name.
 
      - Note: Overrides
      - Returns: String
@@ -26,7 +27,7 @@ public class ProductUpdateRequest : Request {
     }
 
     /**
-     The request scope. 
+     The request scope.
 
      - Note: Overrides
      - Returns: RequestScope
@@ -34,64 +35,64 @@ public class ProductUpdateRequest : Request {
     override var scope : RequestScope {
         return RequestScope.Store;
     }
-    
+
     /// Request field Product_ID.
-    var productId : Optional<Int>
+    var productId : Optional<Int> = nil
 
     /// Request field Product_Code.
-    var productCode : Optional<String>
+    var productCode : Optional<String> = nil
 
     /// Request field Edit_Product.
-    var editProduct : Optional<String>
+    var editProduct : Optional<String> = nil
 
     /// Request field Product_SKU.
-    var productSku : Optional<String>
+    var productSku : Optional<String> = nil
 
     /// Request field Product_Name.
-    var productName : Optional<String>
+    var productName : Optional<String> = nil
 
     /// Request field Product_Description.
-    var productDescription : Optional<String>
+    var productDescription : Optional<String> = nil
 
     /// Request field Product_Canonical_Category_Code.
-    var productCanonicalCategoryCode : Optional<String>
+    var productCanonicalCategoryCode : Optional<String> = nil
 
     /// Request field Product_Alternate_Display_Page.
-    var productAlternateDisplayPage : Optional<String>
+    var productAlternateDisplayPage : Optional<String> = nil
 
     /// Request field Product_Page_Title.
-    var productPageTitle : Optional<String>
+    var productPageTitle : Optional<String> = nil
 
     /// Request field Product_Thumbnail.
-    var productThumbnail : Optional<String>
+    var productThumbnail : Optional<String> = nil
 
     /// Request field Product_Image.
-    var productImage : Optional<String>
+    var productImage : Optional<String> = nil
 
     /// Request field Product_Price.
-    var productPrice : Optional<Decimal>
+    var productPrice : Optional<Decimal> = nil
 
     /// Request field Product_Cost.
-    var productCost : Optional<Decimal>
+    var productCost : Optional<Decimal> = nil
 
     /// Request field Product_Weight.
-    var productWeight : Optional<Decimal>
+    var productWeight : Optional<Decimal> = nil
 
     /// Request field Product_Inventory.
-    var productInventory : Optional<Int>
+    var productInventory : Optional<Int> = nil
 
     /// Request field Product_Taxable.
-    var productTaxable : Optional<Bool>
+    var productTaxable : Optional<Bool> = nil
 
     /// Request field Product_Active.
-    var productActive : Optional<Bool>
+    var productActive : Optional<Bool> = nil
 
     /// Request field CustomField_Values.
     var customFieldValues : CustomFieldValues
-    
+
     /**
      CodingKeys used to map the request when encoding.
-     
+
      - SeeAlso: Encodable
      */
     private enum CodingKeys: String, CodingKey {
@@ -115,15 +116,15 @@ public class ProductUpdateRequest : Request {
         case productActive = "Product_Active"
         case customFieldValues = "CustomField_Values"
     }
-    
+
     /**
      Request constructor.
 
      - Parameters:
-        - client: A Client instance.
+        - client: A BaseClient instance.
         - product: An optional Product instance.
      */
-    public init(client: Optional<Client> = nil, product: Optional<Product> = nil) {
+    public init(client: Optional<BaseClient> = nil, product: Optional<Product> = nil) {
         self.customFieldValues = CustomFieldValues()
         super.init(client: client)
         if let product = product {
@@ -151,7 +152,7 @@ public class ProductUpdateRequest : Request {
             self.customFieldValues = product.customFieldValues
         }
     }
-    
+
     /**
      Implementation of Encodable.
 
@@ -188,7 +189,7 @@ public class ProductUpdateRequest : Request {
 
         try super.encode(to : encoder)
     }
-    
+
     /**
      Send the request for a response.
 
@@ -196,13 +197,10 @@ public class ProductUpdateRequest : Request {
         - callback: The callback function with signature (ProductUpdateResponse?, Error?).
      - Note: Overrides
      */
-     public override func send(client: Optional<Client> = nil, callback: @escaping (ProductUpdateResponse?, Error?) -> ()) throws {
-        if client != nil {
-            client!.send(self) { request, response, error in
-                callback(response as? ProductUpdateResponse, error)
-            }
-        } else if self.client != nil {
-            self.client!.send(self) { request, response, error in
+
+     public override func send(client: Optional<BaseClient> = nil, callback: @escaping (ProductUpdateResponse?, Error?) -> ()) throws {
+        if let client = client ?? self.client {
+            client.send(self) { request, response, error in
                 callback(response as? ProductUpdateResponse, error)
             }
         } else {
@@ -214,16 +212,18 @@ public class ProductUpdateRequest : Request {
      Create a response object by decoding the response data.
 
      - Parameters:
+        - httpResponse: The underlying HTTP response object
         - data: The response data to decode.
      - Throws: Error when unable to decode the response data.
      - Note: Overrides
      */
-    public override func createResponse(data : Data) throws -> ProductUpdateResponse {
+    public override func createResponse(httpResponse: URLResponse, data : Data) throws -> ProductUpdateResponse {
         let decoder = JSONDecoder()
-        
-        decoder.userInfo[Response.decoderRequestUserInfoKey]      = self
-        decoder.userInfo[Response.decoderResponseDataUserInfoKey] = data
-        
+
+        decoder.userInfo[Response.decoderRequestUserInfoKey]            = self
+        decoder.userInfo[Response.decoderHttpResponseDataUserInfoKey]   = httpResponse
+        decoder.userInfo[Response.decoderResponseDataUserInfoKey]       = data
+
         return try decoder.decode(ProductUpdateResponse.self, from: data)
     }
 
@@ -236,172 +236,172 @@ public class ProductUpdateRequest : Request {
     override public func getResponseType() -> Response.Type {
         return ProductUpdateResponse.self
     }
-    
+
     /**
      Getter for Product_ID.
-     
-     - Returns:  Optional<Int> 
+
+     - Returns:  Optional<Int>
      */
     public func getProductId() -> Optional<Int> {
         return self.productId
     }
-    
+
     /**
      Getter for Product_Code.
 
-     - Returns:  Optional<String> 
+     - Returns:  Optional<String>
      */
     public func getProductCode() -> Optional<String> {
         return self.productCode
     }
-    
+
     /**
      Getter for Edit_Product.
 
-     - Returns:  Optional<String> 
+     - Returns:  Optional<String>
      */
     public func getEditProduct() -> Optional<String> {
         return self.editProduct
     }
-    
+
     /**
      Getter for Product_SKU.
 
-     - Returns:  Optional<String> 
+     - Returns:  Optional<String>
      */
     public func getProductSku() -> Optional<String> {
         return self.productSku
     }
-    
+
     /**
      Getter for Product_Name.
 
-     - Returns:  Optional<String> 
+     - Returns:  Optional<String>
      */
     public func getProductName() -> Optional<String> {
         return self.productName
     }
-    
+
     /**
      Getter for Product_Description.
 
-     - Returns:  Optional<String> 
+     - Returns:  Optional<String>
      */
     public func getProductDescription() -> Optional<String> {
         return self.productDescription
     }
-    
+
     /**
      Getter for Product_Canonical_Category_Code.
 
-     - Returns:  Optional<String> 
+     - Returns:  Optional<String>
      */
     public func getProductCanonicalCategoryCode() -> Optional<String> {
         return self.productCanonicalCategoryCode
     }
-    
+
     /**
      Getter for Product_Alternate_Display_Page.
 
-     - Returns:  Optional<String> 
+     - Returns:  Optional<String>
      */
     public func getProductAlternateDisplayPage() -> Optional<String> {
         return self.productAlternateDisplayPage
     }
-    
+
     /**
      Getter for Product_Page_Title.
 
-     - Returns:  Optional<String> 
+     - Returns:  Optional<String>
      */
     public func getProductPageTitle() -> Optional<String> {
         return self.productPageTitle
     }
-    
+
     /**
      Getter for Product_Thumbnail.
 
-     - Returns:  Optional<String> 
+     - Returns:  Optional<String>
      */
     public func getProductThumbnail() -> Optional<String> {
         return self.productThumbnail
     }
-    
+
     /**
      Getter for Product_Image.
 
-     - Returns:  Optional<String> 
+     - Returns:  Optional<String>
      */
     public func getProductImage() -> Optional<String> {
         return self.productImage
     }
-    
+
     /**
      Getter for Product_Price.
-     
-     - Returns:  Optional<Decimal> 
+
+     - Returns:  Optional<Decimal>
      */
     public func getProductPrice() -> Optional<Decimal> {
         return self.productPrice
     }
-    
+
     /**
      Getter for Product_Cost.
-     
-     - Returns:  Optional<Decimal> 
+
+     - Returns:  Optional<Decimal>
      */
     public func getProductCost() -> Optional<Decimal> {
         return self.productCost
     }
-    
+
     /**
      Getter for Product_Weight.
-     
-     - Returns:  Optional<Decimal> 
+
+     - Returns:  Optional<Decimal>
      */
     public func getProductWeight() -> Optional<Decimal> {
         return self.productWeight
     }
-    
+
     /**
      Getter for Product_Inventory.
-     
-     - Returns:  Optional<Int> 
+
+     - Returns:  Optional<Int>
      */
     public func getProductInventory() -> Optional<Int> {
         return self.productInventory
     }
-    
+
     /**
      Getter for Product_Taxable.
-     
-     - Returns:  Optional<Bool> 
+
+     - Returns:  Optional<Bool>
      */
     public func getProductTaxable() -> Optional<Bool> {
         return self.productTaxable
     }
-    
+
     /**
      Getter for Product_Active.
-     
-     - Returns:  Optional<Bool> 
+
+     - Returns:  Optional<Bool>
      */
     public func getProductActive() -> Optional<Bool> {
         return self.productActive
     }
-    
+
     /**
      Getter for CustomField_Values.
-     
+
      - Returns:  CustomFieldValues
      */
     public func getCustomFieldValues() -> CustomFieldValues {
         return self.customFieldValues
     }
-    
+
     /**
      Setter for Product_ID.
-     
+
      - Parameters:
         - value: Optional<Int>
      - Returns:  Self
@@ -411,7 +411,7 @@ public class ProductUpdateRequest : Request {
         self.productId = value
         return self
     }
-    
+
     /**
      Setter for Product_Code.
 
@@ -424,7 +424,7 @@ public class ProductUpdateRequest : Request {
         self.productCode = value
         return self
     }
-    
+
     /**
      Setter for Edit_Product.
 
@@ -437,7 +437,7 @@ public class ProductUpdateRequest : Request {
         self.editProduct = value
         return self
     }
-    
+
     /**
      Setter for Product_SKU.
 
@@ -450,7 +450,7 @@ public class ProductUpdateRequest : Request {
         self.productSku = value
         return self
     }
-    
+
     /**
      Setter for Product_Name.
 
@@ -463,7 +463,7 @@ public class ProductUpdateRequest : Request {
         self.productName = value
         return self
     }
-    
+
     /**
      Setter for Product_Description.
 
@@ -476,7 +476,7 @@ public class ProductUpdateRequest : Request {
         self.productDescription = value
         return self
     }
-    
+
     /**
      Setter for Product_Canonical_Category_Code.
 
@@ -489,7 +489,7 @@ public class ProductUpdateRequest : Request {
         self.productCanonicalCategoryCode = value
         return self
     }
-    
+
     /**
      Setter for Product_Alternate_Display_Page.
 
@@ -502,7 +502,7 @@ public class ProductUpdateRequest : Request {
         self.productAlternateDisplayPage = value
         return self
     }
-    
+
     /**
      Setter for Product_Page_Title.
 
@@ -515,7 +515,7 @@ public class ProductUpdateRequest : Request {
         self.productPageTitle = value
         return self
     }
-    
+
     /**
      Setter for Product_Thumbnail.
 
@@ -528,7 +528,7 @@ public class ProductUpdateRequest : Request {
         self.productThumbnail = value
         return self
     }
-    
+
     /**
      Setter for Product_Image.
 
@@ -541,10 +541,10 @@ public class ProductUpdateRequest : Request {
         self.productImage = value
         return self
     }
-    
+
     /**
      Setter for Product_Price.
-     
+
      - Parameters:
         - value: Optional<Decimal>
      - Returns:  Self
@@ -554,10 +554,10 @@ public class ProductUpdateRequest : Request {
         self.productPrice = value
         return self
     }
-    
+
     /**
      Setter for Product_Cost.
-     
+
      - Parameters:
         - value: Optional<Decimal>
      - Returns:  Self
@@ -567,10 +567,10 @@ public class ProductUpdateRequest : Request {
         self.productCost = value
         return self
     }
-    
+
     /**
      Setter for Product_Weight.
-     
+
      - Parameters:
         - value: Optional<Decimal>
      - Returns:  Self
@@ -580,10 +580,10 @@ public class ProductUpdateRequest : Request {
         self.productWeight = value
         return self
     }
-    
+
     /**
      Setter for Product_Inventory.
-     
+
      - Parameters:
         - value: Optional<Int>
      - Returns:  Self
@@ -593,10 +593,10 @@ public class ProductUpdateRequest : Request {
         self.productInventory = value
         return self
     }
-    
+
     /**
      Setter for Product_Taxable.
-     
+
      - Parameters:
         - value: Optional<Bool>
      - Returns:  Self
@@ -606,10 +606,10 @@ public class ProductUpdateRequest : Request {
         self.productTaxable = value
         return self
     }
-    
+
     /**
      Setter for Product_Active.
-     
+
      - Parameters:
         - value: Optional<Bool>
      - Returns:  Self

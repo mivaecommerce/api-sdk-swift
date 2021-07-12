@@ -3,11 +3,12 @@
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
- *
- * $Id$
  */
 
 import Foundation
+#if os(Linux)
+import FoundationNetworking
+#endif
 
 /**
  Handles API Request CategoryProductList_Load_Query.
@@ -16,7 +17,7 @@ import Foundation
  */
 public class CategoryProductListLoadQueryRequest : ListQueryRequest {
     /**
-     The API function name. 
+     The API function name.
 
      - Note: Overrides
      - Returns: String
@@ -26,7 +27,7 @@ public class CategoryProductListLoadQueryRequest : ListQueryRequest {
     }
 
     /**
-     The request scope. 
+     The request scope.
 
      - Note: Overrides
      - Returns: RequestScope
@@ -34,22 +35,22 @@ public class CategoryProductListLoadQueryRequest : ListQueryRequest {
     override var scope : RequestScope {
         return RequestScope.Store;
     }
-    
+
     /// Request field Category_ID.
-    var categoryId : Optional<Int>
+    var categoryId : Optional<Int> = nil
 
     /// Request field Category_Code.
-    var categoryCode : Optional<String>
+    var categoryCode : Optional<String> = nil
 
     /// Request field Edit_Category.
-    var editCategory : Optional<String>
+    var editCategory : Optional<String> = nil
 
     /// Request field Assigned.
-    var assigned : Optional<Bool>
+    var assigned : Optional<Bool> = nil
 
     /// Request field Unassigned.
-    var unassigned : Optional<Bool>
-    
+    var unassigned : Optional<Bool> = nil
+
     /**
      The available search fields applicable to the request.
 
@@ -81,10 +82,10 @@ public class CategoryProductListLoadQueryRequest : ListQueryRequest {
             ]
         }
     }
-    
+
     /**
      The available sort fields applicable to the request.
-     
+
      - Returns: An array of strings.
      - Note: Overrides
      */
@@ -111,7 +112,7 @@ public class CategoryProductListLoadQueryRequest : ListQueryRequest {
             ]
         }
     }
-    
+
     /**
      The available on demand columns applicable to the request.
 
@@ -123,6 +124,9 @@ public class CategoryProductListLoadQueryRequest : ListQueryRequest {
             return [
                 "descrip",
                 "catcount",
+                "cancat_code",
+                "page_code",
+                "product_inventory",
                 "productinventorysettings",
                 "attributes",
                 "productimagedata",
@@ -133,10 +137,10 @@ public class CategoryProductListLoadQueryRequest : ListQueryRequest {
             ]
         }
     }
-    
+
     /**
      CodingKeys used to map the request when encoding.
-     
+
      - SeeAlso: Encodable
      */
     private enum CodingKeys: String, CodingKey {
@@ -147,15 +151,15 @@ public class CategoryProductListLoadQueryRequest : ListQueryRequest {
         case assigned = "Assigned"
         case unassigned = "Unassigned"
     }
-    
+
     /**
      Request constructor.
 
      - Parameters:
-        - client: A Client instance.
+        - client: A BaseClient instance.
         - category: An optional Category instance.
      */
-    public init(client: Optional<Client> = nil, category: Optional<Category> = nil) {
+    public init(client: Optional<BaseClient> = nil, category: Optional<Category> = nil) {
         super.init(client: client)
         if let category = category {
             if category.id > 0 {
@@ -165,7 +169,7 @@ public class CategoryProductListLoadQueryRequest : ListQueryRequest {
             }
         }
     }
-    
+
     /**
      Implementation of Encodable.
 
@@ -190,7 +194,7 @@ public class CategoryProductListLoadQueryRequest : ListQueryRequest {
 
         try super.encode(to : encoder)
     }
-    
+
     /**
      Send the request for a response.
 
@@ -198,13 +202,10 @@ public class CategoryProductListLoadQueryRequest : ListQueryRequest {
         - callback: The callback function with signature (CategoryProductListLoadQueryResponse?, Error?).
      - Note: Overrides
      */
-     public override func send(client: Optional<Client> = nil, callback: @escaping (CategoryProductListLoadQueryResponse?, Error?) -> ()) throws {
-        if client != nil {
-            client!.send(self) { request, response, error in
-                callback(response as? CategoryProductListLoadQueryResponse, error)
-            }
-        } else if self.client != nil {
-            self.client!.send(self) { request, response, error in
+
+     public override func send(client: Optional<BaseClient> = nil, callback: @escaping (CategoryProductListLoadQueryResponse?, Error?) -> ()) throws {
+        if let client = client ?? self.client {
+            client.send(self) { request, response, error in
                 callback(response as? CategoryProductListLoadQueryResponse, error)
             }
         } else {
@@ -216,16 +217,18 @@ public class CategoryProductListLoadQueryRequest : ListQueryRequest {
      Create a response object by decoding the response data.
 
      - Parameters:
+        - httpResponse: The underlying HTTP response object
         - data: The response data to decode.
      - Throws: Error when unable to decode the response data.
      - Note: Overrides
      */
-    public override func createResponse(data : Data) throws -> CategoryProductListLoadQueryResponse {
+    public override func createResponse(httpResponse: URLResponse, data : Data) throws -> CategoryProductListLoadQueryResponse {
         let decoder = JSONDecoder()
-        
-        decoder.userInfo[Response.decoderRequestUserInfoKey]      = self
-        decoder.userInfo[Response.decoderResponseDataUserInfoKey] = data
-        
+
+        decoder.userInfo[Response.decoderRequestUserInfoKey]            = self
+        decoder.userInfo[Response.decoderHttpResponseDataUserInfoKey]   = httpResponse
+        decoder.userInfo[Response.decoderResponseDataUserInfoKey]       = data
+
         return try decoder.decode(CategoryProductListLoadQueryResponse.self, from: data)
     }
 
@@ -238,55 +241,55 @@ public class CategoryProductListLoadQueryRequest : ListQueryRequest {
     override public func getResponseType() -> Response.Type {
         return CategoryProductListLoadQueryResponse.self
     }
-    
+
     /**
      Getter for Category_ID.
-     
-     - Returns:  Optional<Int> 
+
+     - Returns:  Optional<Int>
      */
     public func getCategoryId() -> Optional<Int> {
         return self.categoryId
     }
-    
+
     /**
      Getter for Category_Code.
 
-     - Returns:  Optional<String> 
+     - Returns:  Optional<String>
      */
     public func getCategoryCode() -> Optional<String> {
         return self.categoryCode
     }
-    
+
     /**
      Getter for Edit_Category.
 
-     - Returns:  Optional<String> 
+     - Returns:  Optional<String>
      */
     public func getEditCategory() -> Optional<String> {
         return self.editCategory
     }
-    
+
     /**
      Getter for Assigned.
-     
-     - Returns:  Optional<Bool> 
+
+     - Returns:  Optional<Bool>
      */
     public func getAssigned() -> Optional<Bool> {
         return self.assigned
     }
-    
+
     /**
      Getter for Unassigned.
-     
-     - Returns:  Optional<Bool> 
+
+     - Returns:  Optional<Bool>
      */
     public func getUnassigned() -> Optional<Bool> {
         return self.unassigned
     }
-    
+
     /**
      Setter for Category_ID.
-     
+
      - Parameters:
         - value: Optional<Int>
      - Returns:  Self
@@ -296,7 +299,7 @@ public class CategoryProductListLoadQueryRequest : ListQueryRequest {
         self.categoryId = value
         return self
     }
-    
+
     /**
      Setter for Category_Code.
 
@@ -309,7 +312,7 @@ public class CategoryProductListLoadQueryRequest : ListQueryRequest {
         self.categoryCode = value
         return self
     }
-    
+
     /**
      Setter for Edit_Category.
 
@@ -322,10 +325,10 @@ public class CategoryProductListLoadQueryRequest : ListQueryRequest {
         self.editCategory = value
         return self
     }
-    
+
     /**
      Setter for Assigned.
-     
+
      - Parameters:
         - value: Optional<Bool>
      - Returns:  Self
@@ -335,10 +338,10 @@ public class CategoryProductListLoadQueryRequest : ListQueryRequest {
         self.assigned = value
         return self
     }
-    
+
     /**
      Setter for Unassigned.
-     
+
      - Parameters:
         - value: Optional<Bool>
      - Returns:  Self

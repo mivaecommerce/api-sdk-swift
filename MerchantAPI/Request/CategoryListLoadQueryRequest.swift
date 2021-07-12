@@ -3,11 +3,12 @@
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
- *
- * $Id$
  */
 
 import Foundation
+#if os(Linux)
+import FoundationNetworking
+#endif
 
 /**
  Handles API Request CategoryList_Load_Query.
@@ -16,7 +17,7 @@ import Foundation
  */
 public class CategoryListLoadQueryRequest : ListQueryRequest {
     /**
-     The API function name. 
+     The API function name.
 
      - Note: Overrides
      - Returns: String
@@ -26,7 +27,7 @@ public class CategoryListLoadQueryRequest : ListQueryRequest {
     }
 
     /**
-     The request scope. 
+     The request scope.
 
      - Note: Overrides
      - Returns: RequestScope
@@ -34,7 +35,7 @@ public class CategoryListLoadQueryRequest : ListQueryRequest {
     override var scope : RequestScope {
         return RequestScope.Store;
     }
-    
+
     /**
      The available search fields applicable to the request.
 
@@ -56,10 +57,10 @@ public class CategoryListLoadQueryRequest : ListQueryRequest {
             ]
         }
     }
-    
+
     /**
      The available sort fields applicable to the request.
-     
+
      - Returns: An array of strings.
      - Note: Overrides
      */
@@ -80,7 +81,21 @@ public class CategoryListLoadQueryRequest : ListQueryRequest {
             ]
         }
     }
-    
+
+    /**
+     The available on demand columns applicable to the request.
+
+     - Returns: An array of strings.
+     - Note: Overrides
+     */
+    override var availableOnDemandColumns : [ String ] {
+        get {
+            return [
+                "uris"
+            ]
+        }
+    }
+
     /**
      The available custom fileters applicable to the request.
 
@@ -94,17 +109,17 @@ public class CategoryListLoadQueryRequest : ListQueryRequest {
             ]
         }
     }
-    
+
     /**
      Request constructor.
-     
+
      - Parameters:
-        - client: A Client instance.
+        - client: A BaseClient instance.
      */
-    public override init(client: Optional<Client> = nil) {
+    public override init(client: Optional<BaseClient> = nil) {
         super.init(client: client)
     }
-    
+
     /**
      Send the request for a response.
 
@@ -112,13 +127,10 @@ public class CategoryListLoadQueryRequest : ListQueryRequest {
         - callback: The callback function with signature (CategoryListLoadQueryResponse?, Error?).
      - Note: Overrides
      */
-     public override func send(client: Optional<Client> = nil, callback: @escaping (CategoryListLoadQueryResponse?, Error?) -> ()) throws {
-        if client != nil {
-            client!.send(self) { request, response, error in
-                callback(response as? CategoryListLoadQueryResponse, error)
-            }
-        } else if self.client != nil {
-            self.client!.send(self) { request, response, error in
+
+     public override func send(client: Optional<BaseClient> = nil, callback: @escaping (CategoryListLoadQueryResponse?, Error?) -> ()) throws {
+        if let client = client ?? self.client {
+            client.send(self) { request, response, error in
                 callback(response as? CategoryListLoadQueryResponse, error)
             }
         } else {
@@ -130,16 +142,18 @@ public class CategoryListLoadQueryRequest : ListQueryRequest {
      Create a response object by decoding the response data.
 
      - Parameters:
+        - httpResponse: The underlying HTTP response object
         - data: The response data to decode.
      - Throws: Error when unable to decode the response data.
      - Note: Overrides
      */
-    public override func createResponse(data : Data) throws -> CategoryListLoadQueryResponse {
+    public override func createResponse(httpResponse: URLResponse, data : Data) throws -> CategoryListLoadQueryResponse {
         let decoder = JSONDecoder()
-        
-        decoder.userInfo[Response.decoderRequestUserInfoKey]      = self
-        decoder.userInfo[Response.decoderResponseDataUserInfoKey] = data
-        
+
+        decoder.userInfo[Response.decoderRequestUserInfoKey]            = self
+        decoder.userInfo[Response.decoderHttpResponseDataUserInfoKey]   = httpResponse
+        decoder.userInfo[Response.decoderResponseDataUserInfoKey]       = data
+
         return try decoder.decode(CategoryListLoadQueryResponse.self, from: data)
     }
 

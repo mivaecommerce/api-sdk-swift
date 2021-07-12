@@ -3,8 +3,6 @@
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
- *
- * $Id$
  */
 
 import Foundation
@@ -14,27 +12,22 @@ public class PaymentMethod : Model {
 
     /// Model field module_id.
     var moduleId : Int
-
     /// Model field module_api.
     var moduleApi : Decimal
-
     /// Model field method_code.
     var methodCode : String
-
     /// Model field method_name.
     var methodName : String
-
     /// Model field mivapay.
     var mivapay : Bool
-
     /// Model field paymentcard
-    var paymentCard : Optional<CustomerPaymentCard>
+    var paymentCard : Optional<CustomerPaymentCard> = nil
 
     /// Model field orderpaymentcard
-    var orderPaymentCard : Optional<OrderPaymentCard>
+    var orderPaymentCard : Optional<OrderPaymentCard> = nil
 
     /// Model field paymentcardtype
-    var paymentCardType : Optional<PaymentCardType>
+    var paymentCardType : Optional<PaymentCardType> = nil
 
     /**
      CodingKeys used to map the model when encoding and decoding.
@@ -113,73 +106,74 @@ public class PaymentMethod : Model {
 
         try super.encode(to: encoder)
     }
-    
+
     /**
      Getter for module_id.
-     
+
      - Returns:  Int
+
      */
     public func getModuleId() -> Int {
         return self.moduleId
     }
-    
+
     /**
      Getter for module_api.
-     
-     - Returns:  Decimal
-     */
+
+     - Returns:  Decimal     */
     public func getModuleApi() -> Decimal {
         return self.moduleApi
     }
-    
+
     /**
      Getter for method_code.
 
      - Returns:  String
+
      */
     public func getMethodCode() -> String {
         return self.methodCode
     }
-    
+
     /**
      Getter for method_name.
 
      - Returns:  String
+
      */
     public func getMethodName() -> String {
         return self.methodName
     }
-    
+
     /**
      Getter for mivapay.
-     
-     - Returns:  Bool
-     */
+
+     - Returns:  Bool     */
     public func getMivapay() -> Bool {
         return self.mivapay
     }
-    
+
     /**
      Getter for paymentcard.
-     
+
      - Returns:  Optional<CustomerPaymentCard>
      */
     public func getPaymentCard() -> Optional<CustomerPaymentCard> {
         return self.paymentCard
     }
-    
+
     /**
      Getter for orderpaymentcard.
-     
+
      - Returns:  Optional<OrderPaymentCard>
      */
     public func getOrderPaymentCard() -> Optional<OrderPaymentCard> {
         return self.orderPaymentCard
     }
-    
+
     /**
      Getter for paymentcardtype.
-     
+
      - Returns:  Optional<PaymentCardType>
      */
     public func getPaymentCardType() -> Optional<PaymentCardType> {

@@ -3,8 +3,6 @@
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
- *
- * $Id$
  */
 
 import Foundation
@@ -14,10 +12,8 @@ public class PrintQueue : Model {
 
     /// Model field id.
     var id : Int
-
     /// Model field descrip.
     var description : String
-
     /**
      CodingKeys used to map the model when encoding and decoding.
 
@@ -71,20 +67,22 @@ public class PrintQueue : Model {
 
         try super.encode(to: encoder)
     }
-    
+
     /**
      Getter for id.
-     
+
      - Returns:  Int
+
      */
     public func getId() -> Int {
         return self.id
     }
-    
+
     /**
      Getter for descrip.
 
      - Returns:  String
+
      */
     public func getDescription() -> String {
         return self.description

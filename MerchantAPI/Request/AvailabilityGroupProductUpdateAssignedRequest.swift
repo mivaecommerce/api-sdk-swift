@@ -3,11 +3,12 @@
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
- *
- * $Id$
  */
 
 import Foundation
+#if os(Linux)
+import FoundationNetworking
+#endif
 
 /**
  Handles API Request AvailabilityGroupProduct_Update_Assigned.
@@ -16,7 +17,7 @@ import Foundation
  */
 public class AvailabilityGroupProductUpdateAssignedRequest : Request {
     /**
-     The API function name. 
+     The API function name.
 
      - Note: Overrides
      - Returns: String
@@ -26,7 +27,7 @@ public class AvailabilityGroupProductUpdateAssignedRequest : Request {
     }
 
     /**
-     The request scope. 
+     The request scope.
 
      - Note: Overrides
      - Returns: RequestScope
@@ -34,34 +35,34 @@ public class AvailabilityGroupProductUpdateAssignedRequest : Request {
     override var scope : RequestScope {
         return RequestScope.Store;
     }
-    
+
     /// Request field AvailabilityGroup_ID.
-    var availabilityGroupId : Optional<Int>
+    var availabilityGroupId : Optional<Int> = nil
 
     /// Request field Edit_AvailabilityGroup.
-    var editAvailabilityGroup : Optional<String>
+    var editAvailabilityGroup : Optional<String> = nil
 
     /// Request field AvailabilityGroup_Name.
-    var availabilityGroupName : Optional<String>
+    var availabilityGroupName : Optional<String> = nil
 
     /// Request field Product_ID.
-    var productId : Optional<Int>
+    var productId : Optional<Int> = nil
 
     /// Request field Product_Code.
-    var productCode : Optional<String>
+    var productCode : Optional<String> = nil
 
     /// Request field Product_SKU.
-    var productSku : Optional<String>
+    var productSku : Optional<String> = nil
 
     /// Request field Edit_Product.
-    var editProduct : Optional<String>
+    var editProduct : Optional<String> = nil
 
     /// Request field Assigned.
-    var assigned : Optional<Bool>
-    
+    var assigned : Optional<Bool> = nil
+
     /**
      CodingKeys used to map the request when encoding.
-     
+
      - SeeAlso: Encodable
      */
     private enum CodingKeys: String, CodingKey {
@@ -75,15 +76,15 @@ public class AvailabilityGroupProductUpdateAssignedRequest : Request {
         case editProduct = "Edit_Product"
         case assigned = "Assigned"
     }
-    
+
     /**
      Request constructor.
 
      - Parameters:
-        - client: A Client instance.
+        - client: A BaseClient instance.
         - availabilityGroup: An optional AvailabilityGroup instance.
      */
-    public init(client: Optional<Client> = nil, availabilityGroup: Optional<AvailabilityGroup> = nil) {
+    public init(client: Optional<BaseClient> = nil, availabilityGroup: Optional<AvailabilityGroup> = nil) {
         super.init(client: client)
         if let availabilityGroup = availabilityGroup {
             if availabilityGroup.id > 0 {
@@ -93,7 +94,7 @@ public class AvailabilityGroupProductUpdateAssignedRequest : Request {
             }
         }
     }
-    
+
     /**
      Implementation of Encodable.
 
@@ -127,7 +128,7 @@ public class AvailabilityGroupProductUpdateAssignedRequest : Request {
 
         try super.encode(to : encoder)
     }
-    
+
     /**
      Send the request for a response.
 
@@ -135,13 +136,10 @@ public class AvailabilityGroupProductUpdateAssignedRequest : Request {
         - callback: The callback function with signature (AvailabilityGroupProductUpdateAssignedResponse?, Error?).
      - Note: Overrides
      */
-     public override func send(client: Optional<Client> = nil, callback: @escaping (AvailabilityGroupProductUpdateAssignedResponse?, Error?) -> ()) throws {
-        if client != nil {
-            client!.send(self) { request, response, error in
-                callback(response as? AvailabilityGroupProductUpdateAssignedResponse, error)
-            }
-        } else if self.client != nil {
-            self.client!.send(self) { request, response, error in
+
+     public override func send(client: Optional<BaseClient> = nil, callback: @escaping (AvailabilityGroupProductUpdateAssignedResponse?, Error?) -> ()) throws {
+        if let client = client ?? self.client {
+            client.send(self) { request, response, error in
                 callback(response as? AvailabilityGroupProductUpdateAssignedResponse, error)
             }
         } else {
@@ -153,16 +151,18 @@ public class AvailabilityGroupProductUpdateAssignedRequest : Request {
      Create a response object by decoding the response data.
 
      - Parameters:
+        - httpResponse: The underlying HTTP response object
         - data: The response data to decode.
      - Throws: Error when unable to decode the response data.
      - Note: Overrides
      */
-    public override func createResponse(data : Data) throws -> AvailabilityGroupProductUpdateAssignedResponse {
+    public override func createResponse(httpResponse: URLResponse, data : Data) throws -> AvailabilityGroupProductUpdateAssignedResponse {
         let decoder = JSONDecoder()
-        
-        decoder.userInfo[Response.decoderRequestUserInfoKey]      = self
-        decoder.userInfo[Response.decoderResponseDataUserInfoKey] = data
-        
+
+        decoder.userInfo[Response.decoderRequestUserInfoKey]            = self
+        decoder.userInfo[Response.decoderHttpResponseDataUserInfoKey]   = httpResponse
+        decoder.userInfo[Response.decoderResponseDataUserInfoKey]       = data
+
         return try decoder.decode(AvailabilityGroupProductUpdateAssignedResponse.self, from: data)
     }
 
@@ -175,82 +175,82 @@ public class AvailabilityGroupProductUpdateAssignedRequest : Request {
     override public func getResponseType() -> Response.Type {
         return AvailabilityGroupProductUpdateAssignedResponse.self
     }
-    
+
     /**
      Getter for AvailabilityGroup_ID.
-     
-     - Returns:  Optional<Int> 
+
+     - Returns:  Optional<Int>
      */
     public func getAvailabilityGroupId() -> Optional<Int> {
         return self.availabilityGroupId
     }
-    
+
     /**
      Getter for Edit_AvailabilityGroup.
 
-     - Returns:  Optional<String> 
+     - Returns:  Optional<String>
      */
     public func getEditAvailabilityGroup() -> Optional<String> {
         return self.editAvailabilityGroup
     }
-    
+
     /**
      Getter for AvailabilityGroup_Name.
 
-     - Returns:  Optional<String> 
+     - Returns:  Optional<String>
      */
     public func getAvailabilityGroupName() -> Optional<String> {
         return self.availabilityGroupName
     }
-    
+
     /**
      Getter for Product_ID.
-     
-     - Returns:  Optional<Int> 
+
+     - Returns:  Optional<Int>
      */
     public func getProductId() -> Optional<Int> {
         return self.productId
     }
-    
+
     /**
      Getter for Product_Code.
 
-     - Returns:  Optional<String> 
+     - Returns:  Optional<String>
      */
     public func getProductCode() -> Optional<String> {
         return self.productCode
     }
-    
+
     /**
      Getter for Product_SKU.
 
-     - Returns:  Optional<String> 
+     - Returns:  Optional<String>
      */
     public func getProductSku() -> Optional<String> {
         return self.productSku
     }
-    
+
     /**
      Getter for Edit_Product.
 
-     - Returns:  Optional<String> 
+     - Returns:  Optional<String>
      */
     public func getEditProduct() -> Optional<String> {
         return self.editProduct
     }
-    
+
     /**
      Getter for Assigned.
-     
-     - Returns:  Optional<Bool> 
+
+     - Returns:  Optional<Bool>
      */
     public func getAssigned() -> Optional<Bool> {
         return self.assigned
     }
-    
+
     /**
      Setter for AvailabilityGroup_ID.
-     
+
      - Parameters:
         - value: Optional<Int>
      - Returns:  Self
@@ -260,7 +260,7 @@ public class AvailabilityGroupProductUpdateAssignedRequest : Request {
         self.availabilityGroupId = value
         return self
     }
-    
+
     /**
      Setter for Edit_AvailabilityGroup.
 
@@ -273,7 +273,7 @@ public class AvailabilityGroupProductUpdateAssignedRequest : Request {
         self.editAvailabilityGroup = value
         return self
     }
-    
+
     /**
      Setter for AvailabilityGroup_Name.
 
@@ -286,10 +286,10 @@ public class AvailabilityGroupProductUpdateAssignedRequest : Request {
         self.availabilityGroupName = value
         return self
     }
-    
+
     /**
      Setter for Product_ID.
-     
+
      - Parameters:
         - value: Optional<Int>
      - Returns:  Self
@@ -299,7 +299,7 @@ public class AvailabilityGroupProductUpdateAssignedRequest : Request {
         self.productId = value
         return self
     }
-    
+
     /**
      Setter for Product_Code.
 
@@ -312,7 +312,7 @@ public class AvailabilityGroupProductUpdateAssignedRequest : Request {
         self.productCode = value
         return self
     }
-    
+
     /**
      Setter for Product_SKU.
 
@@ -325,7 +325,7 @@ public class AvailabilityGroupProductUpdateAssignedRequest : Request {
         self.productSku = value
         return self
     }
-    
+
     /**
      Setter for Edit_Product.
 
@@ -338,10 +338,10 @@ public class AvailabilityGroupProductUpdateAssignedRequest : Request {
         self.editProduct = value
         return self
     }
-    
+
     /**
      Setter for Assigned.
-     
+
      - Parameters:
         - value: Optional<Bool>
      - Returns:  Self

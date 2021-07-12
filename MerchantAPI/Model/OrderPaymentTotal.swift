@@ -3,8 +3,6 @@
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
- *
- * $Id$
  */
 
 import Foundation
@@ -14,31 +12,22 @@ public class OrderPaymentTotal : Model {
 
     /// Model field order_id.
     var orderId : Int
-
     /// Model field total_auth.
     var totalAuthorized : Decimal
-
     /// Model field formatted_total_auth.
     var formattedTotalAuthorized : String
-
     /// Model field total_capt.
     var totalCaptured : Decimal
-
     /// Model field formatted_total_capt.
     var formattedTotalCaptured : String
-
     /// Model field total_rfnd.
     var totalRefunded : Decimal
-
     /// Model field formatted_total_rfnd.
     var formattedTotalRefunded : String
-
     /// Model field net_capt.
     var netCaptured : Decimal
-
     /// Model field formatted_net_capt.
     var formattedNetCaptured : String
-
     /**
      CodingKeys used to map the model when encoding and decoding.
 
@@ -120,83 +109,84 @@ public class OrderPaymentTotal : Model {
 
         try super.encode(to: encoder)
     }
-    
+
     /**
      Getter for order_id.
-     
+
      - Returns:  Int
+
      */
     public func getOrderId() -> Int {
         return self.orderId
     }
-    
+
     /**
      Getter for total_auth.
-     
-     - Returns:  Decimal
-     */
+
+     - Returns:  Decimal     */
     public func getTotalAuthorized() -> Decimal {
         return self.totalAuthorized
     }
-    
+
     /**
      Getter for formatted_total_auth.
 
      - Returns:  String
+
      */
     public func getFormattedTotalAuthorized() -> String {
         return self.formattedTotalAuthorized
     }
-    
+
     /**
      Getter for total_capt.
-     
-     - Returns:  Decimal
-     */
+
+     - Returns:  Decimal     */
     public func getTotalCaptured() -> Decimal {
         return self.totalCaptured
     }
-    
+
     /**
      Getter for formatted_total_capt.
 
      - Returns:  String
+
      */
     public func getFormattedTotalCaptured() -> String {
         return self.formattedTotalCaptured
     }
-    
+
     /**
      Getter for total_rfnd.
-     
-     - Returns:  Decimal
-     */
+
+     - Returns:  Decimal     */
     public func getTotalRefunded() -> Decimal {
         return self.totalRefunded
     }
-    
+
     /**
      Getter for formatted_total_rfnd.
 
      - Returns:  String
+
      */
     public func getFormattedTotalRefunded() -> String {
         return self.formattedTotalRefunded
     }
-    
+
     /**
      Getter for net_capt.
-     
-     - Returns:  Decimal
-     */
+
+     - Returns:  Decimal     */
     public func getNetCaptured() -> Decimal {
         return self.netCaptured
     }
-    
+
     /**
      Getter for formatted_net_capt.
 
      - Returns:  String
+
      */
     public func getFormattedNetCaptured() -> String {
         return self.formattedNetCaptured

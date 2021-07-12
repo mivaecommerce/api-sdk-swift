@@ -3,22 +3,23 @@
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
- *
- * $Id$
  */
 
 import Foundation
+#if os(Linux)
+import FoundationNetworking
+#endif
 
 /**
  API Response for OrderPayment_Refund.
- 
+
  - SeeAlso: https://docs.miva.com/json-api/functions/orderpayment_refund
  */
 public class OrderPaymentRefundResponse : Response {
 
     /// The response model
-    public var orderPaymentTotal : Optional<OrderPaymentTotal>
-    
+    public var orderPaymentTotal : Optional<OrderPaymentTotal> = nil
+
     /**
      Getter for orderPaymentTotal.
 
@@ -27,16 +28,16 @@ public class OrderPaymentRefundResponse : Response {
     public func getOrderPaymentTotal() -> Optional<OrderPaymentTotal> {
         return self.orderPaymentTotal
     }
-    
+
     /**
      CodingKeys used to map the model when decoding.
-     
+
      - SeeAlso: Decodable
      */
     private enum CodingKeys: String, CodingKey {
         case orderPaymentTotal = "data"
     }
-    
+
     /**
      Construct an instance from a decoder instance.
 

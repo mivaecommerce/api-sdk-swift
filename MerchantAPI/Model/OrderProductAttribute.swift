@@ -3,8 +3,6 @@
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
- *
- * $Id$
  */
 
 import Foundation
@@ -13,14 +11,11 @@ import Foundation
 public class OrderProductAttribute : Model {
 
     /// Model field code.
-    var code : String
-
+    var code : Optional<String>
     /// Model field template_code.
-    var templateCode : String
-
+    var templateCode : Optional<String>
     /// Model field value.
-    var value : String
-
+    var value : Optional<String>
     /**
      CodingKeys used to map the model when encoding and decoding.
 
@@ -36,9 +31,9 @@ public class OrderProductAttribute : Model {
      OrderProductAttribute Constructor.
      */
     public override init() {
-        self.code = ""
-        self.templateCode = ""
-        self.value = ""
+        self.code = nil
+        self.templateCode = nil
+        self.value = nil
 
         super.init()
     }
@@ -54,9 +49,9 @@ public class OrderProductAttribute : Model {
     public required init(from decoder: Decoder) throws {
         let container  = try decoder.container(keyedBy: CodingKeys.self)
 
-        self.code = try container.decodeIfPresent(String.self, forKey: .code) ?? ""
-        self.templateCode = try container.decodeIfPresent(String.self, forKey: .templateCode) ?? ""
-        self.value = try container.decodeIfPresent(String.self, forKey: .value) ?? ""
+        self.code = try container.decodeIfPresent(String.self, forKey: .code) ?? nil
+        self.templateCode = try container.decodeIfPresent(String.self, forKey: .templateCode) ?? nil
+        self.value = try container.decodeIfPresent(String.self, forKey: .value) ?? nil
 
         try super.init(from : decoder)
     }
@@ -78,31 +73,34 @@ public class OrderProductAttribute : Model {
 
         try super.encode(to: encoder)
     }
-    
+
     /**
      Getter for code.
 
-     - Returns:  String
+     - Returns:  Optional<String>
+
      */
-    public func getCode() -> String {
+    public func getCode() -> Optional<String> {
         return self.code
     }
-    
+
     /**
      Getter for template_code.
 
-     - Returns:  String
+     - Returns:  Optional<String>
+
      */
-    public func getTemplateCode() -> String {
+    public func getTemplateCode() -> Optional<String> {
         return self.templateCode
     }
-    
+
     /**
      Getter for value.
 
-     - Returns:  String
+     - Returns:  Optional<String>
+
      */
-    public func getValue() -> String {
+    public func getValue() -> Optional<String> {
         return self.value
     }
 

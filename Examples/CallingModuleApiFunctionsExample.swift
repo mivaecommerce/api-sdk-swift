@@ -3,8 +3,6 @@
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
- *
- * $Id: CallingModuleApiFunctionsExample.swift 73830 2019-03-05 23:40:40Z gidriss $
  */
 
 import MerchantAPI
@@ -47,9 +45,14 @@ try request.send() { response, error in
         /// Handle Error
         return
     }
-    
+
     if (!response.isSuccess()) {
         print(String(format: "Error: %@: %@", response.getErrorCode(), response.getErrorMessage()))
+
+        // accessing the data from the module response can be done by iterating through a VariableValue instance
+        if let moduleResponseData = response.getData() {
+            // iterate over the value
+        }
     } else {
         print("Success");
     }

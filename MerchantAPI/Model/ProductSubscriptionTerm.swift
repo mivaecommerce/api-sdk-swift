@@ -3,8 +3,6 @@
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
- *
- * $Id$
  */
 
 import Foundation
@@ -29,31 +27,22 @@ public class ProductSubscriptionTerm : Model {
 
     /// Model field id.
     var id : Int
-
     /// Model field product_id.
     var productId : Int
-
     /// Model field frequency.
     var frequency : String
-
     /// Model field term.
     var term : Int
-
     /// Model field descrip.
     var description : String
-
     /// Model field n.
     var n : Int
-
     /// Model field fixed_dow.
     var fixedDayOfWeek : Int
-
     /// Model field fixed_dom.
     var fixedDayOfMonth : Int
-
     /// Model field sub_count.
     var subscriptionCount : Int
-
     /**
      CodingKeys used to map the model when encoding and decoding.
 
@@ -135,83 +124,92 @@ public class ProductSubscriptionTerm : Model {
 
         try super.encode(to: encoder)
     }
-    
+
     /**
      Getter for id.
-     
+
      - Returns:  Int
+
      */
     public func getId() -> Int {
         return self.id
     }
-    
+
     /**
      Getter for product_id.
-     
+
      - Returns:  Int
+
      */
     public func getProductId() -> Int {
         return self.productId
     }
-    
+
     /**
      Getter for frequency.
 
      - Returns:  String
+
      */
     public func getFrequency() -> String {
         return self.frequency
     }
-    
+
     /**
      Getter for term.
-     
+
      - Returns:  Int
+
      */
     public func getTerm() -> Int {
         return self.term
     }
-    
+
     /**
      Getter for descrip.
 
      - Returns:  String
+
      */
     public func getDescription() -> String {
         return self.description
     }
-    
+
     /**
      Getter for n.
-     
+
      - Returns:  Int
+
      */
     public func getN() -> Int {
         return self.n
     }
-    
+
     /**
      Getter for fixed_dow.
-     
+
      - Returns:  Int
+
      */
     public func getFixedDayOfWeek() -> Int {
         return self.fixedDayOfWeek
     }
-    
+
     /**
      Getter for fixed_dom.
-     
+
      - Returns:  Int
+
      */
     public func getFixedDayOfMonth() -> Int {
         return self.fixedDayOfMonth
     }
-    
+
     /**
      Getter for sub_count.
-     
+
      - Returns:  Int
+
      */
     public func getSubscriptionCount() -> Int {
         return self.subscriptionCount

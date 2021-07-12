@@ -3,11 +3,12 @@
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
- *
- * $Id$
  */
 
 import Foundation
+#if os(Linux)
+import FoundationNetworking
+#endif
 
 /**
  Handles API Request AvailabilityGroupBusinessAccount_Update_Assigned.
@@ -16,7 +17,7 @@ import Foundation
  */
 public class AvailabilityGroupBusinessAccountUpdateAssignedRequest : Request {
     /**
-     The API function name. 
+     The API function name.
 
      - Note: Overrides
      - Returns: String
@@ -26,7 +27,7 @@ public class AvailabilityGroupBusinessAccountUpdateAssignedRequest : Request {
     }
 
     /**
-     The request scope. 
+     The request scope.
 
      - Note: Overrides
      - Returns: RequestScope
@@ -34,28 +35,28 @@ public class AvailabilityGroupBusinessAccountUpdateAssignedRequest : Request {
     override var scope : RequestScope {
         return RequestScope.Store;
     }
-    
+
     /// Request field AvailabilityGroup_ID.
-    var availabilityGroupId : Optional<Int>
+    var availabilityGroupId : Optional<Int> = nil
 
     /// Request field Edit_AvailabilityGroup.
-    var editAvailabilityGroup : Optional<String>
+    var editAvailabilityGroup : Optional<String> = nil
 
     /// Request field AvailabilityGroup_Name.
-    var availabilityGroupName : Optional<String>
+    var availabilityGroupName : Optional<String> = nil
 
     /// Request field BusinessAccount_ID.
-    var businessAccountId : Optional<Int>
+    var businessAccountId : Optional<Int> = nil
 
     /// Request field BusinessAccount_Title.
-    var businessAccountTitle : Optional<String>
+    var businessAccountTitle : Optional<String> = nil
 
     /// Request field Assigned.
-    var assigned : Optional<Bool>
-    
+    var assigned : Optional<Bool> = nil
+
     /**
      CodingKeys used to map the request when encoding.
-     
+
      - SeeAlso: Encodable
      */
     private enum CodingKeys: String, CodingKey {
@@ -67,15 +68,15 @@ public class AvailabilityGroupBusinessAccountUpdateAssignedRequest : Request {
         case businessAccountTitle = "BusinessAccount_Title"
         case assigned = "Assigned"
     }
-    
+
     /**
      Request constructor.
 
      - Parameters:
-        - client: A Client instance.
+        - client: A BaseClient instance.
         - availabilityGroup: An optional AvailabilityGroup instance.
      */
-    public init(client: Optional<Client> = nil, availabilityGroup: Optional<AvailabilityGroup> = nil) {
+    public init(client: Optional<BaseClient> = nil, availabilityGroup: Optional<AvailabilityGroup> = nil) {
         super.init(client: client)
         if let availabilityGroup = availabilityGroup {
             if availabilityGroup.id > 0 {
@@ -85,7 +86,7 @@ public class AvailabilityGroupBusinessAccountUpdateAssignedRequest : Request {
             }
         }
     }
-    
+
     /**
      Implementation of Encodable.
 
@@ -115,7 +116,7 @@ public class AvailabilityGroupBusinessAccountUpdateAssignedRequest : Request {
 
         try super.encode(to : encoder)
     }
-    
+
     /**
      Send the request for a response.
 
@@ -123,13 +124,10 @@ public class AvailabilityGroupBusinessAccountUpdateAssignedRequest : Request {
         - callback: The callback function with signature (AvailabilityGroupBusinessAccountUpdateAssignedResponse?, Error?).
      - Note: Overrides
      */
-     public override func send(client: Optional<Client> = nil, callback: @escaping (AvailabilityGroupBusinessAccountUpdateAssignedResponse?, Error?) -> ()) throws {
-        if client != nil {
-            client!.send(self) { request, response, error in
-                callback(response as? AvailabilityGroupBusinessAccountUpdateAssignedResponse, error)
-            }
-        } else if self.client != nil {
-            self.client!.send(self) { request, response, error in
+
+     public override func send(client: Optional<BaseClient> = nil, callback: @escaping (AvailabilityGroupBusinessAccountUpdateAssignedResponse?, Error?) -> ()) throws {
+        if let client = client ?? self.client {
+            client.send(self) { request, response, error in
                 callback(response as? AvailabilityGroupBusinessAccountUpdateAssignedResponse, error)
             }
         } else {
@@ -141,16 +139,18 @@ public class AvailabilityGroupBusinessAccountUpdateAssignedRequest : Request {
      Create a response object by decoding the response data.
 
      - Parameters:
+        - httpResponse: The underlying HTTP response object
         - data: The response data to decode.
      - Throws: Error when unable to decode the response data.
      - Note: Overrides
      */
-    public override func createResponse(data : Data) throws -> AvailabilityGroupBusinessAccountUpdateAssignedResponse {
+    public override func createResponse(httpResponse: URLResponse, data : Data) throws -> AvailabilityGroupBusinessAccountUpdateAssignedResponse {
         let decoder = JSONDecoder()
-        
-        decoder.userInfo[Response.decoderRequestUserInfoKey]      = self
-        decoder.userInfo[Response.decoderResponseDataUserInfoKey] = data
-        
+
+        decoder.userInfo[Response.decoderRequestUserInfoKey]            = self
+        decoder.userInfo[Response.decoderHttpResponseDataUserInfoKey]   = httpResponse
+        decoder.userInfo[Response.decoderResponseDataUserInfoKey]       = data
+
         return try decoder.decode(AvailabilityGroupBusinessAccountUpdateAssignedResponse.self, from: data)
     }
 
@@ -163,64 +163,64 @@ public class AvailabilityGroupBusinessAccountUpdateAssignedRequest : Request {
     override public func getResponseType() -> Response.Type {
         return AvailabilityGroupBusinessAccountUpdateAssignedResponse.self
     }
-    
+
     /**
      Getter for AvailabilityGroup_ID.
-     
-     - Returns:  Optional<Int> 
+
+     - Returns:  Optional<Int>
      */
     public func getAvailabilityGroupId() -> Optional<Int> {
         return self.availabilityGroupId
     }
-    
+
     /**
      Getter for Edit_AvailabilityGroup.
 
-     - Returns:  Optional<String> 
+     - Returns:  Optional<String>
      */
     public func getEditAvailabilityGroup() -> Optional<String> {
         return self.editAvailabilityGroup
     }
-    
+
     /**
      Getter for AvailabilityGroup_Name.
 
-     - Returns:  Optional<String> 
+     - Returns:  Optional<String>
      */
     public func getAvailabilityGroupName() -> Optional<String> {
         return self.availabilityGroupName
     }
-    
+
     /**
      Getter for BusinessAccount_ID.
-     
-     - Returns:  Optional<Int> 
+
+     - Returns:  Optional<Int>
      */
     public func getBusinessAccountId() -> Optional<Int> {
         return self.businessAccountId
     }
-    
+
     /**
      Getter for BusinessAccount_Title.
 
-     - Returns:  Optional<String> 
+     - Returns:  Optional<String>
      */
     public func getBusinessAccountTitle() -> Optional<String> {
         return self.businessAccountTitle
     }
-    
+
     /**
      Getter for Assigned.
-     
-     - Returns:  Optional<Bool> 
+
+     - Returns:  Optional<Bool>
      */
     public func getAssigned() -> Optional<Bool> {
         return self.assigned
     }
-    
+
     /**
      Setter for AvailabilityGroup_ID.
-     
+
      - Parameters:
         - value: Optional<Int>
      - Returns:  Self
@@ -230,7 +230,7 @@ public class AvailabilityGroupBusinessAccountUpdateAssignedRequest : Request {
         self.availabilityGroupId = value
         return self
     }
-    
+
     /**
      Setter for Edit_AvailabilityGroup.
 
@@ -243,7 +243,7 @@ public class AvailabilityGroupBusinessAccountUpdateAssignedRequest : Request {
         self.editAvailabilityGroup = value
         return self
     }
-    
+
     /**
      Setter for AvailabilityGroup_Name.
 
@@ -256,10 +256,10 @@ public class AvailabilityGroupBusinessAccountUpdateAssignedRequest : Request {
         self.availabilityGroupName = value
         return self
     }
-    
+
     /**
      Setter for BusinessAccount_ID.
-     
+
      - Parameters:
         - value: Optional<Int>
      - Returns:  Self
@@ -269,7 +269,7 @@ public class AvailabilityGroupBusinessAccountUpdateAssignedRequest : Request {
         self.businessAccountId = value
         return self
     }
-    
+
     /**
      Setter for BusinessAccount_Title.
 
@@ -282,10 +282,10 @@ public class AvailabilityGroupBusinessAccountUpdateAssignedRequest : Request {
         self.businessAccountTitle = value
         return self
     }
-    
+
     /**
      Setter for Assigned.
-     
+
      - Parameters:
         - value: Optional<Bool>
      - Returns:  Self

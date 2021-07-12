@@ -3,11 +3,12 @@
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
- *
- * $Id$
  */
 
 import Foundation
+#if os(Linux)
+import FoundationNetworking
+#endif
 
 /**
  Handles API Request Note_Delete.
@@ -16,7 +17,7 @@ import Foundation
  */
 public class NoteDeleteRequest : Request {
     /**
-     The API function name. 
+     The API function name.
 
      - Note: Overrides
      - Returns: String
@@ -26,7 +27,7 @@ public class NoteDeleteRequest : Request {
     }
 
     /**
-     The request scope. 
+     The request scope.
 
      - Note: Overrides
      - Returns: RequestScope
@@ -34,34 +35,34 @@ public class NoteDeleteRequest : Request {
     override var scope : RequestScope {
         return RequestScope.Store;
     }
-    
+
     /// Request field Note_ID.
-    var noteId : Optional<Int>
-    
+    var noteId : Optional<Int> = nil
+
     /**
      CodingKeys used to map the request when encoding.
-     
+
      - SeeAlso: Encodable
      */
     private enum CodingKeys: String, CodingKey {
         case function = "Function"
         case noteId = "Note_ID"
     }
-    
+
     /**
      Request constructor.
 
      - Parameters:
-        - client: A Client instance.
+        - client: A BaseClient instance.
         - note: An optional Note instance.
      */
-    public init(client: Optional<Client> = nil, note: Optional<Note> = nil) {
+    public init(client: Optional<BaseClient> = nil, note: Optional<Note> = nil) {
         super.init(client: client)
         if let note = note {
             self.noteId = note.id
         }
     }
-    
+
     /**
      Implementation of Encodable.
 
@@ -77,7 +78,7 @@ public class NoteDeleteRequest : Request {
 
         try super.encode(to : encoder)
     }
-    
+
     /**
      Send the request for a response.
 
@@ -85,13 +86,10 @@ public class NoteDeleteRequest : Request {
         - callback: The callback function with signature (NoteDeleteResponse?, Error?).
      - Note: Overrides
      */
-     public override func send(client: Optional<Client> = nil, callback: @escaping (NoteDeleteResponse?, Error?) -> ()) throws {
-        if client != nil {
-            client!.send(self) { request, response, error in
-                callback(response as? NoteDeleteResponse, error)
-            }
-        } else if self.client != nil {
-            self.client!.send(self) { request, response, error in
+
+     public override func send(client: Optional<BaseClient> = nil, callback: @escaping (NoteDeleteResponse?, Error?) -> ()) throws {
+        if let client = client ?? self.client {
+            client.send(self) { request, response, error in
                 callback(response as? NoteDeleteResponse, error)
             }
         } else {
@@ -103,16 +101,18 @@ public class NoteDeleteRequest : Request {
      Create a response object by decoding the response data.
 
      - Parameters:
+        - httpResponse: The underlying HTTP response object
         - data: The response data to decode.
      - Throws: Error when unable to decode the response data.
      - Note: Overrides
      */
-    public override func createResponse(data : Data) throws -> NoteDeleteResponse {
+    public override func createResponse(httpResponse: URLResponse, data : Data) throws -> NoteDeleteResponse {
         let decoder = JSONDecoder()
-        
-        decoder.userInfo[Response.decoderRequestUserInfoKey]      = self
-        decoder.userInfo[Response.decoderResponseDataUserInfoKey] = data
-        
+
+        decoder.userInfo[Response.decoderRequestUserInfoKey]            = self
+        decoder.userInfo[Response.decoderHttpResponseDataUserInfoKey]   = httpResponse
+        decoder.userInfo[Response.decoderResponseDataUserInfoKey]       = data
+
         return try decoder.decode(NoteDeleteResponse.self, from: data)
     }
 
@@ -125,19 +125,19 @@ public class NoteDeleteRequest : Request {
     override public func getResponseType() -> Response.Type {
         return NoteDeleteResponse.self
     }
-    
+
     /**
      Getter for Note_ID.
-     
-     - Returns:  Optional<Int> 
+
+     - Returns:  Optional<Int>
      */
     public func getNoteId() -> Optional<Int> {
         return self.noteId
     }
-    
+
     /**
      Setter for Note_ID.
-     
+
      - Parameters:
         - value: Optional<Int>
      - Returns:  Self

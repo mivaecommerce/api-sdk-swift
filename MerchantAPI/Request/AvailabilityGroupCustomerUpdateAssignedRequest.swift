@@ -3,11 +3,12 @@
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
- *
- * $Id$
  */
 
 import Foundation
+#if os(Linux)
+import FoundationNetworking
+#endif
 
 /**
  Handles API Request AvailabilityGroupCustomer_Update_Assigned.
@@ -16,7 +17,7 @@ import Foundation
  */
 public class AvailabilityGroupCustomerUpdateAssignedRequest : Request {
     /**
-     The API function name. 
+     The API function name.
 
      - Note: Overrides
      - Returns: String
@@ -26,7 +27,7 @@ public class AvailabilityGroupCustomerUpdateAssignedRequest : Request {
     }
 
     /**
-     The request scope. 
+     The request scope.
 
      - Note: Overrides
      - Returns: RequestScope
@@ -34,31 +35,31 @@ public class AvailabilityGroupCustomerUpdateAssignedRequest : Request {
     override var scope : RequestScope {
         return RequestScope.Store;
     }
-    
+
     /// Request field AvailabilityGroup_ID.
-    var availabilityGroupId : Optional<Int>
+    var availabilityGroupId : Optional<Int> = nil
 
     /// Request field Edit_AvailabilityGroup.
-    var editAvailabilityGroup : Optional<String>
+    var editAvailabilityGroup : Optional<String> = nil
 
     /// Request field AvailabilityGroup_Name.
-    var availabilityGroupName : Optional<String>
+    var availabilityGroupName : Optional<String> = nil
 
     /// Request field Customer_ID.
-    var customerId : Optional<Int>
+    var customerId : Optional<Int> = nil
 
     /// Request field Edit_Customer.
-    var editCustomer : Optional<String>
+    var editCustomer : Optional<String> = nil
 
     /// Request field Customer_Login.
-    var customerLogin : Optional<String>
+    var customerLogin : Optional<String> = nil
 
     /// Request field Assigned.
-    var assigned : Optional<Bool>
-    
+    var assigned : Optional<Bool> = nil
+
     /**
      CodingKeys used to map the request when encoding.
-     
+
      - SeeAlso: Encodable
      */
     private enum CodingKeys: String, CodingKey {
@@ -71,15 +72,15 @@ public class AvailabilityGroupCustomerUpdateAssignedRequest : Request {
         case customerLogin = "Customer_Login"
         case assigned = "Assigned"
     }
-    
+
     /**
      Request constructor.
 
      - Parameters:
-        - client: A Client instance.
+        - client: A BaseClient instance.
         - availabilityGroup: An optional AvailabilityGroup instance.
      */
-    public init(client: Optional<Client> = nil, availabilityGroup: Optional<AvailabilityGroup> = nil) {
+    public init(client: Optional<BaseClient> = nil, availabilityGroup: Optional<AvailabilityGroup> = nil) {
         super.init(client: client)
         if let availabilityGroup = availabilityGroup {
             if availabilityGroup.id > 0 {
@@ -89,7 +90,7 @@ public class AvailabilityGroupCustomerUpdateAssignedRequest : Request {
             }
         }
     }
-    
+
     /**
      Implementation of Encodable.
 
@@ -121,7 +122,7 @@ public class AvailabilityGroupCustomerUpdateAssignedRequest : Request {
 
         try super.encode(to : encoder)
     }
-    
+
     /**
      Send the request for a response.
 
@@ -129,13 +130,10 @@ public class AvailabilityGroupCustomerUpdateAssignedRequest : Request {
         - callback: The callback function with signature (AvailabilityGroupCustomerUpdateAssignedResponse?, Error?).
      - Note: Overrides
      */
-     public override func send(client: Optional<Client> = nil, callback: @escaping (AvailabilityGroupCustomerUpdateAssignedResponse?, Error?) -> ()) throws {
-        if client != nil {
-            client!.send(self) { request, response, error in
-                callback(response as? AvailabilityGroupCustomerUpdateAssignedResponse, error)
-            }
-        } else if self.client != nil {
-            self.client!.send(self) { request, response, error in
+
+     public override func send(client: Optional<BaseClient> = nil, callback: @escaping (AvailabilityGroupCustomerUpdateAssignedResponse?, Error?) -> ()) throws {
+        if let client = client ?? self.client {
+            client.send(self) { request, response, error in
                 callback(response as? AvailabilityGroupCustomerUpdateAssignedResponse, error)
             }
         } else {
@@ -147,16 +145,18 @@ public class AvailabilityGroupCustomerUpdateAssignedRequest : Request {
      Create a response object by decoding the response data.
 
      - Parameters:
+        - httpResponse: The underlying HTTP response object
         - data: The response data to decode.
      - Throws: Error when unable to decode the response data.
      - Note: Overrides
      */
-    public override func createResponse(data : Data) throws -> AvailabilityGroupCustomerUpdateAssignedResponse {
+    public override func createResponse(httpResponse: URLResponse, data : Data) throws -> AvailabilityGroupCustomerUpdateAssignedResponse {
         let decoder = JSONDecoder()
-        
-        decoder.userInfo[Response.decoderRequestUserInfoKey]      = self
-        decoder.userInfo[Response.decoderResponseDataUserInfoKey] = data
-        
+
+        decoder.userInfo[Response.decoderRequestUserInfoKey]            = self
+        decoder.userInfo[Response.decoderHttpResponseDataUserInfoKey]   = httpResponse
+        decoder.userInfo[Response.decoderResponseDataUserInfoKey]       = data
+
         return try decoder.decode(AvailabilityGroupCustomerUpdateAssignedResponse.self, from: data)
     }
 
@@ -169,73 +169,73 @@ public class AvailabilityGroupCustomerUpdateAssignedRequest : Request {
     override public func getResponseType() -> Response.Type {
         return AvailabilityGroupCustomerUpdateAssignedResponse.self
     }
-    
+
     /**
      Getter for AvailabilityGroup_ID.
-     
-     - Returns:  Optional<Int> 
+
+     - Returns:  Optional<Int>
      */
     public func getAvailabilityGroupId() -> Optional<Int> {
         return self.availabilityGroupId
     }
-    
+
     /**
      Getter for Edit_AvailabilityGroup.
 
-     - Returns:  Optional<String> 
+     - Returns:  Optional<String>
      */
     public func getEditAvailabilityGroup() -> Optional<String> {
         return self.editAvailabilityGroup
     }
-    
+
     /**
      Getter for AvailabilityGroup_Name.
 
-     - Returns:  Optional<String> 
+     - Returns:  Optional<String>
      */
     public func getAvailabilityGroupName() -> Optional<String> {
         return self.availabilityGroupName
     }
-    
+
     /**
      Getter for Customer_ID.
-     
-     - Returns:  Optional<Int> 
+
+     - Returns:  Optional<Int>
      */
     public func getCustomerId() -> Optional<Int> {
         return self.customerId
     }
-    
+
     /**
      Getter for Edit_Customer.
 
-     - Returns:  Optional<String> 
+     - Returns:  Optional<String>
      */
     public func getEditCustomer() -> Optional<String> {
         return self.editCustomer
     }
-    
+
     /**
      Getter for Customer_Login.
 
-     - Returns:  Optional<String> 
+     - Returns:  Optional<String>
      */
     public func getCustomerLogin() -> Optional<String> {
         return self.customerLogin
     }
-    
+
     /**
      Getter for Assigned.
-     
-     - Returns:  Optional<Bool> 
+
+     - Returns:  Optional<Bool>
      */
     public func getAssigned() -> Optional<Bool> {
         return self.assigned
     }
-    
+
     /**
      Setter for AvailabilityGroup_ID.
-     
+
      - Parameters:
         - value: Optional<Int>
      - Returns:  Self
@@ -245,7 +245,7 @@ public class AvailabilityGroupCustomerUpdateAssignedRequest : Request {
         self.availabilityGroupId = value
         return self
     }
-    
+
     /**
      Setter for Edit_AvailabilityGroup.
 
@@ -258,7 +258,7 @@ public class AvailabilityGroupCustomerUpdateAssignedRequest : Request {
         self.editAvailabilityGroup = value
         return self
     }
-    
+
     /**
      Setter for AvailabilityGroup_Name.
 
@@ -271,10 +271,10 @@ public class AvailabilityGroupCustomerUpdateAssignedRequest : Request {
         self.availabilityGroupName = value
         return self
     }
-    
+
     /**
      Setter for Customer_ID.
-     
+
      - Parameters:
         - value: Optional<Int>
      - Returns:  Self
@@ -284,7 +284,7 @@ public class AvailabilityGroupCustomerUpdateAssignedRequest : Request {
         self.customerId = value
         return self
     }
-    
+
     /**
      Setter for Edit_Customer.
 
@@ -297,7 +297,7 @@ public class AvailabilityGroupCustomerUpdateAssignedRequest : Request {
         self.editCustomer = value
         return self
     }
-    
+
     /**
      Setter for Customer_Login.
 
@@ -310,10 +310,10 @@ public class AvailabilityGroupCustomerUpdateAssignedRequest : Request {
         self.customerLogin = value
         return self
     }
-    
+
     /**
      Setter for Assigned.
-     
+
      - Parameters:
         - value: Optional<Bool>
      - Returns:  Self

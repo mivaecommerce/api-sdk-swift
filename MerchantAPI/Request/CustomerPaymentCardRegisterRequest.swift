@@ -3,11 +3,12 @@
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
- *
- * $Id$
  */
 
 import Foundation
+#if os(Linux)
+import FoundationNetworking
+#endif
 
 /**
  Handles API Request CustomerPaymentCard_Register.
@@ -16,7 +17,7 @@ import Foundation
  */
 public class CustomerPaymentCardRegisterRequest : Request {
     /**
-     The API function name. 
+     The API function name.
 
      - Note: Overrides
      - Returns: String
@@ -26,7 +27,7 @@ public class CustomerPaymentCardRegisterRequest : Request {
     }
 
     /**
-     The request scope. 
+     The request scope.
 
      - Note: Overrides
      - Returns: RequestScope
@@ -34,55 +35,55 @@ public class CustomerPaymentCardRegisterRequest : Request {
     override var scope : RequestScope {
         return RequestScope.Store;
     }
-    
+
     /// Request field Customer_ID.
-    var customerId : Optional<Int>
+    var customerId : Optional<Int> = nil
 
     /// Request field Edit_Customer.
-    var editCustomer : Optional<String>
+    var editCustomer : Optional<String> = nil
 
     /// Request field Customer_Login.
-    var customerLogin : Optional<String>
+    var customerLogin : Optional<String> = nil
 
     /// Request field FirstName.
-    var firstName : Optional<String>
+    var firstName : Optional<String> = nil
 
     /// Request field LastName.
-    var lastName : Optional<String>
+    var lastName : Optional<String> = nil
 
     /// Request field CardType.
-    var cardType : Optional<String>
+    var cardType : Optional<String> = nil
 
     /// Request field CardNumber.
-    var cardNumber : Optional<String>
+    var cardNumber : Optional<String> = nil
 
     /// Request field ExpirationMonth.
-    var expirationMonth : Optional<Int>
+    var expirationMonth : Optional<Int> = nil
 
     /// Request field ExpirationYear.
-    var expirationYear : Optional<Int>
+    var expirationYear : Optional<Int> = nil
 
     /// Request field Address1.
-    var address1 : Optional<String>
+    var address1 : Optional<String> = nil
 
     /// Request field Address2.
-    var address2 : Optional<String>
+    var address2 : Optional<String> = nil
 
     /// Request field City.
-    var city : Optional<String>
+    var city : Optional<String> = nil
 
     /// Request field State.
-    var state : Optional<String>
+    var state : Optional<String> = nil
 
     /// Request field Zip.
-    var zip : Optional<String>
+    var zip : Optional<String> = nil
 
     /// Request field Country.
-    var country : Optional<String>
-    
+    var country : Optional<String> = nil
+
     /**
      CodingKeys used to map the request when encoding.
-     
+
      - SeeAlso: Encodable
      */
     private enum CodingKeys: String, CodingKey {
@@ -103,15 +104,15 @@ public class CustomerPaymentCardRegisterRequest : Request {
         case zip = "Zip"
         case country = "Country"
     }
-    
+
     /**
      Request constructor.
 
      - Parameters:
-        - client: A Client instance.
+        - client: A BaseClient instance.
         - customer: An optional Customer instance.
      */
-    public init(client: Optional<Client> = nil, customer: Optional<Customer> = nil) {
+    public init(client: Optional<BaseClient> = nil, customer: Optional<Customer> = nil) {
         super.init(client: client)
         if let customer = customer {
             if customer.id > 0 {
@@ -121,7 +122,7 @@ public class CustomerPaymentCardRegisterRequest : Request {
             }
         }
     }
-    
+
     /**
      Implementation of Encodable.
 
@@ -156,7 +157,7 @@ public class CustomerPaymentCardRegisterRequest : Request {
 
         try super.encode(to : encoder)
     }
-    
+
     /**
      Send the request for a response.
 
@@ -164,13 +165,10 @@ public class CustomerPaymentCardRegisterRequest : Request {
         - callback: The callback function with signature (CustomerPaymentCardRegisterResponse?, Error?).
      - Note: Overrides
      */
-     public override func send(client: Optional<Client> = nil, callback: @escaping (CustomerPaymentCardRegisterResponse?, Error?) -> ()) throws {
-        if client != nil {
-            client!.send(self) { request, response, error in
-                callback(response as? CustomerPaymentCardRegisterResponse, error)
-            }
-        } else if self.client != nil {
-            self.client!.send(self) { request, response, error in
+
+     public override func send(client: Optional<BaseClient> = nil, callback: @escaping (CustomerPaymentCardRegisterResponse?, Error?) -> ()) throws {
+        if let client = client ?? self.client {
+            client.send(self) { request, response, error in
                 callback(response as? CustomerPaymentCardRegisterResponse, error)
             }
         } else {
@@ -182,16 +180,18 @@ public class CustomerPaymentCardRegisterRequest : Request {
      Create a response object by decoding the response data.
 
      - Parameters:
+        - httpResponse: The underlying HTTP response object
         - data: The response data to decode.
      - Throws: Error when unable to decode the response data.
      - Note: Overrides
      */
-    public override func createResponse(data : Data) throws -> CustomerPaymentCardRegisterResponse {
+    public override func createResponse(httpResponse: URLResponse, data : Data) throws -> CustomerPaymentCardRegisterResponse {
         let decoder = JSONDecoder()
-        
-        decoder.userInfo[Response.decoderRequestUserInfoKey]      = self
-        decoder.userInfo[Response.decoderResponseDataUserInfoKey] = data
-        
+
+        decoder.userInfo[Response.decoderRequestUserInfoKey]            = self
+        decoder.userInfo[Response.decoderHttpResponseDataUserInfoKey]   = httpResponse
+        decoder.userInfo[Response.decoderResponseDataUserInfoKey]       = data
+
         return try decoder.decode(CustomerPaymentCardRegisterResponse.self, from: data)
     }
 
@@ -204,145 +204,145 @@ public class CustomerPaymentCardRegisterRequest : Request {
     override public func getResponseType() -> Response.Type {
         return CustomerPaymentCardRegisterResponse.self
     }
-    
+
     /**
      Getter for Customer_ID.
-     
-     - Returns:  Optional<Int> 
+
+     - Returns:  Optional<Int>
      */
     public func getCustomerId() -> Optional<Int> {
         return self.customerId
     }
-    
+
     /**
      Getter for Edit_Customer.
 
-     - Returns:  Optional<String> 
+     - Returns:  Optional<String>
      */
     public func getEditCustomer() -> Optional<String> {
         return self.editCustomer
     }
-    
+
     /**
      Getter for Customer_Login.
 
-     - Returns:  Optional<String> 
+     - Returns:  Optional<String>
      */
     public func getCustomerLogin() -> Optional<String> {
         return self.customerLogin
     }
-    
+
     /**
      Getter for FirstName.
 
-     - Returns:  Optional<String> 
+     - Returns:  Optional<String>
      */
     public func getFirstName() -> Optional<String> {
         return self.firstName
     }
-    
+
     /**
      Getter for LastName.
 
-     - Returns:  Optional<String> 
+     - Returns:  Optional<String>
      */
     public func getLastName() -> Optional<String> {
         return self.lastName
     }
-    
+
     /**
      Getter for CardType.
 
-     - Returns:  Optional<String> 
+     - Returns:  Optional<String>
      */
     public func getCardType() -> Optional<String> {
         return self.cardType
     }
-    
+
     /**
      Getter for CardNumber.
 
-     - Returns:  Optional<String> 
+     - Returns:  Optional<String>
      */
     public func getCardNumber() -> Optional<String> {
         return self.cardNumber
     }
-    
+
     /**
      Getter for ExpirationMonth.
-     
-     - Returns:  Optional<Int> 
+
+     - Returns:  Optional<Int>
      */
     public func getExpirationMonth() -> Optional<Int> {
         return self.expirationMonth
     }
-    
+
     /**
      Getter for ExpirationYear.
-     
-     - Returns:  Optional<Int> 
+
+     - Returns:  Optional<Int>
      */
     public func getExpirationYear() -> Optional<Int> {
         return self.expirationYear
     }
-    
+
     /**
      Getter for Address1.
 
-     - Returns:  Optional<String> 
+     - Returns:  Optional<String>
      */
     public func getAddress1() -> Optional<String> {
         return self.address1
     }
-    
+
     /**
      Getter for Address2.
 
-     - Returns:  Optional<String> 
+     - Returns:  Optional<String>
      */
     public func getAddress2() -> Optional<String> {
         return self.address2
     }
-    
+
     /**
      Getter for City.
 
-     - Returns:  Optional<String> 
+     - Returns:  Optional<String>
      */
     public func getCity() -> Optional<String> {
         return self.city
     }
-    
+
     /**
      Getter for State.
 
-     - Returns:  Optional<String> 
+     - Returns:  Optional<String>
      */
     public func getState() -> Optional<String> {
         return self.state
     }
-    
+
     /**
      Getter for Zip.
 
-     - Returns:  Optional<String> 
+     - Returns:  Optional<String>
      */
     public func getZip() -> Optional<String> {
         return self.zip
     }
-    
+
     /**
      Getter for Country.
 
-     - Returns:  Optional<String> 
+     - Returns:  Optional<String>
      */
     public func getCountry() -> Optional<String> {
         return self.country
     }
-    
+
     /**
      Setter for Customer_ID.
-     
+
      - Parameters:
         - value: Optional<Int>
      - Returns:  Self
@@ -352,7 +352,7 @@ public class CustomerPaymentCardRegisterRequest : Request {
         self.customerId = value
         return self
     }
-    
+
     /**
      Setter for Edit_Customer.
 
@@ -365,7 +365,7 @@ public class CustomerPaymentCardRegisterRequest : Request {
         self.editCustomer = value
         return self
     }
-    
+
     /**
      Setter for Customer_Login.
 
@@ -378,7 +378,7 @@ public class CustomerPaymentCardRegisterRequest : Request {
         self.customerLogin = value
         return self
     }
-    
+
     /**
      Setter for FirstName.
 
@@ -391,7 +391,7 @@ public class CustomerPaymentCardRegisterRequest : Request {
         self.firstName = value
         return self
     }
-    
+
     /**
      Setter for LastName.
 
@@ -404,7 +404,7 @@ public class CustomerPaymentCardRegisterRequest : Request {
         self.lastName = value
         return self
     }
-    
+
     /**
      Setter for CardType.
 
@@ -417,7 +417,7 @@ public class CustomerPaymentCardRegisterRequest : Request {
         self.cardType = value
         return self
     }
-    
+
     /**
      Setter for CardNumber.
 
@@ -430,10 +430,10 @@ public class CustomerPaymentCardRegisterRequest : Request {
         self.cardNumber = value
         return self
     }
-    
+
     /**
      Setter for ExpirationMonth.
-     
+
      - Parameters:
         - value: Optional<Int>
      - Returns:  Self
@@ -443,10 +443,10 @@ public class CustomerPaymentCardRegisterRequest : Request {
         self.expirationMonth = value
         return self
     }
-    
+
     /**
      Setter for ExpirationYear.
-     
+
      - Parameters:
         - value: Optional<Int>
      - Returns:  Self
@@ -456,7 +456,7 @@ public class CustomerPaymentCardRegisterRequest : Request {
         self.expirationYear = value
         return self
     }
-    
+
     /**
      Setter for Address1.
 
@@ -469,7 +469,7 @@ public class CustomerPaymentCardRegisterRequest : Request {
         self.address1 = value
         return self
     }
-    
+
     /**
      Setter for Address2.
 
@@ -482,7 +482,7 @@ public class CustomerPaymentCardRegisterRequest : Request {
         self.address2 = value
         return self
     }
-    
+
     /**
      Setter for City.
 
@@ -495,7 +495,7 @@ public class CustomerPaymentCardRegisterRequest : Request {
         self.city = value
         return self
     }
-    
+
     /**
      Setter for State.
 
@@ -508,7 +508,7 @@ public class CustomerPaymentCardRegisterRequest : Request {
         self.state = value
         return self
     }
-    
+
     /**
      Setter for Zip.
 
@@ -521,7 +521,7 @@ public class CustomerPaymentCardRegisterRequest : Request {
         self.zip = value
         return self
     }
-    
+
     /**
      Setter for Country.
 

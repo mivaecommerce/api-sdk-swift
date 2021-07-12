@@ -3,11 +3,12 @@
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
- *
- * $Id$
  */
 
 import Foundation
+#if os(Linux)
+import FoundationNetworking
+#endif
 
 /**
  Handles API Request OrderPayment_VOID.
@@ -16,7 +17,7 @@ import Foundation
  */
 public class OrderPaymentVoidRequest : Request {
     /**
-     The API function name. 
+     The API function name.
 
      - Note: Overrides
      - Returns: String
@@ -26,7 +27,7 @@ public class OrderPaymentVoidRequest : Request {
     }
 
     /**
-     The request scope. 
+     The request scope.
 
      - Note: Overrides
      - Returns: RequestScope
@@ -34,16 +35,16 @@ public class OrderPaymentVoidRequest : Request {
     override var scope : RequestScope {
         return RequestScope.Store;
     }
-    
+
     /// Request field OrderPayment_ID.
-    var orderPaymentId : Optional<Int>
+    var orderPaymentId : Optional<Int> = nil
 
     /// Request field Amount.
-    var amount : Optional<Decimal>
-    
+    var amount : Optional<Decimal> = nil
+
     /**
      CodingKeys used to map the request when encoding.
-     
+
      - SeeAlso: Encodable
      */
     private enum CodingKeys: String, CodingKey {
@@ -51,21 +52,21 @@ public class OrderPaymentVoidRequest : Request {
         case orderPaymentId = "OrderPayment_ID"
         case amount = "Amount"
     }
-    
+
     /**
      Request constructor.
 
      - Parameters:
-        - client: A Client instance.
+        - client: A BaseClient instance.
         - orderPayment: An optional OrderPayment instance.
      */
-    public init(client: Optional<Client> = nil, orderPayment: Optional<OrderPayment> = nil) {
+    public init(client: Optional<BaseClient> = nil, orderPayment: Optional<OrderPayment> = nil) {
         super.init(client: client)
         if let orderPayment = orderPayment {
             self.orderPaymentId = orderPayment.id
         }
     }
-    
+
     /**
      Implementation of Encodable.
 
@@ -82,7 +83,7 @@ public class OrderPaymentVoidRequest : Request {
 
         try super.encode(to : encoder)
     }
-    
+
     /**
      Send the request for a response.
 
@@ -90,13 +91,10 @@ public class OrderPaymentVoidRequest : Request {
         - callback: The callback function with signature (OrderPaymentVoidResponse?, Error?).
      - Note: Overrides
      */
-     public override func send(client: Optional<Client> = nil, callback: @escaping (OrderPaymentVoidResponse?, Error?) -> ()) throws {
-        if client != nil {
-            client!.send(self) { request, response, error in
-                callback(response as? OrderPaymentVoidResponse, error)
-            }
-        } else if self.client != nil {
-            self.client!.send(self) { request, response, error in
+
+     public override func send(client: Optional<BaseClient> = nil, callback: @escaping (OrderPaymentVoidResponse?, Error?) -> ()) throws {
+        if let client = client ?? self.client {
+            client.send(self) { request, response, error in
                 callback(response as? OrderPaymentVoidResponse, error)
             }
         } else {
@@ -108,16 +106,18 @@ public class OrderPaymentVoidRequest : Request {
      Create a response object by decoding the response data.
 
      - Parameters:
+        - httpResponse: The underlying HTTP response object
         - data: The response data to decode.
      - Throws: Error when unable to decode the response data.
      - Note: Overrides
      */
-    public override func createResponse(data : Data) throws -> OrderPaymentVoidResponse {
+    public override func createResponse(httpResponse: URLResponse, data : Data) throws -> OrderPaymentVoidResponse {
         let decoder = JSONDecoder()
-        
-        decoder.userInfo[Response.decoderRequestUserInfoKey]      = self
-        decoder.userInfo[Response.decoderResponseDataUserInfoKey] = data
-        
+
+        decoder.userInfo[Response.decoderRequestUserInfoKey]            = self
+        decoder.userInfo[Response.decoderHttpResponseDataUserInfoKey]   = httpResponse
+        decoder.userInfo[Response.decoderResponseDataUserInfoKey]       = data
+
         return try decoder.decode(OrderPaymentVoidResponse.self, from: data)
     }
 
@@ -130,28 +130,28 @@ public class OrderPaymentVoidRequest : Request {
     override public func getResponseType() -> Response.Type {
         return OrderPaymentVoidResponse.self
     }
-    
+
     /**
      Getter for OrderPayment_ID.
-     
-     - Returns:  Optional<Int> 
+
+     - Returns:  Optional<Int>
      */
     public func getOrderPaymentId() -> Optional<Int> {
         return self.orderPaymentId
     }
-    
+
     /**
      Getter for Amount.
-     
-     - Returns:  Optional<Decimal> 
+
+     - Returns:  Optional<Decimal>
      */
     public func getAmount() -> Optional<Decimal> {
         return self.amount
     }
-    
+
     /**
      Setter for OrderPayment_ID.
-     
+
      - Parameters:
         - value: Optional<Int>
      - Returns:  Self
@@ -161,10 +161,10 @@ public class OrderPaymentVoidRequest : Request {
         self.orderPaymentId = value
         return self
     }
-    
+
     /**
      Setter for Amount.
-     
+
      - Parameters:
         - value: Optional<Decimal>
      - Returns:  Self

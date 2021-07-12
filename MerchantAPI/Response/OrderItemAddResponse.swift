@@ -3,22 +3,23 @@
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
- *
- * $Id$
  */
 
 import Foundation
+#if os(Linux)
+import FoundationNetworking
+#endif
 
 /**
  API Response for OrderItem_Add.
- 
+
  - SeeAlso: https://docs.miva.com/json-api/functions/orderitem_add
  */
 public class OrderItemAddResponse : Response {
 
     /// The response model
-    public var orderTotal : Optional<OrderTotal>
-    
+    public var orderTotal : Optional<OrderTotal> = nil
+
     /**
      Getter for orderTotal.
 
@@ -27,16 +28,16 @@ public class OrderItemAddResponse : Response {
     public func getOrderTotal() -> Optional<OrderTotal> {
         return self.orderTotal
     }
-    
+
     /**
      CodingKeys used to map the model when decoding.
-     
+
      - SeeAlso: Decodable
      */
     private enum CodingKeys: String, CodingKey {
         case orderTotal = "data"
     }
-    
+
     /**
      Construct an instance from a decoder instance.
 

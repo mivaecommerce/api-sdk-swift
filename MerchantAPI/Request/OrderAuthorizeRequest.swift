@@ -3,11 +3,12 @@
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
- *
- * $Id$
  */
 
 import Foundation
+#if os(Linux)
+import FoundationNetworking
+#endif
 
 /**
  Handles API Request Order_Authorize.
@@ -16,7 +17,7 @@ import Foundation
  */
 public class OrderAuthorizeRequest : Request {
     /**
-     The API function name. 
+     The API function name.
 
      - Note: Overrides
      - Returns: String
@@ -26,7 +27,7 @@ public class OrderAuthorizeRequest : Request {
     }
 
     /**
-     The request scope. 
+     The request scope.
 
      - Note: Overrides
      - Returns: RequestScope
@@ -34,25 +35,25 @@ public class OrderAuthorizeRequest : Request {
     override var scope : RequestScope {
         return RequestScope.Store;
     }
-    
+
     /// Request field Order_ID.
-    var orderId : Optional<Int>
+    var orderId : Optional<Int> = nil
 
     /// Request field Module_ID.
-    var moduleId : Optional<Int>
+    var moduleId : Optional<Int> = nil
 
     /// Request field Module_Data.
-    var moduleData : Optional<String>
+    var moduleData : Optional<String> = nil
 
     /// Request field Amount.
-    var amount : Optional<Decimal>
+    var amount : Optional<Decimal> = nil
 
     /// User set request fields
     var moduleFields : [String:AnyEncodable] = [:]
-    
+
     /**
      CodingKeys used to map the request when encoding.
-     
+
      - SeeAlso: Encodable
      */
     private enum CodingKeys: String, CodingKey {
@@ -62,15 +63,15 @@ public class OrderAuthorizeRequest : Request {
         case moduleData = "Module_Data"
         case amount = "Amount"
     }
-    
+
     /**
      Request constructor.
 
      - Parameters:
-        - client: A Client instance.
+        - client: A BaseClient instance.
         - order: An optional Order instance.
      */
-    public init(client: Optional<Client> = nil, order: Optional<Order> = nil) {
+    public init(client: Optional<BaseClient> = nil, order: Optional<Order> = nil) {
         super.init(client: client)
         if let order = order {
             if order.id > 0 {
@@ -78,7 +79,7 @@ public class OrderAuthorizeRequest : Request {
             }
         }
     }
-    
+
     /**
      Implementation of Encodable.
 
@@ -97,7 +98,7 @@ public class OrderAuthorizeRequest : Request {
         try container.encodeIfPresent(self.moduleId, forKey: .moduleId)
         try container.encodeIfPresent(self.moduleData, forKey: .moduleData)
         try container.encodeIfPresent(Decimal.roundForEncoding(value: self.amount, precision: MERCHANTAPI_FLOAT_ENCODE_PRECISION), forKey: .amount)
-        
+
         var moduleFieldsContainer = encoder.container(keyedBy: RuntimeCodingKey.self)
 
         for (key,value) in self.moduleFields {
@@ -106,7 +107,7 @@ public class OrderAuthorizeRequest : Request {
 
         try super.encode(to : encoder)
     }
-    
+
     /**
      Send the request for a response.
 
@@ -114,13 +115,10 @@ public class OrderAuthorizeRequest : Request {
         - callback: The callback function with signature (OrderAuthorizeResponse?, Error?).
      - Note: Overrides
      */
-     public override func send(client: Optional<Client> = nil, callback: @escaping (OrderAuthorizeResponse?, Error?) -> ()) throws {
-        if client != nil {
-            client!.send(self) { request, response, error in
-                callback(response as? OrderAuthorizeResponse, error)
-            }
-        } else if self.client != nil {
-            self.client!.send(self) { request, response, error in
+
+     public override func send(client: Optional<BaseClient> = nil, callback: @escaping (OrderAuthorizeResponse?, Error?) -> ()) throws {
+        if let client = client ?? self.client {
+            client.send(self) { request, response, error in
                 callback(response as? OrderAuthorizeResponse, error)
             }
         } else {
@@ -132,16 +130,18 @@ public class OrderAuthorizeRequest : Request {
      Create a response object by decoding the response data.
 
      - Parameters:
+        - httpResponse: The underlying HTTP response object
         - data: The response data to decode.
      - Throws: Error when unable to decode the response data.
      - Note: Overrides
      */
-    public override func createResponse(data : Data) throws -> OrderAuthorizeResponse {
+    public override func createResponse(httpResponse: URLResponse, data : Data) throws -> OrderAuthorizeResponse {
         let decoder = JSONDecoder()
-        
-        decoder.userInfo[Response.decoderRequestUserInfoKey]      = self
-        decoder.userInfo[Response.decoderResponseDataUserInfoKey] = data
-        
+
+        decoder.userInfo[Response.decoderRequestUserInfoKey]            = self
+        decoder.userInfo[Response.decoderHttpResponseDataUserInfoKey]   = httpResponse
+        decoder.userInfo[Response.decoderResponseDataUserInfoKey]       = data
+
         return try decoder.decode(OrderAuthorizeResponse.self, from: data)
     }
 
@@ -154,55 +154,55 @@ public class OrderAuthorizeRequest : Request {
     override public func getResponseType() -> Response.Type {
         return OrderAuthorizeResponse.self
     }
-    
+
     /**
      Getter for Order_ID.
-     
-     - Returns:  Optional<Int> 
+
+     - Returns:  Optional<Int>
      */
     public func getOrderId() -> Optional<Int> {
         return self.orderId
     }
-    
+
     /**
      Getter for Module_ID.
-     
-     - Returns:  Optional<Int> 
+
+     - Returns:  Optional<Int>
      */
     public func getModuleId() -> Optional<Int> {
         return self.moduleId
     }
-    
+
     /**
      Getter for Module_Data.
 
-     - Returns:  Optional<String> 
+     - Returns:  Optional<String>
      */
     public func getModuleData() -> Optional<String> {
         return self.moduleData
     }
-    
+
     /**
      Getter for Amount.
-     
-     - Returns:  Optional<Decimal> 
+
+     - Returns:  Optional<Decimal>
      */
     public func getAmount() -> Optional<Decimal> {
         return self.amount
     }
-    
+
     /**
      Get user set request fields.
-     
+
      - Returns:  [String:AnyEncodable]
      */
     public func getModuleFields() -> [String:AnyEncodable] {
         return self.moduleFields
     }
-    
+
     /**
      Setter for Order_ID.
-     
+
      - Parameters:
         - value: Optional<Int>
      - Returns:  Self
@@ -212,10 +212,10 @@ public class OrderAuthorizeRequest : Request {
         self.orderId = value
         return self
     }
-    
+
     /**
      Setter for Module_ID.
-     
+
      - Parameters:
         - value: Optional<Int>
      - Returns:  Self
@@ -225,7 +225,7 @@ public class OrderAuthorizeRequest : Request {
         self.moduleId = value
         return self
     }
-    
+
     /**
      Setter for Module_Data.
 
@@ -238,10 +238,10 @@ public class OrderAuthorizeRequest : Request {
         self.moduleData = value
         return self
     }
-    
+
     /**
      Setter for Amount.
-     
+
      - Parameters:
         - value: Optional<Decimal>
      - Returns:  Self
@@ -251,10 +251,10 @@ public class OrderAuthorizeRequest : Request {
         self.amount = value
         return self
     }
-    
+
     /**
      Set user request data.
-     
+
      - Parameters:
         - name: String
         - value: Encodable

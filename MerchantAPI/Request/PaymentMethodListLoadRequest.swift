@@ -3,11 +3,12 @@
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
- *
- * $Id$
  */
 
 import Foundation
+#if os(Linux)
+import FoundationNetworking
+#endif
 
 /**
  Handles API Request PaymentMethodList_Load.
@@ -16,7 +17,7 @@ import Foundation
  */
 public class PaymentMethodListLoadRequest : Request {
     /**
-     The API function name. 
+     The API function name.
 
      - Note: Overrides
      - Returns: String
@@ -26,7 +27,7 @@ public class PaymentMethodListLoadRequest : Request {
     }
 
     /**
-     The request scope. 
+     The request scope.
 
      - Note: Overrides
      - Returns: RequestScope
@@ -34,34 +35,34 @@ public class PaymentMethodListLoadRequest : Request {
     override var scope : RequestScope {
         return RequestScope.Store;
     }
-    
+
     /// Request field Order_ID.
-    var orderId : Optional<Int>
-    
+    var orderId : Optional<Int> = nil
+
     /**
      CodingKeys used to map the request when encoding.
-     
+
      - SeeAlso: Encodable
      */
     private enum CodingKeys: String, CodingKey {
         case function = "Function"
         case orderId = "Order_ID"
     }
-    
+
     /**
      Request constructor.
 
      - Parameters:
-        - client: A Client instance.
+        - client: A BaseClient instance.
         - order: An optional Order instance.
      */
-    public init(client: Optional<Client> = nil, order: Optional<Order> = nil) {
+    public init(client: Optional<BaseClient> = nil, order: Optional<Order> = nil) {
         super.init(client: client)
         if let order = order {
             self.orderId = order.id
         }
     }
-    
+
     /**
      Implementation of Encodable.
 
@@ -77,7 +78,7 @@ public class PaymentMethodListLoadRequest : Request {
 
         try super.encode(to : encoder)
     }
-    
+
     /**
      Send the request for a response.
 
@@ -85,13 +86,10 @@ public class PaymentMethodListLoadRequest : Request {
         - callback: The callback function with signature (PaymentMethodListLoadResponse?, Error?).
      - Note: Overrides
      */
-     public override func send(client: Optional<Client> = nil, callback: @escaping (PaymentMethodListLoadResponse?, Error?) -> ()) throws {
-        if client != nil {
-            client!.send(self) { request, response, error in
-                callback(response as? PaymentMethodListLoadResponse, error)
-            }
-        } else if self.client != nil {
-            self.client!.send(self) { request, response, error in
+
+     public override func send(client: Optional<BaseClient> = nil, callback: @escaping (PaymentMethodListLoadResponse?, Error?) -> ()) throws {
+        if let client = client ?? self.client {
+            client.send(self) { request, response, error in
                 callback(response as? PaymentMethodListLoadResponse, error)
             }
         } else {
@@ -103,16 +101,18 @@ public class PaymentMethodListLoadRequest : Request {
      Create a response object by decoding the response data.
 
      - Parameters:
+        - httpResponse: The underlying HTTP response object
         - data: The response data to decode.
      - Throws: Error when unable to decode the response data.
      - Note: Overrides
      */
-    public override func createResponse(data : Data) throws -> PaymentMethodListLoadResponse {
+    public override func createResponse(httpResponse: URLResponse, data : Data) throws -> PaymentMethodListLoadResponse {
         let decoder = JSONDecoder()
-        
-        decoder.userInfo[Response.decoderRequestUserInfoKey]      = self
-        decoder.userInfo[Response.decoderResponseDataUserInfoKey] = data
-        
+
+        decoder.userInfo[Response.decoderRequestUserInfoKey]            = self
+        decoder.userInfo[Response.decoderHttpResponseDataUserInfoKey]   = httpResponse
+        decoder.userInfo[Response.decoderResponseDataUserInfoKey]       = data
+
         return try decoder.decode(PaymentMethodListLoadResponse.self, from: data)
     }
 
@@ -125,19 +125,19 @@ public class PaymentMethodListLoadRequest : Request {
     override public func getResponseType() -> Response.Type {
         return PaymentMethodListLoadResponse.self
     }
-    
+
     /**
      Getter for Order_ID.
-     
-     - Returns:  Optional<Int> 
+
+     - Returns:  Optional<Int>
      */
     public func getOrderId() -> Optional<Int> {
         return self.orderId
     }
-    
+
     /**
      Setter for Order_ID.
-     
+
      - Parameters:
         - value: Optional<Int>
      - Returns:  Self

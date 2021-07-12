@@ -3,8 +3,6 @@
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
- *
- * $Id$
  */
 
 import Foundation
@@ -14,22 +12,16 @@ public class DiscountModuleCapabilities : Model {
 
     /// Model field preitems.
     var preitems : Bool
-
     /// Model field items.
     var items : Bool
-
     /// Model field eligibility.
     var eligibility : String
-
     /// Model field basket.
     var basket : Bool
-
     /// Model field shipping.
     var shipping : Bool
-
     /// Model field qualifying.
     var qualifying : Bool
-
     /**
      CodingKeys used to map the model when encoding and decoding.
 
@@ -99,57 +91,53 @@ public class DiscountModuleCapabilities : Model {
 
         try super.encode(to: encoder)
     }
-    
+
     /**
      Getter for preitems.
-     
-     - Returns:  Bool
-     */
+
+     - Returns:  Bool     */
     public func getPreitems() -> Bool {
         return self.preitems
     }
-    
+
     /**
      Getter for items.
-     
-     - Returns:  Bool
-     */
+
+     - Returns:  Bool     */
     public func getItems() -> Bool {
         return self.items
     }
-    
+
     /**
      Getter for eligibility.
 
      - Returns:  String
+
      */
     public func getEligibility() -> String {
         return self.eligibility
     }
-    
+
     /**
      Getter for basket.
-     
-     - Returns:  Bool
-     */
+
+     - Returns:  Bool     */
     public func getBasket() -> Bool {
         return self.basket
     }
-    
+
     /**
      Getter for shipping.
-     
-     - Returns:  Bool
-     */
+
+     - Returns:  Bool     */
     public func getShipping() -> Bool {
         return self.shipping
     }
-    
+
     /**
      Getter for qualifying.
-     
-     - Returns:  Bool
-     */
+
+     - Returns:  Bool     */
     public func getQualifying() -> Bool {
         return self.qualifying
     }

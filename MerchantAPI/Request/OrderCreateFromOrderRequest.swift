@@ -3,11 +3,12 @@
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
- *
- * $Id$
  */
 
 import Foundation
+#if os(Linux)
+import FoundationNetworking
+#endif
 
 /**
  Handles API Request Order_Create_FromOrder.
@@ -16,7 +17,7 @@ import Foundation
  */
 public class OrderCreateFromOrderRequest : Request {
     /**
-     The API function name. 
+     The API function name.
 
      - Note: Overrides
      - Returns: String
@@ -26,7 +27,7 @@ public class OrderCreateFromOrderRequest : Request {
     }
 
     /**
-     The request scope. 
+     The request scope.
 
      - Note: Overrides
      - Returns: RequestScope
@@ -34,28 +35,28 @@ public class OrderCreateFromOrderRequest : Request {
     override var scope : RequestScope {
         return RequestScope.Store;
     }
-    
+
     /// Request field Order_ID.
-    var orderId : Optional<Int>
-    
+    var orderId : Optional<Int> = nil
+
     /**
      CodingKeys used to map the request when encoding.
-     
+
      - SeeAlso: Encodable
      */
     private enum CodingKeys: String, CodingKey {
         case function = "Function"
         case orderId = "Order_ID"
     }
-    
+
     /**
      Request constructor.
 
      - Parameters:
-        - client: A Client instance.
+        - client: A BaseClient instance.
         - order: An optional Order instance.
      */
-    public init(client: Optional<Client> = nil, order: Optional<Order> = nil) {
+    public init(client: Optional<BaseClient> = nil, order: Optional<Order> = nil) {
         super.init(client: client)
         if let order = order {
             if order.id > 0 {
@@ -63,7 +64,7 @@ public class OrderCreateFromOrderRequest : Request {
             }
         }
     }
-    
+
     /**
      Implementation of Encodable.
 
@@ -81,7 +82,7 @@ public class OrderCreateFromOrderRequest : Request {
 
         try super.encode(to : encoder)
     }
-    
+
     /**
      Send the request for a response.
 
@@ -89,13 +90,10 @@ public class OrderCreateFromOrderRequest : Request {
         - callback: The callback function with signature (OrderCreateFromOrderResponse?, Error?).
      - Note: Overrides
      */
-     public override func send(client: Optional<Client> = nil, callback: @escaping (OrderCreateFromOrderResponse?, Error?) -> ()) throws {
-        if client != nil {
-            client!.send(self) { request, response, error in
-                callback(response as? OrderCreateFromOrderResponse, error)
-            }
-        } else if self.client != nil {
-            self.client!.send(self) { request, response, error in
+
+     public override func send(client: Optional<BaseClient> = nil, callback: @escaping (OrderCreateFromOrderResponse?, Error?) -> ()) throws {
+        if let client = client ?? self.client {
+            client.send(self) { request, response, error in
                 callback(response as? OrderCreateFromOrderResponse, error)
             }
         } else {
@@ -107,16 +105,18 @@ public class OrderCreateFromOrderRequest : Request {
      Create a response object by decoding the response data.
 
      - Parameters:
+        - httpResponse: The underlying HTTP response object
         - data: The response data to decode.
      - Throws: Error when unable to decode the response data.
      - Note: Overrides
      */
-    public override func createResponse(data : Data) throws -> OrderCreateFromOrderResponse {
+    public override func createResponse(httpResponse: URLResponse, data : Data) throws -> OrderCreateFromOrderResponse {
         let decoder = JSONDecoder()
-        
-        decoder.userInfo[Response.decoderRequestUserInfoKey]      = self
-        decoder.userInfo[Response.decoderResponseDataUserInfoKey] = data
-        
+
+        decoder.userInfo[Response.decoderRequestUserInfoKey]            = self
+        decoder.userInfo[Response.decoderHttpResponseDataUserInfoKey]   = httpResponse
+        decoder.userInfo[Response.decoderResponseDataUserInfoKey]       = data
+
         return try decoder.decode(OrderCreateFromOrderResponse.self, from: data)
     }
 
@@ -129,19 +129,19 @@ public class OrderCreateFromOrderRequest : Request {
     override public func getResponseType() -> Response.Type {
         return OrderCreateFromOrderResponse.self
     }
-    
+
     /**
      Getter for Order_ID.
-     
-     - Returns:  Optional<Int> 
+
+     - Returns:  Optional<Int>
      */
     public func getOrderId() -> Optional<Int> {
         return self.orderId
     }
-    
+
     /**
      Setter for Order_ID.
-     
+
      - Parameters:
         - value: Optional<Int>
      - Returns:  Self

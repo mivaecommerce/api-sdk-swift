@@ -3,8 +3,6 @@
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
- *
- * $Id$
  */
 
 import Foundation
@@ -20,66 +18,56 @@ public class PriceGroup : Model {
         case LoggedIn = "L"
     }
 
+    /// Enumeration DiscountType
+    public enum DiscountType : String {
+        case Retail = "R"
+        case Cost = "C"
+        case DiscountRetail = "D"
+        case MarkupCost = "M"
+    }
+
     /// Model field id.
     var id : Int
-
     /// Model field name.
     var name : String
-
     /// Model field custscope.
     var customerScope : String
-
+    /// Model field rate.
+    var rate : String
     /// Model field discount.
     var discount : Decimal
-
     /// Model field markup.
     var markup : Decimal
-
     /// Model field dt_start.
-    var dateTimeStart : Int
-
+    var dateTimeStart : Date
     /// Model field dt_end.
-    var dateTimeEnd : Int
-
+    var dateTimeEnd : Date
     /// Model field qmn_subtot.
     var minimumSubtotal : Decimal
-
     /// Model field qmx_subtot.
     var maximumSubtotal : Decimal
-
     /// Model field qmn_quan.
     var minimumQuantity : Int
-
     /// Model field qmx_quan.
     var maximumQuantity : Int
-
     /// Model field qmn_weight.
     var minimumWeight : Decimal
-
     /// Model field qmx_weight.
     var maximumWeight : Decimal
-
     /// Model field bmn_subtot.
     var basketMinimumSubtotal : Decimal
-
     /// Model field bmx_subtot.
     var basketMaximumSubtotal : Decimal
-
     /// Model field bmn_quan.
     var basketMinimumQuantity : Int
-
     /// Model field bmx_quan.
     var basketMaximumQuantity : Int
-
     /// Model field bmn_weight.
     var basketMinimumWeight : Decimal
-
     /// Model field bmx_weight.
     var basketMaximumWeight : Decimal
-
     /// Model field priority.
     var priority : Int
-
     /// Model field module
     var module : Module
 
@@ -88,13 +76,10 @@ public class PriceGroup : Model {
 
     /// Model field exclusion.
     var exclusion : Bool
-
     /// Model field descrip.
     var description : String
-
     /// Model field display.
     var display : Bool
-
     /**
      CodingKeys used to map the model when encoding and decoding.
 
@@ -104,6 +89,7 @@ public class PriceGroup : Model {
         case id
         case name
         case customerScope = "custscope"
+        case rate
         case discount
         case markup
         case dateTimeStart = "dt_start"
@@ -135,10 +121,11 @@ public class PriceGroup : Model {
         self.id = 0
         self.name = ""
         self.customerScope = ""
+        self.rate = ""
         self.discount = Decimal(0.00)
         self.markup = Decimal(0.00)
-        self.dateTimeStart = 0
-        self.dateTimeEnd = 0
+        self.dateTimeStart = Date(timeIntervalSince1970: 0)
+        self.dateTimeEnd = Date(timeIntervalSince1970: 0)
         self.minimumSubtotal = Decimal(0.00)
         self.maximumSubtotal = Decimal(0.00)
         self.minimumQuantity = 0
@@ -175,10 +162,11 @@ public class PriceGroup : Model {
         self.id = try container.decodeIfPresent(Int.self, forKey: .id) ?? 0
         self.name = try container.decodeIfPresent(String.self, forKey: .name) ?? ""
         self.customerScope = try container.decodeIfPresent(String.self, forKey: .customerScope) ?? ""
+        self.rate = try container.decodeIfPresent(String.self, forKey: .rate) ?? ""
         self.discount = try container.decodeIfPresent(Decimal.self, forKey: .discount) ?? Decimal(0.00)
         self.markup = try container.decodeIfPresent(Decimal.self, forKey: .markup) ?? Decimal(0.00)
-        self.dateTimeStart = try container.decodeIfPresent(Int.self, forKey: .dateTimeStart) ?? 0
-        self.dateTimeEnd = try container.decodeIfPresent(Int.self, forKey: .dateTimeEnd) ?? 0
+        self.dateTimeStart = Date(timeIntervalSince1970: Double(try container.decodeIfPresent(Int.self, forKey: .dateTimeStart) ?? 0))
+        self.dateTimeEnd = Date(timeIntervalSince1970: Double(try container.decodeIfPresent(Int.self, forKey: .dateTimeEnd) ?? 0))
         self.minimumSubtotal = try container.decodeIfPresent(Decimal.self, forKey: .minimumSubtotal) ?? Decimal(0.00)
         self.maximumSubtotal = try container.decodeIfPresent(Decimal.self, forKey: .maximumSubtotal) ?? Decimal(0.00)
         self.minimumQuantity = try container.decodeIfPresent(Int.self, forKey: .minimumQuantity) ?? 0
@@ -215,10 +203,11 @@ public class PriceGroup : Model {
         try container.encodeIfPresent(self.id, forKey: .id)
         try container.encodeIfPresent(self.name, forKey: .name)
         try container.encodeIfPresent(self.customerScope, forKey: .customerScope)
+        try container.encodeIfPresent(self.rate, forKey: .rate)
         try container.encodeIfPresent(Decimal.roundForEncoding(value: self.discount, precision: MERCHANTAPI_FLOAT_ENCODE_PRECISION), forKey: .discount)
         try container.encodeIfPresent(Decimal.roundForEncoding(value: self.markup, precision: MERCHANTAPI_FLOAT_ENCODE_PRECISION), forKey: .markup)
-        try container.encodeIfPresent(self.dateTimeStart, forKey: .dateTimeStart)
-        try container.encodeIfPresent(self.dateTimeEnd, forKey: .dateTimeEnd)
+        try container.encodeIfPresent(Int(self.dateTimeStart.timeIntervalSince1970), forKey: .dateTimeStart)
+        try container.encodeIfPresent(Int(self.dateTimeEnd.timeIntervalSince1970), forKey: .dateTimeEnd)
         try container.encodeIfPresent(Decimal.roundForEncoding(value: self.minimumSubtotal, precision: MERCHANTAPI_FLOAT_ENCODE_PRECISION), forKey: .minimumSubtotal)
         try container.encodeIfPresent(Decimal.roundForEncoding(value: self.maximumSubtotal, precision: MERCHANTAPI_FLOAT_ENCODE_PRECISION), forKey: .maximumSubtotal)
         try container.encodeIfPresent(self.minimumQuantity, forKey: .minimumQuantity)
@@ -240,182 +229,188 @@ public class PriceGroup : Model {
 
         try super.encode(to: encoder)
     }
-    
+
     /**
      Getter for id.
-     
+
      - Returns:  Int
+
      */
     public func getId() -> Int {
         return self.id
     }
-    
+
     /**
      Getter for name.
 
      - Returns:  String
+
      */
     public func getName() -> String {
         return self.name
     }
-    
+
     /**
      Getter for custscope.
 
      - Returns:  String
+
      */
     public func getCustomerScope() -> String {
         return self.customerScope
     }
-    
+
+    /**
+     Getter for rate.
+
+     - Returns:  String
+
+     */
+    public func getRate() -> String {
+        return self.rate
+    }
+
     /**
      Getter for discount.
-     
-     - Returns:  Decimal
-     */
+
+     - Returns:  Decimal     */
     public func getDiscount() -> Decimal {
         return self.discount
     }
-    
+
     /**
      Getter for markup.
-     
-     - Returns:  Decimal
-     */
+
+     - Returns:  Decimal     */
     public func getMarkup() -> Decimal {
         return self.markup
     }
-    
+
     /**
      Getter for dt_start.
-     
-     - Returns:  Int
-     */
-    public func getDateTimeStart() -> Int {
+
+     - Returns:  Date     */
+    public func getDateTimeStart() -> Date {
         return self.dateTimeStart
     }
-    
+
     /**
      Getter for dt_end.
-     
-     - Returns:  Int
-     */
-    public func getDateTimeEnd() -> Int {
+
+     - Returns:  Date     */
+    public func getDateTimeEnd() -> Date {
         return self.dateTimeEnd
     }
-    
+
     /**
      Getter for qmn_subtot.
-     
-     - Returns:  Decimal
-     */
+
+     - Returns:  Decimal     */
     public func getMinimumSubtotal() -> Decimal {
         return self.minimumSubtotal
     }
-    
+
     /**
      Getter for qmx_subtot.
-     
-     - Returns:  Decimal
-     */
+
+     - Returns:  Decimal     */
     public func getMaximumSubtotal() -> Decimal {
         return self.maximumSubtotal
     }
-    
+
     /**
      Getter for qmn_quan.
-     
+
      - Returns:  Int
+
      */
     public func getMinimumQuantity() -> Int {
         return self.minimumQuantity
     }
-    
+
     /**
      Getter for qmx_quan.
-     
+
      - Returns:  Int
+
      */
     public func getMaximumQuantity() -> Int {
         return self.maximumQuantity
     }
-    
+
     /**
      Getter for qmn_weight.
-     
-     - Returns:  Decimal
-     */
+
+     - Returns:  Decimal     */
     public func getMinimumWeight() -> Decimal {
         return self.minimumWeight
     }
-    
+
     /**
      Getter for qmx_weight.
-     
-     - Returns:  Decimal
-     */
+
+     - Returns:  Decimal     */
     public func getMaximumWeight() -> Decimal {
         return self.maximumWeight
     }
-    
+
     /**
      Getter for bmn_subtot.
-     
-     - Returns:  Decimal
-     */
+
+     - Returns:  Decimal     */
     public func getBasketMinimumSubtotal() -> Decimal {
         return self.basketMinimumSubtotal
     }
-    
+
     /**
      Getter for bmx_subtot.
-     
-     - Returns:  Decimal
-     */
+
+     - Returns:  Decimal     */
     public func getBasketMaximumSubtotal() -> Decimal {
         return self.basketMaximumSubtotal
     }
-    
+
     /**
      Getter for bmn_quan.
-     
+
      - Returns:  Int
+
      */
     public func getBasketMinimumQuantity() -> Int {
         return self.basketMinimumQuantity
     }
-    
+
     /**
      Getter for bmx_quan.
-     
+
      - Returns:  Int
+
      */
     public func getBasketMaximumQuantity() -> Int {
         return self.basketMaximumQuantity
     }
-    
+
     /**
      Getter for bmn_weight.
-     
-     - Returns:  Decimal
-     */
+
+     - Returns:  Decimal     */
     public func getBasketMinimumWeight() -> Decimal {
         return self.basketMinimumWeight
     }
-    
+
     /**
      Getter for bmx_weight.
-     
-     - Returns:  Decimal
-     */
+
+     - Returns:  Decimal     */
     public func getBasketMaximumWeight() -> Decimal {
         return self.basketMaximumWeight
     }
-    
+
     /**
      Getter for priority.
-     
+
      - Returns:  Int
+
      */
     public func getPriority() -> Int {
         return self.priority
@@ -423,7 +418,7 @@ public class PriceGroup : Model {
 
     /**
      Getter for module.
-     
+
      - Returns:  Module
      */
     public func getModule() -> Module {
@@ -432,297 +427,36 @@ public class PriceGroup : Model {
 
     /**
      Getter for capabilities.
-     
+
      - Returns:  DiscountModuleCapabilities
      */
     public func getCapabilities() -> DiscountModuleCapabilities {
         return self.capabilities
     }
-    
+
     /**
      Getter for exclusion.
-     
-     - Returns:  Bool
-     */
+
+     - Returns:  Bool     */
     public func getExclusion() -> Bool {
         return self.exclusion
     }
-    
+
     /**
      Getter for descrip.
 
      - Returns:  String
+
      */
     public func getDescription() -> String {
         return self.description
     }
-    
+
     /**
      Getter for display.
-     
-     - Returns:  Bool
-     */
+
+     - Returns:  Bool     */
     public func getDisplay() -> Bool {
         return self.display
-    }
-
-    /**
-     Setter for custscope.
-
-     - Parameters:
-        - value: String
-     - Returns:  Self
-     */
-    @discardableResult
-    public func setCustomerScope(_ value: String) -> Self {
-        self.customerScope = value
-        return self
-    }
-
-    /**
-     Setter for discount.
-     
-     - Parameters:
-        - value: Decimal
-     - Returns:  Self
-     */
-    @discardableResult
-    public func setDiscount(_ value: Decimal) -> Self {
-        self.discount = value
-        return self
-    }
-    
-    /**
-     Setter for dt_start.
-     
-     - Parameters:
-        - value: Optional<Int>
-     - Returns:  Self
-     */
-    @discardableResult
-    public func setDateTimeStart(_ value: Int) -> Self {
-        self.dateTimeStart = value
-        return self
-    }
-    
-    /**
-     Setter for dt_end.
-     
-     - Parameters:
-        - value: Optional<Int>
-     - Returns:  Self
-     */
-    @discardableResult
-    public func setDateTimeEnd(_ value: Int) -> Self {
-        self.dateTimeEnd = value
-        return self
-    }
-
-    /**
-     Setter for qmn_subtot.
-     
-     - Parameters:
-        - value: Decimal
-     - Returns:  Self
-     */
-    @discardableResult
-    public func setMinimumSubtotal(_ value: Decimal) -> Self {
-        self.minimumSubtotal = value
-        return self
-    }
-
-    /**
-     Setter for qmx_subtot.
-     
-     - Parameters:
-        - value: Decimal
-     - Returns:  Self
-     */
-    @discardableResult
-    public func setMaximumSubtotal(_ value: Decimal) -> Self {
-        self.maximumSubtotal = value
-        return self
-    }
-    
-    /**
-     Setter for qmn_quan.
-     
-     - Parameters:
-        - value: Optional<Int>
-     - Returns:  Self
-     */
-    @discardableResult
-    public func setMinimumQuantity(_ value: Int) -> Self {
-        self.minimumQuantity = value
-        return self
-    }
-    
-    /**
-     Setter for qmx_quan.
-     
-     - Parameters:
-        - value: Optional<Int>
-     - Returns:  Self
-     */
-    @discardableResult
-    public func setMaximumQuantity(_ value: Int) -> Self {
-        self.maximumQuantity = value
-        return self
-    }
-
-    /**
-     Setter for qmn_weight.
-     
-     - Parameters:
-        - value: Decimal
-     - Returns:  Self
-     */
-    @discardableResult
-    public func setMinimumWeight(_ value: Decimal) -> Self {
-        self.minimumWeight = value
-        return self
-    }
-
-    /**
-     Setter for qmx_weight.
-     
-     - Parameters:
-        - value: Decimal
-     - Returns:  Self
-     */
-    @discardableResult
-    public func setMaximumWeight(_ value: Decimal) -> Self {
-        self.maximumWeight = value
-        return self
-    }
-
-    /**
-     Setter for bmn_subtot.
-     
-     - Parameters:
-        - value: Decimal
-     - Returns:  Self
-     */
-    @discardableResult
-    public func setBasketMinimumSubtotal(_ value: Decimal) -> Self {
-        self.basketMinimumSubtotal = value
-        return self
-    }
-
-    /**
-     Setter for bmx_subtot.
-     
-     - Parameters:
-        - value: Decimal
-     - Returns:  Self
-     */
-    @discardableResult
-    public func setBasketMaximumSubtotal(_ value: Decimal) -> Self {
-        self.basketMaximumSubtotal = value
-        return self
-    }
-    
-    /**
-     Setter for bmn_quan.
-     
-     - Parameters:
-        - value: Optional<Int>
-     - Returns:  Self
-     */
-    @discardableResult
-    public func setBasketMinimumQuantity(_ value: Int) -> Self {
-        self.basketMinimumQuantity = value
-        return self
-    }
-    
-    /**
-     Setter for bmx_quan.
-     
-     - Parameters:
-        - value: Optional<Int>
-     - Returns:  Self
-     */
-    @discardableResult
-    public func setBasketMaximumQuantity(_ value: Int) -> Self {
-        self.basketMaximumQuantity = value
-        return self
-    }
-
-    /**
-     Setter for bmn_weight.
-     
-     - Parameters:
-        - value: Decimal
-     - Returns:  Self
-     */
-    @discardableResult
-    public func setBasketMinimumWeight(_ value: Decimal) -> Self {
-        self.basketMinimumWeight = value
-        return self
-    }
-
-    /**
-     Setter for bmx_weight.
-     
-     - Parameters:
-        - value: Decimal
-     - Returns:  Self
-     */
-    @discardableResult
-    public func setBasketMaximumWeight(_ value: Decimal) -> Self {
-        self.basketMaximumWeight = value
-        return self
-    }
-    
-    /**
-     Setter for priority.
-     
-     - Parameters:
-        - value: Optional<Int>
-     - Returns:  Self
-     */
-    @discardableResult
-    public func setPriority(_ value: Int) -> Self {
-        self.priority = value
-        return self
-    }
-
-    /**
-     Setter for exclusion.
-     
-     - Parameters:
-        - value: Bool
-     - Returns:  Self
-     */
-    @discardableResult
-    public func setExclusion(_ value: Bool) -> Self {
-        self.exclusion = value
-        return self
-    }
-
-    /**
-     Setter for descrip.
-
-     - Parameters:
-        - value: String
-     - Returns:  Self
-     */
-    @discardableResult
-    public func setDescription(_ value: String) -> Self {
-        self.description = value
-        return self
-    }
-
-    /**
-     Setter for display.
-     
-     - Parameters:
-        - value: Bool
-     - Returns:  Self
-     */
-    @discardableResult
-    public func setDisplay(_ value: Bool) -> Self {
-        self.display = value
-        return self
     }
 }

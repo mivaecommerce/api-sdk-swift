@@ -3,18 +3,16 @@
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
- *
- * $Id: MultiCallExample.swift 73830 2019-03-05 23:40:40Z gidriss $
  */
 
 /* Initialize a client */
 let client = MerchantAPI.Client(
-  url : "https://www.mystore.com/mm5/json.mvc", 
-  apiToken : "MY_API_TOKEN", 
-  signingKey : "MY_SIGNING_KEY", 
-  signingType : ClientSignType.SHA256, 
-  requireTimestamps: true, 
-  defaultStoreCode : "STORE_CODE" 
+  url : "https://www.mystore.com/mm5/json.mvc",
+  apiToken : "MY_API_TOKEN",
+  signingKey : "MY_SIGNING_KEY",
+  signingType : ClientSignType.SHA256,
+  requireTimestamps: true,
+  defaultStoreCode : "STORE_CODE"
 )
 
 /* Create a ProductInsert request instance, passing client to the constructor */
@@ -33,13 +31,17 @@ try request.send() { response, error in
         /// Handle Error
         return
     }
-    
+
+    if response.isTimeout() {
+        // handle encountered timeout
+    }
+
     if !response.isSuccess() {
         print(String(format: "Error Executing MultiCallRequest %@: %@", response.getErrorCode(), response.getErrorMessage())
     } else {
         for resp in response.getResponses() {
             if resp.isSuccess() {
-                
+
             }
         }
     }
@@ -53,7 +55,7 @@ try request.send() { response, error in
  * @see MultiCallOperation
  */
 
-let request = new MultiCallRequest(client: client);
+let request = MultiCallRequest(client: client);
 
 /* Create a new MultiCallOperation and adds it to the Request. */
 let operation = request.operation();
@@ -108,7 +110,11 @@ try request.send() { response, error in
         /// Handle Error
         return
     }
-    
+
+    if response.isTimeout() {
+        // handle encountered timeout
+    }
+
     for resp in response.getResponses() {
         if resp.isSuccess() {
             print(String(format: "%@ Successful", type(of: resp)))
@@ -117,3 +123,48 @@ try request.send() { response, error in
         }
     }
 });
+
+
+/**
+ * Multi Call Timeout - By default, all multi call operations will timeout after 60 seconds.
+ * You can control the timeout from the client
+ */
+
+ client.operationTimeout = 10 // Set the timeout to 120 seconds
+
+
+/**
+ * Multi Call Timeout Auto Continue - Disabled by defauly but when enabled a MultiCall request
+ * that encounters a timeout will automatically continue until all requests have been completed.
+ */
+
+let autoCompleteExampleRequest = MultiCallRequest(client: client)
+
+autoCompleteExampleRequest.autoTimeoutContinue = true  // Enable the feature
+
+// Set a callback function (if required), fired for reach subsequent response returned
+autoCompleteExampleRequest.setAutoCompleteCallback(callback: { response, error, completed in
+    if cerror != nil {
+        // handle error
+        return
+    }
+
+    if completed == true {
+      // handle completion
+    }
+})
+
+// Queue many requests expecting a timeout
+for i in 0...500 {
+    let req = ProductListLoadQueryRequest(client: client)
+    autoCompleteExampleRequest.addRequest(req)
+}
+
+try? autoCompleteExampleRequest.send() { response, error in
+    if cerror != nil {
+        // handle error
+        return
+    }
+
+    // handle response
+}

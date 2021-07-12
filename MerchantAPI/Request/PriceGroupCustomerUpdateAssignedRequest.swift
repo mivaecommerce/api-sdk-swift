@@ -3,11 +3,12 @@
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
- *
- * $Id$
  */
 
 import Foundation
+#if os(Linux)
+import FoundationNetworking
+#endif
 
 /**
  Handles API Request PriceGroupCustomer_Update_Assigned.
@@ -16,7 +17,7 @@ import Foundation
  */
 public class PriceGroupCustomerUpdateAssignedRequest : Request {
     /**
-     The API function name. 
+     The API function name.
 
      - Note: Overrides
      - Returns: String
@@ -26,7 +27,7 @@ public class PriceGroupCustomerUpdateAssignedRequest : Request {
     }
 
     /**
-     The request scope. 
+     The request scope.
 
      - Note: Overrides
      - Returns: RequestScope
@@ -34,28 +35,28 @@ public class PriceGroupCustomerUpdateAssignedRequest : Request {
     override var scope : RequestScope {
         return RequestScope.Store;
     }
-    
+
     /// Request field PriceGroup_ID.
-    var priceGroupId : Optional<Int>
+    var priceGroupId : Optional<Int> = nil
 
     /// Request field PriceGroup_Name.
-    var priceGroupName : Optional<String>
+    var priceGroupName : Optional<String> = nil
 
     /// Request field Edit_Customer.
-    var editCustomer : Optional<String>
+    var editCustomer : Optional<String> = nil
 
     /// Request field Customer_ID.
-    var customerId : Optional<Int>
+    var customerId : Optional<Int> = nil
 
     /// Request field Customer_Login.
-    var customerLogin : Optional<String>
+    var customerLogin : Optional<String> = nil
 
     /// Request field Assigned.
-    var assigned : Optional<Bool>
-    
+    var assigned : Optional<Bool> = nil
+
     /**
      CodingKeys used to map the request when encoding.
-     
+
      - SeeAlso: Encodable
      */
     private enum CodingKeys: String, CodingKey {
@@ -67,15 +68,15 @@ public class PriceGroupCustomerUpdateAssignedRequest : Request {
         case customerLogin = "Customer_Login"
         case assigned = "Assigned"
     }
-    
+
     /**
      Request constructor.
 
      - Parameters:
-        - client: A Client instance.
+        - client: A BaseClient instance.
         - priceGroup: An optional PriceGroup instance.
      */
-    public init(client: Optional<Client> = nil, priceGroup: Optional<PriceGroup> = nil) {
+    public init(client: Optional<BaseClient> = nil, priceGroup: Optional<PriceGroup> = nil) {
         super.init(client: client)
         if let priceGroup = priceGroup {
             if priceGroup.id > 0 {
@@ -85,7 +86,7 @@ public class PriceGroupCustomerUpdateAssignedRequest : Request {
             }
         }
     }
-    
+
     /**
      Implementation of Encodable.
 
@@ -115,7 +116,7 @@ public class PriceGroupCustomerUpdateAssignedRequest : Request {
 
         try super.encode(to : encoder)
     }
-    
+
     /**
      Send the request for a response.
 
@@ -123,13 +124,10 @@ public class PriceGroupCustomerUpdateAssignedRequest : Request {
         - callback: The callback function with signature (PriceGroupCustomerUpdateAssignedResponse?, Error?).
      - Note: Overrides
      */
-     public override func send(client: Optional<Client> = nil, callback: @escaping (PriceGroupCustomerUpdateAssignedResponse?, Error?) -> ()) throws {
-        if client != nil {
-            client!.send(self) { request, response, error in
-                callback(response as? PriceGroupCustomerUpdateAssignedResponse, error)
-            }
-        } else if self.client != nil {
-            self.client!.send(self) { request, response, error in
+
+     public override func send(client: Optional<BaseClient> = nil, callback: @escaping (PriceGroupCustomerUpdateAssignedResponse?, Error?) -> ()) throws {
+        if let client = client ?? self.client {
+            client.send(self) { request, response, error in
                 callback(response as? PriceGroupCustomerUpdateAssignedResponse, error)
             }
         } else {
@@ -141,16 +139,18 @@ public class PriceGroupCustomerUpdateAssignedRequest : Request {
      Create a response object by decoding the response data.
 
      - Parameters:
+        - httpResponse: The underlying HTTP response object
         - data: The response data to decode.
      - Throws: Error when unable to decode the response data.
      - Note: Overrides
      */
-    public override func createResponse(data : Data) throws -> PriceGroupCustomerUpdateAssignedResponse {
+    public override func createResponse(httpResponse: URLResponse, data : Data) throws -> PriceGroupCustomerUpdateAssignedResponse {
         let decoder = JSONDecoder()
-        
-        decoder.userInfo[Response.decoderRequestUserInfoKey]      = self
-        decoder.userInfo[Response.decoderResponseDataUserInfoKey] = data
-        
+
+        decoder.userInfo[Response.decoderRequestUserInfoKey]            = self
+        decoder.userInfo[Response.decoderHttpResponseDataUserInfoKey]   = httpResponse
+        decoder.userInfo[Response.decoderResponseDataUserInfoKey]       = data
+
         return try decoder.decode(PriceGroupCustomerUpdateAssignedResponse.self, from: data)
     }
 
@@ -163,64 +163,64 @@ public class PriceGroupCustomerUpdateAssignedRequest : Request {
     override public func getResponseType() -> Response.Type {
         return PriceGroupCustomerUpdateAssignedResponse.self
     }
-    
+
     /**
      Getter for PriceGroup_ID.
-     
-     - Returns:  Optional<Int> 
+
+     - Returns:  Optional<Int>
      */
     public func getPriceGroupId() -> Optional<Int> {
         return self.priceGroupId
     }
-    
+
     /**
      Getter for PriceGroup_Name.
 
-     - Returns:  Optional<String> 
+     - Returns:  Optional<String>
      */
     public func getPriceGroupName() -> Optional<String> {
         return self.priceGroupName
     }
-    
+
     /**
      Getter for Edit_Customer.
 
-     - Returns:  Optional<String> 
+     - Returns:  Optional<String>
      */
     public func getEditCustomer() -> Optional<String> {
         return self.editCustomer
     }
-    
+
     /**
      Getter for Customer_ID.
-     
-     - Returns:  Optional<Int> 
+
+     - Returns:  Optional<Int>
      */
     public func getCustomerId() -> Optional<Int> {
         return self.customerId
     }
-    
+
     /**
      Getter for Customer_Login.
 
-     - Returns:  Optional<String> 
+     - Returns:  Optional<String>
      */
     public func getCustomerLogin() -> Optional<String> {
         return self.customerLogin
     }
-    
+
     /**
      Getter for Assigned.
-     
-     - Returns:  Optional<Bool> 
+
+     - Returns:  Optional<Bool>
      */
     public func getAssigned() -> Optional<Bool> {
         return self.assigned
     }
-    
+
     /**
      Setter for PriceGroup_ID.
-     
+
      - Parameters:
         - value: Optional<Int>
      - Returns:  Self
@@ -230,7 +230,7 @@ public class PriceGroupCustomerUpdateAssignedRequest : Request {
         self.priceGroupId = value
         return self
     }
-    
+
     /**
      Setter for PriceGroup_Name.
 
@@ -243,7 +243,7 @@ public class PriceGroupCustomerUpdateAssignedRequest : Request {
         self.priceGroupName = value
         return self
     }
-    
+
     /**
      Setter for Edit_Customer.
 
@@ -256,10 +256,10 @@ public class PriceGroupCustomerUpdateAssignedRequest : Request {
         self.editCustomer = value
         return self
     }
-    
+
     /**
      Setter for Customer_ID.
-     
+
      - Parameters:
         - value: Optional<Int>
      - Returns:  Self
@@ -269,7 +269,7 @@ public class PriceGroupCustomerUpdateAssignedRequest : Request {
         self.customerId = value
         return self
     }
-    
+
     /**
      Setter for Customer_Login.
 
@@ -282,10 +282,10 @@ public class PriceGroupCustomerUpdateAssignedRequest : Request {
         self.customerLogin = value
         return self
     }
-    
+
     /**
      Setter for Assigned.
-     
+
      - Parameters:
         - value: Optional<Bool>
      - Returns:  Self

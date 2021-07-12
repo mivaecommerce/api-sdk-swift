@@ -3,8 +3,6 @@
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
- *
- * $Id$
  */
 
 import Foundation
@@ -14,10 +12,8 @@ public class ProductVariant : Model {
 
     /// Model field product_id.
     var productId : Int
-
     /// Model field variant_id.
     var variantId : Int
-
     /// Model field parts.
     var parts : [ProductVariantPart]
 
@@ -85,37 +81,39 @@ public class ProductVariant : Model {
 
         try super.encode(to: encoder)
     }
-    
+
     /**
      Getter for product_id.
-     
+
      - Returns:  Int
+
      */
     public func getProductId() -> Int {
         return self.productId
     }
-    
+
     /**
      Getter for variant_id.
-     
+
      - Returns:  Int
+
      */
     public func getVariantId() -> Int {
         return self.variantId
     }
-    
+
     /**
      Getter for parts.
-     
+
      - Returns:  [ProductVariantPart]
      */
     public func getParts() -> [ProductVariantPart] {
         return self.parts
     }
-    
+
     /**
      Getter for dimensions.
-     
+
      - Returns:  [ProductVariantDimension]
      */
     public func getDimensions() -> [ProductVariantDimension] {

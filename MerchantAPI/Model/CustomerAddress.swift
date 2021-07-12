@@ -3,8 +3,6 @@
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
- *
- * $Id$
  */
 
 import Foundation
@@ -14,52 +12,36 @@ public class CustomerAddress : Model {
 
     /// Model field id.
     var id : Int
-
     /// Model field cust_id.
     var customerId : Int
-
     /// Model field descrip.
     var description : String
-
     /// Model field fname.
     var firstName : String
-
     /// Model field lname.
     var lastName : String
-
     /// Model field email.
     var email : String
-
     /// Model field comp.
     var company : String
-
     /// Model field phone.
     var phone : String
-
     /// Model field fax.
     var fax : String
-
     /// Model field addr1.
     var address1 : String
-
     /// Model field addr2.
     var address2 : String
-
     /// Model field city.
     var city : String
-
     /// Model field state.
     var state : String
-
     /// Model field zip.
     var zip : String
-
     /// Model field cntry.
     var country : String
-
     /// Model field resdntl.
     var residential : Bool
-
     /**
      CodingKeys used to map the model when encoding and decoding.
 
@@ -169,147 +151,161 @@ public class CustomerAddress : Model {
 
         try super.encode(to: encoder)
     }
-    
+
     /**
      Getter for id.
-     
+
      - Returns:  Int
+
      */
     public func getId() -> Int {
         return self.id
     }
-    
+
     /**
      Getter for cust_id.
-     
+
      - Returns:  Int
+
      */
     public func getCustomerId() -> Int {
         return self.customerId
     }
-    
+
     /**
      Getter for descrip.
 
      - Returns:  String
+
      */
     public func getDescription() -> String {
         return self.description
     }
-    
+
     /**
      Getter for fname.
 
      - Returns:  String
+
      */
     public func getFirstName() -> String {
         return self.firstName
     }
-    
+
     /**
      Getter for lname.
 
      - Returns:  String
+
      */
     public func getLastName() -> String {
         return self.lastName
     }
-    
+
     /**
      Getter for email.
 
      - Returns:  String
+
      */
     public func getEmail() -> String {
         return self.email
     }
-    
+
     /**
      Getter for comp.
 
      - Returns:  String
+
      */
     public func getCompany() -> String {
         return self.company
     }
-    
+
     /**
      Getter for phone.
 
      - Returns:  String
+
      */
     public func getPhone() -> String {
         return self.phone
     }
-    
+
     /**
      Getter for fax.
 
      - Returns:  String
+
      */
     public func getFax() -> String {
         return self.fax
     }
-    
+
     /**
      Getter for addr1.
 
      - Returns:  String
+
      */
     public func getAddress1() -> String {
         return self.address1
     }
-    
+
     /**
      Getter for addr2.
 
      - Returns:  String
+
      */
     public func getAddress2() -> String {
         return self.address2
     }
-    
+
     /**
      Getter for city.
 
      - Returns:  String
+
      */
     public func getCity() -> String {
         return self.city
     }
-    
+
     /**
      Getter for state.
 
      - Returns:  String
+
      */
     public func getState() -> String {
         return self.state
     }
-    
+
     /**
      Getter for zip.
 
      - Returns:  String
+
      */
     public func getZip() -> String {
         return self.zip
     }
-    
+
     /**
      Getter for cntry.
 
      - Returns:  String
+
      */
     public func getCountry() -> String {
         return self.country
     }
-    
+
     /**
      Getter for resdntl.
-     
-     - Returns:  Bool
-     */
+
+     - Returns:  Bool     */
     public func getResidential() -> Bool {
         return self.residential
     }

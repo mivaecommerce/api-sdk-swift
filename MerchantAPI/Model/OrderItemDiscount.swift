@@ -3,8 +3,6 @@
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
- *
- * $Id$
  */
 
 import Foundation
@@ -14,22 +12,16 @@ public class OrderItemDiscount : Model {
 
     /// Model field order_id.
     var orderId : Int
-
     /// Model field line_id.
     var lineId : Int
-
     /// Model field pgrp_id.
     var priceGroupId : Int
-
     /// Model field display.
     var display : Bool
-
     /// Model field descrip.
     var description : String
-
     /// Model field discount.
     var discount : Decimal
-
     /**
      CodingKeys used to map the model when encoding and decoding.
 
@@ -99,57 +91,59 @@ public class OrderItemDiscount : Model {
 
         try super.encode(to: encoder)
     }
-    
+
     /**
      Getter for order_id.
-     
+
      - Returns:  Int
+
      */
     public func getOrderId() -> Int {
         return self.orderId
     }
-    
+
     /**
      Getter for line_id.
-     
+
      - Returns:  Int
+
      */
     public func getLineId() -> Int {
         return self.lineId
     }
-    
+
     /**
      Getter for pgrp_id.
-     
+
      - Returns:  Int
+
      */
     public func getPriceGroupId() -> Int {
         return self.priceGroupId
     }
-    
+
     /**
      Getter for display.
-     
-     - Returns:  Bool
-     */
+
+     - Returns:  Bool     */
     public func getDisplay() -> Bool {
         return self.display
     }
-    
+
     /**
      Getter for descrip.
 
      - Returns:  String
+
      */
     public func getDescription() -> String {
         return self.description
     }
-    
+
     /**
      Getter for discount.
-     
-     - Returns:  Decimal
-     */
+
+     - Returns:  Decimal     */
     public func getDiscount() -> Decimal {
         return self.discount
     }

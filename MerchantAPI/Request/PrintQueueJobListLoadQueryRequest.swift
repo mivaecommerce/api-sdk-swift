@@ -3,11 +3,12 @@
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
- *
- * $Id$
  */
 
 import Foundation
+#if os(Linux)
+import FoundationNetworking
+#endif
 
 /**
  Handles API Request PrintQueueJobList_Load_Query.
@@ -16,7 +17,7 @@ import Foundation
  */
 public class PrintQueueJobListLoadQueryRequest : ListQueryRequest {
     /**
-     The API function name. 
+     The API function name.
 
      - Note: Overrides
      - Returns: String
@@ -26,7 +27,7 @@ public class PrintQueueJobListLoadQueryRequest : ListQueryRequest {
     }
 
     /**
-     The request scope. 
+     The request scope.
 
      - Note: Overrides
      - Returns: RequestScope
@@ -34,16 +35,16 @@ public class PrintQueueJobListLoadQueryRequest : ListQueryRequest {
     override var scope : RequestScope {
         return RequestScope.Domain;
     }
-    
+
     /// Request field PrintQueue_ID.
-    var printQueueId : Optional<Int>
+    var printQueueId : Optional<Int> = nil
 
     /// Request field Edit_PrintQueue.
-    var editPrintQueue : Optional<String>
+    var editPrintQueue : Optional<String> = nil
 
     /// Request field PrintQueue_Description.
-    var printQueueDescription : Optional<String>
-    
+    var printQueueDescription : Optional<String> = nil
+
     /**
      The available search fields applicable to the request.
 
@@ -64,10 +65,10 @@ public class PrintQueueJobListLoadQueryRequest : ListQueryRequest {
             ]
         }
     }
-    
+
     /**
      The available sort fields applicable to the request.
-     
+
      - Returns: An array of strings.
      - Note: Overrides
      */
@@ -85,7 +86,7 @@ public class PrintQueueJobListLoadQueryRequest : ListQueryRequest {
             ]
         }
     }
-    
+
     /**
      The available on demand columns applicable to the request.
 
@@ -99,10 +100,10 @@ public class PrintQueueJobListLoadQueryRequest : ListQueryRequest {
             ]
         }
     }
-    
+
     /**
      CodingKeys used to map the request when encoding.
-     
+
      - SeeAlso: Encodable
      */
     private enum CodingKeys: String, CodingKey {
@@ -111,15 +112,15 @@ public class PrintQueueJobListLoadQueryRequest : ListQueryRequest {
         case editPrintQueue = "Edit_PrintQueue"
         case printQueueDescription = "PrintQueue_Description"
     }
-    
+
     /**
      Request constructor.
 
      - Parameters:
-        - client: A Client instance.
+        - client: A BaseClient instance.
         - printQueue: An optional PrintQueue instance.
      */
-    public init(client: Optional<Client> = nil, printQueue: Optional<PrintQueue> = nil) {
+    public init(client: Optional<BaseClient> = nil, printQueue: Optional<PrintQueue> = nil) {
         super.init(client: client)
         if let printQueue = printQueue {
             if printQueue.id > 0 {
@@ -129,7 +130,7 @@ public class PrintQueueJobListLoadQueryRequest : ListQueryRequest {
             }
         }
     }
-    
+
     /**
      Implementation of Encodable.
 
@@ -151,7 +152,7 @@ public class PrintQueueJobListLoadQueryRequest : ListQueryRequest {
 
         try super.encode(to : encoder)
     }
-    
+
     /**
      Send the request for a response.
 
@@ -159,13 +160,10 @@ public class PrintQueueJobListLoadQueryRequest : ListQueryRequest {
         - callback: The callback function with signature (PrintQueueJobListLoadQueryResponse?, Error?).
      - Note: Overrides
      */
-     public override func send(client: Optional<Client> = nil, callback: @escaping (PrintQueueJobListLoadQueryResponse?, Error?) -> ()) throws {
-        if client != nil {
-            client!.send(self) { request, response, error in
-                callback(response as? PrintQueueJobListLoadQueryResponse, error)
-            }
-        } else if self.client != nil {
-            self.client!.send(self) { request, response, error in
+
+     public override func send(client: Optional<BaseClient> = nil, callback: @escaping (PrintQueueJobListLoadQueryResponse?, Error?) -> ()) throws {
+        if let client = client ?? self.client {
+            client.send(self) { request, response, error in
                 callback(response as? PrintQueueJobListLoadQueryResponse, error)
             }
         } else {
@@ -177,16 +175,18 @@ public class PrintQueueJobListLoadQueryRequest : ListQueryRequest {
      Create a response object by decoding the response data.
 
      - Parameters:
+        - httpResponse: The underlying HTTP response object
         - data: The response data to decode.
      - Throws: Error when unable to decode the response data.
      - Note: Overrides
      */
-    public override func createResponse(data : Data) throws -> PrintQueueJobListLoadQueryResponse {
+    public override func createResponse(httpResponse: URLResponse, data : Data) throws -> PrintQueueJobListLoadQueryResponse {
         let decoder = JSONDecoder()
-        
-        decoder.userInfo[Response.decoderRequestUserInfoKey]      = self
-        decoder.userInfo[Response.decoderResponseDataUserInfoKey] = data
-        
+
+        decoder.userInfo[Response.decoderRequestUserInfoKey]            = self
+        decoder.userInfo[Response.decoderHttpResponseDataUserInfoKey]   = httpResponse
+        decoder.userInfo[Response.decoderResponseDataUserInfoKey]       = data
+
         return try decoder.decode(PrintQueueJobListLoadQueryResponse.self, from: data)
     }
 
@@ -199,37 +199,37 @@ public class PrintQueueJobListLoadQueryRequest : ListQueryRequest {
     override public func getResponseType() -> Response.Type {
         return PrintQueueJobListLoadQueryResponse.self
     }
-    
+
     /**
      Getter for PrintQueue_ID.
-     
-     - Returns:  Optional<Int> 
+
+     - Returns:  Optional<Int>
      */
     public func getPrintQueueId() -> Optional<Int> {
         return self.printQueueId
     }
-    
+
     /**
      Getter for Edit_PrintQueue.
 
-     - Returns:  Optional<String> 
+     - Returns:  Optional<String>
      */
     public func getEditPrintQueue() -> Optional<String> {
         return self.editPrintQueue
     }
-    
+
     /**
      Getter for PrintQueue_Description.
 
-     - Returns:  Optional<String> 
+     - Returns:  Optional<String>
      */
     public func getPrintQueueDescription() -> Optional<String> {
         return self.printQueueDescription
     }
-    
+
     /**
      Setter for PrintQueue_ID.
-     
+
      - Parameters:
         - value: Optional<Int>
      - Returns:  Self
@@ -239,7 +239,7 @@ public class PrintQueueJobListLoadQueryRequest : ListQueryRequest {
         self.printQueueId = value
         return self
     }
-    
+
     /**
      Setter for Edit_PrintQueue.
 
@@ -252,7 +252,7 @@ public class PrintQueueJobListLoadQueryRequest : ListQueryRequest {
         self.editPrintQueue = value
         return self
     }
-    
+
     /**
      Setter for PrintQueue_Description.
 

@@ -3,8 +3,6 @@
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
- *
- * $Id$
  */
 
 import Foundation
@@ -21,34 +19,24 @@ public class Coupon : Model {
 
     /// Model field id.
     var id : Int
-
     /// Model field code.
     var code : String
-
     /// Model field descrip.
     var description : String
-
     /// Model field custscope.
     var customerScope : String
-
     /// Model field dt_start.
-    var dateTimeStart : Int
-
+    var dateTimeStart : Date
     /// Model field dt_end.
-    var dateTimeEnd : Int
-
+    var dateTimeEnd : Date
     /// Model field max_use.
     var maxUse : Int
-
     /// Model field max_per.
     var maxPer : Int
-
     /// Model field active.
     var active : Bool
-
     /// Model field use_count.
     var useCount : Int
-
     /**
      CodingKeys used to map the model when encoding and decoding.
 
@@ -75,8 +63,8 @@ public class Coupon : Model {
         self.code = ""
         self.description = ""
         self.customerScope = ""
-        self.dateTimeStart = 0
-        self.dateTimeEnd = 0
+        self.dateTimeStart = Date(timeIntervalSince1970: 0)
+        self.dateTimeEnd = Date(timeIntervalSince1970: 0)
         self.maxUse = 0
         self.maxPer = 0
         self.active = false
@@ -100,8 +88,8 @@ public class Coupon : Model {
         self.code = try container.decodeIfPresent(String.self, forKey: .code) ?? ""
         self.description = try container.decodeIfPresent(String.self, forKey: .description) ?? ""
         self.customerScope = try container.decodeIfPresent(String.self, forKey: .customerScope) ?? ""
-        self.dateTimeStart = try container.decodeIfPresent(Int.self, forKey: .dateTimeStart) ?? 0
-        self.dateTimeEnd = try container.decodeIfPresent(Int.self, forKey: .dateTimeEnd) ?? 0
+        self.dateTimeStart = Date(timeIntervalSince1970: Double(try container.decodeIfPresent(Int.self, forKey: .dateTimeStart) ?? 0))
+        self.dateTimeEnd = Date(timeIntervalSince1970: Double(try container.decodeIfPresent(Int.self, forKey: .dateTimeEnd) ?? 0))
         self.maxUse = try container.decodeIfPresent(Int.self, forKey: .maxUse) ?? 0
         self.maxPer = try container.decodeIfPresent(Int.self, forKey: .maxPer) ?? 0
         self.active = try container.decodeIfPresent(Bool.self, forKey: .active) ?? false
@@ -125,8 +113,8 @@ public class Coupon : Model {
         try container.encodeIfPresent(self.code, forKey: .code)
         try container.encodeIfPresent(self.description, forKey: .description)
         try container.encodeIfPresent(self.customerScope, forKey: .customerScope)
-        try container.encodeIfPresent(self.dateTimeStart, forKey: .dateTimeStart)
-        try container.encodeIfPresent(self.dateTimeEnd, forKey: .dateTimeEnd)
+        try container.encodeIfPresent(Int(self.dateTimeStart.timeIntervalSince1970), forKey: .dateTimeStart)
+        try container.encodeIfPresent(Int(self.dateTimeEnd.timeIntervalSince1970), forKey: .dateTimeEnd)
         try container.encodeIfPresent(self.maxUse, forKey: .maxUse)
         try container.encodeIfPresent(self.maxPer, forKey: .maxPer)
         try container.encodeIfPresent(self.active, forKey: .active)
@@ -134,198 +122,98 @@ public class Coupon : Model {
 
         try super.encode(to: encoder)
     }
-    
+
     /**
      Getter for id.
-     
+
      - Returns:  Int
+
      */
     public func getId() -> Int {
         return self.id
     }
-    
+
     /**
      Getter for code.
 
      - Returns:  String
+
      */
     public func getCode() -> String {
         return self.code
     }
-    
+
     /**
      Getter for descrip.
 
      - Returns:  String
+
      */
     public func getDescription() -> String {
         return self.description
     }
-    
+
     /**
      Getter for custscope.
 
      - Returns:  String
+
      */
     public func getCustomerScope() -> String {
         return self.customerScope
     }
-    
+
     /**
      Getter for dt_start.
-     
-     - Returns:  Int
-     */
-    public func getDateTimeStart() -> Int {
+
+     - Returns:  Date     */
+    public func getDateTimeStart() -> Date {
         return self.dateTimeStart
     }
-    
+
     /**
      Getter for dt_end.
-     
-     - Returns:  Int
-     */
-    public func getDateTimeEnd() -> Int {
+
+     - Returns:  Date     */
+    public func getDateTimeEnd() -> Date {
         return self.dateTimeEnd
     }
-    
+
     /**
      Getter for max_use.
-     
+
      - Returns:  Int
+
      */
     public func getMaxUse() -> Int {
         return self.maxUse
     }
-    
+
     /**
      Getter for max_per.
-     
+
      - Returns:  Int
+
      */
     public func getMaxPer() -> Int {
         return self.maxPer
     }
-    
+
     /**
      Getter for active.
-     
-     - Returns:  Bool
-     */
+
+     - Returns:  Bool     */
     public func getActive() -> Bool {
         return self.active
     }
-    
+
     /**
      Getter for use_count.
-     
+
      - Returns:  Int
+
      */
     public func getUseCount() -> Int {
         return self.useCount
-    }
-
-    /**
-     Setter for code.
-
-     - Parameters:
-        - value: String
-     - Returns:  Self
-     */
-    @discardableResult
-    public func setCode(_ value: String) -> Self {
-        self.code = value
-        return self
-    }
-
-    /**
-     Setter for descrip.
-
-     - Parameters:
-        - value: String
-     - Returns:  Self
-     */
-    @discardableResult
-    public func setDescription(_ value: String) -> Self {
-        self.description = value
-        return self
-    }
-
-    /**
-     Setter for custscope.
-
-     - Parameters:
-        - value: String
-     - Returns:  Self
-     */
-    @discardableResult
-    public func setCustomerScope(_ value: String) -> Self {
-        self.customerScope = value
-        return self
-    }
-    
-    /**
-     Setter for dt_start.
-     
-     - Parameters:
-        - value: Optional<Int>
-     - Returns:  Self
-     */
-    @discardableResult
-    public func setDateTimeStart(_ value: Int) -> Self {
-        self.dateTimeStart = value
-        return self
-    }
-    
-    /**
-     Setter for dt_end.
-     
-     - Parameters:
-        - value: Optional<Int>
-     - Returns:  Self
-     */
-    @discardableResult
-    public func setDateTimeEnd(_ value: Int) -> Self {
-        self.dateTimeEnd = value
-        return self
-    }
-    
-    /**
-     Setter for max_use.
-     
-     - Parameters:
-        - value: Optional<Int>
-     - Returns:  Self
-     */
-    @discardableResult
-    public func setMaxUse(_ value: Int) -> Self {
-        self.maxUse = value
-        return self
-    }
-    
-    /**
-     Setter for max_per.
-     
-     - Parameters:
-        - value: Optional<Int>
-     - Returns:  Self
-     */
-    @discardableResult
-    public func setMaxPer(_ value: Int) -> Self {
-        self.maxPer = value
-        return self
-    }
-
-    /**
-     Setter for active.
-     
-     - Parameters:
-        - value: Bool
-     - Returns:  Self
-     */
-    @discardableResult
-    public func setActive(_ value: Bool) -> Self {
-        self.active = value
-        return self
     }
 }

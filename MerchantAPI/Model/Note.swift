@@ -3,8 +3,6 @@
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
- *
- * $Id$
  */
 
 import Foundation
@@ -14,34 +12,24 @@ public class Note : Model {
 
     /// Model field id.
     var id : Int
-
     /// Model field cust_id.
     var customerId : Int
-
     /// Model field account_id.
     var accountId : Int
-
     /// Model field order_id.
     var orderId : Int
-
     /// Model field user_id.
     var userId : Int
-
     /// Model field notetext.
     var noteText : String
-
     /// Model field dtstamp.
-    var dateTimeStamp : Int
-
+    var dateTimeStamp : Date
     /// Model field cust_login.
     var customerLogin : String
-
     /// Model field business_title.
     var businessTitle : String
-
     /// Model field admin_user.
     var adminUser : String
-
     /**
      CodingKeys used to map the model when encoding and decoding.
 
@@ -70,7 +58,7 @@ public class Note : Model {
         self.orderId = 0
         self.userId = 0
         self.noteText = ""
-        self.dateTimeStamp = 0
+        self.dateTimeStamp = Date(timeIntervalSince1970: 0)
         self.customerLogin = ""
         self.businessTitle = ""
         self.adminUser = ""
@@ -95,7 +83,7 @@ public class Note : Model {
         self.orderId = try container.decodeIfPresent(Int.self, forKey: .orderId) ?? 0
         self.userId = try container.decodeIfPresent(Int.self, forKey: .userId) ?? 0
         self.noteText = try container.decodeIfPresent(String.self, forKey: .noteText) ?? ""
-        self.dateTimeStamp = try container.decodeIfPresent(Int.self, forKey: .dateTimeStamp) ?? 0
+        self.dateTimeStamp = Date(timeIntervalSince1970: Double(try container.decodeIfPresent(Int.self, forKey: .dateTimeStamp) ?? 0))
         self.customerLogin = try container.decodeIfPresent(String.self, forKey: .customerLogin) ?? ""
         self.businessTitle = try container.decodeIfPresent(String.self, forKey: .businessTitle) ?? ""
         self.adminUser = try container.decodeIfPresent(String.self, forKey: .adminUser) ?? ""
@@ -120,153 +108,109 @@ public class Note : Model {
         try container.encodeIfPresent(self.orderId, forKey: .orderId)
         try container.encodeIfPresent(self.userId, forKey: .userId)
         try container.encodeIfPresent(self.noteText, forKey: .noteText)
-        try container.encodeIfPresent(self.dateTimeStamp, forKey: .dateTimeStamp)
+        try container.encodeIfPresent(Int(self.dateTimeStamp.timeIntervalSince1970), forKey: .dateTimeStamp)
         try container.encodeIfPresent(self.customerLogin, forKey: .customerLogin)
         try container.encodeIfPresent(self.businessTitle, forKey: .businessTitle)
         try container.encodeIfPresent(self.adminUser, forKey: .adminUser)
 
         try super.encode(to: encoder)
     }
-    
+
     /**
      Getter for id.
-     
+
      - Returns:  Int
+
      */
     public func getId() -> Int {
         return self.id
     }
-    
+
     /**
      Getter for cust_id.
-     
+
      - Returns:  Int
+
      */
     public func getCustomerId() -> Int {
         return self.customerId
     }
-    
+
     /**
      Getter for account_id.
-     
+
      - Returns:  Int
+
      */
     public func getAccountId() -> Int {
         return self.accountId
     }
-    
+
     /**
      Getter for order_id.
-     
+
      - Returns:  Int
+
      */
     public func getOrderId() -> Int {
         return self.orderId
     }
-    
+
     /**
      Getter for user_id.
-     
+
      - Returns:  Int
+
      */
     public func getUserId() -> Int {
         return self.userId
     }
-    
+
     /**
      Getter for notetext.
 
      - Returns:  String
+
      */
     public func getNoteText() -> String {
         return self.noteText
     }
-    
+
     /**
      Getter for dtstamp.
-     
-     - Returns:  Int
-     */
-    public func getDateTimeStamp() -> Int {
+
+     - Returns:  Date     */
+    public func getDateTimeStamp() -> Date {
         return self.dateTimeStamp
     }
-    
+
     /**
      Getter for cust_login.
 
      - Returns:  String
+
      */
     public func getCustomerLogin() -> String {
         return self.customerLogin
     }
-    
+
     /**
      Getter for business_title.
 
      - Returns:  String
+
      */
     public func getBusinessTitle() -> String {
         return self.businessTitle
     }
-    
+
     /**
      Getter for admin_user.
 
      - Returns:  String
+
      */
     public func getAdminUser() -> String {
         return self.adminUser
-    }
-    
-    /**
-     Setter for cust_id.
-     
-     - Parameters:
-        - value: Optional<Int>
-     - Returns:  Self
-     */
-    @discardableResult
-    public func setCustomerId(_ value: Int) -> Self {
-        self.customerId = value
-        return self
-    }
-    
-    /**
-     Setter for account_id.
-     
-     - Parameters:
-        - value: Optional<Int>
-     - Returns:  Self
-     */
-    @discardableResult
-    public func setAccountId(_ value: Int) -> Self {
-        self.accountId = value
-        return self
-    }
-    
-    /**
-     Setter for order_id.
-     
-     - Parameters:
-        - value: Optional<Int>
-     - Returns:  Self
-     */
-    @discardableResult
-    public func setOrderId(_ value: Int) -> Self {
-        self.orderId = value
-        return self
-    }
-
-    /**
-     Setter for notetext.
-
-     - Parameters:
-        - value: String
-     - Returns:  Self
-     */
-    @discardableResult
-    public func setNoteText(_ value: String) -> Self {
-        self.noteText = value
-        return self
     }
 }

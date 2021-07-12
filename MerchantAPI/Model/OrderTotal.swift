@@ -3,8 +3,6 @@
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
- *
- * $Id$
  */
 
 import Foundation
@@ -14,10 +12,8 @@ public class OrderTotal : Model {
 
     /// Model field total.
     var total : Decimal
-
     /// Model field formatted_total.
     var formattedTotal : String
-
     /**
      CodingKeys used to map the model when encoding and decoding.
 
@@ -71,20 +67,20 @@ public class OrderTotal : Model {
 
         try super.encode(to: encoder)
     }
-    
+
     /**
      Getter for total.
-     
-     - Returns:  Decimal
-     */
+
+     - Returns:  Decimal     */
     public func getTotal() -> Decimal {
         return self.total
     }
-    
+
     /**
      Getter for formatted_total.
 
      - Returns:  String
+
      */
     public func getFormattedTotal() -> String {
         return self.formattedTotal

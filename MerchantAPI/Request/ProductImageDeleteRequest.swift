@@ -3,11 +3,12 @@
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
- *
- * $Id$
  */
 
 import Foundation
+#if os(Linux)
+import FoundationNetworking
+#endif
 
 /**
  Handles API Request ProductImage_Delete.
@@ -16,7 +17,7 @@ import Foundation
  */
 public class ProductImageDeleteRequest : Request {
     /**
-     The API function name. 
+     The API function name.
 
      - Note: Overrides
      - Returns: String
@@ -26,7 +27,7 @@ public class ProductImageDeleteRequest : Request {
     }
 
     /**
-     The request scope. 
+     The request scope.
 
      - Note: Overrides
      - Returns: RequestScope
@@ -34,34 +35,34 @@ public class ProductImageDeleteRequest : Request {
     override var scope : RequestScope {
         return RequestScope.Store;
     }
-    
+
     /// Request field ProductImage_ID.
-    var productImageId : Optional<Int>
-    
+    var productImageId : Optional<Int> = nil
+
     /**
      CodingKeys used to map the request when encoding.
-     
+
      - SeeAlso: Encodable
      */
     private enum CodingKeys: String, CodingKey {
         case function = "Function"
         case productImageId = "ProductImage_ID"
     }
-    
+
     /**
      Request constructor.
 
      - Parameters:
-        - client: A Client instance.
+        - client: A BaseClient instance.
         - productImageData: An optional ProductImageData instance.
      */
-    public init(client: Optional<Client> = nil, productImageData: Optional<ProductImageData> = nil) {
+    public init(client: Optional<BaseClient> = nil, productImageData: Optional<ProductImageData> = nil) {
         super.init(client: client)
         if let productImageData = productImageData {
             self.productImageId = productImageData.id
         }
     }
-    
+
     /**
      Implementation of Encodable.
 
@@ -77,7 +78,7 @@ public class ProductImageDeleteRequest : Request {
 
         try super.encode(to : encoder)
     }
-    
+
     /**
      Send the request for a response.
 
@@ -85,13 +86,10 @@ public class ProductImageDeleteRequest : Request {
         - callback: The callback function with signature (ProductImageDeleteResponse?, Error?).
      - Note: Overrides
      */
-     public override func send(client: Optional<Client> = nil, callback: @escaping (ProductImageDeleteResponse?, Error?) -> ()) throws {
-        if client != nil {
-            client!.send(self) { request, response, error in
-                callback(response as? ProductImageDeleteResponse, error)
-            }
-        } else if self.client != nil {
-            self.client!.send(self) { request, response, error in
+
+     public override func send(client: Optional<BaseClient> = nil, callback: @escaping (ProductImageDeleteResponse?, Error?) -> ()) throws {
+        if let client = client ?? self.client {
+            client.send(self) { request, response, error in
                 callback(response as? ProductImageDeleteResponse, error)
             }
         } else {
@@ -103,16 +101,18 @@ public class ProductImageDeleteRequest : Request {
      Create a response object by decoding the response data.
 
      - Parameters:
+        - httpResponse: The underlying HTTP response object
         - data: The response data to decode.
      - Throws: Error when unable to decode the response data.
      - Note: Overrides
      */
-    public override func createResponse(data : Data) throws -> ProductImageDeleteResponse {
+    public override func createResponse(httpResponse: URLResponse, data : Data) throws -> ProductImageDeleteResponse {
         let decoder = JSONDecoder()
-        
-        decoder.userInfo[Response.decoderRequestUserInfoKey]      = self
-        decoder.userInfo[Response.decoderResponseDataUserInfoKey] = data
-        
+
+        decoder.userInfo[Response.decoderRequestUserInfoKey]            = self
+        decoder.userInfo[Response.decoderHttpResponseDataUserInfoKey]   = httpResponse
+        decoder.userInfo[Response.decoderResponseDataUserInfoKey]       = data
+
         return try decoder.decode(ProductImageDeleteResponse.self, from: data)
     }
 
@@ -125,19 +125,19 @@ public class ProductImageDeleteRequest : Request {
     override public func getResponseType() -> Response.Type {
         return ProductImageDeleteResponse.self
     }
-    
+
     /**
      Getter for ProductImage_ID.
-     
-     - Returns:  Optional<Int> 
+
+     - Returns:  Optional<Int>
      */
     public func getProductImageId() -> Optional<Int> {
         return self.productImageId
     }
-    
+
     /**
      Setter for ProductImage_ID.
-     
+
      - Parameters:
         - value: Optional<Int>
      - Returns:  Self

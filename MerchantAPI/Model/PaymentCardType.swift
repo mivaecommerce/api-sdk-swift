@@ -3,8 +3,6 @@
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
- *
- * $Id$
  */
 
 import Foundation
@@ -14,19 +12,14 @@ public class PaymentCardType : Model {
 
     /// Model field id.
     var id : Int
-
     /// Model field type.
     var type : String
-
     /// Model field prefixes.
     var prefixes : String
-
     /// Model field lengths.
     var lengths : String
-
     /// Model field cvv.
     var cvv : Bool
-
     /**
      CodingKeys used to map the model when encoding and decoding.
 
@@ -92,48 +85,51 @@ public class PaymentCardType : Model {
 
         try super.encode(to: encoder)
     }
-    
+
     /**
      Getter for id.
-     
+
      - Returns:  Int
+
      */
     public func getId() -> Int {
         return self.id
     }
-    
+
     /**
      Getter for type.
 
      - Returns:  String
+
      */
     public func getType() -> String {
         return self.type
     }
-    
+
     /**
      Getter for prefixes.
 
      - Returns:  String
+
      */
     public func getPrefixes() -> String {
         return self.prefixes
     }
-    
+
     /**
      Getter for lengths.
 
      - Returns:  String
+
      */
     public func getLengths() -> String {
         return self.lengths
     }
-    
+
     /**
      Getter for cvv.
-     
-     - Returns:  Bool
-     */
+
+     - Returns:  Bool     */
     public func getCvv() -> Bool {
         return self.cvv
     }

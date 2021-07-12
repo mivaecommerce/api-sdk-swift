@@ -3,11 +3,12 @@
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
- *
- * $Id$
  */
 
 import Foundation
+#if os(Linux)
+import FoundationNetworking
+#endif
 
 /**
  Handles API Request CouponPriceGroup_Update_Assigned.
@@ -16,7 +17,7 @@ import Foundation
  */
 public class CouponPriceGroupUpdateAssignedRequest : Request {
     /**
-     The API function name. 
+     The API function name.
 
      - Note: Overrides
      - Returns: String
@@ -26,7 +27,7 @@ public class CouponPriceGroupUpdateAssignedRequest : Request {
     }
 
     /**
-     The request scope. 
+     The request scope.
 
      - Note: Overrides
      - Returns: RequestScope
@@ -34,28 +35,28 @@ public class CouponPriceGroupUpdateAssignedRequest : Request {
     override var scope : RequestScope {
         return RequestScope.Store;
     }
-    
+
     /// Request field Coupon_ID.
-    var couponId : Optional<Int>
+    var couponId : Optional<Int> = nil
 
     /// Request field Edit_Coupon.
-    var editCoupon : Optional<String>
+    var editCoupon : Optional<String> = nil
 
     /// Request field Coupon_Code.
-    var couponCode : Optional<String>
+    var couponCode : Optional<String> = nil
 
     /// Request field PriceGroup_ID.
-    var priceGroupId : Optional<Int>
+    var priceGroupId : Optional<Int> = nil
 
     /// Request field PriceGroup_Name.
-    var priceGroupName : Optional<String>
+    var priceGroupName : Optional<String> = nil
 
     /// Request field Assigned.
-    var assigned : Optional<Bool>
-    
+    var assigned : Optional<Bool> = nil
+
     /**
      CodingKeys used to map the request when encoding.
-     
+
      - SeeAlso: Encodable
      */
     private enum CodingKeys: String, CodingKey {
@@ -67,15 +68,15 @@ public class CouponPriceGroupUpdateAssignedRequest : Request {
         case priceGroupName = "PriceGroup_Name"
         case assigned = "Assigned"
     }
-    
+
     /**
      Request constructor.
 
      - Parameters:
-        - client: A Client instance.
+        - client: A BaseClient instance.
         - coupon: An optional Coupon instance.
      */
-    public init(client: Optional<Client> = nil, coupon: Optional<Coupon> = nil) {
+    public init(client: Optional<BaseClient> = nil, coupon: Optional<Coupon> = nil) {
         super.init(client: client)
         if let coupon = coupon {
             if coupon.id > 0 {
@@ -85,7 +86,7 @@ public class CouponPriceGroupUpdateAssignedRequest : Request {
             }
         }
     }
-    
+
     /**
      Implementation of Encodable.
 
@@ -115,7 +116,7 @@ public class CouponPriceGroupUpdateAssignedRequest : Request {
 
         try super.encode(to : encoder)
     }
-    
+
     /**
      Send the request for a response.
 
@@ -123,13 +124,10 @@ public class CouponPriceGroupUpdateAssignedRequest : Request {
         - callback: The callback function with signature (CouponPriceGroupUpdateAssignedResponse?, Error?).
      - Note: Overrides
      */
-     public override func send(client: Optional<Client> = nil, callback: @escaping (CouponPriceGroupUpdateAssignedResponse?, Error?) -> ()) throws {
-        if client != nil {
-            client!.send(self) { request, response, error in
-                callback(response as? CouponPriceGroupUpdateAssignedResponse, error)
-            }
-        } else if self.client != nil {
-            self.client!.send(self) { request, response, error in
+
+     public override func send(client: Optional<BaseClient> = nil, callback: @escaping (CouponPriceGroupUpdateAssignedResponse?, Error?) -> ()) throws {
+        if let client = client ?? self.client {
+            client.send(self) { request, response, error in
                 callback(response as? CouponPriceGroupUpdateAssignedResponse, error)
             }
         } else {
@@ -141,16 +139,18 @@ public class CouponPriceGroupUpdateAssignedRequest : Request {
      Create a response object by decoding the response data.
 
      - Parameters:
+        - httpResponse: The underlying HTTP response object
         - data: The response data to decode.
      - Throws: Error when unable to decode the response data.
      - Note: Overrides
      */
-    public override func createResponse(data : Data) throws -> CouponPriceGroupUpdateAssignedResponse {
+    public override func createResponse(httpResponse: URLResponse, data : Data) throws -> CouponPriceGroupUpdateAssignedResponse {
         let decoder = JSONDecoder()
-        
-        decoder.userInfo[Response.decoderRequestUserInfoKey]      = self
-        decoder.userInfo[Response.decoderResponseDataUserInfoKey] = data
-        
+
+        decoder.userInfo[Response.decoderRequestUserInfoKey]            = self
+        decoder.userInfo[Response.decoderHttpResponseDataUserInfoKey]   = httpResponse
+        decoder.userInfo[Response.decoderResponseDataUserInfoKey]       = data
+
         return try decoder.decode(CouponPriceGroupUpdateAssignedResponse.self, from: data)
     }
 
@@ -163,64 +163,64 @@ public class CouponPriceGroupUpdateAssignedRequest : Request {
     override public func getResponseType() -> Response.Type {
         return CouponPriceGroupUpdateAssignedResponse.self
     }
-    
+
     /**
      Getter for Coupon_ID.
-     
-     - Returns:  Optional<Int> 
+
+     - Returns:  Optional<Int>
      */
     public func getCouponId() -> Optional<Int> {
         return self.couponId
     }
-    
+
     /**
      Getter for Edit_Coupon.
 
-     - Returns:  Optional<String> 
+     - Returns:  Optional<String>
      */
     public func getEditCoupon() -> Optional<String> {
         return self.editCoupon
     }
-    
+
     /**
      Getter for Coupon_Code.
 
-     - Returns:  Optional<String> 
+     - Returns:  Optional<String>
      */
     public func getCouponCode() -> Optional<String> {
         return self.couponCode
     }
-    
+
     /**
      Getter for PriceGroup_ID.
-     
-     - Returns:  Optional<Int> 
+
+     - Returns:  Optional<Int>
      */
     public func getPriceGroupId() -> Optional<Int> {
         return self.priceGroupId
     }
-    
+
     /**
      Getter for PriceGroup_Name.
 
-     - Returns:  Optional<String> 
+     - Returns:  Optional<String>
      */
     public func getPriceGroupName() -> Optional<String> {
         return self.priceGroupName
     }
-    
+
     /**
      Getter for Assigned.
-     
-     - Returns:  Optional<Bool> 
+
+     - Returns:  Optional<Bool>
      */
     public func getAssigned() -> Optional<Bool> {
         return self.assigned
     }
-    
+
     /**
      Setter for Coupon_ID.
-     
+
      - Parameters:
         - value: Optional<Int>
      - Returns:  Self
@@ -230,7 +230,7 @@ public class CouponPriceGroupUpdateAssignedRequest : Request {
         self.couponId = value
         return self
     }
-    
+
     /**
      Setter for Edit_Coupon.
 
@@ -243,7 +243,7 @@ public class CouponPriceGroupUpdateAssignedRequest : Request {
         self.editCoupon = value
         return self
     }
-    
+
     /**
      Setter for Coupon_Code.
 
@@ -256,10 +256,10 @@ public class CouponPriceGroupUpdateAssignedRequest : Request {
         self.couponCode = value
         return self
     }
-    
+
     /**
      Setter for PriceGroup_ID.
-     
+
      - Parameters:
         - value: Optional<Int>
      - Returns:  Self
@@ -269,7 +269,7 @@ public class CouponPriceGroupUpdateAssignedRequest : Request {
         self.priceGroupId = value
         return self
     }
-    
+
     /**
      Setter for PriceGroup_Name.
 
@@ -282,10 +282,10 @@ public class CouponPriceGroupUpdateAssignedRequest : Request {
         self.priceGroupName = value
         return self
     }
-    
+
     /**
      Setter for Assigned.
-     
+
      - Parameters:
         - value: Optional<Bool>
      - Returns:  Self

@@ -3,8 +3,6 @@
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
- *
- * $Id$
  */
 
 import Foundation
@@ -12,47 +10,47 @@ import Foundation
 /// ProductAttribute data model.
 public class ProductAttribute : Model {
 
+    /// Enumeration ProductAttributeType
+    public enum ProductAttributeType : String {
+        case Checkbox = "checkbox"
+        case Radio = "radio"
+        case Text = "text"
+        case Select = "select"
+        case Memo = "memo"
+        case Template = "template"
+        case SwatchSelect = "swatch-select"
+    }
+
     /// Model field id.
     var id : Int
-
     /// Model field product_id.
     var productId : Int
-
     /// Model field default_id.
     var defaultId : Int
-
     /// Model field disp_order.
     var displayOrder : Int
-
     /// Model field attemp_id.
     var attributeTemplateId : Int
-
     /// Model field code.
     var code : String
-
     /// Model field type.
     var type : String
-
     /// Model field prompt.
     var prompt : String
-
     /// Model field price.
     var price : Decimal
-
     /// Model field cost.
     var cost : Decimal
-
     /// Model field weight.
     var weight : Decimal
-
     /// Model field required.
     var isRequired : Bool
-
     /// Model field inventory.
     var inventory : Bool
-
     /// Model field image.
     var image : String
+    /// Model field attributes.
+    var templateAttributes : [ProductAttribute]
 
     /// Model field options.
     var options : [ProductOption]
@@ -77,6 +75,7 @@ public class ProductAttribute : Model {
         case isRequired = "required"
         case inventory
         case image
+        case templateAttributes = "attributes"
         case options
     }
 
@@ -98,6 +97,7 @@ public class ProductAttribute : Model {
         self.isRequired = false
         self.inventory = false
         self.image = ""
+        self.templateAttributes = []
         self.options = []
 
         super.init()
@@ -128,6 +128,7 @@ public class ProductAttribute : Model {
         self.isRequired = try container.decodeIfPresent(Bool.self, forKey: .isRequired) ?? false
         self.inventory = try container.decodeIfPresent(Bool.self, forKey: .inventory) ?? false
         self.image = try container.decodeIfPresent(String.self, forKey: .image) ?? ""
+        self.templateAttributes = try container.decodeIfPresent([ProductAttribute].self, forKey: .templateAttributes) ?? []
         self.options = try container.decodeIfPresent([ProductOption].self, forKey: .options) ?? []
 
         try super.init(from : decoder)
@@ -158,140 +159,154 @@ public class ProductAttribute : Model {
         try container.encodeIfPresent(self.isRequired, forKey: .isRequired)
         try container.encodeIfPresent(self.inventory, forKey: .inventory)
         try container.encodeIfPresent(self.image, forKey: .image)
+        try container.encodeIfPresent(self.templateAttributes, forKey: .templateAttributes)
         try container.encodeIfPresent(self.options, forKey: .options)
 
         try super.encode(to: encoder)
     }
-    
+
     /**
      Getter for id.
-     
+
      - Returns:  Int
+
      */
     public func getId() -> Int {
         return self.id
     }
-    
+
     /**
      Getter for product_id.
-     
+
      - Returns:  Int
+
      */
     public func getProductId() -> Int {
         return self.productId
     }
-    
+
     /**
      Getter for default_id.
-     
+
      - Returns:  Int
+
      */
     public func getDefaultId() -> Int {
         return self.defaultId
     }
-    
+
     /**
      Getter for disp_order.
-     
+
      - Returns:  Int
+
      */
     public func getDisplayOrder() -> Int {
         return self.displayOrder
     }
-    
+
     /**
      Getter for attemp_id.
-     
+
      - Returns:  Int
+
      */
     public func getAttributeTemplateId() -> Int {
         return self.attributeTemplateId
     }
-    
+
     /**
      Getter for code.
 
      - Returns:  String
+
      */
     public func getCode() -> String {
         return self.code
     }
-    
+
     /**
      Getter for type.
 
      - Returns:  String
+
      */
     public func getType() -> String {
         return self.type
     }
-    
+
     /**
      Getter for prompt.
 
      - Returns:  String
+
      */
     public func getPrompt() -> String {
         return self.prompt
     }
-    
+
     /**
      Getter for price.
-     
-     - Returns:  Decimal
-     */
+
+     - Returns:  Decimal     */
     public func getPrice() -> Decimal {
         return self.price
     }
-    
+
     /**
      Getter for cost.
-     
-     - Returns:  Decimal
-     */
+
+     - Returns:  Decimal     */
     public func getCost() -> Decimal {
         return self.cost
     }
-    
+
     /**
      Getter for weight.
-     
-     - Returns:  Decimal
-     */
+
+     - Returns:  Decimal     */
     public func getWeight() -> Decimal {
         return self.weight
     }
-    
+
     /**
      Getter for required.
-     
-     - Returns:  Bool
-     */
+
+     - Returns:  Bool     */
     public func getIsRequired() -> Bool {
         return self.isRequired
     }
-    
+
     /**
      Getter for inventory.
-     
-     - Returns:  Bool
-     */
+
+     - Returns:  Bool     */
     public func getInventory() -> Bool {
         return self.inventory
     }
-    
+
     /**
      Getter for image.
 
      - Returns:  String
+
      */
     public func getImage() -> String {
         return self.image
     }
-    
+
+    /**
+     Getter for attributes.
+
+     - Returns:  [ProductAttribute]
+     */
+    public func getTemplateAttributes() -> [ProductAttribute] {
+        return self.templateAttributes
+    }
+
     /**
      Getter for options.
-     
+
      - Returns:  [ProductOption]
      */
     public func getOptions() -> [ProductOption] {

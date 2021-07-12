@@ -3,8 +3,6 @@
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
- *
- * $Id$
  */
 
 import Foundation
@@ -14,49 +12,34 @@ public class ProductInventorySettings : Model {
 
     /// Model field active.
     var active : Bool
-
     /// Model field in_short.
     var inStockMessageShort : String
-
     /// Model field in_long.
     var inStockMessageLong : String
-
     /// Model field low_track.
     var trackLowStockLevel : String
-
     /// Model field low_level.
     var lowStockLevel : Int
-
     /// Model field low_lvl_d.
     var lowStockLevelDefault : Bool
-
     /// Model field low_short.
     var lowStockMessageShort : String
-
     /// Model field low_long.
     var lowStockMessageLong : String
-
     /// Model field out_track.
     var trackOutOfStockLevel : String
-
     /// Model field out_hide.
     var hideOutOfStock : String
-
     /// Model field out_level.
     var outOfStockLevel : Int
-
     /// Model field out_lvl_d.
     var outOfStockLevelDefault : Bool
-
     /// Model field out_short.
     var outOfStockMessageShort : String
-
     /// Model field out_long.
     var outOfStockMessageLong : String
-
     /// Model field ltd_long.
     var limitedStockMessage : String
-
     /**
      CodingKeys used to map the model when encoding and decoding.
 
@@ -162,137 +145,146 @@ public class ProductInventorySettings : Model {
 
         try super.encode(to: encoder)
     }
-    
+
     /**
      Getter for active.
-     
-     - Returns:  Bool
-     */
+
+     - Returns:  Bool     */
     public func getActive() -> Bool {
         return self.active
     }
-    
+
     /**
      Getter for in_short.
 
      - Returns:  String
+
      */
     public func getInStockMessageShort() -> String {
         return self.inStockMessageShort
     }
-    
+
     /**
      Getter for in_long.
 
      - Returns:  String
+
      */
     public func getInStockMessageLong() -> String {
         return self.inStockMessageLong
     }
-    
+
     /**
      Getter for low_track.
 
      - Returns:  String
+
      */
     public func getTrackLowStockLevel() -> String {
         return self.trackLowStockLevel
     }
-    
+
     /**
      Getter for low_level.
-     
+
      - Returns:  Int
+
      */
     public func getLowStockLevel() -> Int {
         return self.lowStockLevel
     }
-    
+
     /**
      Getter for low_lvl_d.
-     
-     - Returns:  Bool
-     */
+
+     - Returns:  Bool     */
     public func getLowStockLevelDefault() -> Bool {
         return self.lowStockLevelDefault
     }
-    
+
     /**
      Getter for low_short.
 
      - Returns:  String
+
      */
     public func getLowStockMessageShort() -> String {
         return self.lowStockMessageShort
     }
-    
+
     /**
      Getter for low_long.
 
      - Returns:  String
+
      */
     public func getLowStockMessageLong() -> String {
         return self.lowStockMessageLong
     }
-    
+
     /**
      Getter for out_track.
 
      - Returns:  String
+
      */
     public func getTrackOutOfStockLevel() -> String {
         return self.trackOutOfStockLevel
     }
-    
+
     /**
      Getter for out_hide.
 
      - Returns:  String
+
      */
     public func getHideOutOfStock() -> String {
         return self.hideOutOfStock
     }
-    
+
     /**
      Getter for out_level.
-     
+
      - Returns:  Int
+
      */
     public func getOutOfStockLevel() -> Int {
         return self.outOfStockLevel
     }
-    
+
     /**
      Getter for out_lvl_d.
-     
-     - Returns:  Bool
-     */
+
+     - Returns:  Bool     */
     public func getOutOfStockLevelDefault() -> Bool {
         return self.outOfStockLevelDefault
     }
-    
+
     /**
      Getter for out_short.
 
      - Returns:  String
+
      */
     public func getOutOfStockMessageShort() -> String {
         return self.outOfStockMessageShort
     }
-    
+
     /**
      Getter for out_long.
 
      - Returns:  String
+
      */
     public func getOutOfStockMessageLong() -> String {
         return self.outOfStockMessageLong
     }
-    
+
     /**
      Getter for ltd_long.
 
      - Returns:  String
+
      */
     public func getLimitedStockMessage() -> String {
         return self.limitedStockMessage

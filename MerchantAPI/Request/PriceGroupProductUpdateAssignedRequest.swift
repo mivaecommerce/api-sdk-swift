@@ -3,11 +3,12 @@
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
- *
- * $Id$
  */
 
 import Foundation
+#if os(Linux)
+import FoundationNetworking
+#endif
 
 /**
  Handles API Request PriceGroupProduct_Update_Assigned.
@@ -16,7 +17,7 @@ import Foundation
  */
 public class PriceGroupProductUpdateAssignedRequest : Request {
     /**
-     The API function name. 
+     The API function name.
 
      - Note: Overrides
      - Returns: String
@@ -26,7 +27,7 @@ public class PriceGroupProductUpdateAssignedRequest : Request {
     }
 
     /**
-     The request scope. 
+     The request scope.
 
      - Note: Overrides
      - Returns: RequestScope
@@ -34,31 +35,31 @@ public class PriceGroupProductUpdateAssignedRequest : Request {
     override var scope : RequestScope {
         return RequestScope.Store;
     }
-    
+
     /// Request field PriceGroup_ID.
-    var priceGroupId : Optional<Int>
+    var priceGroupId : Optional<Int> = nil
 
     /// Request field PriceGroup_Name.
-    var priceGroupName : Optional<String>
+    var priceGroupName : Optional<String> = nil
 
     /// Request field Edit_Product.
-    var editProduct : Optional<String>
+    var editProduct : Optional<String> = nil
 
     /// Request field Product_ID.
-    var productId : Optional<Int>
+    var productId : Optional<Int> = nil
 
     /// Request field Product_Code.
-    var productCode : Optional<String>
+    var productCode : Optional<String> = nil
 
     /// Request field Product_SKU.
-    var productSku : Optional<String>
+    var productSku : Optional<String> = nil
 
     /// Request field Assigned.
-    var assigned : Optional<Bool>
-    
+    var assigned : Optional<Bool> = nil
+
     /**
      CodingKeys used to map the request when encoding.
-     
+
      - SeeAlso: Encodable
      */
     private enum CodingKeys: String, CodingKey {
@@ -71,15 +72,15 @@ public class PriceGroupProductUpdateAssignedRequest : Request {
         case productSku = "Product_SKU"
         case assigned = "Assigned"
     }
-    
+
     /**
      Request constructor.
 
      - Parameters:
-        - client: A Client instance.
+        - client: A BaseClient instance.
         - priceGroup: An optional PriceGroup instance.
      */
-    public init(client: Optional<Client> = nil, priceGroup: Optional<PriceGroup> = nil) {
+    public init(client: Optional<BaseClient> = nil, priceGroup: Optional<PriceGroup> = nil) {
         super.init(client: client)
         if let priceGroup = priceGroup {
             if priceGroup.id > 0 {
@@ -91,7 +92,7 @@ public class PriceGroupProductUpdateAssignedRequest : Request {
             self.priceGroupName = priceGroup.name
         }
     }
-    
+
     /**
      Implementation of Encodable.
 
@@ -126,7 +127,7 @@ public class PriceGroupProductUpdateAssignedRequest : Request {
 
         try super.encode(to : encoder)
     }
-    
+
     /**
      Send the request for a response.
 
@@ -134,13 +135,10 @@ public class PriceGroupProductUpdateAssignedRequest : Request {
         - callback: The callback function with signature (PriceGroupProductUpdateAssignedResponse?, Error?).
      - Note: Overrides
      */
-     public override func send(client: Optional<Client> = nil, callback: @escaping (PriceGroupProductUpdateAssignedResponse?, Error?) -> ()) throws {
-        if client != nil {
-            client!.send(self) { request, response, error in
-                callback(response as? PriceGroupProductUpdateAssignedResponse, error)
-            }
-        } else if self.client != nil {
-            self.client!.send(self) { request, response, error in
+
+     public override func send(client: Optional<BaseClient> = nil, callback: @escaping (PriceGroupProductUpdateAssignedResponse?, Error?) -> ()) throws {
+        if let client = client ?? self.client {
+            client.send(self) { request, response, error in
                 callback(response as? PriceGroupProductUpdateAssignedResponse, error)
             }
         } else {
@@ -152,16 +150,18 @@ public class PriceGroupProductUpdateAssignedRequest : Request {
      Create a response object by decoding the response data.
 
      - Parameters:
+        - httpResponse: The underlying HTTP response object
         - data: The response data to decode.
      - Throws: Error when unable to decode the response data.
      - Note: Overrides
      */
-    public override func createResponse(data : Data) throws -> PriceGroupProductUpdateAssignedResponse {
+    public override func createResponse(httpResponse: URLResponse, data : Data) throws -> PriceGroupProductUpdateAssignedResponse {
         let decoder = JSONDecoder()
-        
-        decoder.userInfo[Response.decoderRequestUserInfoKey]      = self
-        decoder.userInfo[Response.decoderResponseDataUserInfoKey] = data
-        
+
+        decoder.userInfo[Response.decoderRequestUserInfoKey]            = self
+        decoder.userInfo[Response.decoderHttpResponseDataUserInfoKey]   = httpResponse
+        decoder.userInfo[Response.decoderResponseDataUserInfoKey]       = data
+
         return try decoder.decode(PriceGroupProductUpdateAssignedResponse.self, from: data)
     }
 
@@ -174,73 +174,73 @@ public class PriceGroupProductUpdateAssignedRequest : Request {
     override public func getResponseType() -> Response.Type {
         return PriceGroupProductUpdateAssignedResponse.self
     }
-    
+
     /**
      Getter for PriceGroup_ID.
-     
-     - Returns:  Optional<Int> 
+
+     - Returns:  Optional<Int>
      */
     public func getPriceGroupId() -> Optional<Int> {
         return self.priceGroupId
     }
-    
+
     /**
      Getter for PriceGroup_Name.
 
-     - Returns:  Optional<String> 
+     - Returns:  Optional<String>
      */
     public func getPriceGroupName() -> Optional<String> {
         return self.priceGroupName
     }
-    
+
     /**
      Getter for Edit_Product.
 
-     - Returns:  Optional<String> 
+     - Returns:  Optional<String>
      */
     public func getEditProduct() -> Optional<String> {
         return self.editProduct
     }
-    
+
     /**
      Getter for Product_ID.
-     
-     - Returns:  Optional<Int> 
+
+     - Returns:  Optional<Int>
      */
     public func getProductId() -> Optional<Int> {
         return self.productId
     }
-    
+
     /**
      Getter for Product_Code.
 
-     - Returns:  Optional<String> 
+     - Returns:  Optional<String>
      */
     public func getProductCode() -> Optional<String> {
         return self.productCode
     }
-    
+
     /**
      Getter for Product_SKU.
 
-     - Returns:  Optional<String> 
+     - Returns:  Optional<String>
      */
     public func getProductSku() -> Optional<String> {
         return self.productSku
     }
-    
+
     /**
      Getter for Assigned.
-     
-     - Returns:  Optional<Bool> 
+
+     - Returns:  Optional<Bool>
      */
     public func getAssigned() -> Optional<Bool> {
         return self.assigned
     }
-    
+
     /**
      Setter for PriceGroup_ID.
-     
+
      - Parameters:
         - value: Optional<Int>
      - Returns:  Self
@@ -250,7 +250,7 @@ public class PriceGroupProductUpdateAssignedRequest : Request {
         self.priceGroupId = value
         return self
     }
-    
+
     /**
      Setter for PriceGroup_Name.
 
@@ -263,7 +263,7 @@ public class PriceGroupProductUpdateAssignedRequest : Request {
         self.priceGroupName = value
         return self
     }
-    
+
     /**
      Setter for Edit_Product.
 
@@ -276,10 +276,10 @@ public class PriceGroupProductUpdateAssignedRequest : Request {
         self.editProduct = value
         return self
     }
-    
+
     /**
      Setter for Product_ID.
-     
+
      - Parameters:
         - value: Optional<Int>
      - Returns:  Self
@@ -289,7 +289,7 @@ public class PriceGroupProductUpdateAssignedRequest : Request {
         self.productId = value
         return self
     }
-    
+
     /**
      Setter for Product_Code.
 
@@ -302,7 +302,7 @@ public class PriceGroupProductUpdateAssignedRequest : Request {
         self.productCode = value
         return self
     }
-    
+
     /**
      Setter for Product_SKU.
 
@@ -315,10 +315,10 @@ public class PriceGroupProductUpdateAssignedRequest : Request {
         self.productSku = value
         return self
     }
-    
+
     /**
      Setter for Assigned.
-     
+
      - Parameters:
         - value: Optional<Bool>
      - Returns:  Self

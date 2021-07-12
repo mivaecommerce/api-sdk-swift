@@ -3,11 +3,12 @@
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
- *
- * $Id$
  */
 
 import Foundation
+#if os(Linux)
+import FoundationNetworking
+#endif
 
 /**
  Handles API Request Category_Insert.
@@ -16,7 +17,7 @@ import Foundation
  */
 public class CategoryInsertRequest : Request {
     /**
-     The API function name. 
+     The API function name.
 
      - Note: Overrides
      - Returns: String
@@ -26,7 +27,7 @@ public class CategoryInsertRequest : Request {
     }
 
     /**
-     The request scope. 
+     The request scope.
 
      - Note: Overrides
      - Returns: RequestScope
@@ -34,31 +35,31 @@ public class CategoryInsertRequest : Request {
     override var scope : RequestScope {
         return RequestScope.Store;
     }
-    
+
     /// Request field Category_Code.
-    var categoryCode : Optional<String>
+    var categoryCode : Optional<String> = nil
 
     /// Request field Category_Name.
-    var categoryName : Optional<String>
+    var categoryName : Optional<String> = nil
 
     /// Request field Category_Active.
-    var categoryActive : Optional<Bool>
+    var categoryActive : Optional<Bool> = nil
 
     /// Request field Category_Page_Title.
-    var categoryPageTitle : Optional<String>
+    var categoryPageTitle : Optional<String> = nil
 
     /// Request field Category_Parent_Category.
-    var categoryParentCategory : Optional<String>
+    var categoryParentCategory : Optional<String> = nil
 
     /// Request field Category_Alternate_Display_Page.
-    var categoryAlternateDisplayPage : Optional<String>
+    var categoryAlternateDisplayPage : Optional<String> = nil
 
     /// Request field CustomField_Values.
     var customFieldValues : CustomFieldValues
-    
+
     /**
      CodingKeys used to map the request when encoding.
-     
+
      - SeeAlso: Encodable
      */
     private enum CodingKeys: String, CodingKey {
@@ -71,15 +72,15 @@ public class CategoryInsertRequest : Request {
         case categoryAlternateDisplayPage = "Category_Alternate_Display_Page"
         case customFieldValues = "CustomField_Values"
     }
-    
+
     /**
      Request constructor.
 
      - Parameters:
-        - client: A Client instance.
+        - client: A BaseClient instance.
         - category: An optional Category instance.
      */
-    public init(client: Optional<Client> = nil, category: Optional<Category> = nil) {
+    public init(client: Optional<BaseClient> = nil, category: Optional<Category> = nil) {
         self.customFieldValues = CustomFieldValues()
         super.init(client: client)
         if let category = category {
@@ -91,7 +92,7 @@ public class CategoryInsertRequest : Request {
             self.customFieldValues = category.customFieldValues
         }
     }
-    
+
     /**
      Implementation of Encodable.
 
@@ -113,7 +114,7 @@ public class CategoryInsertRequest : Request {
 
         try super.encode(to : encoder)
     }
-    
+
     /**
      Send the request for a response.
 
@@ -121,13 +122,10 @@ public class CategoryInsertRequest : Request {
         - callback: The callback function with signature (CategoryInsertResponse?, Error?).
      - Note: Overrides
      */
-     public override func send(client: Optional<Client> = nil, callback: @escaping (CategoryInsertResponse?, Error?) -> ()) throws {
-        if client != nil {
-            client!.send(self) { request, response, error in
-                callback(response as? CategoryInsertResponse, error)
-            }
-        } else if self.client != nil {
-            self.client!.send(self) { request, response, error in
+
+     public override func send(client: Optional<BaseClient> = nil, callback: @escaping (CategoryInsertResponse?, Error?) -> ()) throws {
+        if let client = client ?? self.client {
+            client.send(self) { request, response, error in
                 callback(response as? CategoryInsertResponse, error)
             }
         } else {
@@ -139,16 +137,18 @@ public class CategoryInsertRequest : Request {
      Create a response object by decoding the response data.
 
      - Parameters:
+        - httpResponse: The underlying HTTP response object
         - data: The response data to decode.
      - Throws: Error when unable to decode the response data.
      - Note: Overrides
      */
-    public override func createResponse(data : Data) throws -> CategoryInsertResponse {
+    public override func createResponse(httpResponse: URLResponse, data : Data) throws -> CategoryInsertResponse {
         let decoder = JSONDecoder()
-        
-        decoder.userInfo[Response.decoderRequestUserInfoKey]      = self
-        decoder.userInfo[Response.decoderResponseDataUserInfoKey] = data
-        
+
+        decoder.userInfo[Response.decoderRequestUserInfoKey]            = self
+        decoder.userInfo[Response.decoderHttpResponseDataUserInfoKey]   = httpResponse
+        decoder.userInfo[Response.decoderResponseDataUserInfoKey]       = data
+
         return try decoder.decode(CategoryInsertResponse.self, from: data)
     }
 
@@ -161,70 +161,70 @@ public class CategoryInsertRequest : Request {
     override public func getResponseType() -> Response.Type {
         return CategoryInsertResponse.self
     }
-    
+
     /**
      Getter for Category_Code.
 
-     - Returns:  Optional<String> 
+     - Returns:  Optional<String>
      */
     public func getCategoryCode() -> Optional<String> {
         return self.categoryCode
     }
-    
+
     /**
      Getter for Category_Name.
 
-     - Returns:  Optional<String> 
+     - Returns:  Optional<String>
      */
     public func getCategoryName() -> Optional<String> {
         return self.categoryName
     }
-    
+
     /**
      Getter for Category_Active.
-     
-     - Returns:  Optional<Bool> 
+
+     - Returns:  Optional<Bool>
      */
     public func getCategoryActive() -> Optional<Bool> {
         return self.categoryActive
     }
-    
+
     /**
      Getter for Category_Page_Title.
 
-     - Returns:  Optional<String> 
+     - Returns:  Optional<String>
      */
     public func getCategoryPageTitle() -> Optional<String> {
         return self.categoryPageTitle
     }
-    
+
     /**
      Getter for Category_Parent_Category.
 
-     - Returns:  Optional<String> 
+     - Returns:  Optional<String>
      */
     public func getCategoryParentCategory() -> Optional<String> {
         return self.categoryParentCategory
     }
-    
+
     /**
      Getter for Category_Alternate_Display_Page.
 
-     - Returns:  Optional<String> 
+     - Returns:  Optional<String>
      */
     public func getCategoryAlternateDisplayPage() -> Optional<String> {
         return self.categoryAlternateDisplayPage
     }
-    
+
     /**
      Getter for CustomField_Values.
-     
+
      - Returns:  CustomFieldValues
      */
     public func getCustomFieldValues() -> CustomFieldValues {
         return self.customFieldValues
     }
-    
+
     /**
      Setter for Category_Code.
 
@@ -237,7 +237,7 @@ public class CategoryInsertRequest : Request {
         self.categoryCode = value
         return self
     }
-    
+
     /**
      Setter for Category_Name.
 
@@ -250,10 +250,10 @@ public class CategoryInsertRequest : Request {
         self.categoryName = value
         return self
     }
-    
+
     /**
      Setter for Category_Active.
-     
+
      - Parameters:
         - value: Optional<Bool>
      - Returns:  Self
@@ -263,7 +263,7 @@ public class CategoryInsertRequest : Request {
         self.categoryActive = value
         return self
     }
-    
+
     /**
      Setter for Category_Page_Title.
 
@@ -276,7 +276,7 @@ public class CategoryInsertRequest : Request {
         self.categoryPageTitle = value
         return self
     }
-    
+
     /**
      Setter for Category_Parent_Category.
 
@@ -289,7 +289,7 @@ public class CategoryInsertRequest : Request {
         self.categoryParentCategory = value
         return self
     }
-    
+
     /**
      Setter for Category_Alternate_Display_Page.
 

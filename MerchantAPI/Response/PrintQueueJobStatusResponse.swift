@@ -3,31 +3,32 @@
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
- *
- * $Id$
  */
 
 import Foundation
+#if os(Linux)
+import FoundationNetworking
+#endif
 
 /**
  API Response for PrintQueueJob_Status.
- 
+
  - SeeAlso: https://docs.miva.com/json-api/functions/printqueuejob_status
  */
 public class PrintQueueJobStatusResponse : Response {
     /// Response field status.
-    var status : Optional<String>
+    var status : Optional<String> = nil
 
     /**
      CodingKeys used to map the model when decoding.
-     
+
      - SeeAlso: Decodable
      */
     private enum CodingKeys: String, CodingKey {
         case status
         case data
     }
-    
+
     /**
      Construct an instance from a decoder instance.
 

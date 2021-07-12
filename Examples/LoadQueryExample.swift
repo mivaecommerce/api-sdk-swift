@@ -4,8 +4,6 @@
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
- *
- * $Id: LoadQueryExample.swift 73830 2019-03-05 23:40:40Z gidriss $
  */
 
 import MerchantAPI
@@ -126,20 +124,20 @@ try request.send() { response, error in
         /// Handle Error
         return
     }
-    
+
     if (!response.isSuccess()) {
         print(String(format: "Error Loading Order List", response.getErrorCode(), response.getErrorMessage()))
     } else {
         for product in response.getProducts() {
             print(String(format: "Product ID: %d Code: %s Name: %s", product.getId(), product.getCode(), product.getName()))
-            
+
             /*
              * Custom Field Values can be accessed via the CustomFieldValues model object
              * @see CustomFieldValues
              */
-            
+
             var myCustomField       = product.getCustomFieldValues().getValue("MyFieldCode");
-            
+
             var myModuleCustomField = product.getCustomFieldValues().getValue("MyModuleFieldCode", "MyModule");
         }
     }

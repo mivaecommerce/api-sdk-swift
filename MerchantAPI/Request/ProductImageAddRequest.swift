@@ -3,11 +3,12 @@
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
- *
- * $Id$
  */
 
 import Foundation
+#if os(Linux)
+import FoundationNetworking
+#endif
 
 /**
  Handles API Request ProductImage_Add.
@@ -16,7 +17,7 @@ import Foundation
  */
 public class ProductImageAddRequest : Request {
     /**
-     The API function name. 
+     The API function name.
 
      - Note: Overrides
      - Returns: String
@@ -26,7 +27,7 @@ public class ProductImageAddRequest : Request {
     }
 
     /**
-     The request scope. 
+     The request scope.
 
      - Note: Overrides
      - Returns: RequestScope
@@ -34,28 +35,28 @@ public class ProductImageAddRequest : Request {
     override var scope : RequestScope {
         return RequestScope.Store;
     }
-    
+
     /// Request field Product_Code.
-    var productCode : Optional<String>
+    var productCode : Optional<String> = nil
 
     /// Request field Product_ID.
-    var productId : Optional<Int>
+    var productId : Optional<Int> = nil
 
     /// Request field Edit_Product.
-    var editProduct : Optional<String>
+    var editProduct : Optional<String> = nil
 
     /// Request field Product_SKU.
-    var productSku : Optional<String>
+    var productSku : Optional<String> = nil
 
     /// Request field Filepath.
-    var filepath : Optional<String>
+    var filepath : Optional<String> = nil
 
     /// Request field ImageType_ID.
-    var imageTypeId : Optional<Int>
-    
+    var imageTypeId : Optional<Int> = nil
+
     /**
      CodingKeys used to map the request when encoding.
-     
+
      - SeeAlso: Encodable
      */
     private enum CodingKeys: String, CodingKey {
@@ -67,15 +68,15 @@ public class ProductImageAddRequest : Request {
         case filepath = "Filepath"
         case imageTypeId = "ImageType_ID"
     }
-    
+
     /**
      Request constructor.
 
      - Parameters:
-        - client: A Client instance.
+        - client: A BaseClient instance.
         - product: An optional Product instance.
      */
-    public init(client: Optional<Client> = nil, product: Optional<Product> = nil) {
+    public init(client: Optional<BaseClient> = nil, product: Optional<Product> = nil) {
         super.init(client: client)
         if let product = product {
             if product.id > 0 {
@@ -87,7 +88,7 @@ public class ProductImageAddRequest : Request {
             }
         }
     }
-    
+
     /**
      Implementation of Encodable.
 
@@ -114,7 +115,7 @@ public class ProductImageAddRequest : Request {
 
         try super.encode(to : encoder)
     }
-    
+
     /**
      Send the request for a response.
 
@@ -122,13 +123,10 @@ public class ProductImageAddRequest : Request {
         - callback: The callback function with signature (ProductImageAddResponse?, Error?).
      - Note: Overrides
      */
-     public override func send(client: Optional<Client> = nil, callback: @escaping (ProductImageAddResponse?, Error?) -> ()) throws {
-        if client != nil {
-            client!.send(self) { request, response, error in
-                callback(response as? ProductImageAddResponse, error)
-            }
-        } else if self.client != nil {
-            self.client!.send(self) { request, response, error in
+
+     public override func send(client: Optional<BaseClient> = nil, callback: @escaping (ProductImageAddResponse?, Error?) -> ()) throws {
+        if let client = client ?? self.client {
+            client.send(self) { request, response, error in
                 callback(response as? ProductImageAddResponse, error)
             }
         } else {
@@ -140,16 +138,18 @@ public class ProductImageAddRequest : Request {
      Create a response object by decoding the response data.
 
      - Parameters:
+        - httpResponse: The underlying HTTP response object
         - data: The response data to decode.
      - Throws: Error when unable to decode the response data.
      - Note: Overrides
      */
-    public override func createResponse(data : Data) throws -> ProductImageAddResponse {
+    public override func createResponse(httpResponse: URLResponse, data : Data) throws -> ProductImageAddResponse {
         let decoder = JSONDecoder()
-        
-        decoder.userInfo[Response.decoderRequestUserInfoKey]      = self
-        decoder.userInfo[Response.decoderResponseDataUserInfoKey] = data
-        
+
+        decoder.userInfo[Response.decoderRequestUserInfoKey]            = self
+        decoder.userInfo[Response.decoderHttpResponseDataUserInfoKey]   = httpResponse
+        decoder.userInfo[Response.decoderResponseDataUserInfoKey]       = data
+
         return try decoder.decode(ProductImageAddResponse.self, from: data)
     }
 
@@ -162,61 +162,61 @@ public class ProductImageAddRequest : Request {
     override public func getResponseType() -> Response.Type {
         return ProductImageAddResponse.self
     }
-    
+
     /**
      Getter for Product_Code.
 
-     - Returns:  Optional<String> 
+     - Returns:  Optional<String>
      */
     public func getProductCode() -> Optional<String> {
         return self.productCode
     }
-    
+
     /**
      Getter for Product_ID.
-     
-     - Returns:  Optional<Int> 
+
+     - Returns:  Optional<Int>
      */
     public func getProductId() -> Optional<Int> {
         return self.productId
     }
-    
+
     /**
      Getter for Edit_Product.
 
-     - Returns:  Optional<String> 
+     - Returns:  Optional<String>
      */
     public func getEditProduct() -> Optional<String> {
         return self.editProduct
     }
-    
+
     /**
      Getter for Product_SKU.
 
-     - Returns:  Optional<String> 
+     - Returns:  Optional<String>
      */
     public func getProductSku() -> Optional<String> {
         return self.productSku
     }
-    
+
     /**
      Getter for Filepath.
 
-     - Returns:  Optional<String> 
+     - Returns:  Optional<String>
      */
     public func getFilepath() -> Optional<String> {
         return self.filepath
     }
-    
+
     /**
      Getter for ImageType_ID.
-     
-     - Returns:  Optional<Int> 
+
+     - Returns:  Optional<Int>
      */
     public func getImageTypeId() -> Optional<Int> {
         return self.imageTypeId
     }
-    
+
     /**
      Setter for Product_Code.
 
@@ -229,10 +229,10 @@ public class ProductImageAddRequest : Request {
         self.productCode = value
         return self
     }
-    
+
     /**
      Setter for Product_ID.
-     
+
      - Parameters:
         - value: Optional<Int>
      - Returns:  Self
@@ -242,7 +242,7 @@ public class ProductImageAddRequest : Request {
         self.productId = value
         return self
     }
-    
+
     /**
      Setter for Edit_Product.
 
@@ -255,7 +255,7 @@ public class ProductImageAddRequest : Request {
         self.editProduct = value
         return self
     }
-    
+
     /**
      Setter for Product_SKU.
 
@@ -268,7 +268,7 @@ public class ProductImageAddRequest : Request {
         self.productSku = value
         return self
     }
-    
+
     /**
      Setter for Filepath.
 
@@ -281,10 +281,10 @@ public class ProductImageAddRequest : Request {
         self.filepath = value
         return self
     }
-    
+
     /**
      Setter for ImageType_ID.
-     
+
      - Parameters:
         - value: Optional<Int>
      - Returns:  Self

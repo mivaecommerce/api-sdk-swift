@@ -3,8 +3,6 @@
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
- *
- * $Id$
  */
 
 import Foundation
@@ -14,7 +12,6 @@ public class CouponPriceGroup : PriceGroup {
 
     /// Model field assigned.
     var assigned : Bool
-
     /**
      CodingKeys used to map the model when encoding and decoding.
 
@@ -64,12 +61,11 @@ public class CouponPriceGroup : PriceGroup {
 
         try super.encode(to: encoder)
     }
-    
+
     /**
      Getter for assigned.
-     
-     - Returns:  Bool
-     */
+
+     - Returns:  Bool     */
     public func getAssigned() -> Bool {
         return self.assigned
     }

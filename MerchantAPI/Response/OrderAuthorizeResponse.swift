@@ -3,22 +3,23 @@
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
- *
- * $Id$
  */
 
 import Foundation
+#if os(Linux)
+import FoundationNetworking
+#endif
 
 /**
  API Response for Order_Authorize.
- 
+
  - SeeAlso: https://docs.miva.com/json-api/functions/order_authorize
  */
 public class OrderAuthorizeResponse : Response {
 
     /// The response model
-    public var orderPaymentAuthorize : Optional<OrderPaymentAuthorize>
-    
+    public var orderPaymentAuthorize : Optional<OrderPaymentAuthorize> = nil
+
     /**
      Getter for orderPaymentAuthorize.
 
@@ -27,16 +28,16 @@ public class OrderAuthorizeResponse : Response {
     public func getOrderPaymentAuthorize() -> Optional<OrderPaymentAuthorize> {
         return self.orderPaymentAuthorize
     }
-    
+
     /**
      CodingKeys used to map the model when decoding.
-     
+
      - SeeAlso: Decodable
      */
     private enum CodingKeys: String, CodingKey {
         case orderPaymentAuthorize = "data"
     }
-    
+
     /**
      Construct an instance from a decoder instance.
 

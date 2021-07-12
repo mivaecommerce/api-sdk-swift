@@ -3,8 +3,6 @@
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
- *
- * $Id$
  */
 
 import Foundation
@@ -14,28 +12,22 @@ public class OrderCharge : Model {
 
     /// Model field order_id.
     var orderId : Int
-
     /// Model field charge_id.
     var chargeId : Int
-
     /// Model field module_id.
     var moduleId : Int
-
     /// Model field type.
-    var type : String
-
+    var type : Optional<String>
     /// Model field descrip.
-    var description : String
-
+    var description : Optional<String>
     /// Model field amount.
-    var amount : Decimal
-
+    var amount : Optional<Decimal>
     /// Model field disp_amt.
-    var displayAmount : Decimal
-
+    var displayAmount : Optional<Decimal>
     /// Model field tax_exempt.
-    var taxExempt : Bool
-
+    var taxExempt : Optional<Bool>
+    /// Model field tax.
+    var tax : Decimal
     /**
      CodingKeys used to map the model when encoding and decoding.
 
@@ -50,6 +42,7 @@ public class OrderCharge : Model {
         case amount
         case displayAmount = "disp_amt"
         case taxExempt = "tax_exempt"
+        case tax
     }
 
     /**
@@ -59,11 +52,12 @@ public class OrderCharge : Model {
         self.orderId = 0
         self.chargeId = 0
         self.moduleId = 0
-        self.type = ""
-        self.description = ""
-        self.amount = Decimal(0.00)
-        self.displayAmount = Decimal(0.00)
-        self.taxExempt = false
+        self.type = nil
+        self.description = nil
+        self.amount = nil
+        self.displayAmount = nil
+        self.taxExempt = nil
+        self.tax = Decimal(0.00)
 
         super.init()
     }
@@ -82,11 +76,12 @@ public class OrderCharge : Model {
         self.orderId = try container.decodeIfPresent(Int.self, forKey: .orderId) ?? 0
         self.chargeId = try container.decodeIfPresent(Int.self, forKey: .chargeId) ?? 0
         self.moduleId = try container.decodeIfPresent(Int.self, forKey: .moduleId) ?? 0
-        self.type = try container.decodeIfPresent(String.self, forKey: .type) ?? ""
-        self.description = try container.decodeIfPresent(String.self, forKey: .description) ?? ""
-        self.amount = try container.decodeIfPresent(Decimal.self, forKey: .amount) ?? Decimal(0.00)
-        self.displayAmount = try container.decodeIfPresent(Decimal.self, forKey: .displayAmount) ?? Decimal(0.00)
-        self.taxExempt = try container.decodeIfPresent(Bool.self, forKey: .taxExempt) ?? false
+        self.type = try container.decodeIfPresent(String.self, forKey: .type) ?? nil
+        self.description = try container.decodeIfPresent(String.self, forKey: .description) ?? nil
+        self.amount = try container.decodeIfPresent(Decimal.self, forKey: .amount) ?? nil
+        self.displayAmount = try container.decodeIfPresent(Decimal.self, forKey: .displayAmount) ?? nil
+        self.taxExempt = try container.decodeIfPresent(Bool.self, forKey: .taxExempt) ?? nil
+        self.tax = try container.decodeIfPresent(Decimal.self, forKey: .tax) ?? Decimal(0.00)
 
         try super.init(from : decoder)
     }
@@ -110,80 +105,91 @@ public class OrderCharge : Model {
         try container.encodeIfPresent(Decimal.roundForEncoding(value: self.amount, precision: MERCHANTAPI_FLOAT_ENCODE_PRECISION), forKey: .amount)
         try container.encodeIfPresent(Decimal.roundForEncoding(value: self.displayAmount, precision: MERCHANTAPI_FLOAT_ENCODE_PRECISION), forKey: .displayAmount)
         try container.encodeIfPresent(self.taxExempt, forKey: .taxExempt)
+        try container.encodeIfPresent(Decimal.roundForEncoding(value: self.tax, precision: MERCHANTAPI_FLOAT_ENCODE_PRECISION), forKey: .tax)
 
         try super.encode(to: encoder)
     }
-    
+
     /**
      Getter for order_id.
-     
+
      - Returns:  Int
+
      */
     public func getOrderId() -> Int {
         return self.orderId
     }
-    
+
     /**
      Getter for charge_id.
-     
+
      - Returns:  Int
+
      */
     public func getChargeId() -> Int {
         return self.chargeId
     }
-    
+
     /**
      Getter for module_id.
-     
+
      - Returns:  Int
+
      */
     public func getModuleId() -> Int {
         return self.moduleId
     }
-    
+
     /**
      Getter for type.
 
-     - Returns:  String
+     - Returns:  Optional<String>
+
      */
-    public func getType() -> String {
+    public func getType() -> Optional<String> {
         return self.type
     }
-    
+
     /**
      Getter for descrip.
 
-     - Returns:  String
+     - Returns:  Optional<String>
+
      */
-    public func getDescription() -> String {
+    public func getDescription() -> Optional<String> {
         return self.description
     }
-    
+
     /**
      Getter for amount.
-     
-     - Returns:  Decimal
-     */
-    public func getAmount() -> Decimal {
+
+     - Returns:  Optional<Decimal>     */
+    public func getAmount() -> Optional<Decimal> {
         return self.amount
     }
-    
+
     /**
      Getter for disp_amt.
-     
-     - Returns:  Decimal
-     */
-    public func getDisplayAmount() -> Decimal {
+
+     - Returns:  Optional<Decimal>     */
+    public func getDisplayAmount() -> Optional<Decimal> {
         return self.displayAmount
     }
-    
+
     /**
      Getter for tax_exempt.
-     
-     - Returns:  Bool
-     */
-    public func getTaxExempt() -> Bool {
+
+     - Returns:  Optional<Bool>     */
+    public func getTaxExempt() -> Optional<Bool> {
         return self.taxExempt
+    }
+
+    /**
+     Getter for tax.
+
+     - Returns:  Decimal     */
+    public func getTax() -> Decimal {
+        return self.tax
     }
 
     /**
@@ -214,7 +220,7 @@ public class OrderCharge : Model {
 
     /**
      Setter for amount.
-     
+
      - Parameters:
         - value: Decimal
      - Returns:  Self
@@ -227,7 +233,7 @@ public class OrderCharge : Model {
 
     /**
      Setter for disp_amt.
-     
+
      - Parameters:
         - value: Decimal
      - Returns:  Self
@@ -240,7 +246,7 @@ public class OrderCharge : Model {
 
     /**
      Setter for tax_exempt.
-     
+
      - Parameters:
         - value: Bool
      - Returns:  Self

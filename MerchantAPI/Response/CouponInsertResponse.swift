@@ -3,31 +3,32 @@
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
- *
- * $Id$
  */
 
 import Foundation
+#if os(Linux)
+import FoundationNetworking
+#endif
 
 /**
  API Response for Coupon_Insert.
- 
+
  - SeeAlso: https://docs.miva.com/json-api/functions/coupon_insert
  */
 public class CouponInsertResponse : Response {
     /// Response field id.
-    var id : Optional<Int>
+    var id : Optional<Int> = nil
 
     /**
      CodingKeys used to map the model when decoding.
-     
+
      - SeeAlso: Decodable
      */
     private enum CodingKeys: String, CodingKey {
         case id
         case data
     }
-    
+
     /**
      Construct an instance from a decoder instance.
 

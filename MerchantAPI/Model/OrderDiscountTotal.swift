@@ -3,8 +3,6 @@
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
- *
- * $Id$
  */
 
 import Foundation
@@ -14,19 +12,14 @@ public class OrderDiscountTotal : Model {
 
     /// Model field order_id.
     var orderId : Int
-
     /// Model field pgrp_id.
     var priceGroupId : Int
-
     /// Model field name.
     var name : String
-
     /// Model field descrip.
     var description : String
-
     /// Model field total.
     var total : Decimal
-
     /**
      CodingKeys used to map the model when encoding and decoding.
 
@@ -92,48 +85,51 @@ public class OrderDiscountTotal : Model {
 
         try super.encode(to: encoder)
     }
-    
+
     /**
      Getter for order_id.
-     
+
      - Returns:  Int
+
      */
     public func getOrderId() -> Int {
         return self.orderId
     }
-    
+
     /**
      Getter for pgrp_id.
-     
+
      - Returns:  Int
+
      */
     public func getPriceGroupId() -> Int {
         return self.priceGroupId
     }
-    
+
     /**
      Getter for name.
 
      - Returns:  String
+
      */
     public func getName() -> String {
         return self.name
     }
-    
+
     /**
      Getter for descrip.
 
      - Returns:  String
+
      */
     public func getDescription() -> String {
         return self.description
     }
-    
+
     /**
      Getter for total.
-     
-     - Returns:  Decimal
-     */
+
+     - Returns:  Decimal     */
     public func getTotal() -> Decimal {
         return self.total
     }

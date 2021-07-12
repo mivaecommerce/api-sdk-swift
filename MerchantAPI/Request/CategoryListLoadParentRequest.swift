@@ -3,11 +3,12 @@
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
- *
- * $Id$
  */
 
 import Foundation
+#if os(Linux)
+import FoundationNetworking
+#endif
 
 /**
  Handles API Request CategoryList_Load_Parent.
@@ -16,7 +17,7 @@ import Foundation
  */
 public class CategoryListLoadParentRequest : Request {
     /**
-     The API function name. 
+     The API function name.
 
      - Note: Overrides
      - Returns: String
@@ -26,7 +27,7 @@ public class CategoryListLoadParentRequest : Request {
     }
 
     /**
-     The request scope. 
+     The request scope.
 
      - Note: Overrides
      - Returns: RequestScope
@@ -34,34 +35,34 @@ public class CategoryListLoadParentRequest : Request {
     override var scope : RequestScope {
         return RequestScope.Store;
     }
-    
+
     /// Request field Parent_ID.
-    var parentId : Optional<Int>
-    
+    var parentId : Optional<Int> = nil
+
     /**
      CodingKeys used to map the request when encoding.
-     
+
      - SeeAlso: Encodable
      */
     private enum CodingKeys: String, CodingKey {
         case function = "Function"
         case parentId = "Parent_ID"
     }
-    
+
     /**
      Request constructor.
 
      - Parameters:
-        - client: A Client instance.
+        - client: A BaseClient instance.
         - category: An optional Category instance.
      */
-    public init(client: Optional<Client> = nil, category: Optional<Category> = nil) {
+    public init(client: Optional<BaseClient> = nil, category: Optional<Category> = nil) {
         super.init(client: client)
         if let category = category {
             self.parentId = category.id
         }
     }
-    
+
     /**
      Implementation of Encodable.
 
@@ -76,7 +77,7 @@ public class CategoryListLoadParentRequest : Request {
         try container.encodeIfPresent(self.parentId, forKey: .parentId)
         try super.encode(to : encoder)
     }
-    
+
     /**
      Send the request for a response.
 
@@ -84,13 +85,10 @@ public class CategoryListLoadParentRequest : Request {
         - callback: The callback function with signature (CategoryListLoadParentResponse?, Error?).
      - Note: Overrides
      */
-     public override func send(client: Optional<Client> = nil, callback: @escaping (CategoryListLoadParentResponse?, Error?) -> ()) throws {
-        if client != nil {
-            client!.send(self) { request, response, error in
-                callback(response as? CategoryListLoadParentResponse, error)
-            }
-        } else if self.client != nil {
-            self.client!.send(self) { request, response, error in
+
+     public override func send(client: Optional<BaseClient> = nil, callback: @escaping (CategoryListLoadParentResponse?, Error?) -> ()) throws {
+        if let client = client ?? self.client {
+            client.send(self) { request, response, error in
                 callback(response as? CategoryListLoadParentResponse, error)
             }
         } else {
@@ -102,16 +100,18 @@ public class CategoryListLoadParentRequest : Request {
      Create a response object by decoding the response data.
 
      - Parameters:
+        - httpResponse: The underlying HTTP response object
         - data: The response data to decode.
      - Throws: Error when unable to decode the response data.
      - Note: Overrides
      */
-    public override func createResponse(data : Data) throws -> CategoryListLoadParentResponse {
+    public override func createResponse(httpResponse: URLResponse, data : Data) throws -> CategoryListLoadParentResponse {
         let decoder = JSONDecoder()
-        
-        decoder.userInfo[Response.decoderRequestUserInfoKey]      = self
-        decoder.userInfo[Response.decoderResponseDataUserInfoKey] = data
-        
+
+        decoder.userInfo[Response.decoderRequestUserInfoKey]            = self
+        decoder.userInfo[Response.decoderHttpResponseDataUserInfoKey]   = httpResponse
+        decoder.userInfo[Response.decoderResponseDataUserInfoKey]       = data
+
         return try decoder.decode(CategoryListLoadParentResponse.self, from: data)
     }
 
@@ -124,19 +124,19 @@ public class CategoryListLoadParentRequest : Request {
     override public func getResponseType() -> Response.Type {
         return CategoryListLoadParentResponse.self
     }
-    
+
     /**
      Getter for Parent_ID.
-     
-     - Returns:  Optional<Int> 
+
+     - Returns:  Optional<Int>
      */
     public func getParentId() -> Optional<Int> {
         return self.parentId
     }
-    
+
     /**
      Setter for Parent_ID.
-     
+
      - Parameters:
         - value: Optional<Int>
      - Returns:  Self

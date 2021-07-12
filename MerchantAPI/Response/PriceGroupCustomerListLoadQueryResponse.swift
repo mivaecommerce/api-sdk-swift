@@ -3,15 +3,16 @@
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
- *
- * $Id: PriceGroupCustomerListLoadQueryResponse.swift 77298 2019-08-07 22:16:46Z gidriss $
  */
 
 import Foundation
+#if os(Linux)
+import FoundationNetworking
+#endif
 
 /**
  API Response for PriceGroupCustomerList_Load_Query.
- 
+
  - SeeAlso: https://docs.miva.com/json-api/functions/pricegroupcustomerlist_load_query
  */
 public class PriceGroupCustomerListLoadQueryResponse : ListQueryResponse {
@@ -37,13 +38,13 @@ public class PriceGroupCustomerListLoadQueryResponse : ListQueryResponse {
 
     /**
      CodingKeys used to map the model when decoding.
-     
+
      - SeeAlso: Decodable
      */
     private enum CodingKeys: String, CodingKey {
         case data = "data"
     }
-    
+
     /**
      Construct an instance from a decoder instance.
 

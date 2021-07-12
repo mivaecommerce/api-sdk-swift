@@ -3,8 +3,6 @@
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
- *
- * $Id$
  */
 
 import Foundation
@@ -14,19 +12,14 @@ public class OrderCustomField : Model {
 
     /// Model field code.
     var code : String
-
     /// Model field name.
     var name : String
-
     /// Model field type.
     var type : String
-
     /// Model field searchable.
     var searchable : Bool
-
     /// Model field sortable.
     var sortable : Bool
-
     /// Model field module
     var module : Module
 
@@ -105,145 +98,68 @@ public class OrderCustomField : Model {
 
         try super.encode(to: encoder)
     }
-    
+
     /**
      Getter for code.
 
      - Returns:  String
+
      */
     public func getCode() -> String {
         return self.code
     }
-    
+
     /**
      Getter for name.
 
      - Returns:  String
+
      */
     public func getName() -> String {
         return self.name
     }
-    
+
     /**
      Getter for type.
 
      - Returns:  String
+
      */
     public func getType() -> String {
         return self.type
     }
-    
+
     /**
      Getter for searchable.
-     
-     - Returns:  Bool
-     */
+
+     - Returns:  Bool     */
     public func getSearchable() -> Bool {
         return self.searchable
     }
-    
+
     /**
      Getter for sortable.
-     
-     - Returns:  Bool
-     */
+
+     - Returns:  Bool     */
     public func getSortable() -> Bool {
         return self.sortable
     }
 
     /**
      Getter for module.
-     
+
      - Returns:  Module
      */
     public func getModule() -> Module {
         return self.module
     }
-    
+
     /**
      Getter for choices.
-     
-     - Returns:  [String] 
+
+     - Returns:  [String]
      */
     public func getChoices() -> [String] {
         return self.choices
-    }
-
-    /**
-     Setter for code.
-
-     - Parameters:
-        - value: String
-     - Returns:  Self
-     */
-    @discardableResult
-    public func setCode(_ value: String) -> Self {
-        self.code = value
-        return self
-    }
-
-    /**
-     Setter for name.
-
-     - Parameters:
-        - value: String
-     - Returns:  Self
-     */
-    @discardableResult
-    public func setName(_ value: String) -> Self {
-        self.name = value
-        return self
-    }
-
-    /**
-     Setter for type.
-
-     - Parameters:
-        - value: String
-     - Returns:  Self
-     */
-    @discardableResult
-    public func setType(_ value: String) -> Self {
-        self.type = value
-        return self
-    }
-
-    /**
-     Setter for searchable.
-     
-     - Parameters:
-        - value: Bool
-     - Returns:  Self
-     */
-    @discardableResult
-    public func setSearchable(_ value: Bool) -> Self {
-        self.searchable = value
-        return self
-    }
-
-    /**
-     Setter for sortable.
-     
-     - Parameters:
-        - value: Bool
-     - Returns:  Self
-     */
-    @discardableResult
-    public func setSortable(_ value: Bool) -> Self {
-        self.sortable = value
-        return self
-    }
-
-    /**
-     Setter for choices.
-     
-     - Parameters:
-        - value: [String]
-     - Returns:  Self
-     */
-    @discardableResult
-    public func setChoices(_ value: [String]) -> Self {
-        self.choices = value
-        return self
     }
 }

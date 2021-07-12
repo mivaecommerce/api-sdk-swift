@@ -3,8 +3,6 @@
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
- *
- * $Id: ClientExample.swift 73172 2019-02-01 22:05:55Z gidriss $
  */
 
 import MerchantAPI
@@ -18,3 +16,18 @@ let client = Client(
     requireTimestamps: true,
     defaultStoreCode : "STORE_CODE"
 )
+
+/// Request Logging can be enabled by assigning a Logger instance to the client
+
+/// Currently, we provide two logger types:
+//       FileLogger - logs to a local file
+//       ConsoleLogger - logs to std out/err
+
+// Setting up a FileLogger
+client.setLogger(ConsoleLogger(filePath: "/path/to/my/logfile.log"))
+
+// Setting up a ConsoleLogger to log to stdout
+client.setLogger(ConsoleLogger(destination: ConsoleLogger.OutputDestination.StdOut))
+
+// Setting up a ConsoleLogger to log to stderr
+client.setLogger(ConsoleLogger(destination: ConsoleLogger.OutputDestination.StdErr))

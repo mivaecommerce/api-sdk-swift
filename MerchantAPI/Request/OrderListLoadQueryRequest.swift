@@ -3,11 +3,12 @@
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
- *
- * $Id$
  */
 
 import Foundation
+#if os(Linux)
+import FoundationNetworking
+#endif
 
 /**
  Handles API Request OrderList_Load_Query.
@@ -16,7 +17,7 @@ import Foundation
  */
 public class OrderListLoadQueryRequest : ListQueryRequest {
     /**
-     The API function name. 
+     The API function name.
 
      - Note: Overrides
      - Returns: String
@@ -26,7 +27,7 @@ public class OrderListLoadQueryRequest : ListQueryRequest {
     }
 
     /**
-     The request scope. 
+     The request scope.
 
      - Note: Overrides
      - Returns: RequestScope
@@ -34,10 +35,10 @@ public class OrderListLoadQueryRequest : ListQueryRequest {
     override var scope : RequestScope {
         return RequestScope.Store;
     }
-    
+
     /// Request field Passphrase.
-    var passphrase : Optional<String>
-    
+    var passphrase : Optional<String> = nil
+
     /**
      The available search fields applicable to the request.
 
@@ -98,10 +99,10 @@ public class OrderListLoadQueryRequest : ListQueryRequest {
             ]
         }
     }
-    
+
     /**
      The available sort fields applicable to the request.
-     
+
      - Returns: An array of strings.
      - Note: Overrides
      */
@@ -159,7 +160,7 @@ public class OrderListLoadQueryRequest : ListQueryRequest {
             ]
         }
     }
-    
+
     /**
      The available on demand columns applicable to the request.
 
@@ -184,7 +185,7 @@ public class OrderListLoadQueryRequest : ListQueryRequest {
             ]
         }
     }
-    
+
     /**
      The available custom fileters applicable to the request.
 
@@ -202,27 +203,27 @@ public class OrderListLoadQueryRequest : ListQueryRequest {
             ]
         }
     }
-    
+
     /**
      CodingKeys used to map the request when encoding.
-     
+
      - SeeAlso: Encodable
      */
     private enum CodingKeys: String, CodingKey {
         case function = "Function"
         case passphrase = "Passphrase"
     }
-    
+
     /**
      Request constructor.
-     
+
      - Parameters:
-        - client: A Client instance.
+        - client: A BaseClient instance.
      */
-    public override init(client: Optional<Client> = nil) {
+    public override init(client: Optional<BaseClient> = nil) {
         super.init(client: client)
     }
-    
+
     /**
      Implementation of Encodable.
 
@@ -238,7 +239,7 @@ public class OrderListLoadQueryRequest : ListQueryRequest {
 
         try super.encode(to : encoder)
     }
-    
+
     /**
      Send the request for a response.
 
@@ -246,13 +247,10 @@ public class OrderListLoadQueryRequest : ListQueryRequest {
         - callback: The callback function with signature (OrderListLoadQueryResponse?, Error?).
      - Note: Overrides
      */
-     public override func send(client: Optional<Client> = nil, callback: @escaping (OrderListLoadQueryResponse?, Error?) -> ()) throws {
-        if client != nil {
-            client!.send(self) { request, response, error in
-                callback(response as? OrderListLoadQueryResponse, error)
-            }
-        } else if self.client != nil {
-            self.client!.send(self) { request, response, error in
+
+     public override func send(client: Optional<BaseClient> = nil, callback: @escaping (OrderListLoadQueryResponse?, Error?) -> ()) throws {
+        if let client = client ?? self.client {
+            client.send(self) { request, response, error in
                 callback(response as? OrderListLoadQueryResponse, error)
             }
         } else {
@@ -264,16 +262,18 @@ public class OrderListLoadQueryRequest : ListQueryRequest {
      Create a response object by decoding the response data.
 
      - Parameters:
+        - httpResponse: The underlying HTTP response object
         - data: The response data to decode.
      - Throws: Error when unable to decode the response data.
      - Note: Overrides
      */
-    public override func createResponse(data : Data) throws -> OrderListLoadQueryResponse {
+    public override func createResponse(httpResponse: URLResponse, data : Data) throws -> OrderListLoadQueryResponse {
         let decoder = JSONDecoder()
-        
-        decoder.userInfo[Response.decoderRequestUserInfoKey]      = self
-        decoder.userInfo[Response.decoderResponseDataUserInfoKey] = data
-        
+
+        decoder.userInfo[Response.decoderRequestUserInfoKey]            = self
+        decoder.userInfo[Response.decoderHttpResponseDataUserInfoKey]   = httpResponse
+        decoder.userInfo[Response.decoderResponseDataUserInfoKey]       = data
+
         return try decoder.decode(OrderListLoadQueryResponse.self, from: data)
     }
 
@@ -286,16 +286,16 @@ public class OrderListLoadQueryRequest : ListQueryRequest {
     override public func getResponseType() -> Response.Type {
         return OrderListLoadQueryResponse.self
     }
-    
+
     /**
      Getter for Passphrase.
 
-     - Returns:  Optional<String> 
+     - Returns:  Optional<String>
      */
     public func getPassphrase() -> Optional<String> {
         return self.passphrase
     }
-    
+
     /**
      Setter for Passphrase.
 

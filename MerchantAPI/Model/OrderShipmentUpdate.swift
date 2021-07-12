@@ -3,8 +3,6 @@
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
- *
- * $Id$
  */
 
 import Foundation
@@ -14,19 +12,14 @@ public class OrderShipmentUpdate : Model {
 
     /// Model field shpmnt_id.
     var shipmentId : Int
-
     /// Model field mark_shipped.
-    var markShipped : Bool
-
+    var markShipped : Optional<Bool>
     /// Model field tracknum.
     var trackingNumber : String
-
     /// Model field tracktype.
     var trackingType : String
-
     /// Model field cost.
-    var cost : Decimal
-
+    var cost : Optional<Decimal>
     /**
      CodingKeys used to map the model when encoding and decoding.
 
@@ -45,10 +38,10 @@ public class OrderShipmentUpdate : Model {
      */
     public override init() {
         self.shipmentId = 0
-        self.markShipped = false
+        self.markShipped = nil
         self.trackingNumber = ""
         self.trackingType = ""
-        self.cost = Decimal(0.00)
+        self.cost = nil
 
         super.init()
     }
@@ -65,10 +58,10 @@ public class OrderShipmentUpdate : Model {
         let container  = try decoder.container(keyedBy: CodingKeys.self)
 
         self.shipmentId = try container.decodeIfPresent(Int.self, forKey: .shipmentId) ?? 0
-        self.markShipped = try container.decodeIfPresent(Bool.self, forKey: .markShipped) ?? false
+        self.markShipped = try container.decodeIfPresent(Bool.self, forKey: .markShipped) ?? nil
         self.trackingNumber = try container.decodeIfPresent(String.self, forKey: .trackingNumber) ?? ""
         self.trackingType = try container.decodeIfPresent(String.self, forKey: .trackingType) ?? ""
-        self.cost = try container.decodeIfPresent(Decimal.self, forKey: .cost) ?? Decimal(0.00)
+        self.cost = try container.decodeIfPresent(Decimal.self, forKey: .cost) ?? nil
 
         try super.init(from : decoder)
     }
@@ -92,55 +85,56 @@ public class OrderShipmentUpdate : Model {
 
         try super.encode(to: encoder)
     }
-    
+
     /**
      Getter for shpmnt_id.
-     
+
      - Returns:  Int
+
      */
     public func getShipmentId() -> Int {
         return self.shipmentId
     }
-    
+
     /**
      Getter for mark_shipped.
-     
-     - Returns:  Bool
-     */
-    public func getMarkShipped() -> Bool {
+
+     - Returns:  Optional<Bool>     */
+    public func getMarkShipped() -> Optional<Bool> {
         return self.markShipped
     }
-    
+
     /**
      Getter for tracknum.
 
      - Returns:  String
+
      */
     public func getTrackingNumber() -> String {
         return self.trackingNumber
     }
-    
+
     /**
      Getter for tracktype.
 
      - Returns:  String
+
      */
     public func getTrackingType() -> String {
         return self.trackingType
     }
-    
+
     /**
      Getter for cost.
-     
-     - Returns:  Decimal
-     */
-    public func getCost() -> Decimal {
+
+     - Returns:  Optional<Decimal>     */
+    public func getCost() -> Optional<Decimal> {
         return self.cost
     }
-    
+
     /**
      Setter for shpmnt_id.
-     
+
      - Parameters:
         - value: Optional<Int>
      - Returns:  Self
@@ -153,7 +147,7 @@ public class OrderShipmentUpdate : Model {
 
     /**
      Setter for mark_shipped.
-     
+
      - Parameters:
         - value: Bool
      - Returns:  Self
@@ -192,7 +186,7 @@ public class OrderShipmentUpdate : Model {
 
     /**
      Setter for cost.
-     
+
      - Parameters:
         - value: Decimal
      - Returns:  Self

@@ -3,30 +3,31 @@
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
- *
- * $Id$
  */
 
 import Foundation
+#if os(Linux)
+import FoundationNetworking
+#endif
 
 /**
  API Response for CouponList_Delete.
- 
+
  - SeeAlso: https://docs.miva.com/json-api/functions/couponlist_delete
  */
 public class CouponListDeleteResponse : Response {
     /// Response field processed.
-    var processed : Optional<Int>
+    var processed : Optional<Int> = nil
 
     /**
      CodingKeys used to map the model when decoding.
-     
+
      - SeeAlso: Decodable
      */
     private enum CodingKeys: String, CodingKey {
         case processed
     }
-    
+
     /**
      Construct an instance from a decoder instance.
 

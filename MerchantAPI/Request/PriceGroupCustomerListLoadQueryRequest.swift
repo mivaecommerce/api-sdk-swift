@@ -3,11 +3,12 @@
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
- *
- * $Id: PriceGroupCustomerListLoadQueryRequest.swift 77298 2019-08-07 22:16:46Z gidriss $
  */
 
 import Foundation
+#if os(Linux)
+import FoundationNetworking
+#endif
 
 /**
  Handles API Request PriceGroupCustomerList_Load_Query.
@@ -16,7 +17,7 @@ import Foundation
  */
 public class PriceGroupCustomerListLoadQueryRequest : ListQueryRequest {
     /**
-     The API function name. 
+     The API function name.
 
      - Note: Overrides
      - Returns: String
@@ -26,7 +27,7 @@ public class PriceGroupCustomerListLoadQueryRequest : ListQueryRequest {
     }
 
     /**
-     The request scope. 
+     The request scope.
 
      - Note: Overrides
      - Returns: RequestScope
@@ -34,19 +35,19 @@ public class PriceGroupCustomerListLoadQueryRequest : ListQueryRequest {
     override var scope : RequestScope {
         return RequestScope.Store;
     }
-    
+
     /// Request field PriceGroup_ID.
-    var priceGroupId : Optional<Int>
+    var priceGroupId : Optional<Int> = nil
 
     /// Request field PriceGroup_Name.
-    var priceGroupName : Optional<String>
+    var priceGroupName : Optional<String> = nil
 
     /// Request field Assigned.
-    var assigned : Optional<Bool>
+    var assigned : Optional<Bool> = nil
 
     /// Request field Unassigned.
-    var unassigned : Optional<Bool>
-    
+    var unassigned : Optional<Bool> = nil
+
     /**
      The available search fields applicable to the request.
 
@@ -92,10 +93,10 @@ public class PriceGroupCustomerListLoadQueryRequest : ListQueryRequest {
             ]
         }
     }
-    
+
     /**
      The available sort fields applicable to the request.
-     
+
      - Returns: An array of strings.
      - Note: Overrides
      */
@@ -138,10 +139,10 @@ public class PriceGroupCustomerListLoadQueryRequest : ListQueryRequest {
             ]
         }
     }
-    
+
     /**
      CodingKeys used to map the request when encoding.
-     
+
      - SeeAlso: Encodable
      */
     private enum CodingKeys: String, CodingKey {
@@ -151,15 +152,15 @@ public class PriceGroupCustomerListLoadQueryRequest : ListQueryRequest {
         case assigned = "Assigned"
         case unassigned = "Unassigned"
     }
-    
+
     /**
      Request constructor.
 
      - Parameters:
-        - client: A Client instance.
+        - client: A BaseClient instance.
         - priceGroup: An optional PriceGroup instance.
      */
-    public init(client: Optional<Client> = nil, priceGroup: Optional<PriceGroup> = nil) {
+    public init(client: Optional<BaseClient> = nil, priceGroup: Optional<PriceGroup> = nil) {
         super.init(client: client)
         if let priceGroup = priceGroup {
             if priceGroup.id > 0 {
@@ -169,7 +170,7 @@ public class PriceGroupCustomerListLoadQueryRequest : ListQueryRequest {
             }
         }
     }
-    
+
     /**
      Implementation of Encodable.
 
@@ -192,7 +193,7 @@ public class PriceGroupCustomerListLoadQueryRequest : ListQueryRequest {
 
         try super.encode(to : encoder)
     }
-    
+
     /**
      Send the request for a response.
 
@@ -200,13 +201,10 @@ public class PriceGroupCustomerListLoadQueryRequest : ListQueryRequest {
         - callback: The callback function with signature (PriceGroupCustomerListLoadQueryResponse?, Error?).
      - Note: Overrides
      */
-     public override func send(client: Optional<Client> = nil, callback: @escaping (PriceGroupCustomerListLoadQueryResponse?, Error?) -> ()) throws {
-        if client != nil {
-            client!.send(self) { request, response, error in
-                callback(response as? PriceGroupCustomerListLoadQueryResponse, error)
-            }
-        } else if self.client != nil {
-            self.client!.send(self) { request, response, error in
+
+     public override func send(client: Optional<BaseClient> = nil, callback: @escaping (PriceGroupCustomerListLoadQueryResponse?, Error?) -> ()) throws {
+        if let client = client ?? self.client {
+            client.send(self) { request, response, error in
                 callback(response as? PriceGroupCustomerListLoadQueryResponse, error)
             }
         } else {
@@ -218,16 +216,18 @@ public class PriceGroupCustomerListLoadQueryRequest : ListQueryRequest {
      Create a response object by decoding the response data.
 
      - Parameters:
+        - httpResponse: The underlying HTTP response object
         - data: The response data to decode.
      - Throws: Error when unable to decode the response data.
      - Note: Overrides
      */
-    public override func createResponse(data : Data) throws -> PriceGroupCustomerListLoadQueryResponse {
+    public override func createResponse(httpResponse: URLResponse, data : Data) throws -> PriceGroupCustomerListLoadQueryResponse {
         let decoder = JSONDecoder()
-        
-        decoder.userInfo[Response.decoderRequestUserInfoKey]      = self
-        decoder.userInfo[Response.decoderResponseDataUserInfoKey] = data
-        
+
+        decoder.userInfo[Response.decoderRequestUserInfoKey]            = self
+        decoder.userInfo[Response.decoderHttpResponseDataUserInfoKey]   = httpResponse
+        decoder.userInfo[Response.decoderResponseDataUserInfoKey]       = data
+
         return try decoder.decode(PriceGroupCustomerListLoadQueryResponse.self, from: data)
     }
 
@@ -240,46 +240,46 @@ public class PriceGroupCustomerListLoadQueryRequest : ListQueryRequest {
     override public func getResponseType() -> Response.Type {
         return PriceGroupCustomerListLoadQueryResponse.self
     }
-    
+
     /**
      Getter for PriceGroup_ID.
-     
-     - Returns:  Optional<Int> 
+
+     - Returns:  Optional<Int>
      */
     public func getPriceGroupId() -> Optional<Int> {
         return self.priceGroupId
     }
-    
+
     /**
      Getter for PriceGroup_Name.
 
-     - Returns:  Optional<String> 
+     - Returns:  Optional<String>
      */
     public func getPriceGroupName() -> Optional<String> {
         return self.priceGroupName
     }
-    
+
     /**
      Getter for Assigned.
-     
-     - Returns:  Optional<Bool> 
+
+     - Returns:  Optional<Bool>
      */
     public func getAssigned() -> Optional<Bool> {
         return self.assigned
     }
-    
+
     /**
      Getter for Unassigned.
-     
-     - Returns:  Optional<Bool> 
+
+     - Returns:  Optional<Bool>
      */
     public func getUnassigned() -> Optional<Bool> {
         return self.unassigned
     }
-    
+
     /**
      Setter for PriceGroup_ID.
-     
+
      - Parameters:
         - value: Optional<Int>
      - Returns:  Self
@@ -289,7 +289,7 @@ public class PriceGroupCustomerListLoadQueryRequest : ListQueryRequest {
         self.priceGroupId = value
         return self
     }
-    
+
     /**
      Setter for PriceGroup_Name.
 
@@ -302,10 +302,10 @@ public class PriceGroupCustomerListLoadQueryRequest : ListQueryRequest {
         self.priceGroupName = value
         return self
     }
-    
+
     /**
      Setter for Assigned.
-     
+
      - Parameters:
         - value: Optional<Bool>
      - Returns:  Self
@@ -315,10 +315,10 @@ public class PriceGroupCustomerListLoadQueryRequest : ListQueryRequest {
         self.assigned = value
         return self
     }
-    
+
     /**
      Setter for Unassigned.
-     
+
      - Parameters:
         - value: Optional<Bool>
      - Returns:  Self

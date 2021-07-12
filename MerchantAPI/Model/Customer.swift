@@ -3,8 +3,6 @@
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
- *
- * $Id$
  */
 
 import Foundation
@@ -14,115 +12,78 @@ public class Customer : Model {
 
     /// Model field id.
     var id : Int
-
     /// Model field account_id.
     var accountId : Int
-
     /// Model field login.
     var login : String
-
     /// Model field pw_email.
     var passwordEmail : String
-
     /// Model field ship_id.
     var shipId : Int
-
     /// Model field ship_res.
     var shippingResidential : Bool
-
     /// Model field ship_fname.
     var shipFirstName : String
-
     /// Model field ship_lname.
     var shipLastName : String
-
     /// Model field ship_email.
     var shipEmail : String
-
     /// Model field ship_comp.
     var shipCompany : String
-
     /// Model field ship_phone.
     var shipPhone : String
-
     /// Model field ship_fax.
     var shipFax : String
-
     /// Model field ship_addr1.
     var shipAddress1 : String
-
     /// Model field ship_addr2.
     var shipAddress2 : String
-
     /// Model field ship_city.
     var shipCity : String
-
     /// Model field ship_state.
     var shipState : String
-
     /// Model field ship_zip.
     var shipZip : String
-
     /// Model field ship_cntry.
     var shipCountry : String
-
     /// Model field bill_id.
     var billId : Int
-
     /// Model field bill_fname.
     var billFirstName : String
-
     /// Model field bill_lname.
     var billLastName : String
-
     /// Model field bill_email.
     var billEmail : String
-
     /// Model field bill_comp.
     var billCompany : String
-
     /// Model field bill_phone.
     var billPhone : String
-
     /// Model field bill_fax.
     var billFax : String
-
     /// Model field bill_addr1.
     var billAddress1 : String
-
     /// Model field bill_addr2.
     var billAddress2 : String
-
     /// Model field bill_city.
     var billCity : String
-
     /// Model field bill_state.
     var billState : String
-
     /// Model field bill_zip.
     var billZip : String
-
     /// Model field bill_cntry.
     var billCountry : String
-
     /// Model field note_count.
     var noteCount : Int
-
     /// Model field dt_created.
-    var createdOn : Int
-
+    var createdOn : Date
     /// Model field dt_login.
-    var lastLogin : Int
-
+    var lastLogin : Date
     /// Model field credit.
     var credit : Decimal
-
     /// Model field formatted_credit.
     var formattedCredit : String
-
     /// Model field business_title.
     var businessTitle : String
-
     /// Model field CustomField_Values
     var customFieldValues : CustomFieldValues
 
@@ -208,8 +169,8 @@ public class Customer : Model {
         self.billZip = ""
         self.billCountry = ""
         self.noteCount = 0
-        self.createdOn = 0
-        self.lastLogin = 0
+        self.createdOn = Date(timeIntervalSince1970: 0)
+        self.lastLogin = Date(timeIntervalSince1970: 0)
         self.credit = Decimal(0.00)
         self.formattedCredit = ""
         self.businessTitle = ""
@@ -261,8 +222,8 @@ public class Customer : Model {
         self.billZip = try container.decodeIfPresent(String.self, forKey: .billZip) ?? ""
         self.billCountry = try container.decodeIfPresent(String.self, forKey: .billCountry) ?? ""
         self.noteCount = try container.decodeIfPresent(Int.self, forKey: .noteCount) ?? 0
-        self.createdOn = try container.decodeIfPresent(Int.self, forKey: .createdOn) ?? 0
-        self.lastLogin = try container.decodeIfPresent(Int.self, forKey: .lastLogin) ?? 0
+        self.createdOn = Date(timeIntervalSince1970: Double(try container.decodeIfPresent(Int.self, forKey: .createdOn) ?? 0))
+        self.lastLogin = Date(timeIntervalSince1970: Double(try container.decodeIfPresent(Int.self, forKey: .lastLogin) ?? 0))
         self.credit = try container.decodeIfPresent(Decimal.self, forKey: .credit) ?? Decimal(0.00)
         self.formattedCredit = try container.decodeIfPresent(String.self, forKey: .formattedCredit) ?? ""
         self.businessTitle = try container.decodeIfPresent(String.self, forKey: .businessTitle) ?? ""
@@ -314,8 +275,8 @@ public class Customer : Model {
         try container.encodeIfPresent(self.billZip, forKey: .billZip)
         try container.encodeIfPresent(self.billCountry, forKey: .billCountry)
         try container.encodeIfPresent(self.noteCount, forKey: .noteCount)
-        try container.encodeIfPresent(self.createdOn, forKey: .createdOn)
-        try container.encodeIfPresent(self.lastLogin, forKey: .lastLogin)
+        try container.encodeIfPresent(Int(self.createdOn.timeIntervalSince1970), forKey: .createdOn)
+        try container.encodeIfPresent(Int(self.lastLogin.timeIntervalSince1970), forKey: .lastLogin)
         try container.encodeIfPresent(Decimal.roundForEncoding(value: self.credit, precision: MERCHANTAPI_FLOAT_ENCODE_PRECISION), forKey: .credit)
         try container.encodeIfPresent(self.formattedCredit, forKey: .formattedCredit)
         try container.encodeIfPresent(self.businessTitle, forKey: .businessTitle)
@@ -323,335 +284,364 @@ public class Customer : Model {
 
         try super.encode(to: encoder)
     }
-    
+
     /**
      Getter for id.
-     
+
      - Returns:  Int
+
      */
     public func getId() -> Int {
         return self.id
     }
-    
+
     /**
      Getter for account_id.
-     
+
      - Returns:  Int
+
      */
     public func getAccountId() -> Int {
         return self.accountId
     }
-    
+
     /**
      Getter for login.
 
      - Returns:  String
+
      */
     public func getLogin() -> String {
         return self.login
     }
-    
+
     /**
      Getter for pw_email.
 
      - Returns:  String
+
      */
     public func getPasswordEmail() -> String {
         return self.passwordEmail
     }
-    
+
     /**
      Getter for ship_id.
-     
+
      - Returns:  Int
+
      */
     public func getShipId() -> Int {
         return self.shipId
     }
-    
+
     /**
      Getter for ship_res.
-     
-     - Returns:  Bool
-     */
+
+     - Returns:  Bool     */
     public func getShippingResidential() -> Bool {
         return self.shippingResidential
     }
-    
+
     /**
      Getter for ship_fname.
 
      - Returns:  String
+
      */
     public func getShipFirstName() -> String {
         return self.shipFirstName
     }
-    
+
     /**
      Getter for ship_lname.
 
      - Returns:  String
+
      */
     public func getShipLastName() -> String {
         return self.shipLastName
     }
-    
+
     /**
      Getter for ship_email.
 
      - Returns:  String
+
      */
     public func getShipEmail() -> String {
         return self.shipEmail
     }
-    
+
     /**
      Getter for ship_comp.
 
      - Returns:  String
+
      */
     public func getShipCompany() -> String {
         return self.shipCompany
     }
-    
+
     /**
      Getter for ship_phone.
 
      - Returns:  String
+
      */
     public func getShipPhone() -> String {
         return self.shipPhone
     }
-    
+
     /**
      Getter for ship_fax.
 
      - Returns:  String
+
      */
     public func getShipFax() -> String {
         return self.shipFax
     }
-    
+
     /**
      Getter for ship_addr1.
 
      - Returns:  String
+
      */
     public func getShipAddress1() -> String {
         return self.shipAddress1
     }
-    
+
     /**
      Getter for ship_addr2.
 
      - Returns:  String
+
      */
     public func getShipAddress2() -> String {
         return self.shipAddress2
     }
-    
+
     /**
      Getter for ship_city.
 
      - Returns:  String
+
      */
     public func getShipCity() -> String {
         return self.shipCity
     }
-    
+
     /**
      Getter for ship_state.
 
      - Returns:  String
+
      */
     public func getShipState() -> String {
         return self.shipState
     }
-    
+
     /**
      Getter for ship_zip.
 
      - Returns:  String
+
      */
     public func getShipZip() -> String {
         return self.shipZip
     }
-    
+
     /**
      Getter for ship_cntry.
 
      - Returns:  String
+
      */
     public func getShipCountry() -> String {
         return self.shipCountry
     }
-    
+
     /**
      Getter for bill_id.
-     
+
      - Returns:  Int
+
      */
     public func getBillId() -> Int {
         return self.billId
     }
-    
+
     /**
      Getter for bill_fname.
 
      - Returns:  String
+
      */
     public func getBillFirstName() -> String {
         return self.billFirstName
     }
-    
+
     /**
      Getter for bill_lname.
 
      - Returns:  String
+
      */
     public func getBillLastName() -> String {
         return self.billLastName
     }
-    
+
     /**
      Getter for bill_email.
 
      - Returns:  String
+
      */
     public func getBillEmail() -> String {
         return self.billEmail
     }
-    
+
     /**
      Getter for bill_comp.
 
      - Returns:  String
+
      */
     public func getBillCompany() -> String {
         return self.billCompany
     }
-    
+
     /**
      Getter for bill_phone.
 
      - Returns:  String
+
      */
     public func getBillPhone() -> String {
         return self.billPhone
     }
-    
+
     /**
      Getter for bill_fax.
 
      - Returns:  String
+
      */
     public func getBillFax() -> String {
         return self.billFax
     }
-    
+
     /**
      Getter for bill_addr1.
 
      - Returns:  String
+
      */
     public func getBillAddress1() -> String {
         return self.billAddress1
     }
-    
+
     /**
      Getter for bill_addr2.
 
      - Returns:  String
+
      */
     public func getBillAddress2() -> String {
         return self.billAddress2
     }
-    
+
     /**
      Getter for bill_city.
 
      - Returns:  String
+
      */
     public func getBillCity() -> String {
         return self.billCity
     }
-    
+
     /**
      Getter for bill_state.
 
      - Returns:  String
+
      */
     public func getBillState() -> String {
         return self.billState
     }
-    
+
     /**
      Getter for bill_zip.
 
      - Returns:  String
+
      */
     public func getBillZip() -> String {
         return self.billZip
     }
-    
+
     /**
      Getter for bill_cntry.
 
      - Returns:  String
+
      */
     public func getBillCountry() -> String {
         return self.billCountry
     }
-    
+
     /**
      Getter for note_count.
-     
+
      - Returns:  Int
+
      */
     public func getNoteCount() -> Int {
         return self.noteCount
     }
-    
+
     /**
      Getter for dt_created.
-     
-     - Returns:  Int
-     */
-    public func getCreatedOn() -> Int {
+
+     - Returns:  Date     */
+    public func getCreatedOn() -> Date {
         return self.createdOn
     }
-    
+
     /**
      Getter for dt_login.
-     
-     - Returns:  Int
-     */
-    public func getLastLogin() -> Int {
+
+     - Returns:  Date     */
+    public func getLastLogin() -> Date {
         return self.lastLogin
     }
-    
+
     /**
      Getter for credit.
-     
-     - Returns:  Decimal
-     */
+
+     - Returns:  Decimal     */
     public func getCredit() -> Decimal {
         return self.credit
     }
-    
+
     /**
      Getter for formatted_credit.
 
      - Returns:  String
+
      */
     public func getFormattedCredit() -> String {
         return self.formattedCredit
     }
-    
+
     /**
      Getter for business_title.
 
      - Returns:  String
+
      */
     public func getBusinessTitle() -> String {
         return self.businessTitle
@@ -659,361 +649,10 @@ public class Customer : Model {
 
     /**
      Getter for CustomField_Values.
-     
+
      - Returns:  CustomFieldValues
      */
     public func getCustomFieldValues() -> CustomFieldValues {
         return self.customFieldValues
-    }
-
-    /**
-     Setter for login.
-
-     - Parameters:
-        - value: String
-     - Returns:  Self
-     */
-    @discardableResult
-    public func setLogin(_ value: String) -> Self {
-        self.login = value
-        return self
-    }
-
-    /**
-     Setter for pw_email.
-
-     - Parameters:
-        - value: String
-     - Returns:  Self
-     */
-    @discardableResult
-    public func setPasswordEmail(_ value: String) -> Self {
-        self.passwordEmail = value
-        return self
-    }
-
-    /**
-     Setter for ship_res.
-     
-     - Parameters:
-        - value: Bool
-     - Returns:  Self
-     */
-    @discardableResult
-    public func setShippingResidential(_ value: Bool) -> Self {
-        self.shippingResidential = value
-        return self
-    }
-
-    /**
-     Setter for ship_fname.
-
-     - Parameters:
-        - value: String
-     - Returns:  Self
-     */
-    @discardableResult
-    public func setShipFirstName(_ value: String) -> Self {
-        self.shipFirstName = value
-        return self
-    }
-
-    /**
-     Setter for ship_lname.
-
-     - Parameters:
-        - value: String
-     - Returns:  Self
-     */
-    @discardableResult
-    public func setShipLastName(_ value: String) -> Self {
-        self.shipLastName = value
-        return self
-    }
-
-    /**
-     Setter for ship_email.
-
-     - Parameters:
-        - value: String
-     - Returns:  Self
-     */
-    @discardableResult
-    public func setShipEmail(_ value: String) -> Self {
-        self.shipEmail = value
-        return self
-    }
-
-    /**
-     Setter for ship_comp.
-
-     - Parameters:
-        - value: String
-     - Returns:  Self
-     */
-    @discardableResult
-    public func setShipCompany(_ value: String) -> Self {
-        self.shipCompany = value
-        return self
-    }
-
-    /**
-     Setter for ship_phone.
-
-     - Parameters:
-        - value: String
-     - Returns:  Self
-     */
-    @discardableResult
-    public func setShipPhone(_ value: String) -> Self {
-        self.shipPhone = value
-        return self
-    }
-
-    /**
-     Setter for ship_fax.
-
-     - Parameters:
-        - value: String
-     - Returns:  Self
-     */
-    @discardableResult
-    public func setShipFax(_ value: String) -> Self {
-        self.shipFax = value
-        return self
-    }
-
-    /**
-     Setter for ship_addr1.
-
-     - Parameters:
-        - value: String
-     - Returns:  Self
-     */
-    @discardableResult
-    public func setShipAddress1(_ value: String) -> Self {
-        self.shipAddress1 = value
-        return self
-    }
-
-    /**
-     Setter for ship_addr2.
-
-     - Parameters:
-        - value: String
-     - Returns:  Self
-     */
-    @discardableResult
-    public func setShipAddress2(_ value: String) -> Self {
-        self.shipAddress2 = value
-        return self
-    }
-
-    /**
-     Setter for ship_city.
-
-     - Parameters:
-        - value: String
-     - Returns:  Self
-     */
-    @discardableResult
-    public func setShipCity(_ value: String) -> Self {
-        self.shipCity = value
-        return self
-    }
-
-    /**
-     Setter for ship_state.
-
-     - Parameters:
-        - value: String
-     - Returns:  Self
-     */
-    @discardableResult
-    public func setShipState(_ value: String) -> Self {
-        self.shipState = value
-        return self
-    }
-
-    /**
-     Setter for ship_zip.
-
-     - Parameters:
-        - value: String
-     - Returns:  Self
-     */
-    @discardableResult
-    public func setShipZip(_ value: String) -> Self {
-        self.shipZip = value
-        return self
-    }
-
-    /**
-     Setter for ship_cntry.
-
-     - Parameters:
-        - value: String
-     - Returns:  Self
-     */
-    @discardableResult
-    public func setShipCountry(_ value: String) -> Self {
-        self.shipCountry = value
-        return self
-    }
-
-    /**
-     Setter for bill_fname.
-
-     - Parameters:
-        - value: String
-     - Returns:  Self
-     */
-    @discardableResult
-    public func setBillFirstName(_ value: String) -> Self {
-        self.billFirstName = value
-        return self
-    }
-
-    /**
-     Setter for bill_lname.
-
-     - Parameters:
-        - value: String
-     - Returns:  Self
-     */
-    @discardableResult
-    public func setBillLastName(_ value: String) -> Self {
-        self.billLastName = value
-        return self
-    }
-
-    /**
-     Setter for bill_email.
-
-     - Parameters:
-        - value: String
-     - Returns:  Self
-     */
-    @discardableResult
-    public func setBillEmail(_ value: String) -> Self {
-        self.billEmail = value
-        return self
-    }
-
-    /**
-     Setter for bill_comp.
-
-     - Parameters:
-        - value: String
-     - Returns:  Self
-     */
-    @discardableResult
-    public func setBillCompany(_ value: String) -> Self {
-        self.billCompany = value
-        return self
-    }
-
-    /**
-     Setter for bill_phone.
-
-     - Parameters:
-        - value: String
-     - Returns:  Self
-     */
-    @discardableResult
-    public func setBillPhone(_ value: String) -> Self {
-        self.billPhone = value
-        return self
-    }
-
-    /**
-     Setter for bill_fax.
-
-     - Parameters:
-        - value: String
-     - Returns:  Self
-     */
-    @discardableResult
-    public func setBillFax(_ value: String) -> Self {
-        self.billFax = value
-        return self
-    }
-
-    /**
-     Setter for bill_addr1.
-
-     - Parameters:
-        - value: String
-     - Returns:  Self
-     */
-    @discardableResult
-    public func setBillAddress1(_ value: String) -> Self {
-        self.billAddress1 = value
-        return self
-    }
-
-    /**
-     Setter for bill_addr2.
-
-     - Parameters:
-        - value: String
-     - Returns:  Self
-     */
-    @discardableResult
-    public func setBillAddress2(_ value: String) -> Self {
-        self.billAddress2 = value
-        return self
-    }
-
-    /**
-     Setter for bill_city.
-
-     - Parameters:
-        - value: String
-     - Returns:  Self
-     */
-    @discardableResult
-    public func setBillCity(_ value: String) -> Self {
-        self.billCity = value
-        return self
-    }
-
-    /**
-     Setter for bill_state.
-
-     - Parameters:
-        - value: String
-     - Returns:  Self
-     */
-    @discardableResult
-    public func setBillState(_ value: String) -> Self {
-        self.billState = value
-        return self
-    }
-
-    /**
-     Setter for bill_zip.
-
-     - Parameters:
-        - value: String
-     - Returns:  Self
-     */
-    @discardableResult
-    public func setBillZip(_ value: String) -> Self {
-        self.billZip = value
-        return self
-    }
-
-    /**
-     Setter for bill_cntry.
-
-     - Parameters:
-        - value: String
-     - Returns:  Self
-     */
-    @discardableResult
-    public func setBillCountry(_ value: String) -> Self {
-        self.billCountry = value
-        return self
     }
 }

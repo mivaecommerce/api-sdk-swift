@@ -3,11 +3,12 @@
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
- *
- * $Id$
  */
 
 import Foundation
+#if os(Linux)
+import FoundationNetworking
+#endif
 
 /**
  Handles API Request Coupon_Insert.
@@ -16,7 +17,7 @@ import Foundation
  */
 public class CouponInsertRequest : Request {
     /**
-     The API function name. 
+     The API function name.
 
      - Note: Overrides
      - Returns: String
@@ -26,7 +27,7 @@ public class CouponInsertRequest : Request {
     }
 
     /**
-     The request scope. 
+     The request scope.
 
      - Note: Overrides
      - Returns: RequestScope
@@ -34,37 +35,37 @@ public class CouponInsertRequest : Request {
     override var scope : RequestScope {
         return RequestScope.Store;
     }
-    
+
     /// Request field Code.
-    var code : Optional<String>
+    var code : Optional<String> = nil
 
     /// Request field Description.
-    var description : Optional<String>
+    var description : Optional<String> = nil
 
     /// Request field CustomerScope.
-    var customerScope : Optional<String>
+    var customerScope : Optional<String> = nil
 
     /// Request field DateTime_Start.
-    var dateTimeStart : Optional<Int>
+    var dateTimeStart : Optional<Date> = nil
 
     /// Request field DateTime_End.
-    var dateTimeEnd : Optional<Int>
+    var dateTimeEnd : Optional<Date> = nil
 
     /// Request field Max_Use.
-    var maxUse : Optional<Int>
+    var maxUse : Optional<Int> = nil
 
     /// Request field Max_Per.
-    var maxPer : Optional<Int>
+    var maxPer : Optional<Int> = nil
 
     /// Request field Active.
-    var active : Optional<Bool>
+    var active : Optional<Bool> = nil
 
     /// Request field PriceGroup_ID.
-    var priceGroupId : Optional<Int>
-    
+    var priceGroupId : Optional<Int> = nil
+
     /**
      CodingKeys used to map the request when encoding.
-     
+
      - SeeAlso: Encodable
      */
     private enum CodingKeys: String, CodingKey {
@@ -79,15 +80,15 @@ public class CouponInsertRequest : Request {
         case active = "Active"
         case priceGroupId = "PriceGroup_ID"
     }
-    
+
     /**
      Request constructor.
 
      - Parameters:
-        - client: A Client instance.
+        - client: A BaseClient instance.
         - coupon: An optional Coupon instance.
      */
-    public init(client: Optional<Client> = nil, coupon: Optional<Coupon> = nil) {
+    public init(client: Optional<BaseClient> = nil, coupon: Optional<Coupon> = nil) {
         super.init(client: client)
         if let coupon = coupon {
             self.code = coupon.code
@@ -100,7 +101,7 @@ public class CouponInsertRequest : Request {
             self.active = coupon.active
         }
     }
-    
+
     /**
      Implementation of Encodable.
 
@@ -115,8 +116,12 @@ public class CouponInsertRequest : Request {
         try container.encodeIfPresent(self.code, forKey: .code)
         try container.encodeIfPresent(self.description, forKey: .description)
         try container.encodeIfPresent(self.customerScope, forKey: .customerScope)
-        try container.encodeIfPresent(self.dateTimeStart, forKey: .dateTimeStart)
-        try container.encodeIfPresent(self.dateTimeEnd, forKey: .dateTimeEnd)
+        if let dateTimeStart = self.dateTimeStart {
+            try container.encodeIfPresent(Int(dateTimeStart.timeIntervalSince1970), forKey: .dateTimeStart)
+        }
+        if let dateTimeEnd = self.dateTimeEnd {
+            try container.encodeIfPresent(Int(dateTimeEnd.timeIntervalSince1970), forKey: .dateTimeEnd)
+        }
         try container.encodeIfPresent(self.maxUse, forKey: .maxUse)
         try container.encodeIfPresent(self.maxPer, forKey: .maxPer)
         try container.encodeIfPresent(self.active, forKey: .active)
@@ -124,7 +129,7 @@ public class CouponInsertRequest : Request {
 
         try super.encode(to : encoder)
     }
-    
+
     /**
      Send the request for a response.
 
@@ -132,13 +137,10 @@ public class CouponInsertRequest : Request {
         - callback: The callback function with signature (CouponInsertResponse?, Error?).
      - Note: Overrides
      */
-     public override func send(client: Optional<Client> = nil, callback: @escaping (CouponInsertResponse?, Error?) -> ()) throws {
-        if client != nil {
-            client!.send(self) { request, response, error in
-                callback(response as? CouponInsertResponse, error)
-            }
-        } else if self.client != nil {
-            self.client!.send(self) { request, response, error in
+
+     public override func send(client: Optional<BaseClient> = nil, callback: @escaping (CouponInsertResponse?, Error?) -> ()) throws {
+        if let client = client ?? self.client {
+            client.send(self) { request, response, error in
                 callback(response as? CouponInsertResponse, error)
             }
         } else {
@@ -150,16 +152,18 @@ public class CouponInsertRequest : Request {
      Create a response object by decoding the response data.
 
      - Parameters:
+        - httpResponse: The underlying HTTP response object
         - data: The response data to decode.
      - Throws: Error when unable to decode the response data.
      - Note: Overrides
      */
-    public override func createResponse(data : Data) throws -> CouponInsertResponse {
+    public override func createResponse(httpResponse: URLResponse, data : Data) throws -> CouponInsertResponse {
         let decoder = JSONDecoder()
-        
-        decoder.userInfo[Response.decoderRequestUserInfoKey]      = self
-        decoder.userInfo[Response.decoderResponseDataUserInfoKey] = data
-        
+
+        decoder.userInfo[Response.decoderRequestUserInfoKey]            = self
+        decoder.userInfo[Response.decoderHttpResponseDataUserInfoKey]   = httpResponse
+        decoder.userInfo[Response.decoderResponseDataUserInfoKey]       = data
+
         return try decoder.decode(CouponInsertResponse.self, from: data)
     }
 
@@ -172,88 +176,88 @@ public class CouponInsertRequest : Request {
     override public func getResponseType() -> Response.Type {
         return CouponInsertResponse.self
     }
-    
+
     /**
      Getter for Code.
 
-     - Returns:  Optional<String> 
+     - Returns:  Optional<String>
      */
     public func getCode() -> Optional<String> {
         return self.code
     }
-    
+
     /**
      Getter for Description.
 
-     - Returns:  Optional<String> 
+     - Returns:  Optional<String>
      */
     public func getDescription() -> Optional<String> {
         return self.description
     }
-    
+
     /**
      Getter for CustomerScope.
 
-     - Returns:  Optional<String> 
+     - Returns:  Optional<String>
      */
     public func getCustomerScope() -> Optional<String> {
         return self.customerScope
     }
-    
+
     /**
      Getter for DateTime_Start.
-     
-     - Returns:  Optional<Int> 
+
+     - Returns:  Optional<Date>
      */
-    public func getDateTimeStart() -> Optional<Int> {
+    public func getDateTimeStart() -> Optional<Date> {
         return self.dateTimeStart
     }
-    
+
     /**
      Getter for DateTime_End.
-     
-     - Returns:  Optional<Int> 
+
+     - Returns:  Optional<Date>
      */
-    public func getDateTimeEnd() -> Optional<Int> {
+    public func getDateTimeEnd() -> Optional<Date> {
         return self.dateTimeEnd
     }
-    
+
     /**
      Getter for Max_Use.
-     
-     - Returns:  Optional<Int> 
+
+     - Returns:  Optional<Int>
      */
     public func getMaxUse() -> Optional<Int> {
         return self.maxUse
     }
-    
+
     /**
      Getter for Max_Per.
-     
-     - Returns:  Optional<Int> 
+
+     - Returns:  Optional<Int>
      */
     public func getMaxPer() -> Optional<Int> {
         return self.maxPer
     }
-    
+
     /**
      Getter for Active.
-     
-     - Returns:  Optional<Bool> 
+
+     - Returns:  Optional<Bool>
      */
     public func getActive() -> Optional<Bool> {
         return self.active
     }
-    
+
     /**
      Getter for PriceGroup_ID.
-     
-     - Returns:  Optional<Int> 
+
+     - Returns:  Optional<Int>
      */
     public func getPriceGroupId() -> Optional<Int> {
         return self.priceGroupId
     }
-    
+
     /**
      Setter for Code.
 
@@ -266,7 +270,7 @@ public class CouponInsertRequest : Request {
         self.code = value
         return self
     }
-    
+
     /**
      Setter for Description.
 
@@ -279,7 +283,7 @@ public class CouponInsertRequest : Request {
         self.description = value
         return self
     }
-    
+
     /**
      Setter for CustomerScope.
 
@@ -292,36 +296,36 @@ public class CouponInsertRequest : Request {
         self.customerScope = value
         return self
     }
-    
+
     /**
      Setter for DateTime_Start.
-     
+
      - Parameters:
-        - value: Optional<Int>
+        - value: Optional<Date>
      - Returns:  Self
      */
     @discardableResult
-    public func setDateTimeStart(_ value: Optional<Int>) -> Self {
+    public func setDateTimeStart(_ value: Optional<Date>) -> Self {
         self.dateTimeStart = value
         return self
     }
-    
+
     /**
      Setter for DateTime_End.
-     
+
      - Parameters:
-        - value: Optional<Int>
+        - value: Optional<Date>
      - Returns:  Self
      */
     @discardableResult
-    public func setDateTimeEnd(_ value: Optional<Int>) -> Self {
+    public func setDateTimeEnd(_ value: Optional<Date>) -> Self {
         self.dateTimeEnd = value
         return self
     }
-    
+
     /**
      Setter for Max_Use.
-     
+
      - Parameters:
         - value: Optional<Int>
      - Returns:  Self
@@ -331,10 +335,10 @@ public class CouponInsertRequest : Request {
         self.maxUse = value
         return self
     }
-    
+
     /**
      Setter for Max_Per.
-     
+
      - Parameters:
         - value: Optional<Int>
      - Returns:  Self
@@ -344,10 +348,10 @@ public class CouponInsertRequest : Request {
         self.maxPer = value
         return self
     }
-    
+
     /**
      Setter for Active.
-     
+
      - Parameters:
         - value: Optional<Bool>
      - Returns:  Self
@@ -357,10 +361,10 @@ public class CouponInsertRequest : Request {
         self.active = value
         return self
     }
-    
+
     /**
      Setter for PriceGroup_ID.
-     
+
      - Parameters:
         - value: Optional<Int>
      - Returns:  Self

@@ -3,8 +3,6 @@
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
- *
- * $Id$
  */
 
 import Foundation
@@ -14,19 +12,16 @@ public class OrderCoupon : Model {
 
     /// Model field order_id.
     var orderId : Int
-
     /// Model field coupon_id.
     var couponId : Int
-
     /// Model field code.
     var code : String
-
     /// Model field descrip.
     var description : String
-
     /// Model field total.
     var total : Decimal
-
+    /// Model field assigned.
+    var assigned : Bool
     /**
      CodingKeys used to map the model when encoding and decoding.
 
@@ -38,6 +33,7 @@ public class OrderCoupon : Model {
         case code
         case description = "descrip"
         case total
+        case assigned
     }
 
     /**
@@ -49,6 +45,7 @@ public class OrderCoupon : Model {
         self.code = ""
         self.description = ""
         self.total = Decimal(0.00)
+        self.assigned = false
 
         super.init()
     }
@@ -69,6 +66,7 @@ public class OrderCoupon : Model {
         self.code = try container.decodeIfPresent(String.self, forKey: .code) ?? ""
         self.description = try container.decodeIfPresent(String.self, forKey: .description) ?? ""
         self.total = try container.decodeIfPresent(Decimal.self, forKey: .total) ?? Decimal(0.00)
+        self.assigned = try container.decodeIfPresent(Bool.self, forKey: .assigned) ?? false
 
         try super.init(from : decoder)
     }
@@ -89,52 +87,64 @@ public class OrderCoupon : Model {
         try container.encodeIfPresent(self.code, forKey: .code)
         try container.encodeIfPresent(self.description, forKey: .description)
         try container.encodeIfPresent(Decimal.roundForEncoding(value: self.total, precision: MERCHANTAPI_FLOAT_ENCODE_PRECISION), forKey: .total)
+        try container.encodeIfPresent(self.assigned, forKey: .assigned)
 
         try super.encode(to: encoder)
     }
-    
+
     /**
      Getter for order_id.
-     
+
      - Returns:  Int
+
      */
     public func getOrderId() -> Int {
         return self.orderId
     }
-    
+
     /**
      Getter for coupon_id.
-     
+
      - Returns:  Int
+
      */
     public func getCouponId() -> Int {
         return self.couponId
     }
-    
+
     /**
      Getter for code.
 
      - Returns:  String
+
      */
     public func getCode() -> String {
         return self.code
     }
-    
+
     /**
      Getter for descrip.
 
      - Returns:  String
+
      */
     public func getDescription() -> String {
         return self.description
     }
-    
+
     /**
      Getter for total.
-     
-     - Returns:  Decimal
-     */
+
+     - Returns:  Decimal     */
     public func getTotal() -> Decimal {
         return self.total
+    }
+
+    /**
+     Getter for assigned.
+
+     - Returns:  Bool     */
+    public func getAssigned() -> Bool {
+        return self.assigned
     }
 }

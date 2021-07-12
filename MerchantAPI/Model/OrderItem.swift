@@ -3,8 +3,6 @@
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
- *
- * $Id$
  */
 
 import Foundation
@@ -30,64 +28,48 @@ public class OrderItem : Model {
 
     /// Model field order_id.
     var orderId : Int
-
     /// Model field line_id.
     var lineId : Int
-
     /// Model field status.
     var status : Int
-
     /// Model field subscrp_id.
     var subscriptionId : Int
-
     /// Model field subterm_id.
     var subscriptionTermId : Int
-
     /// Model field rma_id.
     var rmaId : Int
-
     /// Model field rma_code.
     var rmaCode : String
-
     /// Model field rma_dt_issued.
-    var rmaDataTimeIssued : Int
-
+    var rmaDataTimeIssued : Date
     /// Model field rma_dt_recvd.
-    var rmaDateTimeReceived : Int
-
+    var rmaDateTimeReceived : Date
     /// Model field dt_instock.
-    var dateInStock : Int
-
+    var dateInStock : Date
     /// Model field code.
-    var code : String
-
+    var code : Optional<String>
     /// Model field name.
-    var name : String
-
+    var name : Optional<String>
     /// Model field sku.
-    var sku : String
-
+    var sku : Optional<String>
     /// Model field retail.
     var retail : Decimal
-
     /// Model field base_price.
     var basePrice : Decimal
-
     /// Model field price.
-    var price : Decimal
-
+    var price : Optional<Decimal>
+    /// Model field tax.
+    var tax : Decimal
+    /// Model field formatted_tax.
+    var formattedTax : String
     /// Model field weight.
-    var weight : Decimal
-
+    var weight : Optional<Decimal>
     /// Model field taxable.
-    var taxable : Bool
-
+    var taxable : Optional<Bool>
     /// Model field upsold.
-    var upsold : Bool
-
+    var upsold : Optional<Bool>
     /// Model field quantity.
-    var quantity : Int
-
+    var quantity : Optional<Int>
     /// Model field shipment
     var shipment : OrderShipment
 
@@ -102,13 +84,12 @@ public class OrderItem : Model {
 
     /// Model field total.
     var total : Decimal
-
     /// Model field tracktype.
-    var trackingType : String
-
+    var trackingType : Optional<String>
     /// Model field tracknum.
-    var trackingNumber : String
-
+    var trackingNumber : Optional<String>
+    /// Model field shpmnt_id.
+    var shipmentId : Int
     /**
      CodingKeys used to map the model when encoding and decoding.
 
@@ -131,6 +112,8 @@ public class OrderItem : Model {
         case retail
         case basePrice = "base_price"
         case price
+        case tax
+        case formattedTax = "formatted_tax"
         case weight
         case taxable
         case upsold
@@ -142,6 +125,7 @@ public class OrderItem : Model {
         case total
         case trackingType = "tracktype"
         case trackingNumber = "tracknum"
+        case shipmentId = "shpmnt_id"
     }
 
     /**
@@ -155,26 +139,29 @@ public class OrderItem : Model {
         self.subscriptionTermId = 0
         self.rmaId = 0
         self.rmaCode = ""
-        self.rmaDataTimeIssued = 0
-        self.rmaDateTimeReceived = 0
-        self.dateInStock = 0
-        self.code = ""
-        self.name = ""
-        self.sku = ""
+        self.rmaDataTimeIssued = Date(timeIntervalSince1970: 0)
+        self.rmaDateTimeReceived = Date(timeIntervalSince1970: 0)
+        self.dateInStock = Date(timeIntervalSince1970: 0)
+        self.code = nil
+        self.name = nil
+        self.sku = nil
         self.retail = Decimal(0.00)
         self.basePrice = Decimal(0.00)
-        self.price = Decimal(0.00)
-        self.weight = Decimal(0.00)
-        self.taxable = false
-        self.upsold = false
-        self.quantity = 0
+        self.price = nil
+        self.tax = Decimal(0.00)
+        self.formattedTax = ""
+        self.weight = nil
+        self.taxable = nil
+        self.upsold = nil
+        self.quantity = nil
         self.shipment = OrderShipment()
         self.discounts = []
         self.options = []
         self.subscription = OrderItemSubscription()
         self.total = Decimal(0.00)
-        self.trackingType = ""
-        self.trackingNumber = ""
+        self.trackingType = nil
+        self.trackingNumber = nil
+        self.shipmentId = 0
 
         super.init()
     }
@@ -197,26 +184,29 @@ public class OrderItem : Model {
         self.subscriptionTermId = try container.decodeIfPresent(Int.self, forKey: .subscriptionTermId) ?? 0
         self.rmaId = try container.decodeIfPresent(Int.self, forKey: .rmaId) ?? 0
         self.rmaCode = try container.decodeIfPresent(String.self, forKey: .rmaCode) ?? ""
-        self.rmaDataTimeIssued = try container.decodeIfPresent(Int.self, forKey: .rmaDataTimeIssued) ?? 0
-        self.rmaDateTimeReceived = try container.decodeIfPresent(Int.self, forKey: .rmaDateTimeReceived) ?? 0
-        self.dateInStock = try container.decodeIfPresent(Int.self, forKey: .dateInStock) ?? 0
-        self.code = try container.decodeIfPresent(String.self, forKey: .code) ?? ""
-        self.name = try container.decodeIfPresent(String.self, forKey: .name) ?? ""
-        self.sku = try container.decodeIfPresent(String.self, forKey: .sku) ?? ""
+        self.rmaDataTimeIssued = Date(timeIntervalSince1970: Double(try container.decodeIfPresent(Int.self, forKey: .rmaDataTimeIssued) ?? 0))
+        self.rmaDateTimeReceived = Date(timeIntervalSince1970: Double(try container.decodeIfPresent(Int.self, forKey: .rmaDateTimeReceived) ?? 0))
+        self.dateInStock = Date(timeIntervalSince1970: Double(try container.decodeIfPresent(Int.self, forKey: .dateInStock) ?? 0))
+        self.code = try container.decodeIfPresent(String.self, forKey: .code) ?? nil
+        self.name = try container.decodeIfPresent(String.self, forKey: .name) ?? nil
+        self.sku = try container.decodeIfPresent(String.self, forKey: .sku) ?? nil
         self.retail = try container.decodeIfPresent(Decimal.self, forKey: .retail) ?? Decimal(0.00)
         self.basePrice = try container.decodeIfPresent(Decimal.self, forKey: .basePrice) ?? Decimal(0.00)
-        self.price = try container.decodeIfPresent(Decimal.self, forKey: .price) ?? Decimal(0.00)
-        self.weight = try container.decodeIfPresent(Decimal.self, forKey: .weight) ?? Decimal(0.00)
-        self.taxable = try container.decodeIfPresent(Bool.self, forKey: .taxable) ?? false
-        self.upsold = try container.decodeIfPresent(Bool.self, forKey: .upsold) ?? false
-        self.quantity = try container.decodeIfPresent(Int.self, forKey: .quantity) ?? 0
+        self.price = try container.decodeIfPresent(Decimal.self, forKey: .price) ?? nil
+        self.tax = try container.decodeIfPresent(Decimal.self, forKey: .tax) ?? Decimal(0.00)
+        self.formattedTax = try container.decodeIfPresent(String.self, forKey: .formattedTax) ?? ""
+        self.weight = try container.decodeIfPresent(Decimal.self, forKey: .weight) ?? nil
+        self.taxable = try container.decodeIfPresent(Bool.self, forKey: .taxable) ?? nil
+        self.upsold = try container.decodeIfPresent(Bool.self, forKey: .upsold) ?? nil
+        self.quantity = try container.decodeIfPresent(Int.self, forKey: .quantity) ?? nil
         self.shipment = try container.decodeIfPresent(OrderShipment.self, forKey: .shipment) ?? OrderShipment()
         self.discounts = try container.decodeIfPresent([OrderItemDiscount].self, forKey: .discounts) ?? []
         self.options = try container.decodeIfPresent([OrderItemOption].self, forKey: .options) ?? []
         self.subscription = try container.decodeIfPresent(OrderItemSubscription.self, forKey: .subscription) ?? OrderItemSubscription()
         self.total = try container.decodeIfPresent(Decimal.self, forKey: .total) ?? Decimal(0.00)
-        self.trackingType = try container.decodeIfPresent(String.self, forKey: .trackingType) ?? ""
-        self.trackingNumber = try container.decodeIfPresent(String.self, forKey: .trackingNumber) ?? ""
+        self.trackingType = try container.decodeIfPresent(String.self, forKey: .trackingType) ?? nil
+        self.trackingNumber = try container.decodeIfPresent(String.self, forKey: .trackingNumber) ?? nil
+        self.shipmentId = try container.decodeIfPresent(Int.self, forKey: .shipmentId) ?? 0
 
         try super.init(from : decoder)
     }
@@ -239,15 +229,17 @@ public class OrderItem : Model {
         try container.encodeIfPresent(self.subscriptionTermId, forKey: .subscriptionTermId)
         try container.encodeIfPresent(self.rmaId, forKey: .rmaId)
         try container.encodeIfPresent(self.rmaCode, forKey: .rmaCode)
-        try container.encodeIfPresent(self.rmaDataTimeIssued, forKey: .rmaDataTimeIssued)
-        try container.encodeIfPresent(self.rmaDateTimeReceived, forKey: .rmaDateTimeReceived)
-        try container.encodeIfPresent(self.dateInStock, forKey: .dateInStock)
+        try container.encodeIfPresent(Int(self.rmaDataTimeIssued.timeIntervalSince1970), forKey: .rmaDataTimeIssued)
+        try container.encodeIfPresent(Int(self.rmaDateTimeReceived.timeIntervalSince1970), forKey: .rmaDateTimeReceived)
+        try container.encodeIfPresent(Int(self.dateInStock.timeIntervalSince1970), forKey: .dateInStock)
         try container.encodeIfPresent(self.code, forKey: .code)
         try container.encodeIfPresent(self.name, forKey: .name)
         try container.encodeIfPresent(self.sku, forKey: .sku)
         try container.encodeIfPresent(Decimal.roundForEncoding(value: self.retail, precision: MERCHANTAPI_FLOAT_ENCODE_PRECISION), forKey: .retail)
         try container.encodeIfPresent(Decimal.roundForEncoding(value: self.basePrice, precision: MERCHANTAPI_FLOAT_ENCODE_PRECISION), forKey: .basePrice)
         try container.encodeIfPresent(Decimal.roundForEncoding(value: self.price, precision: MERCHANTAPI_FLOAT_ENCODE_PRECISION), forKey: .price)
+        try container.encodeIfPresent(Decimal.roundForEncoding(value: self.tax, precision: MERCHANTAPI_FLOAT_ENCODE_PRECISION), forKey: .tax)
+        try container.encodeIfPresent(self.formattedTax, forKey: .formattedTax)
         try container.encodeIfPresent(Decimal.roundForEncoding(value: self.weight, precision: MERCHANTAPI_FLOAT_ENCODE_PRECISION), forKey: .weight)
         try container.encodeIfPresent(self.taxable, forKey: .taxable)
         try container.encodeIfPresent(self.upsold, forKey: .upsold)
@@ -259,211 +251,232 @@ public class OrderItem : Model {
         try container.encodeIfPresent(Decimal.roundForEncoding(value: self.total, precision: MERCHANTAPI_FLOAT_ENCODE_PRECISION), forKey: .total)
         try container.encodeIfPresent(self.trackingType, forKey: .trackingType)
         try container.encodeIfPresent(self.trackingNumber, forKey: .trackingNumber)
+        try container.encodeIfPresent(self.shipmentId, forKey: .shipmentId)
 
         try super.encode(to: encoder)
     }
-    
+
     /**
      Getter for order_id.
-     
+
      - Returns:  Int
+
      */
     public func getOrderId() -> Int {
         return self.orderId
     }
-    
+
     /**
      Getter for line_id.
-     
+
      - Returns:  Int
+
      */
     public func getLineId() -> Int {
         return self.lineId
     }
-    
+
     /**
      Getter for status.
-     
+
      - Returns:  Int
+
      */
     public func getStatus() -> Int {
         return self.status
     }
-    
+
     /**
      Getter for subscrp_id.
-     
+
      - Returns:  Int
+
      */
     public func getSubscriptionId() -> Int {
         return self.subscriptionId
     }
-    
+
     /**
      Getter for subterm_id.
-     
+
      - Returns:  Int
+
      */
     public func getSubscriptionTermId() -> Int {
         return self.subscriptionTermId
     }
-    
+
     /**
      Getter for rma_id.
-     
+
      - Returns:  Int
+
      */
     public func getRmaId() -> Int {
         return self.rmaId
     }
-    
+
     /**
      Getter for rma_code.
 
      - Returns:  String
+
      */
     public func getRmaCode() -> String {
         return self.rmaCode
     }
-    
+
     /**
      Getter for rma_dt_issued.
-     
-     - Returns:  Int
-     */
-    public func getRmaDataTimeIssued() -> Int {
+
+     - Returns:  Date     */
+    public func getRmaDataTimeIssued() -> Date {
         return self.rmaDataTimeIssued
     }
-    
+
     /**
      Getter for rma_dt_recvd.
-     
-     - Returns:  Int
-     */
-    public func getRmaDateTimeReceived() -> Int {
+
+     - Returns:  Date     */
+    public func getRmaDateTimeReceived() -> Date {
         return self.rmaDateTimeReceived
     }
-    
+
     /**
      Getter for dt_instock.
-     
-     - Returns:  Int
-     */
-    public func getDateInStock() -> Int {
+
+     - Returns:  Date     */
+    public func getDateInStock() -> Date {
         return self.dateInStock
     }
-    
+
     /**
      Getter for code.
 
-     - Returns:  String
+     - Returns:  Optional<String>
+
      */
-    public func getCode() -> String {
+    public func getCode() -> Optional<String> {
         return self.code
     }
-    
+
     /**
      Getter for name.
 
-     - Returns:  String
+     - Returns:  Optional<String>
+
      */
-    public func getName() -> String {
+    public func getName() -> Optional<String> {
         return self.name
     }
-    
+
     /**
      Getter for sku.
 
-     - Returns:  String
+     - Returns:  Optional<String>
+
      */
-    public func getSku() -> String {
+    public func getSku() -> Optional<String> {
         return self.sku
     }
-    
+
     /**
      Getter for retail.
-     
-     - Returns:  Decimal
-     */
+
+     - Returns:  Decimal     */
     public func getRetail() -> Decimal {
         return self.retail
     }
-    
+
     /**
      Getter for base_price.
-     
-     - Returns:  Decimal
-     */
+
+     - Returns:  Decimal     */
     public func getBasePrice() -> Decimal {
         return self.basePrice
     }
-    
+
     /**
      Getter for price.
-     
-     - Returns:  Decimal
-     */
-    public func getPrice() -> Decimal {
+
+     - Returns:  Optional<Decimal>     */
+    public func getPrice() -> Optional<Decimal> {
         return self.price
     }
-    
+
+    /**
+     Getter for tax.
+
+     - Returns:  Decimal     */
+    public func getTax() -> Decimal {
+        return self.tax
+    }
+
+    /**
+     Getter for formatted_tax.
+
+     - Returns:  String
+
+     */
+    public func getFormattedTax() -> String {
+        return self.formattedTax
+    }
+
     /**
      Getter for weight.
-     
-     - Returns:  Decimal
-     */
-    public func getWeight() -> Decimal {
+
+     - Returns:  Optional<Decimal>     */
+    public func getWeight() -> Optional<Decimal> {
         return self.weight
     }
-    
+
     /**
      Getter for taxable.
-     
-     - Returns:  Bool
-     */
-    public func getTaxable() -> Bool {
+
+     - Returns:  Optional<Bool>     */
+    public func getTaxable() -> Optional<Bool> {
         return self.taxable
     }
-    
+
     /**
      Getter for upsold.
-     
-     - Returns:  Bool
-     */
-    public func getUpsold() -> Bool {
+
+     - Returns:  Optional<Bool>     */
+    public func getUpsold() -> Optional<Bool> {
         return self.upsold
     }
-    
+
     /**
      Getter for quantity.
-     
-     - Returns:  Int
+
+     - Returns:  Optional<Int>
+
      */
-    public func getQuantity() -> Int {
+    public func getQuantity() -> Optional<Int> {
         return self.quantity
     }
 
     /**
      Getter for shipment.
-     
+
      - Returns:  OrderShipment
      */
     public func getShipment() -> OrderShipment {
         return self.shipment
     }
-    
+
     /**
      Getter for discounts.
-     
+
      - Returns:  [OrderItemDiscount]
      */
     public func getDiscounts() -> [OrderItemDiscount] {
         return self.discounts
     }
-    
+
     /**
      Getter for options.
-     
+
      - Returns:  [OrderItemOption]
      */
     public func getOptions() -> [OrderItemOption] {
@@ -472,51 +485,49 @@ public class OrderItem : Model {
 
     /**
      Getter for subscription.
-     
+
      - Returns:  OrderItemSubscription
      */
     public func getSubscription() -> OrderItemSubscription {
         return self.subscription
     }
-    
+
     /**
      Getter for total.
-     
-     - Returns:  Decimal
-     */
+
+     - Returns:  Decimal     */
     public func getTotal() -> Decimal {
         return self.total
     }
-    
+
     /**
      Getter for tracktype.
 
-     - Returns:  String
+     - Returns:  Optional<String>
+
      */
-    public func getTrackingType() -> String {
+    public func getTrackingType() -> Optional<String> {
         return self.trackingType
     }
-    
+
     /**
      Getter for tracknum.
 
-     - Returns:  String
+     - Returns:  Optional<String>
+
      */
-    public func getTrackingNumber() -> String {
+    public func getTrackingNumber() -> Optional<String> {
         return self.trackingNumber
     }
-    
+
     /**
-     Setter for status.
-     
-     - Parameters:
-        - value: Optional<Int>
-     - Returns:  Self
+     Getter for shpmnt_id.
+
+     - Returns:  Int
+
      */
-    @discardableResult
-    public func setStatus(_ value: Int) -> Self {
-        self.status = value
-        return self
+    public func getShipmentId() -> Int {
+        return self.shipmentId
     }
 
     /**
@@ -560,7 +571,7 @@ public class OrderItem : Model {
 
     /**
      Setter for price.
-     
+
      - Parameters:
         - value: Decimal
      - Returns:  Self
@@ -573,7 +584,7 @@ public class OrderItem : Model {
 
     /**
      Setter for weight.
-     
+
      - Parameters:
         - value: Decimal
      - Returns:  Self
@@ -586,7 +597,7 @@ public class OrderItem : Model {
 
     /**
      Setter for taxable.
-     
+
      - Parameters:
         - value: Bool
      - Returns:  Self
@@ -599,7 +610,7 @@ public class OrderItem : Model {
 
     /**
      Setter for upsold.
-     
+
      - Parameters:
         - value: Bool
      - Returns:  Self
@@ -609,10 +620,10 @@ public class OrderItem : Model {
         self.upsold = value
         return self
     }
-    
+
     /**
      Setter for quantity.
-     
+
      - Parameters:
         - value: Optional<Int>
      - Returns:  Self
@@ -648,10 +659,10 @@ public class OrderItem : Model {
         self.trackingNumber = value
         return self
     }
-    
+
     /**
      Add a OrderItemOption.
-     
+
      - Parameters:
         - option: OrderItemOption
      - Returns:  Self

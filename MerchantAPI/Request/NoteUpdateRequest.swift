@@ -3,11 +3,12 @@
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
- *
- * $Id$
  */
 
 import Foundation
+#if os(Linux)
+import FoundationNetworking
+#endif
 
 /**
  Handles API Request Note_Update.
@@ -16,7 +17,7 @@ import Foundation
  */
 public class NoteUpdateRequest : Request {
     /**
-     The API function name. 
+     The API function name.
 
      - Note: Overrides
      - Returns: String
@@ -26,7 +27,7 @@ public class NoteUpdateRequest : Request {
     }
 
     /**
-     The request scope. 
+     The request scope.
 
      - Note: Overrides
      - Returns: RequestScope
@@ -34,16 +35,16 @@ public class NoteUpdateRequest : Request {
     override var scope : RequestScope {
         return RequestScope.Store;
     }
-    
+
     /// Request field Note_ID.
-    var noteId : Optional<Int>
+    var noteId : Optional<Int> = nil
 
     /// Request field NoteText.
-    var noteText : Optional<String>
-    
+    var noteText : Optional<String> = nil
+
     /**
      CodingKeys used to map the request when encoding.
-     
+
      - SeeAlso: Encodable
      */
     private enum CodingKeys: String, CodingKey {
@@ -51,22 +52,22 @@ public class NoteUpdateRequest : Request {
         case noteId = "Note_ID"
         case noteText = "NoteText"
     }
-    
+
     /**
      Request constructor.
 
      - Parameters:
-        - client: A Client instance.
+        - client: A BaseClient instance.
         - note: An optional Note instance.
      */
-    public init(client: Optional<Client> = nil, note: Optional<Note> = nil) {
+    public init(client: Optional<BaseClient> = nil, note: Optional<Note> = nil) {
         super.init(client: client)
         if let note = note {
             self.noteId = note.id
             self.noteText = note.noteText
         }
     }
-    
+
     /**
      Implementation of Encodable.
 
@@ -83,7 +84,7 @@ public class NoteUpdateRequest : Request {
 
         try super.encode(to : encoder)
     }
-    
+
     /**
      Send the request for a response.
 
@@ -91,13 +92,10 @@ public class NoteUpdateRequest : Request {
         - callback: The callback function with signature (NoteUpdateResponse?, Error?).
      - Note: Overrides
      */
-     public override func send(client: Optional<Client> = nil, callback: @escaping (NoteUpdateResponse?, Error?) -> ()) throws {
-        if client != nil {
-            client!.send(self) { request, response, error in
-                callback(response as? NoteUpdateResponse, error)
-            }
-        } else if self.client != nil {
-            self.client!.send(self) { request, response, error in
+
+     public override func send(client: Optional<BaseClient> = nil, callback: @escaping (NoteUpdateResponse?, Error?) -> ()) throws {
+        if let client = client ?? self.client {
+            client.send(self) { request, response, error in
                 callback(response as? NoteUpdateResponse, error)
             }
         } else {
@@ -109,16 +107,18 @@ public class NoteUpdateRequest : Request {
      Create a response object by decoding the response data.
 
      - Parameters:
+        - httpResponse: The underlying HTTP response object
         - data: The response data to decode.
      - Throws: Error when unable to decode the response data.
      - Note: Overrides
      */
-    public override func createResponse(data : Data) throws -> NoteUpdateResponse {
+    public override func createResponse(httpResponse: URLResponse, data : Data) throws -> NoteUpdateResponse {
         let decoder = JSONDecoder()
-        
-        decoder.userInfo[Response.decoderRequestUserInfoKey]      = self
-        decoder.userInfo[Response.decoderResponseDataUserInfoKey] = data
-        
+
+        decoder.userInfo[Response.decoderRequestUserInfoKey]            = self
+        decoder.userInfo[Response.decoderHttpResponseDataUserInfoKey]   = httpResponse
+        decoder.userInfo[Response.decoderResponseDataUserInfoKey]       = data
+
         return try decoder.decode(NoteUpdateResponse.self, from: data)
     }
 
@@ -131,28 +131,28 @@ public class NoteUpdateRequest : Request {
     override public func getResponseType() -> Response.Type {
         return NoteUpdateResponse.self
     }
-    
+
     /**
      Getter for Note_ID.
-     
-     - Returns:  Optional<Int> 
+
+     - Returns:  Optional<Int>
      */
     public func getNoteId() -> Optional<Int> {
         return self.noteId
     }
-    
+
     /**
      Getter for NoteText.
 
-     - Returns:  Optional<String> 
+     - Returns:  Optional<String>
      */
     public func getNoteText() -> Optional<String> {
         return self.noteText
     }
-    
+
     /**
      Setter for Note_ID.
-     
+
      - Parameters:
         - value: Optional<Int>
      - Returns:  Self
@@ -162,7 +162,7 @@ public class NoteUpdateRequest : Request {
         self.noteId = value
         return self
     }
-    
+
     /**
      Setter for NoteText.
 

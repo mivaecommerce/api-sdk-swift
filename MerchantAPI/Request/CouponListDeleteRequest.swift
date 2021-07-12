@@ -3,11 +3,12 @@
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
- *
- * $Id$
  */
 
 import Foundation
+#if os(Linux)
+import FoundationNetworking
+#endif
 
 /**
  Handles API Request CouponList_Delete.
@@ -16,7 +17,7 @@ import Foundation
  */
 public class CouponListDeleteRequest : Request {
     /**
-     The API function name. 
+     The API function name.
 
      - Note: Overrides
      - Returns: String
@@ -26,7 +27,7 @@ public class CouponListDeleteRequest : Request {
     }
 
     /**
-     The request scope. 
+     The request scope.
 
      - Note: Overrides
      - Returns: RequestScope
@@ -34,30 +35,30 @@ public class CouponListDeleteRequest : Request {
     override var scope : RequestScope {
         return RequestScope.Store;
     }
-    
+
     /// Request field Coupon_IDs.
     var couponIds : [Int] = []
-    
+
     /**
      CodingKeys used to map the request when encoding.
-     
+
      - SeeAlso: Encodable
      */
     private enum CodingKeys: String, CodingKey {
         case function = "Function"
         case couponIds = "Coupon_IDs"
     }
-    
+
     /**
      Request constructor.
-     
+
      - Parameters:
-        - client: A Client instance.
+        - client: A BaseClient instance.
      */
-    public override init(client: Optional<Client> = nil) {
+    public override init(client: Optional<BaseClient> = nil) {
         super.init(client: client)
     }
-    
+
     /**
      Implementation of Encodable.
 
@@ -73,7 +74,7 @@ public class CouponListDeleteRequest : Request {
 
         try super.encode(to : encoder)
     }
-    
+
     /**
      Send the request for a response.
 
@@ -81,13 +82,10 @@ public class CouponListDeleteRequest : Request {
         - callback: The callback function with signature (CouponListDeleteResponse?, Error?).
      - Note: Overrides
      */
-     public override func send(client: Optional<Client> = nil, callback: @escaping (CouponListDeleteResponse?, Error?) -> ()) throws {
-        if client != nil {
-            client!.send(self) { request, response, error in
-                callback(response as? CouponListDeleteResponse, error)
-            }
-        } else if self.client != nil {
-            self.client!.send(self) { request, response, error in
+
+     public override func send(client: Optional<BaseClient> = nil, callback: @escaping (CouponListDeleteResponse?, Error?) -> ()) throws {
+        if let client = client ?? self.client {
+            client.send(self) { request, response, error in
                 callback(response as? CouponListDeleteResponse, error)
             }
         } else {
@@ -99,16 +97,18 @@ public class CouponListDeleteRequest : Request {
      Create a response object by decoding the response data.
 
      - Parameters:
+        - httpResponse: The underlying HTTP response object
         - data: The response data to decode.
      - Throws: Error when unable to decode the response data.
      - Note: Overrides
      */
-    public override func createResponse(data : Data) throws -> CouponListDeleteResponse {
+    public override func createResponse(httpResponse: URLResponse, data : Data) throws -> CouponListDeleteResponse {
         let decoder = JSONDecoder()
-        
-        decoder.userInfo[Response.decoderRequestUserInfoKey]      = self
-        decoder.userInfo[Response.decoderResponseDataUserInfoKey] = data
-        
+
+        decoder.userInfo[Response.decoderRequestUserInfoKey]            = self
+        decoder.userInfo[Response.decoderHttpResponseDataUserInfoKey]   = httpResponse
+        decoder.userInfo[Response.decoderResponseDataUserInfoKey]       = data
+
         return try decoder.decode(CouponListDeleteResponse.self, from: data)
     }
 
@@ -121,7 +121,7 @@ public class CouponListDeleteRequest : Request {
     override public func getResponseType() -> Response.Type {
         return CouponListDeleteResponse.self
     }
-    
+
     /**
      Add Coupon_IDs.
 
@@ -134,13 +134,13 @@ public class CouponListDeleteRequest : Request {
         self.couponIds.append(couponId);
         return self
     }
-    
+
     /**
      Add Coupon model.
 
      - Parameters:
         - coupon: Coupon
-     - Returns: Self 
+     - Returns: Self
      */
     @discardableResult
     public func addCoupon(_ coupon: Coupon) -> Self {

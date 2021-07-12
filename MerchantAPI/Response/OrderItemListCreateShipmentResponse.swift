@@ -3,22 +3,23 @@
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
- *
- * $Id$
  */
 
 import Foundation
+#if os(Linux)
+import FoundationNetworking
+#endif
 
 /**
  API Response for OrderItemList_CreateShipment.
- 
+
  - SeeAlso: https://docs.miva.com/json-api/functions/orderitemlist_createshipment
  */
 public class OrderItemListCreateShipmentResponse : Response {
 
     /// The response model
-    public var orderShipment : Optional<OrderShipment>
-    
+    public var orderShipment : Optional<OrderShipment> = nil
+
     /**
      Getter for orderShipment.
 
@@ -27,16 +28,16 @@ public class OrderItemListCreateShipmentResponse : Response {
     public func getOrderShipment() -> Optional<OrderShipment> {
         return self.orderShipment
     }
-    
+
     /**
      CodingKeys used to map the model when decoding.
-     
+
      - SeeAlso: Decodable
      */
     private enum CodingKeys: String, CodingKey {
         case orderShipment = "data"
     }
-    
+
     /**
      Construct an instance from a decoder instance.
 

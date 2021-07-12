@@ -3,11 +3,12 @@
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
- *
- * $Id$
  */
 
 import Foundation
+#if os(Linux)
+import FoundationNetworking
+#endif
 
 /**
  Handles API Request Order_Create.
@@ -16,7 +17,7 @@ import Foundation
  */
 public class OrderCreateRequest : Request {
     /**
-     The API function name. 
+     The API function name.
 
      - Note: Overrides
      - Returns: String
@@ -26,7 +27,7 @@ public class OrderCreateRequest : Request {
     }
 
     /**
-     The request scope. 
+     The request scope.
 
      - Note: Overrides
      - Returns: RequestScope
@@ -34,87 +35,87 @@ public class OrderCreateRequest : Request {
     override var scope : RequestScope {
         return RequestScope.Store;
     }
-    
+
     /// Request field Customer_Login.
-    var customerLogin : Optional<String>
+    var customerLogin : Optional<String> = nil
 
     /// Request field Customer_ID.
-    var customerId : Optional<Int>
+    var customerId : Optional<Int> = nil
 
     /// Request field ShipFirstName.
-    var shipFirstName : Optional<String>
+    var shipFirstName : Optional<String> = nil
 
     /// Request field ShipLastName.
-    var shipLastName : Optional<String>
+    var shipLastName : Optional<String> = nil
 
     /// Request field ShipEmail.
-    var shipEmail : Optional<String>
+    var shipEmail : Optional<String> = nil
 
     /// Request field ShipPhone.
-    var shipPhone : Optional<String>
+    var shipPhone : Optional<String> = nil
 
     /// Request field ShipFax.
-    var shipFax : Optional<String>
+    var shipFax : Optional<String> = nil
 
     /// Request field ShipCompany.
-    var shipCompany : Optional<String>
+    var shipCompany : Optional<String> = nil
 
     /// Request field ShipAddress1.
-    var shipAddress1 : Optional<String>
+    var shipAddress1 : Optional<String> = nil
 
     /// Request field ShipAddress2.
-    var shipAddress2 : Optional<String>
+    var shipAddress2 : Optional<String> = nil
 
     /// Request field ShipCity.
-    var shipCity : Optional<String>
+    var shipCity : Optional<String> = nil
 
     /// Request field ShipState.
-    var shipState : Optional<String>
+    var shipState : Optional<String> = nil
 
     /// Request field ShipZip.
-    var shipZip : Optional<String>
+    var shipZip : Optional<String> = nil
 
     /// Request field ShipCountry.
-    var shipCountry : Optional<String>
+    var shipCountry : Optional<String> = nil
 
     /// Request field ShipResidential.
-    var shipResidential : Optional<Bool>
+    var shipResidential : Optional<Bool> = nil
 
     /// Request field BillFirstName.
-    var billFirstName : Optional<String>
+    var billFirstName : Optional<String> = nil
 
     /// Request field BillLastName.
-    var billLastName : Optional<String>
+    var billLastName : Optional<String> = nil
 
     /// Request field BillEmail.
-    var billEmail : Optional<String>
+    var billEmail : Optional<String> = nil
 
     /// Request field BillPhone.
-    var billPhone : Optional<String>
+    var billPhone : Optional<String> = nil
 
     /// Request field BillFax.
-    var billFax : Optional<String>
+    var billFax : Optional<String> = nil
 
     /// Request field BillCompany.
-    var billCompany : Optional<String>
+    var billCompany : Optional<String> = nil
 
     /// Request field BillAddress1.
-    var billAddress1 : Optional<String>
+    var billAddress1 : Optional<String> = nil
 
     /// Request field BillAddress2.
-    var billAddress2 : Optional<String>
+    var billAddress2 : Optional<String> = nil
 
     /// Request field BillCity.
-    var billCity : Optional<String>
+    var billCity : Optional<String> = nil
 
     /// Request field BillState.
-    var billState : Optional<String>
+    var billState : Optional<String> = nil
 
     /// Request field BillZip.
-    var billZip : Optional<String>
+    var billZip : Optional<String> = nil
 
     /// Request field BillCountry.
-    var billCountry : Optional<String>
+    var billCountry : Optional<String> = nil
 
     /// Request field Items.
     var items : [OrderItem] = []
@@ -129,20 +130,20 @@ public class OrderCreateRequest : Request {
     var customFieldValues : CustomFieldValues
 
     /// Request field Shipping_Module_Code.
-    var shippingModuleCode : Optional<String>
+    var shippingModuleCode : Optional<String> = nil
 
     /// Request field Shipping_Module_Data.
-    var shippingModuleData : Optional<String>
+    var shippingModuleData : Optional<String> = nil
 
     /// Request field CalculateCharges.
-    var calculateCharges : Optional<Bool>
+    var calculateCharges : Optional<Bool> = nil
 
     /// Request field TriggerFulfillmentModules.
-    var triggerFulfillmentModules : Optional<Bool>
-    
+    var triggerFulfillmentModules : Optional<Bool> = nil
+
     /**
      CodingKeys used to map the request when encoding.
-     
+
      - SeeAlso: Encodable
      */
     private enum CodingKeys: String, CodingKey {
@@ -183,15 +184,15 @@ public class OrderCreateRequest : Request {
         case calculateCharges = "CalculateCharges"
         case triggerFulfillmentModules = "TriggerFulfillmentModules"
     }
-    
+
     /**
      Request constructor.
 
      - Parameters:
-        - client: A Client instance.
+        - client: A BaseClient instance.
         - customer: An optional Customer instance.
      */
-    public init(client: Optional<Client> = nil, customer: Optional<Customer> = nil) {
+    public init(client: Optional<BaseClient> = nil, customer: Optional<Customer> = nil) {
         self.customFieldValues = CustomFieldValues()
         super.init(client: client)
         if let customer = customer {
@@ -202,7 +203,7 @@ public class OrderCreateRequest : Request {
             }
         }
     }
-    
+
     /**
      Implementation of Encodable.
 
@@ -256,7 +257,7 @@ public class OrderCreateRequest : Request {
 
         try super.encode(to : encoder)
     }
-    
+
     /**
      Send the request for a response.
 
@@ -264,13 +265,10 @@ public class OrderCreateRequest : Request {
         - callback: The callback function with signature (OrderCreateResponse?, Error?).
      - Note: Overrides
      */
-     public override func send(client: Optional<Client> = nil, callback: @escaping (OrderCreateResponse?, Error?) -> ()) throws {
-        if client != nil {
-            client!.send(self) { request, response, error in
-                callback(response as? OrderCreateResponse, error)
-            }
-        } else if self.client != nil {
-            self.client!.send(self) { request, response, error in
+
+     public override func send(client: Optional<BaseClient> = nil, callback: @escaping (OrderCreateResponse?, Error?) -> ()) throws {
+        if let client = client ?? self.client {
+            client.send(self) { request, response, error in
                 callback(response as? OrderCreateResponse, error)
             }
         } else {
@@ -282,16 +280,18 @@ public class OrderCreateRequest : Request {
      Create a response object by decoding the response data.
 
      - Parameters:
+        - httpResponse: The underlying HTTP response object
         - data: The response data to decode.
      - Throws: Error when unable to decode the response data.
      - Note: Overrides
      */
-    public override func createResponse(data : Data) throws -> OrderCreateResponse {
+    public override func createResponse(httpResponse: URLResponse, data : Data) throws -> OrderCreateResponse {
         let decoder = JSONDecoder()
-        
-        decoder.userInfo[Response.decoderRequestUserInfoKey]      = self
-        decoder.userInfo[Response.decoderResponseDataUserInfoKey] = data
-        
+
+        decoder.userInfo[Response.decoderRequestUserInfoKey]            = self
+        decoder.userInfo[Response.decoderHttpResponseDataUserInfoKey]   = httpResponse
+        decoder.userInfo[Response.decoderResponseDataUserInfoKey]       = data
+
         return try decoder.decode(OrderCreateResponse.self, from: data)
     }
 
@@ -304,322 +304,322 @@ public class OrderCreateRequest : Request {
     override public func getResponseType() -> Response.Type {
         return OrderCreateResponse.self
     }
-    
+
     /**
      Getter for Customer_Login.
 
-     - Returns:  Optional<String> 
+     - Returns:  Optional<String>
      */
     public func getCustomerLogin() -> Optional<String> {
         return self.customerLogin
     }
-    
+
     /**
      Getter for Customer_ID.
-     
-     - Returns:  Optional<Int> 
+
+     - Returns:  Optional<Int>
      */
     public func getCustomerId() -> Optional<Int> {
         return self.customerId
     }
-    
+
     /**
      Getter for ShipFirstName.
 
-     - Returns:  Optional<String> 
+     - Returns:  Optional<String>
      */
     public func getShipFirstName() -> Optional<String> {
         return self.shipFirstName
     }
-    
+
     /**
      Getter for ShipLastName.
 
-     - Returns:  Optional<String> 
+     - Returns:  Optional<String>
      */
     public func getShipLastName() -> Optional<String> {
         return self.shipLastName
     }
-    
+
     /**
      Getter for ShipEmail.
 
-     - Returns:  Optional<String> 
+     - Returns:  Optional<String>
      */
     public func getShipEmail() -> Optional<String> {
         return self.shipEmail
     }
-    
+
     /**
      Getter for ShipPhone.
 
-     - Returns:  Optional<String> 
+     - Returns:  Optional<String>
      */
     public func getShipPhone() -> Optional<String> {
         return self.shipPhone
     }
-    
+
     /**
      Getter for ShipFax.
 
-     - Returns:  Optional<String> 
+     - Returns:  Optional<String>
      */
     public func getShipFax() -> Optional<String> {
         return self.shipFax
     }
-    
+
     /**
      Getter for ShipCompany.
 
-     - Returns:  Optional<String> 
+     - Returns:  Optional<String>
      */
     public func getShipCompany() -> Optional<String> {
         return self.shipCompany
     }
-    
+
     /**
      Getter for ShipAddress1.
 
-     - Returns:  Optional<String> 
+     - Returns:  Optional<String>
      */
     public func getShipAddress1() -> Optional<String> {
         return self.shipAddress1
     }
-    
+
     /**
      Getter for ShipAddress2.
 
-     - Returns:  Optional<String> 
+     - Returns:  Optional<String>
      */
     public func getShipAddress2() -> Optional<String> {
         return self.shipAddress2
     }
-    
+
     /**
      Getter for ShipCity.
 
-     - Returns:  Optional<String> 
+     - Returns:  Optional<String>
      */
     public func getShipCity() -> Optional<String> {
         return self.shipCity
     }
-    
+
     /**
      Getter for ShipState.
 
-     - Returns:  Optional<String> 
+     - Returns:  Optional<String>
      */
     public func getShipState() -> Optional<String> {
         return self.shipState
     }
-    
+
     /**
      Getter for ShipZip.
 
-     - Returns:  Optional<String> 
+     - Returns:  Optional<String>
      */
     public func getShipZip() -> Optional<String> {
         return self.shipZip
     }
-    
+
     /**
      Getter for ShipCountry.
 
-     - Returns:  Optional<String> 
+     - Returns:  Optional<String>
      */
     public func getShipCountry() -> Optional<String> {
         return self.shipCountry
     }
-    
+
     /**
      Getter for ShipResidential.
-     
-     - Returns:  Optional<Bool> 
+
+     - Returns:  Optional<Bool>
      */
     public func getShipResidential() -> Optional<Bool> {
         return self.shipResidential
     }
-    
+
     /**
      Getter for BillFirstName.
 
-     - Returns:  Optional<String> 
+     - Returns:  Optional<String>
      */
     public func getBillFirstName() -> Optional<String> {
         return self.billFirstName
     }
-    
+
     /**
      Getter for BillLastName.
 
-     - Returns:  Optional<String> 
+     - Returns:  Optional<String>
      */
     public func getBillLastName() -> Optional<String> {
         return self.billLastName
     }
-    
+
     /**
      Getter for BillEmail.
 
-     - Returns:  Optional<String> 
+     - Returns:  Optional<String>
      */
     public func getBillEmail() -> Optional<String> {
         return self.billEmail
     }
-    
+
     /**
      Getter for BillPhone.
 
-     - Returns:  Optional<String> 
+     - Returns:  Optional<String>
      */
     public func getBillPhone() -> Optional<String> {
         return self.billPhone
     }
-    
+
     /**
      Getter for BillFax.
 
-     - Returns:  Optional<String> 
+     - Returns:  Optional<String>
      */
     public func getBillFax() -> Optional<String> {
         return self.billFax
     }
-    
+
     /**
      Getter for BillCompany.
 
-     - Returns:  Optional<String> 
+     - Returns:  Optional<String>
      */
     public func getBillCompany() -> Optional<String> {
         return self.billCompany
     }
-    
+
     /**
      Getter for BillAddress1.
 
-     - Returns:  Optional<String> 
+     - Returns:  Optional<String>
      */
     public func getBillAddress1() -> Optional<String> {
         return self.billAddress1
     }
-    
+
     /**
      Getter for BillAddress2.
 
-     - Returns:  Optional<String> 
+     - Returns:  Optional<String>
      */
     public func getBillAddress2() -> Optional<String> {
         return self.billAddress2
     }
-    
+
     /**
      Getter for BillCity.
 
-     - Returns:  Optional<String> 
+     - Returns:  Optional<String>
      */
     public func getBillCity() -> Optional<String> {
         return self.billCity
     }
-    
+
     /**
      Getter for BillState.
 
-     - Returns:  Optional<String> 
+     - Returns:  Optional<String>
      */
     public func getBillState() -> Optional<String> {
         return self.billState
     }
-    
+
     /**
      Getter for BillZip.
 
-     - Returns:  Optional<String> 
+     - Returns:  Optional<String>
      */
     public func getBillZip() -> Optional<String> {
         return self.billZip
     }
-    
+
     /**
      Getter for BillCountry.
 
-     - Returns:  Optional<String> 
+     - Returns:  Optional<String>
      */
     public func getBillCountry() -> Optional<String> {
         return self.billCountry
     }
-    
+
     /**
      Getter for Items.
-     
+
      - Returns:  [OrderItem]
      */
     public func getItems() -> [OrderItem] {
         return self.items
     }
-    
+
     /**
      Getter for Products.
-     
+
      - Returns:  [OrderProduct]
      */
     public func getProducts() -> [OrderProduct] {
         return self.products
     }
-    
+
     /**
      Getter for Charges.
-     
+
      - Returns:  [OrderCharge]
      */
     public func getCharges() -> [OrderCharge] {
         return self.charges
     }
-    
+
     /**
      Getter for CustomField_Values.
-     
+
      - Returns:  CustomFieldValues
      */
     public func getCustomFieldValues() -> CustomFieldValues {
         return self.customFieldValues
     }
-    
+
     /**
      Getter for Shipping_Module_Code.
 
-     - Returns:  Optional<String> 
+     - Returns:  Optional<String>
      */
     public func getShippingModuleCode() -> Optional<String> {
         return self.shippingModuleCode
     }
-    
+
     /**
      Getter for Shipping_Module_Data.
 
-     - Returns:  Optional<String> 
+     - Returns:  Optional<String>
      */
     public func getShippingModuleData() -> Optional<String> {
         return self.shippingModuleData
     }
-    
+
     /**
      Getter for CalculateCharges.
-     
-     - Returns:  Optional<Bool> 
+
+     - Returns:  Optional<Bool>
      */
     public func getCalculateCharges() -> Optional<Bool> {
         return self.calculateCharges
     }
-    
+
     /**
      Getter for TriggerFulfillmentModules.
-     
-     - Returns:  Optional<Bool> 
+
+     - Returns:  Optional<Bool>
      */
     public func getTriggerFulfillmentModules() -> Optional<Bool> {
         return self.triggerFulfillmentModules
     }
-    
+
     /**
      Setter for Customer_Login.
 
@@ -632,10 +632,10 @@ public class OrderCreateRequest : Request {
         self.customerLogin = value
         return self
     }
-    
+
     /**
      Setter for Customer_ID.
-     
+
      - Parameters:
         - value: Optional<Int>
      - Returns:  Self
@@ -645,7 +645,7 @@ public class OrderCreateRequest : Request {
         self.customerId = value
         return self
     }
-    
+
     /**
      Setter for ShipFirstName.
 
@@ -658,7 +658,7 @@ public class OrderCreateRequest : Request {
         self.shipFirstName = value
         return self
     }
-    
+
     /**
      Setter for ShipLastName.
 
@@ -671,7 +671,7 @@ public class OrderCreateRequest : Request {
         self.shipLastName = value
         return self
     }
-    
+
     /**
      Setter for ShipEmail.
 
@@ -684,7 +684,7 @@ public class OrderCreateRequest : Request {
         self.shipEmail = value
         return self
     }
-    
+
     /**
      Setter for ShipPhone.
 
@@ -697,7 +697,7 @@ public class OrderCreateRequest : Request {
         self.shipPhone = value
         return self
     }
-    
+
     /**
      Setter for ShipFax.
 
@@ -710,7 +710,7 @@ public class OrderCreateRequest : Request {
         self.shipFax = value
         return self
     }
-    
+
     /**
      Setter for ShipCompany.
 
@@ -723,7 +723,7 @@ public class OrderCreateRequest : Request {
         self.shipCompany = value
         return self
     }
-    
+
     /**
      Setter for ShipAddress1.
 
@@ -736,7 +736,7 @@ public class OrderCreateRequest : Request {
         self.shipAddress1 = value
         return self
     }
-    
+
     /**
      Setter for ShipAddress2.
 
@@ -749,7 +749,7 @@ public class OrderCreateRequest : Request {
         self.shipAddress2 = value
         return self
     }
-    
+
     /**
      Setter for ShipCity.
 
@@ -762,7 +762,7 @@ public class OrderCreateRequest : Request {
         self.shipCity = value
         return self
     }
-    
+
     /**
      Setter for ShipState.
 
@@ -775,7 +775,7 @@ public class OrderCreateRequest : Request {
         self.shipState = value
         return self
     }
-    
+
     /**
      Setter for ShipZip.
 
@@ -788,7 +788,7 @@ public class OrderCreateRequest : Request {
         self.shipZip = value
         return self
     }
-    
+
     /**
      Setter for ShipCountry.
 
@@ -801,10 +801,10 @@ public class OrderCreateRequest : Request {
         self.shipCountry = value
         return self
     }
-    
+
     /**
      Setter for ShipResidential.
-     
+
      - Parameters:
         - value: Optional<Bool>
      - Returns:  Self
@@ -814,7 +814,7 @@ public class OrderCreateRequest : Request {
         self.shipResidential = value
         return self
     }
-    
+
     /**
      Setter for BillFirstName.
 
@@ -827,7 +827,7 @@ public class OrderCreateRequest : Request {
         self.billFirstName = value
         return self
     }
-    
+
     /**
      Setter for BillLastName.
 
@@ -840,7 +840,7 @@ public class OrderCreateRequest : Request {
         self.billLastName = value
         return self
     }
-    
+
     /**
      Setter for BillEmail.
 
@@ -853,7 +853,7 @@ public class OrderCreateRequest : Request {
         self.billEmail = value
         return self
     }
-    
+
     /**
      Setter for BillPhone.
 
@@ -866,7 +866,7 @@ public class OrderCreateRequest : Request {
         self.billPhone = value
         return self
     }
-    
+
     /**
      Setter for BillFax.
 
@@ -879,7 +879,7 @@ public class OrderCreateRequest : Request {
         self.billFax = value
         return self
     }
-    
+
     /**
      Setter for BillCompany.
 
@@ -892,7 +892,7 @@ public class OrderCreateRequest : Request {
         self.billCompany = value
         return self
     }
-    
+
     /**
      Setter for BillAddress1.
 
@@ -905,7 +905,7 @@ public class OrderCreateRequest : Request {
         self.billAddress1 = value
         return self
     }
-    
+
     /**
      Setter for BillAddress2.
 
@@ -918,7 +918,7 @@ public class OrderCreateRequest : Request {
         self.billAddress2 = value
         return self
     }
-    
+
     /**
      Setter for BillCity.
 
@@ -931,7 +931,7 @@ public class OrderCreateRequest : Request {
         self.billCity = value
         return self
     }
-    
+
     /**
      Setter for BillState.
 
@@ -944,7 +944,7 @@ public class OrderCreateRequest : Request {
         self.billState = value
         return self
     }
-    
+
     /**
      Setter for BillZip.
 
@@ -957,7 +957,7 @@ public class OrderCreateRequest : Request {
         self.billZip = value
         return self
     }
-    
+
     /**
      Setter for BillCountry.
 
@@ -970,7 +970,7 @@ public class OrderCreateRequest : Request {
         self.billCountry = value
         return self
     }
-    
+
     /**
      Setter for Shipping_Module_Code.
 
@@ -983,7 +983,7 @@ public class OrderCreateRequest : Request {
         self.shippingModuleCode = value
         return self
     }
-    
+
     /**
      Setter for Shipping_Module_Data.
 
@@ -996,10 +996,10 @@ public class OrderCreateRequest : Request {
         self.shippingModuleData = value
         return self
     }
-    
+
     /**
      Setter for CalculateCharges.
-     
+
      - Parameters:
         - value: Optional<Bool>
      - Returns:  Self
@@ -1009,10 +1009,10 @@ public class OrderCreateRequest : Request {
         self.calculateCharges = value
         return self
     }
-    
+
     /**
      Setter for TriggerFulfillmentModules.
-     
+
      - Parameters:
         - value: Optional<Bool>
      - Returns:  Self
@@ -1022,12 +1022,12 @@ public class OrderCreateRequest : Request {
         self.triggerFulfillmentModules = value
         return self
     }
-    
+
     /**
      Add a OrderItem.
 
      - Parameters:
-        - item: OrderItem 
+        - item: OrderItem
      - Returns: Self
      */
     @discardableResult
@@ -1035,28 +1035,28 @@ public class OrderCreateRequest : Request {
         self.items.append(item)
         return self
     }
-    
+
     /**
      Add an array of OrderItem.
 
      - Parameters:
         - items: [OrderItem]
-     - Returns: Self 
+     - Returns: Self
      */
     @discardableResult
     public func addItems(_ items: [OrderItem]) -> Self {
         for i in items {
             self.items.append(i);
-        }       
+        }
 
         return self
     }
-    
+
     /**
      Add a OrderProduct.
 
      - Parameters:
-        - product: OrderProduct 
+        - product: OrderProduct
      - Returns: Self
      */
     @discardableResult
@@ -1064,28 +1064,28 @@ public class OrderCreateRequest : Request {
         self.products.append(product)
         return self
     }
-    
+
     /**
      Add an array of OrderProduct.
 
      - Parameters:
         - products: [OrderProduct]
-     - Returns: Self 
+     - Returns: Self
      */
     @discardableResult
     public func addProducts(_ products: [OrderProduct]) -> Self {
         for p in products {
             self.products.append(p);
-        }       
+        }
 
         return self
     }
-    
+
     /**
      Add a OrderCharge.
 
      - Parameters:
-        - charge: OrderCharge 
+        - charge: OrderCharge
      - Returns: Self
      */
     @discardableResult
@@ -1093,19 +1093,19 @@ public class OrderCreateRequest : Request {
         self.charges.append(charge)
         return self
     }
-    
+
     /**
      Add an array of OrderCharge.
 
      - Parameters:
         - charges: [OrderCharge]
-     - Returns: Self 
+     - Returns: Self
      */
     @discardableResult
     public func addCharges(_ charges: [OrderCharge]) -> Self {
         for c in charges {
             self.charges.append(c);
-        }       
+        }
 
         return self
     }

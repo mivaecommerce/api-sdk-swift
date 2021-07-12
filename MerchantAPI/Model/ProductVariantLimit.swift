@@ -3,8 +3,6 @@
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
- *
- * $Id$
  */
 
 import Foundation
@@ -13,14 +11,11 @@ import Foundation
 public class ProductVariantLimit : Model {
 
     /// Model field attr_id.
-    var attributeId : Int
-
+    var attributeId : Optional<Int>
     /// Model field attmpat_id.
-    var attributeTemplateId : Int
-
+    var attributeTemplateId : Optional<Int>
     /// Model field option_id.
-    var optionId : Int
-
+    var optionId : Optional<Int>
     /**
      CodingKeys used to map the model when encoding and decoding.
 
@@ -36,9 +31,9 @@ public class ProductVariantLimit : Model {
      ProductVariantLimit Constructor.
      */
     public override init() {
-        self.attributeId = 0
-        self.attributeTemplateId = 0
-        self.optionId = 0
+        self.attributeId = nil
+        self.attributeTemplateId = nil
+        self.optionId = nil
 
         super.init()
     }
@@ -54,9 +49,9 @@ public class ProductVariantLimit : Model {
     public required init(from decoder: Decoder) throws {
         let container  = try decoder.container(keyedBy: CodingKeys.self)
 
-        self.attributeId = try container.decodeIfPresent(Int.self, forKey: .attributeId) ?? 0
-        self.attributeTemplateId = try container.decodeIfPresent(Int.self, forKey: .attributeTemplateId) ?? 0
-        self.optionId = try container.decodeIfPresent(Int.self, forKey: .optionId) ?? 0
+        self.attributeId = try container.decodeIfPresent(Int.self, forKey: .attributeId) ?? nil
+        self.attributeTemplateId = try container.decodeIfPresent(Int.self, forKey: .attributeTemplateId) ?? nil
+        self.optionId = try container.decodeIfPresent(Int.self, forKey: .optionId) ?? nil
 
         try super.init(from : decoder)
     }
@@ -78,37 +73,40 @@ public class ProductVariantLimit : Model {
 
         try super.encode(to: encoder)
     }
-    
+
     /**
      Getter for attr_id.
-     
-     - Returns:  Int
+
+     - Returns:  Optional<Int>
+
      */
-    public func getAttributeId() -> Int {
+    public func getAttributeId() -> Optional<Int> {
         return self.attributeId
     }
-    
+
     /**
      Getter for attmpat_id.
-     
-     - Returns:  Int
+
+     - Returns:  Optional<Int>
+
      */
-    public func getAttributeTemplateId() -> Int {
+    public func getAttributeTemplateId() -> Optional<Int> {
         return self.attributeTemplateId
     }
-    
+
     /**
      Getter for option_id.
-     
-     - Returns:  Int
+
+     - Returns:  Optional<Int>
+
      */
-    public func getOptionId() -> Int {
+    public func getOptionId() -> Optional<Int> {
         return self.optionId
     }
-    
+
     /**
      Setter for attr_id.
-     
+
      - Parameters:
         - value: Optional<Int>
      - Returns:  Self
@@ -118,10 +116,10 @@ public class ProductVariantLimit : Model {
         self.attributeId = value
         return self
     }
-    
+
     /**
      Setter for attmpat_id.
-     
+
      - Parameters:
         - value: Optional<Int>
      - Returns:  Self
@@ -131,10 +129,10 @@ public class ProductVariantLimit : Model {
         self.attributeTemplateId = value
         return self
     }
-    
+
     /**
      Setter for option_id.
-     
+
      - Parameters:
         - value: Optional<Int>
      - Returns:  Self

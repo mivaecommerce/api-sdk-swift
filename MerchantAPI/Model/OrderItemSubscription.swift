@@ -3,8 +3,6 @@
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
- *
- * $Id$
  */
 
 import Foundation
@@ -14,7 +12,6 @@ public class OrderItemSubscription : Model {
 
     /// Model field method.
     var method : String
-
     /// Model field productsubscriptionterm
     var productSubscriptionTerm : ProductSubscriptionTerm
 
@@ -78,11 +75,12 @@ public class OrderItemSubscription : Model {
 
         try super.encode(to: encoder)
     }
-    
+
     /**
      Getter for method.
 
      - Returns:  String
+
      */
     public func getMethod() -> String {
         return self.method
@@ -90,16 +88,16 @@ public class OrderItemSubscription : Model {
 
     /**
      Getter for productsubscriptionterm.
-     
+
      - Returns:  ProductSubscriptionTerm
      */
     public func getProductSubscriptionTerm() -> ProductSubscriptionTerm {
         return self.productSubscriptionTerm
     }
-    
+
     /**
      Getter for options.
-     
+
      - Returns:  [SubscriptionOption]
      */
     public func getOptions() -> [SubscriptionOption] {

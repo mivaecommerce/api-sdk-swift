@@ -3,8 +3,6 @@
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
- *
- * $Id$
  */
 
 import Foundation
@@ -14,16 +12,12 @@ public class SubscriptionOption : Model {
 
     /// Model field subscrp_id.
     var subscriptionId : Int
-
     /// Model field templ_code.
     var templateCode : String
-
     /// Model field attr_code.
     var attributeCode : String
-
     /// Model field value.
     var value : String
-
     /**
      CodingKeys used to map the model when encoding and decoding.
 
@@ -85,38 +79,42 @@ public class SubscriptionOption : Model {
 
         try super.encode(to: encoder)
     }
-    
+
     /**
      Getter for subscrp_id.
-     
+
      - Returns:  Int
+
      */
     public func getSubscriptionId() -> Int {
         return self.subscriptionId
     }
-    
+
     /**
      Getter for templ_code.
 
      - Returns:  String
+
      */
     public func getTemplateCode() -> String {
         return self.templateCode
     }
-    
+
     /**
      Getter for attr_code.
 
      - Returns:  String
+
      */
     public func getAttributeCode() -> String {
         return self.attributeCode
     }
-    
+
     /**
      Getter for value.
 
      - Returns:  String
+
      */
     public func getValue() -> String {
         return self.value

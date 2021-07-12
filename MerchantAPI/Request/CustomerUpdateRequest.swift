@@ -3,11 +3,12 @@
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
- *
- * $Id$
  */
 
 import Foundation
+#if os(Linux)
+import FoundationNetworking
+#endif
 
 /**
  Handles API Request Customer_Update.
@@ -16,7 +17,7 @@ import Foundation
  */
 public class CustomerUpdateRequest : Request {
     /**
-     The API function name. 
+     The API function name.
 
      - Note: Overrides
      - Returns: String
@@ -26,7 +27,7 @@ public class CustomerUpdateRequest : Request {
     }
 
     /**
-     The request scope. 
+     The request scope.
 
      - Note: Overrides
      - Returns: RequestScope
@@ -34,109 +35,109 @@ public class CustomerUpdateRequest : Request {
     override var scope : RequestScope {
         return RequestScope.Store;
     }
-    
+
     /// Request field Customer_ID.
-    var customerId : Optional<Int>
+    var customerId : Optional<Int> = nil
 
     /// Request field Edit_Customer.
-    var editCustomer : Optional<String>
+    var editCustomer : Optional<String> = nil
 
     /// Request field Customer_Login.
-    var customerLogin : Optional<String>
+    var customerLogin : Optional<String> = nil
 
     /// Request field Customer_PasswordEmail.
-    var customerPasswordEmail : Optional<String>
+    var customerPasswordEmail : Optional<String> = nil
 
     /// Request field Customer_Password.
-    var customerPassword : Optional<String>
+    var customerPassword : Optional<String> = nil
 
     /// Request field Customer_ShipResidential.
-    var customerShipResidential : Optional<Bool>
+    var customerShipResidential : Optional<Bool> = nil
 
     /// Request field Customer_ShipFirstName.
-    var customerShipFirstName : Optional<String>
+    var customerShipFirstName : Optional<String> = nil
 
     /// Request field Customer_ShipLastName.
-    var customerShipLastName : Optional<String>
+    var customerShipLastName : Optional<String> = nil
 
     /// Request field Customer_ShipEmail.
-    var customerShipEmail : Optional<String>
+    var customerShipEmail : Optional<String> = nil
 
     /// Request field Customer_ShipCompany.
-    var customerShipCompany : Optional<String>
+    var customerShipCompany : Optional<String> = nil
 
     /// Request field Customer_ShipPhone.
-    var customerShipPhone : Optional<String>
+    var customerShipPhone : Optional<String> = nil
 
     /// Request field Customer_ShipFax.
-    var customerShipFax : Optional<String>
+    var customerShipFax : Optional<String> = nil
 
     /// Request field Customer_ShipAddress1.
-    var customerShipAddress1 : Optional<String>
+    var customerShipAddress1 : Optional<String> = nil
 
     /// Request field Customer_ShipAddress2.
-    var customerShipAddress2 : Optional<String>
+    var customerShipAddress2 : Optional<String> = nil
 
     /// Request field Customer_ShipCity.
-    var customerShipCity : Optional<String>
+    var customerShipCity : Optional<String> = nil
 
     /// Request field Customer_ShipState.
-    var customerShipState : Optional<String>
+    var customerShipState : Optional<String> = nil
 
     /// Request field Customer_ShipZip.
-    var customerShipZip : Optional<String>
+    var customerShipZip : Optional<String> = nil
 
     /// Request field Customer_ShipCountry.
-    var customerShipCountry : Optional<String>
+    var customerShipCountry : Optional<String> = nil
 
     /// Request field Customer_BillFirstName.
-    var customerBillFirstName : Optional<String>
+    var customerBillFirstName : Optional<String> = nil
 
     /// Request field Customer_BillLastName.
-    var customerBillLastName : Optional<String>
+    var customerBillLastName : Optional<String> = nil
 
     /// Request field Customer_BillEmail.
-    var customerBillEmail : Optional<String>
+    var customerBillEmail : Optional<String> = nil
 
     /// Request field Customer_BillCompany.
-    var customerBillCompany : Optional<String>
+    var customerBillCompany : Optional<String> = nil
 
     /// Request field Customer_BillPhone.
-    var customerBillPhone : Optional<String>
+    var customerBillPhone : Optional<String> = nil
 
     /// Request field Customer_BillFax.
-    var customerBillFax : Optional<String>
+    var customerBillFax : Optional<String> = nil
 
     /// Request field Customer_BillAddress1.
-    var customerBillAddress1 : Optional<String>
+    var customerBillAddress1 : Optional<String> = nil
 
     /// Request field Customer_BillAddress2.
-    var customerBillAddress2 : Optional<String>
+    var customerBillAddress2 : Optional<String> = nil
 
     /// Request field Customer_BillCity.
-    var customerBillCity : Optional<String>
+    var customerBillCity : Optional<String> = nil
 
     /// Request field Customer_BillState.
-    var customerBillState : Optional<String>
+    var customerBillState : Optional<String> = nil
 
     /// Request field Customer_BillZip.
-    var customerBillZip : Optional<String>
+    var customerBillZip : Optional<String> = nil
 
     /// Request field Customer_BillCountry.
-    var customerBillCountry : Optional<String>
+    var customerBillCountry : Optional<String> = nil
 
     /// Request field Customer_Tax_Exempt.
-    var customerTaxExempt : Optional<String>
+    var customerTaxExempt : Optional<String> = nil
 
     /// Request field Customer_BusinessAccount.
-    var customerBusinessAccount : Optional<String>
+    var customerBusinessAccount : Optional<String> = nil
 
     /// Request field CustomField_Values.
     var customFieldValues : CustomFieldValues
-    
+
     /**
      CodingKeys used to map the request when encoding.
-     
+
      - SeeAlso: Encodable
      */
     private enum CodingKeys: String, CodingKey {
@@ -175,15 +176,15 @@ public class CustomerUpdateRequest : Request {
         case customerBusinessAccount = "Customer_BusinessAccount"
         case customFieldValues = "CustomField_Values"
     }
-    
+
     /**
      Request constructor.
 
      - Parameters:
-        - client: A Client instance.
+        - client: A BaseClient instance.
         - customer: An optional Customer instance.
      */
-    public init(client: Optional<Client> = nil, customer: Optional<Customer> = nil) {
+    public init(client: Optional<BaseClient> = nil, customer: Optional<Customer> = nil) {
         self.customFieldValues = CustomFieldValues()
         super.init(client: client)
         if let customer = customer {
@@ -224,7 +225,7 @@ public class CustomerUpdateRequest : Request {
             self.customFieldValues = customer.customFieldValues
         }
     }
-    
+
     /**
      Implementation of Encodable.
 
@@ -276,7 +277,7 @@ public class CustomerUpdateRequest : Request {
 
         try super.encode(to : encoder)
     }
-    
+
     /**
      Send the request for a response.
 
@@ -284,13 +285,10 @@ public class CustomerUpdateRequest : Request {
         - callback: The callback function with signature (CustomerUpdateResponse?, Error?).
      - Note: Overrides
      */
-     public override func send(client: Optional<Client> = nil, callback: @escaping (CustomerUpdateResponse?, Error?) -> ()) throws {
-        if client != nil {
-            client!.send(self) { request, response, error in
-                callback(response as? CustomerUpdateResponse, error)
-            }
-        } else if self.client != nil {
-            self.client!.send(self) { request, response, error in
+
+     public override func send(client: Optional<BaseClient> = nil, callback: @escaping (CustomerUpdateResponse?, Error?) -> ()) throws {
+        if let client = client ?? self.client {
+            client.send(self) { request, response, error in
                 callback(response as? CustomerUpdateResponse, error)
             }
         } else {
@@ -302,16 +300,18 @@ public class CustomerUpdateRequest : Request {
      Create a response object by decoding the response data.
 
      - Parameters:
+        - httpResponse: The underlying HTTP response object
         - data: The response data to decode.
      - Throws: Error when unable to decode the response data.
      - Note: Overrides
      */
-    public override func createResponse(data : Data) throws -> CustomerUpdateResponse {
+    public override func createResponse(httpResponse: URLResponse, data : Data) throws -> CustomerUpdateResponse {
         let decoder = JSONDecoder()
-        
-        decoder.userInfo[Response.decoderRequestUserInfoKey]      = self
-        decoder.userInfo[Response.decoderResponseDataUserInfoKey] = data
-        
+
+        decoder.userInfo[Response.decoderRequestUserInfoKey]            = self
+        decoder.userInfo[Response.decoderHttpResponseDataUserInfoKey]   = httpResponse
+        decoder.userInfo[Response.decoderResponseDataUserInfoKey]       = data
+
         return try decoder.decode(CustomerUpdateResponse.self, from: data)
     }
 
@@ -324,307 +324,307 @@ public class CustomerUpdateRequest : Request {
     override public func getResponseType() -> Response.Type {
         return CustomerUpdateResponse.self
     }
-    
+
     /**
      Getter for Customer_ID.
-     
-     - Returns:  Optional<Int> 
+
+     - Returns:  Optional<Int>
      */
     public func getCustomerId() -> Optional<Int> {
         return self.customerId
     }
-    
+
     /**
      Getter for Edit_Customer.
 
-     - Returns:  Optional<String> 
+     - Returns:  Optional<String>
      */
     public func getEditCustomer() -> Optional<String> {
         return self.editCustomer
     }
-    
+
     /**
      Getter for Customer_Login.
 
-     - Returns:  Optional<String> 
+     - Returns:  Optional<String>
      */
     public func getCustomerLogin() -> Optional<String> {
         return self.customerLogin
     }
-    
+
     /**
      Getter for Customer_PasswordEmail.
 
-     - Returns:  Optional<String> 
+     - Returns:  Optional<String>
      */
     public func getCustomerPasswordEmail() -> Optional<String> {
         return self.customerPasswordEmail
     }
-    
+
     /**
      Getter for Customer_Password.
 
-     - Returns:  Optional<String> 
+     - Returns:  Optional<String>
      */
     public func getCustomerPassword() -> Optional<String> {
         return self.customerPassword
     }
-    
+
     /**
      Getter for Customer_ShipResidential.
-     
-     - Returns:  Optional<Bool> 
+
+     - Returns:  Optional<Bool>
      */
     public func getCustomerShipResidential() -> Optional<Bool> {
         return self.customerShipResidential
     }
-    
+
     /**
      Getter for Customer_ShipFirstName.
 
-     - Returns:  Optional<String> 
+     - Returns:  Optional<String>
      */
     public func getCustomerShipFirstName() -> Optional<String> {
         return self.customerShipFirstName
     }
-    
+
     /**
      Getter for Customer_ShipLastName.
 
-     - Returns:  Optional<String> 
+     - Returns:  Optional<String>
      */
     public func getCustomerShipLastName() -> Optional<String> {
         return self.customerShipLastName
     }
-    
+
     /**
      Getter for Customer_ShipEmail.
 
-     - Returns:  Optional<String> 
+     - Returns:  Optional<String>
      */
     public func getCustomerShipEmail() -> Optional<String> {
         return self.customerShipEmail
     }
-    
+
     /**
      Getter for Customer_ShipCompany.
 
-     - Returns:  Optional<String> 
+     - Returns:  Optional<String>
      */
     public func getCustomerShipCompany() -> Optional<String> {
         return self.customerShipCompany
     }
-    
+
     /**
      Getter for Customer_ShipPhone.
 
-     - Returns:  Optional<String> 
+     - Returns:  Optional<String>
      */
     public func getCustomerShipPhone() -> Optional<String> {
         return self.customerShipPhone
     }
-    
+
     /**
      Getter for Customer_ShipFax.
 
-     - Returns:  Optional<String> 
+     - Returns:  Optional<String>
      */
     public func getCustomerShipFax() -> Optional<String> {
         return self.customerShipFax
     }
-    
+
     /**
      Getter for Customer_ShipAddress1.
 
-     - Returns:  Optional<String> 
+     - Returns:  Optional<String>
      */
     public func getCustomerShipAddress1() -> Optional<String> {
         return self.customerShipAddress1
     }
-    
+
     /**
      Getter for Customer_ShipAddress2.
 
-     - Returns:  Optional<String> 
+     - Returns:  Optional<String>
      */
     public func getCustomerShipAddress2() -> Optional<String> {
         return self.customerShipAddress2
     }
-    
+
     /**
      Getter for Customer_ShipCity.
 
-     - Returns:  Optional<String> 
+     - Returns:  Optional<String>
      */
     public func getCustomerShipCity() -> Optional<String> {
         return self.customerShipCity
     }
-    
+
     /**
      Getter for Customer_ShipState.
 
-     - Returns:  Optional<String> 
+     - Returns:  Optional<String>
      */
     public func getCustomerShipState() -> Optional<String> {
         return self.customerShipState
     }
-    
+
     /**
      Getter for Customer_ShipZip.
 
-     - Returns:  Optional<String> 
+     - Returns:  Optional<String>
      */
     public func getCustomerShipZip() -> Optional<String> {
         return self.customerShipZip
     }
-    
+
     /**
      Getter for Customer_ShipCountry.
 
-     - Returns:  Optional<String> 
+     - Returns:  Optional<String>
      */
     public func getCustomerShipCountry() -> Optional<String> {
         return self.customerShipCountry
     }
-    
+
     /**
      Getter for Customer_BillFirstName.
 
-     - Returns:  Optional<String> 
+     - Returns:  Optional<String>
      */
     public func getCustomerBillFirstName() -> Optional<String> {
         return self.customerBillFirstName
     }
-    
+
     /**
      Getter for Customer_BillLastName.
 
-     - Returns:  Optional<String> 
+     - Returns:  Optional<String>
      */
     public func getCustomerBillLastName() -> Optional<String> {
         return self.customerBillLastName
     }
-    
+
     /**
      Getter for Customer_BillEmail.
 
-     - Returns:  Optional<String> 
+     - Returns:  Optional<String>
      */
     public func getCustomerBillEmail() -> Optional<String> {
         return self.customerBillEmail
     }
-    
+
     /**
      Getter for Customer_BillCompany.
 
-     - Returns:  Optional<String> 
+     - Returns:  Optional<String>
      */
     public func getCustomerBillCompany() -> Optional<String> {
         return self.customerBillCompany
     }
-    
+
     /**
      Getter for Customer_BillPhone.
 
-     - Returns:  Optional<String> 
+     - Returns:  Optional<String>
      */
     public func getCustomerBillPhone() -> Optional<String> {
         return self.customerBillPhone
     }
-    
+
     /**
      Getter for Customer_BillFax.
 
-     - Returns:  Optional<String> 
+     - Returns:  Optional<String>
      */
     public func getCustomerBillFax() -> Optional<String> {
         return self.customerBillFax
     }
-    
+
     /**
      Getter for Customer_BillAddress1.
 
-     - Returns:  Optional<String> 
+     - Returns:  Optional<String>
      */
     public func getCustomerBillAddress1() -> Optional<String> {
         return self.customerBillAddress1
     }
-    
+
     /**
      Getter for Customer_BillAddress2.
 
-     - Returns:  Optional<String> 
+     - Returns:  Optional<String>
      */
     public func getCustomerBillAddress2() -> Optional<String> {
         return self.customerBillAddress2
     }
-    
+
     /**
      Getter for Customer_BillCity.
 
-     - Returns:  Optional<String> 
+     - Returns:  Optional<String>
      */
     public func getCustomerBillCity() -> Optional<String> {
         return self.customerBillCity
     }
-    
+
     /**
      Getter for Customer_BillState.
 
-     - Returns:  Optional<String> 
+     - Returns:  Optional<String>
      */
     public func getCustomerBillState() -> Optional<String> {
         return self.customerBillState
     }
-    
+
     /**
      Getter for Customer_BillZip.
 
-     - Returns:  Optional<String> 
+     - Returns:  Optional<String>
      */
     public func getCustomerBillZip() -> Optional<String> {
         return self.customerBillZip
     }
-    
+
     /**
      Getter for Customer_BillCountry.
 
-     - Returns:  Optional<String> 
+     - Returns:  Optional<String>
      */
     public func getCustomerBillCountry() -> Optional<String> {
         return self.customerBillCountry
     }
-    
+
     /**
      Getter for Customer_Tax_Exempt.
 
-     - Returns:  Optional<String> 
+     - Returns:  Optional<String>
      */
     public func getCustomerTaxExempt() -> Optional<String> {
         return self.customerTaxExempt
     }
-    
+
     /**
      Getter for Customer_BusinessAccount.
 
-     - Returns:  Optional<String> 
+     - Returns:  Optional<String>
      */
     public func getCustomerBusinessAccount() -> Optional<String> {
         return self.customerBusinessAccount
     }
-    
+
     /**
      Getter for CustomField_Values.
-     
+
      - Returns:  CustomFieldValues
      */
     public func getCustomFieldValues() -> CustomFieldValues {
         return self.customFieldValues
     }
-    
+
     /**
      Setter for Customer_ID.
-     
+
      - Parameters:
         - value: Optional<Int>
      - Returns:  Self
@@ -634,7 +634,7 @@ public class CustomerUpdateRequest : Request {
         self.customerId = value
         return self
     }
-    
+
     /**
      Setter for Edit_Customer.
 
@@ -647,7 +647,7 @@ public class CustomerUpdateRequest : Request {
         self.editCustomer = value
         return self
     }
-    
+
     /**
      Setter for Customer_Login.
 
@@ -660,7 +660,7 @@ public class CustomerUpdateRequest : Request {
         self.customerLogin = value
         return self
     }
-    
+
     /**
      Setter for Customer_PasswordEmail.
 
@@ -673,7 +673,7 @@ public class CustomerUpdateRequest : Request {
         self.customerPasswordEmail = value
         return self
     }
-    
+
     /**
      Setter for Customer_Password.
 
@@ -686,10 +686,10 @@ public class CustomerUpdateRequest : Request {
         self.customerPassword = value
         return self
     }
-    
+
     /**
      Setter for Customer_ShipResidential.
-     
+
      - Parameters:
         - value: Optional<Bool>
      - Returns:  Self
@@ -699,7 +699,7 @@ public class CustomerUpdateRequest : Request {
         self.customerShipResidential = value
         return self
     }
-    
+
     /**
      Setter for Customer_ShipFirstName.
 
@@ -712,7 +712,7 @@ public class CustomerUpdateRequest : Request {
         self.customerShipFirstName = value
         return self
     }
-    
+
     /**
      Setter for Customer_ShipLastName.
 
@@ -725,7 +725,7 @@ public class CustomerUpdateRequest : Request {
         self.customerShipLastName = value
         return self
     }
-    
+
     /**
      Setter for Customer_ShipEmail.
 
@@ -738,7 +738,7 @@ public class CustomerUpdateRequest : Request {
         self.customerShipEmail = value
         return self
     }
-    
+
     /**
      Setter for Customer_ShipCompany.
 
@@ -751,7 +751,7 @@ public class CustomerUpdateRequest : Request {
         self.customerShipCompany = value
         return self
     }
-    
+
     /**
      Setter for Customer_ShipPhone.
 
@@ -764,7 +764,7 @@ public class CustomerUpdateRequest : Request {
         self.customerShipPhone = value
         return self
     }
-    
+
     /**
      Setter for Customer_ShipFax.
 
@@ -777,7 +777,7 @@ public class CustomerUpdateRequest : Request {
         self.customerShipFax = value
         return self
     }
-    
+
     /**
      Setter for Customer_ShipAddress1.
 
@@ -790,7 +790,7 @@ public class CustomerUpdateRequest : Request {
         self.customerShipAddress1 = value
         return self
     }
-    
+
     /**
      Setter for Customer_ShipAddress2.
 
@@ -803,7 +803,7 @@ public class CustomerUpdateRequest : Request {
         self.customerShipAddress2 = value
         return self
     }
-    
+
     /**
      Setter for Customer_ShipCity.
 
@@ -816,7 +816,7 @@ public class CustomerUpdateRequest : Request {
         self.customerShipCity = value
         return self
     }
-    
+
     /**
      Setter for Customer_ShipState.
 
@@ -829,7 +829,7 @@ public class CustomerUpdateRequest : Request {
         self.customerShipState = value
         return self
     }
-    
+
     /**
      Setter for Customer_ShipZip.
 
@@ -842,7 +842,7 @@ public class CustomerUpdateRequest : Request {
         self.customerShipZip = value
         return self
     }
-    
+
     /**
      Setter for Customer_ShipCountry.
 
@@ -855,7 +855,7 @@ public class CustomerUpdateRequest : Request {
         self.customerShipCountry = value
         return self
     }
-    
+
     /**
      Setter for Customer_BillFirstName.
 
@@ -868,7 +868,7 @@ public class CustomerUpdateRequest : Request {
         self.customerBillFirstName = value
         return self
     }
-    
+
     /**
      Setter for Customer_BillLastName.
 
@@ -881,7 +881,7 @@ public class CustomerUpdateRequest : Request {
         self.customerBillLastName = value
         return self
     }
-    
+
     /**
      Setter for Customer_BillEmail.
 
@@ -894,7 +894,7 @@ public class CustomerUpdateRequest : Request {
         self.customerBillEmail = value
         return self
     }
-    
+
     /**
      Setter for Customer_BillCompany.
 
@@ -907,7 +907,7 @@ public class CustomerUpdateRequest : Request {
         self.customerBillCompany = value
         return self
     }
-    
+
     /**
      Setter for Customer_BillPhone.
 
@@ -920,7 +920,7 @@ public class CustomerUpdateRequest : Request {
         self.customerBillPhone = value
         return self
     }
-    
+
     /**
      Setter for Customer_BillFax.
 
@@ -933,7 +933,7 @@ public class CustomerUpdateRequest : Request {
         self.customerBillFax = value
         return self
     }
-    
+
     /**
      Setter for Customer_BillAddress1.
 
@@ -946,7 +946,7 @@ public class CustomerUpdateRequest : Request {
         self.customerBillAddress1 = value
         return self
     }
-    
+
     /**
      Setter for Customer_BillAddress2.
 
@@ -959,7 +959,7 @@ public class CustomerUpdateRequest : Request {
         self.customerBillAddress2 = value
         return self
     }
-    
+
     /**
      Setter for Customer_BillCity.
 
@@ -972,7 +972,7 @@ public class CustomerUpdateRequest : Request {
         self.customerBillCity = value
         return self
     }
-    
+
     /**
      Setter for Customer_BillState.
 
@@ -985,7 +985,7 @@ public class CustomerUpdateRequest : Request {
         self.customerBillState = value
         return self
     }
-    
+
     /**
      Setter for Customer_BillZip.
 
@@ -998,7 +998,7 @@ public class CustomerUpdateRequest : Request {
         self.customerBillZip = value
         return self
     }
-    
+
     /**
      Setter for Customer_BillCountry.
 
@@ -1011,7 +1011,7 @@ public class CustomerUpdateRequest : Request {
         self.customerBillCountry = value
         return self
     }
-    
+
     /**
      Setter for Customer_Tax_Exempt.
 
@@ -1024,7 +1024,7 @@ public class CustomerUpdateRequest : Request {
         self.customerTaxExempt = value
         return self
     }
-    
+
     /**
      Setter for Customer_BusinessAccount.
 

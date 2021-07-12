@@ -3,8 +3,6 @@
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
- *
- * $Id: UpdateProductInventoryExample.swift 73830 2019-03-05 23:40:40Z gidriss $
  */
 
 import MerchantAPI
@@ -61,7 +59,7 @@ try request.send() { response, error in
         /// Handle Error
         return
     }
-    
+
     if (!response.isSuccess()) {
         print(String(format: "Error Updating Product Inventory", response.getErrorCode(), response.getErrorMessage()))
     } else {

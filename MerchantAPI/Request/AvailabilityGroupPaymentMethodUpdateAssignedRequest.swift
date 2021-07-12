@@ -3,11 +3,12 @@
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
- *
- * $Id$
  */
 
 import Foundation
+#if os(Linux)
+import FoundationNetworking
+#endif
 
 /**
  Handles API Request AvailabilityGroupPaymentMethod_Update_Assigned.
@@ -16,7 +17,7 @@ import Foundation
  */
 public class AvailabilityGroupPaymentMethodUpdateAssignedRequest : Request {
     /**
-     The API function name. 
+     The API function name.
 
      - Note: Overrides
      - Returns: String
@@ -26,7 +27,7 @@ public class AvailabilityGroupPaymentMethodUpdateAssignedRequest : Request {
     }
 
     /**
-     The request scope. 
+     The request scope.
 
      - Note: Overrides
      - Returns: RequestScope
@@ -34,31 +35,31 @@ public class AvailabilityGroupPaymentMethodUpdateAssignedRequest : Request {
     override var scope : RequestScope {
         return RequestScope.Store;
     }
-    
+
     /// Request field AvailabilityGroup_ID.
-    var availabilityGroupId : Optional<Int>
+    var availabilityGroupId : Optional<Int> = nil
 
     /// Request field Edit_AvailabilityGroup.
-    var editAvailabilityGroup : Optional<String>
+    var editAvailabilityGroup : Optional<String> = nil
 
     /// Request field AvailabilityGroup_Name.
-    var availabilityGroupName : Optional<String>
+    var availabilityGroupName : Optional<String> = nil
 
     /// Request field Module_Code.
-    var moduleCode : Optional<String>
+    var moduleCode : Optional<String> = nil
 
     /// Request field Method_Code.
-    var methodCode : Optional<String>
+    var methodCode : Optional<String> = nil
 
     /// Request field PaymentCardType_ID.
-    var paymentCardTypeId : Optional<Int>
+    var paymentCardTypeId : Optional<Int> = nil
 
     /// Request field Assigned.
-    var assigned : Optional<Bool>
-    
+    var assigned : Optional<Bool> = nil
+
     /**
      CodingKeys used to map the request when encoding.
-     
+
      - SeeAlso: Encodable
      */
     private enum CodingKeys: String, CodingKey {
@@ -71,15 +72,15 @@ public class AvailabilityGroupPaymentMethodUpdateAssignedRequest : Request {
         case paymentCardTypeId = "PaymentCardType_ID"
         case assigned = "Assigned"
     }
-    
+
     /**
      Request constructor.
 
      - Parameters:
-        - client: A Client instance.
+        - client: A BaseClient instance.
         - availabilityGroup: An optional AvailabilityGroup instance.
      */
-    public init(client: Optional<Client> = nil, availabilityGroup: Optional<AvailabilityGroup> = nil) {
+    public init(client: Optional<BaseClient> = nil, availabilityGroup: Optional<AvailabilityGroup> = nil) {
         super.init(client: client)
         if let availabilityGroup = availabilityGroup {
             if availabilityGroup.id > 0 {
@@ -89,7 +90,7 @@ public class AvailabilityGroupPaymentMethodUpdateAssignedRequest : Request {
             }
         }
     }
-    
+
     /**
      Implementation of Encodable.
 
@@ -116,7 +117,7 @@ public class AvailabilityGroupPaymentMethodUpdateAssignedRequest : Request {
 
         try super.encode(to : encoder)
     }
-    
+
     /**
      Send the request for a response.
 
@@ -124,13 +125,10 @@ public class AvailabilityGroupPaymentMethodUpdateAssignedRequest : Request {
         - callback: The callback function with signature (AvailabilityGroupPaymentMethodUpdateAssignedResponse?, Error?).
      - Note: Overrides
      */
-     public override func send(client: Optional<Client> = nil, callback: @escaping (AvailabilityGroupPaymentMethodUpdateAssignedResponse?, Error?) -> ()) throws {
-        if client != nil {
-            client!.send(self) { request, response, error in
-                callback(response as? AvailabilityGroupPaymentMethodUpdateAssignedResponse, error)
-            }
-        } else if self.client != nil {
-            self.client!.send(self) { request, response, error in
+
+     public override func send(client: Optional<BaseClient> = nil, callback: @escaping (AvailabilityGroupPaymentMethodUpdateAssignedResponse?, Error?) -> ()) throws {
+        if let client = client ?? self.client {
+            client.send(self) { request, response, error in
                 callback(response as? AvailabilityGroupPaymentMethodUpdateAssignedResponse, error)
             }
         } else {
@@ -142,16 +140,18 @@ public class AvailabilityGroupPaymentMethodUpdateAssignedRequest : Request {
      Create a response object by decoding the response data.
 
      - Parameters:
+        - httpResponse: The underlying HTTP response object
         - data: The response data to decode.
      - Throws: Error when unable to decode the response data.
      - Note: Overrides
      */
-    public override func createResponse(data : Data) throws -> AvailabilityGroupPaymentMethodUpdateAssignedResponse {
+    public override func createResponse(httpResponse: URLResponse, data : Data) throws -> AvailabilityGroupPaymentMethodUpdateAssignedResponse {
         let decoder = JSONDecoder()
-        
-        decoder.userInfo[Response.decoderRequestUserInfoKey]      = self
-        decoder.userInfo[Response.decoderResponseDataUserInfoKey] = data
-        
+
+        decoder.userInfo[Response.decoderRequestUserInfoKey]            = self
+        decoder.userInfo[Response.decoderHttpResponseDataUserInfoKey]   = httpResponse
+        decoder.userInfo[Response.decoderResponseDataUserInfoKey]       = data
+
         return try decoder.decode(AvailabilityGroupPaymentMethodUpdateAssignedResponse.self, from: data)
     }
 
@@ -164,73 +164,73 @@ public class AvailabilityGroupPaymentMethodUpdateAssignedRequest : Request {
     override public func getResponseType() -> Response.Type {
         return AvailabilityGroupPaymentMethodUpdateAssignedResponse.self
     }
-    
+
     /**
      Getter for AvailabilityGroup_ID.
-     
-     - Returns:  Optional<Int> 
+
+     - Returns:  Optional<Int>
      */
     public func getAvailabilityGroupId() -> Optional<Int> {
         return self.availabilityGroupId
     }
-    
+
     /**
      Getter for Edit_AvailabilityGroup.
 
-     - Returns:  Optional<String> 
+     - Returns:  Optional<String>
      */
     public func getEditAvailabilityGroup() -> Optional<String> {
         return self.editAvailabilityGroup
     }
-    
+
     /**
      Getter for AvailabilityGroup_Name.
 
-     - Returns:  Optional<String> 
+     - Returns:  Optional<String>
      */
     public func getAvailabilityGroupName() -> Optional<String> {
         return self.availabilityGroupName
     }
-    
+
     /**
      Getter for Module_Code.
 
-     - Returns:  Optional<String> 
+     - Returns:  Optional<String>
      */
     public func getModuleCode() -> Optional<String> {
         return self.moduleCode
     }
-    
+
     /**
      Getter for Method_Code.
 
-     - Returns:  Optional<String> 
+     - Returns:  Optional<String>
      */
     public func getMethodCode() -> Optional<String> {
         return self.methodCode
     }
-    
+
     /**
      Getter for PaymentCardType_ID.
-     
-     - Returns:  Optional<Int> 
+
+     - Returns:  Optional<Int>
      */
     public func getPaymentCardTypeId() -> Optional<Int> {
         return self.paymentCardTypeId
     }
-    
+
     /**
      Getter for Assigned.
-     
-     - Returns:  Optional<Bool> 
+
+     - Returns:  Optional<Bool>
      */
     public func getAssigned() -> Optional<Bool> {
         return self.assigned
     }
-    
+
     /**
      Setter for AvailabilityGroup_ID.
-     
+
      - Parameters:
         - value: Optional<Int>
      - Returns:  Self
@@ -240,7 +240,7 @@ public class AvailabilityGroupPaymentMethodUpdateAssignedRequest : Request {
         self.availabilityGroupId = value
         return self
     }
-    
+
     /**
      Setter for Edit_AvailabilityGroup.
 
@@ -253,7 +253,7 @@ public class AvailabilityGroupPaymentMethodUpdateAssignedRequest : Request {
         self.editAvailabilityGroup = value
         return self
     }
-    
+
     /**
      Setter for AvailabilityGroup_Name.
 
@@ -266,7 +266,7 @@ public class AvailabilityGroupPaymentMethodUpdateAssignedRequest : Request {
         self.availabilityGroupName = value
         return self
     }
-    
+
     /**
      Setter for Module_Code.
 
@@ -279,7 +279,7 @@ public class AvailabilityGroupPaymentMethodUpdateAssignedRequest : Request {
         self.moduleCode = value
         return self
     }
-    
+
     /**
      Setter for Method_Code.
 
@@ -292,10 +292,10 @@ public class AvailabilityGroupPaymentMethodUpdateAssignedRequest : Request {
         self.methodCode = value
         return self
     }
-    
+
     /**
      Setter for PaymentCardType_ID.
-     
+
      - Parameters:
         - value: Optional<Int>
      - Returns:  Self
@@ -305,10 +305,10 @@ public class AvailabilityGroupPaymentMethodUpdateAssignedRequest : Request {
         self.paymentCardTypeId = value
         return self
     }
-    
+
     /**
      Setter for Assigned.
-     
+
      - Parameters:
         - value: Optional<Bool>
      - Returns:  Self

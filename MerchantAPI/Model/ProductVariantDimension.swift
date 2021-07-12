@@ -3,8 +3,6 @@
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
- *
- * $Id$
  */
 
 import Foundation
@@ -14,16 +12,12 @@ public class ProductVariantDimension : Model {
 
     /// Model field attr_id.
     var attributeId : Int
-
     /// Model field attmpat_id.
     var attributeTemplateAttributeId : Int
-
     /// Model field option_id.
     var optionId : Int
-
     /// Model field option_code.
     var optionCode : String
-
     /**
      CodingKeys used to map the model when encoding and decoding.
 
@@ -85,38 +79,42 @@ public class ProductVariantDimension : Model {
 
         try super.encode(to: encoder)
     }
-    
+
     /**
      Getter for attr_id.
-     
+
      - Returns:  Int
+
      */
     public func getAttributeId() -> Int {
         return self.attributeId
     }
-    
+
     /**
      Getter for attmpat_id.
-     
+
      - Returns:  Int
+
      */
     public func getAttributeTemplateAttributeId() -> Int {
         return self.attributeTemplateAttributeId
     }
-    
+
     /**
      Getter for option_id.
-     
+
      - Returns:  Int
+
      */
     public func getOptionId() -> Int {
         return self.optionId
     }
-    
+
     /**
      Getter for option_code.
 
      - Returns:  String
+
      */
     public func getOptionCode() -> String {
         return self.optionCode

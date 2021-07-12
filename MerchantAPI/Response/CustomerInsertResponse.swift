@@ -3,22 +3,23 @@
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
- *
- * $Id$
  */
 
 import Foundation
+#if os(Linux)
+import FoundationNetworking
+#endif
 
 /**
  API Response for Customer_Insert.
- 
+
  - SeeAlso: https://docs.miva.com/json-api/functions/customer_insert
  */
 public class CustomerInsertResponse : Response {
 
     /// The response model
-    public var customer : Optional<Customer>
-    
+    public var customer : Optional<Customer> = nil
+
     /**
      Getter for customer.
 
@@ -27,16 +28,16 @@ public class CustomerInsertResponse : Response {
     public func getCustomer() -> Optional<Customer> {
         return self.customer
     }
-    
+
     /**
      CodingKeys used to map the model when decoding.
-     
+
      - SeeAlso: Decodable
      */
     private enum CodingKeys: String, CodingKey {
         case customer = "data"
     }
-    
+
     /**
      Construct an instance from a decoder instance.
 

@@ -3,15 +3,16 @@
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
- *
- * $Id$
  */
 
 import Foundation
+#if os(Linux)
+import FoundationNetworking
+#endif
 
 /**
  API Response for ProductVariantList_Load_Product.
- 
+
  - SeeAlso: https://docs.miva.com/json-api/functions/productvariantlist_load_product
  */
 public class ProductVariantListLoadProductResponse : Response {
@@ -34,16 +35,16 @@ public class ProductVariantListLoadProductResponse : Response {
     public func getProductVariants() -> [ProductVariant] {
         return self.productVariants
     }
-    
+
     /**
      CodingKeys used to map the model when decoding.
-     
+
      - SeeAlso: Decodable
      */
     private enum CodingKeys: String, CodingKey {
         case data = "data"
     }
-    
+
     /**
      Construct an instance from a decoder instance.
 

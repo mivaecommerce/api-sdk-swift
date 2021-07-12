@@ -3,8 +3,6 @@
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
- *
- * $Id$
  */
 
 import Foundation
@@ -26,49 +24,34 @@ public class OrderPayment : Model {
 
     /// Model field id.
     var id : Int
-
     /// Model field order_id.
     var orderId : Int
-
     /// Model field type.
     var type : Int
-
     /// Model field refnum.
     var referenceNumber : String
-
     /// Model field amount.
     var amount : Decimal
-
     /// Model field formatted_amount.
     var formattedAmount : String
-
     /// Model field available.
     var available : Decimal
-
     /// Model field formatted_available.
     var formattedAvailable : String
-
     /// Model field dtstamp.
-    var dateTimeStamp : Int
-
+    var dateTimeStamp : Date
     /// Model field expires.
     var expires : String
-
     /// Model field pay_id.
     var paymentId : Int
-
     /// Model field pay_secid.
     var paymentSecId : Int
-
     /// Model field decrypt_status.
     var decryptStatus : String
-
     /// Model field decrypt_error.
     var decryptError : String
-
     /// Model field description.
     var description : String
-
     /// Model field data.
     var paymentData : [String]
 
@@ -108,7 +91,7 @@ public class OrderPayment : Model {
         self.formattedAmount = ""
         self.available = Decimal(0.00)
         self.formattedAvailable = ""
-        self.dateTimeStamp = 0
+        self.dateTimeStamp = Date(timeIntervalSince1970: 0)
         self.expires = ""
         self.paymentId = 0
         self.paymentSecId = 0
@@ -139,7 +122,7 @@ public class OrderPayment : Model {
         self.formattedAmount = try container.decodeIfPresent(String.self, forKey: .formattedAmount) ?? ""
         self.available = try container.decodeIfPresent(Decimal.self, forKey: .available) ?? Decimal(0.00)
         self.formattedAvailable = try container.decodeIfPresent(String.self, forKey: .formattedAvailable) ?? ""
-        self.dateTimeStamp = try container.decodeIfPresent(Int.self, forKey: .dateTimeStamp) ?? 0
+        self.dateTimeStamp = Date(timeIntervalSince1970: Double(try container.decodeIfPresent(Int.self, forKey: .dateTimeStamp) ?? 0))
         self.expires = try container.decodeIfPresent(String.self, forKey: .expires) ?? ""
         self.paymentId = try container.decodeIfPresent(Int.self, forKey: .paymentId) ?? 0
         self.paymentSecId = try container.decodeIfPresent(Int.self, forKey: .paymentSecId) ?? 0
@@ -170,7 +153,7 @@ public class OrderPayment : Model {
         try container.encodeIfPresent(self.formattedAmount, forKey: .formattedAmount)
         try container.encodeIfPresent(Decimal.roundForEncoding(value: self.available, precision: MERCHANTAPI_FLOAT_ENCODE_PRECISION), forKey: .available)
         try container.encodeIfPresent(self.formattedAvailable, forKey: .formattedAvailable)
-        try container.encodeIfPresent(self.dateTimeStamp, forKey: .dateTimeStamp)
+        try container.encodeIfPresent(Int(self.dateTimeStamp.timeIntervalSince1970), forKey: .dateTimeStamp)
         try container.encodeIfPresent(self.expires, forKey: .expires)
         try container.encodeIfPresent(self.paymentId, forKey: .paymentId)
         try container.encodeIfPresent(self.paymentSecId, forKey: .paymentSecId)
@@ -180,146 +163,155 @@ public class OrderPayment : Model {
 
         try super.encode(to: encoder)
     }
-    
+
     /**
      Getter for id.
-     
+
      - Returns:  Int
+
      */
     public func getId() -> Int {
         return self.id
     }
-    
+
     /**
      Getter for order_id.
-     
+
      - Returns:  Int
+
      */
     public func getOrderId() -> Int {
         return self.orderId
     }
-    
+
     /**
      Getter for type.
-     
+
      - Returns:  Int
+
      */
     public func getType() -> Int {
         return self.type
     }
-    
+
     /**
      Getter for refnum.
 
      - Returns:  String
+
      */
     public func getReferenceNumber() -> String {
         return self.referenceNumber
     }
-    
+
     /**
      Getter for amount.
-     
-     - Returns:  Decimal
-     */
+
+     - Returns:  Decimal     */
     public func getAmount() -> Decimal {
         return self.amount
     }
-    
+
     /**
      Getter for formatted_amount.
 
      - Returns:  String
+
      */
     public func getFormattedAmount() -> String {
         return self.formattedAmount
     }
-    
+
     /**
      Getter for available.
-     
-     - Returns:  Decimal
-     */
+
+     - Returns:  Decimal     */
     public func getAvailable() -> Decimal {
         return self.available
     }
-    
+
     /**
      Getter for formatted_available.
 
      - Returns:  String
+
      */
     public func getFormattedAvailable() -> String {
         return self.formattedAvailable
     }
-    
+
     /**
      Getter for dtstamp.
-     
-     - Returns:  Int
-     */
-    public func getDateTimeStamp() -> Int {
+
+     - Returns:  Date     */
+    public func getDateTimeStamp() -> Date {
         return self.dateTimeStamp
     }
-    
+
     /**
      Getter for expires.
 
      - Returns:  String
+
      */
     public func getExpires() -> String {
         return self.expires
     }
-    
+
     /**
      Getter for pay_id.
-     
+
      - Returns:  Int
+
      */
     public func getPaymentId() -> Int {
         return self.paymentId
     }
-    
+
     /**
      Getter for pay_secid.
-     
+
      - Returns:  Int
+
      */
     public func getPaymentSecId() -> Int {
         return self.paymentSecId
     }
-    
+
     /**
      Getter for decrypt_status.
 
      - Returns:  String
+
      */
     public func getDecryptStatus() -> String {
         return self.decryptStatus
     }
-    
+
     /**
      Getter for decrypt_error.
 
      - Returns:  String
+
      */
     public func getDecryptError() -> String {
         return self.decryptError
     }
-    
+
     /**
      Getter for description.
 
      - Returns:  String
+
      */
     public func getDescription() -> String {
         return self.description
     }
-    
+
     /**
      Getter for data.
-     
-     - Returns:  [String] 
+
+     - Returns:  [String]
      */
     public func getPaymentData() -> [String] {
         return self.paymentData

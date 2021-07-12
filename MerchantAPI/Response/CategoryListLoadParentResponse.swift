@@ -3,15 +3,16 @@
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
- *
- * $Id$
  */
 
 import Foundation
+#if os(Linux)
+import FoundationNetworking
+#endif
 
 /**
  API Response for CategoryList_Load_Parent.
- 
+
  - SeeAlso: https://docs.miva.com/json-api/functions/categorylist_load_parent
  */
 public class CategoryListLoadParentResponse : Response {
@@ -34,16 +35,16 @@ public class CategoryListLoadParentResponse : Response {
     public func getCategories() -> [Category] {
         return self.categories
     }
-    
+
     /**
      CodingKeys used to map the model when decoding.
-     
+
      - SeeAlso: Decodable
      */
     private enum CodingKeys: String, CodingKey {
         case data = "data"
     }
-    
+
     /**
      Construct an instance from a decoder instance.
 

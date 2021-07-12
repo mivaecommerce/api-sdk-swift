@@ -3,8 +3,6 @@
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
- *
- * $Id$
  */
 
 import Foundation
@@ -14,45 +12,34 @@ public class Category : Model {
 
     /// Model field id.
     var id : Int
-
     /// Model field parent_id.
     var parentId : Int
-
     /// Model field agrpcount.
     var availabilityGroupCount : Int
-
     /// Model field depth.
     var depth : Int
-
     /// Model field disp_order.
     var displayOrder : Int
-
     /// Model field page_id.
     var pageId : Int
-
     /// Model field code.
     var code : String
-
     /// Model field name.
     var name : String
-
     /// Model field page_title.
     var pageTitle : String
-
     /// Model field active.
     var active : Bool
-
     /// Model field dt_created.
-    var dateTimeCreated : Int
-
+    var dateTimeCreated : Date
     /// Model field dt_updated.
-    var dateTimeUpdated : Int
-
+    var dateTimeUpdated : Date
     /// Model field page_code.
     var pageCode : String
-
     /// Model field parent_category.
     var parentCategory : String
+    /// Model field uris.
+    var uris : [Uri]
 
     /// Model field CustomField_Values
     var customFieldValues : CustomFieldValues
@@ -77,6 +64,7 @@ public class Category : Model {
         case dateTimeUpdated = "dt_updated"
         case pageCode = "page_code"
         case parentCategory = "parent_category"
+        case uris
         case customFieldValues = "CustomField_Values"
     }
 
@@ -94,10 +82,11 @@ public class Category : Model {
         self.name = ""
         self.pageTitle = ""
         self.active = false
-        self.dateTimeCreated = 0
-        self.dateTimeUpdated = 0
+        self.dateTimeCreated = Date(timeIntervalSince1970: 0)
+        self.dateTimeUpdated = Date(timeIntervalSince1970: 0)
         self.pageCode = ""
         self.parentCategory = ""
+        self.uris = []
         self.customFieldValues = CustomFieldValues()
 
         super.init()
@@ -124,10 +113,11 @@ public class Category : Model {
         self.name = try container.decodeIfPresent(String.self, forKey: .name) ?? ""
         self.pageTitle = try container.decodeIfPresent(String.self, forKey: .pageTitle) ?? ""
         self.active = try container.decodeIfPresent(Bool.self, forKey: .active) ?? false
-        self.dateTimeCreated = try container.decodeIfPresent(Int.self, forKey: .dateTimeCreated) ?? 0
-        self.dateTimeUpdated = try container.decodeIfPresent(Int.self, forKey: .dateTimeUpdated) ?? 0
+        self.dateTimeCreated = Date(timeIntervalSince1970: Double(try container.decodeIfPresent(Int.self, forKey: .dateTimeCreated) ?? 0))
+        self.dateTimeUpdated = Date(timeIntervalSince1970: Double(try container.decodeIfPresent(Int.self, forKey: .dateTimeUpdated) ?? 0))
         self.pageCode = try container.decodeIfPresent(String.self, forKey: .pageCode) ?? ""
         self.parentCategory = try container.decodeIfPresent(String.self, forKey: .parentCategory) ?? ""
+        self.uris = try container.decodeIfPresent([Uri].self, forKey: .uris) ?? []
         self.customFieldValues = try container.decodeIfPresent(CustomFieldValues.self, forKey: .customFieldValues) ?? CustomFieldValues()
 
         try super.init(from : decoder)
@@ -154,225 +144,165 @@ public class Category : Model {
         try container.encodeIfPresent(self.name, forKey: .name)
         try container.encodeIfPresent(self.pageTitle, forKey: .pageTitle)
         try container.encodeIfPresent(self.active, forKey: .active)
-        try container.encodeIfPresent(self.dateTimeCreated, forKey: .dateTimeCreated)
-        try container.encodeIfPresent(self.dateTimeUpdated, forKey: .dateTimeUpdated)
+        try container.encodeIfPresent(Int(self.dateTimeCreated.timeIntervalSince1970), forKey: .dateTimeCreated)
+        try container.encodeIfPresent(Int(self.dateTimeUpdated.timeIntervalSince1970), forKey: .dateTimeUpdated)
         try container.encodeIfPresent(self.pageCode, forKey: .pageCode)
         try container.encodeIfPresent(self.parentCategory, forKey: .parentCategory)
+        try container.encodeIfPresent(self.uris, forKey: .uris)
         try container.encodeIfPresent(self.customFieldValues, forKey: .customFieldValues)
 
         try super.encode(to: encoder)
     }
-    
+
     /**
      Getter for id.
-     
+
      - Returns:  Int
+
      */
     public func getId() -> Int {
         return self.id
     }
-    
+
     /**
      Getter for parent_id.
-     
+
      - Returns:  Int
+
      */
     public func getParentId() -> Int {
         return self.parentId
     }
-    
+
     /**
      Getter for agrpcount.
-     
+
      - Returns:  Int
+
      */
     public func getAvailabilityGroupCount() -> Int {
         return self.availabilityGroupCount
     }
-    
+
     /**
      Getter for depth.
-     
+
      - Returns:  Int
+
      */
     public func getDepth() -> Int {
         return self.depth
     }
-    
+
     /**
      Getter for disp_order.
-     
+
      - Returns:  Int
+
      */
     public func getDisplayOrder() -> Int {
         return self.displayOrder
     }
-    
+
     /**
      Getter for page_id.
-     
+
      - Returns:  Int
+
      */
     public func getPageId() -> Int {
         return self.pageId
     }
-    
+
     /**
      Getter for code.
 
      - Returns:  String
+
      */
     public func getCode() -> String {
         return self.code
     }
-    
+
     /**
      Getter for name.
 
      - Returns:  String
+
      */
     public func getName() -> String {
         return self.name
     }
-    
+
     /**
      Getter for page_title.
 
      - Returns:  String
+
      */
     public func getPageTitle() -> String {
         return self.pageTitle
     }
-    
+
     /**
      Getter for active.
-     
-     - Returns:  Bool
-     */
+
+     - Returns:  Bool     */
     public func getActive() -> Bool {
         return self.active
     }
-    
+
     /**
      Getter for dt_created.
-     
-     - Returns:  Int
-     */
-    public func getDateTimeCreated() -> Int {
+
+     - Returns:  Date     */
+    public func getDateTimeCreated() -> Date {
         return self.dateTimeCreated
     }
-    
+
     /**
      Getter for dt_updated.
-     
-     - Returns:  Int
-     */
-    public func getDateTimeUpdated() -> Int {
+
+     - Returns:  Date     */
+    public func getDateTimeUpdated() -> Date {
         return self.dateTimeUpdated
     }
-    
+
     /**
      Getter for page_code.
 
      - Returns:  String
+
      */
     public func getPageCode() -> String {
         return self.pageCode
     }
-    
+
     /**
      Getter for parent_category.
 
      - Returns:  String
+
      */
     public func getParentCategory() -> String {
         return self.parentCategory
     }
 
     /**
+     Getter for uris.
+
+     - Returns:  [Uri]
+     */
+    public func getUris() -> [Uri] {
+        return self.uris
+    }
+
+    /**
      Getter for CustomField_Values.
-     
+
      - Returns:  CustomFieldValues
      */
     public func getCustomFieldValues() -> CustomFieldValues {
         return self.customFieldValues
-    }
-
-    /**
-     Setter for code.
-
-     - Parameters:
-        - value: String
-     - Returns:  Self
-     */
-    @discardableResult
-    public func setCode(_ value: String) -> Self {
-        self.code = value
-        return self
-    }
-
-    /**
-     Setter for name.
-
-     - Parameters:
-        - value: String
-     - Returns:  Self
-     */
-    @discardableResult
-    public func setName(_ value: String) -> Self {
-        self.name = value
-        return self
-    }
-
-    /**
-     Setter for page_title.
-
-     - Parameters:
-        - value: String
-     - Returns:  Self
-     */
-    @discardableResult
-    public func setPageTitle(_ value: String) -> Self {
-        self.pageTitle = value
-        return self
-    }
-
-    /**
-     Setter for active.
-     
-     - Parameters:
-        - value: Bool
-     - Returns:  Self
-     */
-    @discardableResult
-    public func setActive(_ value: Bool) -> Self {
-        self.active = value
-        return self
-    }
-
-    /**
-     Setter for page_code.
-
-     - Parameters:
-        - value: String
-     - Returns:  Self
-     */
-    @discardableResult
-    public func setPageCode(_ value: String) -> Self {
-        self.pageCode = value
-        return self
-    }
-
-    /**
-     Setter for parent_category.
-
-     - Parameters:
-        - value: String
-     - Returns:  Self
-     */
-    @discardableResult
-    public func setParentCategory(_ value: String) -> Self {
-        self.parentCategory = value
-        return self
     }
 }

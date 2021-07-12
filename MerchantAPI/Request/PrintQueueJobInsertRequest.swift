@@ -3,11 +3,12 @@
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
- *
- * $Id$
  */
 
 import Foundation
+#if os(Linux)
+import FoundationNetworking
+#endif
 
 /**
  Handles API Request PrintQueueJob_Insert.
@@ -16,7 +17,7 @@ import Foundation
  */
 public class PrintQueueJobInsertRequest : Request {
     /**
-     The API function name. 
+     The API function name.
 
      - Note: Overrides
      - Returns: String
@@ -26,7 +27,7 @@ public class PrintQueueJobInsertRequest : Request {
     }
 
     /**
-     The request scope. 
+     The request scope.
 
      - Note: Overrides
      - Returns: RequestScope
@@ -34,28 +35,28 @@ public class PrintQueueJobInsertRequest : Request {
     override var scope : RequestScope {
         return RequestScope.Store;
     }
-    
+
     /// Request field PrintQueue_ID.
-    var printQueueId : Optional<Int>
+    var printQueueId : Optional<Int> = nil
 
     /// Request field Edit_PrintQueue.
-    var editPrintQueue : Optional<String>
+    var editPrintQueue : Optional<String> = nil
 
     /// Request field PrintQueue_Description.
-    var printQueueDescription : Optional<String>
+    var printQueueDescription : Optional<String> = nil
 
     /// Request field PrintQueueJob_Description.
-    var printQueueJobDescription : Optional<String>
+    var printQueueJobDescription : Optional<String> = nil
 
     /// Request field PrintQueueJob_Format.
-    var printQueueJobFormat : Optional<String>
+    var printQueueJobFormat : Optional<String> = nil
 
     /// Request field PrintQueueJob_Data.
-    var printQueueJobData : Optional<String>
-    
+    var printQueueJobData : Optional<String> = nil
+
     /**
      CodingKeys used to map the request when encoding.
-     
+
      - SeeAlso: Encodable
      */
     private enum CodingKeys: String, CodingKey {
@@ -67,15 +68,15 @@ public class PrintQueueJobInsertRequest : Request {
         case printQueueJobFormat = "PrintQueueJob_Format"
         case printQueueJobData = "PrintQueueJob_Data"
     }
-    
+
     /**
      Request constructor.
 
      - Parameters:
-        - client: A Client instance.
+        - client: A BaseClient instance.
         - printQueue: An optional PrintQueue instance.
      */
-    public init(client: Optional<Client> = nil, printQueue: Optional<PrintQueue> = nil) {
+    public init(client: Optional<BaseClient> = nil, printQueue: Optional<PrintQueue> = nil) {
         super.init(client: client)
         if let printQueue = printQueue {
             if printQueue.id > 0 {
@@ -85,7 +86,7 @@ public class PrintQueueJobInsertRequest : Request {
             }
         }
     }
-    
+
     /**
      Implementation of Encodable.
 
@@ -111,7 +112,7 @@ public class PrintQueueJobInsertRequest : Request {
 
         try super.encode(to : encoder)
     }
-    
+
     /**
      Send the request for a response.
 
@@ -119,13 +120,10 @@ public class PrintQueueJobInsertRequest : Request {
         - callback: The callback function with signature (PrintQueueJobInsertResponse?, Error?).
      - Note: Overrides
      */
-     public override func send(client: Optional<Client> = nil, callback: @escaping (PrintQueueJobInsertResponse?, Error?) -> ()) throws {
-        if client != nil {
-            client!.send(self) { request, response, error in
-                callback(response as? PrintQueueJobInsertResponse, error)
-            }
-        } else if self.client != nil {
-            self.client!.send(self) { request, response, error in
+
+     public override func send(client: Optional<BaseClient> = nil, callback: @escaping (PrintQueueJobInsertResponse?, Error?) -> ()) throws {
+        if let client = client ?? self.client {
+            client.send(self) { request, response, error in
                 callback(response as? PrintQueueJobInsertResponse, error)
             }
         } else {
@@ -137,16 +135,18 @@ public class PrintQueueJobInsertRequest : Request {
      Create a response object by decoding the response data.
 
      - Parameters:
+        - httpResponse: The underlying HTTP response object
         - data: The response data to decode.
      - Throws: Error when unable to decode the response data.
      - Note: Overrides
      */
-    public override func createResponse(data : Data) throws -> PrintQueueJobInsertResponse {
+    public override func createResponse(httpResponse: URLResponse, data : Data) throws -> PrintQueueJobInsertResponse {
         let decoder = JSONDecoder()
-        
-        decoder.userInfo[Response.decoderRequestUserInfoKey]      = self
-        decoder.userInfo[Response.decoderResponseDataUserInfoKey] = data
-        
+
+        decoder.userInfo[Response.decoderRequestUserInfoKey]            = self
+        decoder.userInfo[Response.decoderHttpResponseDataUserInfoKey]   = httpResponse
+        decoder.userInfo[Response.decoderResponseDataUserInfoKey]       = data
+
         return try decoder.decode(PrintQueueJobInsertResponse.self, from: data)
     }
 
@@ -159,64 +159,64 @@ public class PrintQueueJobInsertRequest : Request {
     override public func getResponseType() -> Response.Type {
         return PrintQueueJobInsertResponse.self
     }
-    
+
     /**
      Getter for PrintQueue_ID.
-     
-     - Returns:  Optional<Int> 
+
+     - Returns:  Optional<Int>
      */
     public func getPrintQueueId() -> Optional<Int> {
         return self.printQueueId
     }
-    
+
     /**
      Getter for Edit_PrintQueue.
 
-     - Returns:  Optional<String> 
+     - Returns:  Optional<String>
      */
     public func getEditPrintQueue() -> Optional<String> {
         return self.editPrintQueue
     }
-    
+
     /**
      Getter for PrintQueue_Description.
 
-     - Returns:  Optional<String> 
+     - Returns:  Optional<String>
      */
     public func getPrintQueueDescription() -> Optional<String> {
         return self.printQueueDescription
     }
-    
+
     /**
      Getter for PrintQueueJob_Description.
 
-     - Returns:  Optional<String> 
+     - Returns:  Optional<String>
      */
     public func getPrintQueueJobDescription() -> Optional<String> {
         return self.printQueueJobDescription
     }
-    
+
     /**
      Getter for PrintQueueJob_Format.
 
-     - Returns:  Optional<String> 
+     - Returns:  Optional<String>
      */
     public func getPrintQueueJobFormat() -> Optional<String> {
         return self.printQueueJobFormat
     }
-    
+
     /**
      Getter for PrintQueueJob_Data.
 
-     - Returns:  Optional<String> 
+     - Returns:  Optional<String>
      */
     public func getPrintQueueJobData() -> Optional<String> {
         return self.printQueueJobData
     }
-    
+
     /**
      Setter for PrintQueue_ID.
-     
+
      - Parameters:
         - value: Optional<Int>
      - Returns:  Self
@@ -226,7 +226,7 @@ public class PrintQueueJobInsertRequest : Request {
         self.printQueueId = value
         return self
     }
-    
+
     /**
      Setter for Edit_PrintQueue.
 
@@ -239,7 +239,7 @@ public class PrintQueueJobInsertRequest : Request {
         self.editPrintQueue = value
         return self
     }
-    
+
     /**
      Setter for PrintQueue_Description.
 
@@ -252,7 +252,7 @@ public class PrintQueueJobInsertRequest : Request {
         self.printQueueDescription = value
         return self
     }
-    
+
     /**
      Setter for PrintQueueJob_Description.
 
@@ -265,7 +265,7 @@ public class PrintQueueJobInsertRequest : Request {
         self.printQueueJobDescription = value
         return self
     }
-    
+
     /**
      Setter for PrintQueueJob_Format.
 
@@ -278,7 +278,7 @@ public class PrintQueueJobInsertRequest : Request {
         self.printQueueJobFormat = value
         return self
     }
-    
+
     /**
      Setter for PrintQueueJob_Data.
 

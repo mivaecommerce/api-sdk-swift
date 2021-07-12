@@ -3,8 +3,6 @@
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
- *
- * $Id$
  */
 
 import Foundation
@@ -14,85 +12,58 @@ public class Subscription : Model {
 
     /// Model field id.
     var id : Int
-
     /// Model field order_id.
     var orderId : Int
-
     /// Model field line_id.
     var lineId : Int
-
     /// Model field cust_id.
     var customerId : Int
-
     /// Model field custpc_id.
     var customerPaymentCardId : Int
-
     /// Model field product_id.
     var productId : Int
-
     /// Model field subterm_id.
     var subscriptionTermId : Int
-
     /// Model field addr_id.
     var addressId : Int
-
     /// Model field ship_id.
     var shipId : Int
-
     /// Model field ship_data.
     var shipData : String
-
     /// Model field quantity.
     var quantity : Int
-
     /// Model field termrem.
     var termRemaining : Int
-
     /// Model field termproc.
     var termProcessed : Int
-
     /// Model field firstdate.
     var firstDate : Int
-
     /// Model field lastdate.
     var lastDate : Int
-
     /// Model field nextdate.
     var nextDate : Int
-
     /// Model field status.
     var status : String
-
     /// Model field message.
     var message : String
-
     /// Model field cncldate.
     var cancelDate : String
-
     /// Model field tax.
     var tax : Decimal
-
     /// Model field formatted_tax.
     var formattedTax : String
-
     /// Model field shipping.
     var shipping : Decimal
-
     /// Model field formatted_shipping.
     var formattedShipping : String
-
     /// Model field subtotal.
     var subtotal : Decimal
-
     /// Model field formatted_subtotal.
     var formattedSubtotal : String
-
     /// Model field total.
     var total : Decimal
-
     /// Model field formatted_total.
     var formattedTotal : String
-
     /**
      CodingKeys used to map the model when encoding and decoding.
 
@@ -246,260 +217,266 @@ public class Subscription : Model {
 
         try super.encode(to: encoder)
     }
-    
+
     /**
      Getter for id.
-     
+
      - Returns:  Int
+
      */
     public func getId() -> Int {
         return self.id
     }
-    
+
     /**
      Getter for order_id.
-     
+
      - Returns:  Int
+
      */
     public func getOrderId() -> Int {
         return self.orderId
     }
-    
+
     /**
      Getter for line_id.
-     
+
      - Returns:  Int
+
      */
     public func getLineId() -> Int {
         return self.lineId
     }
-    
+
     /**
      Getter for cust_id.
-     
+
      - Returns:  Int
+
      */
     public func getCustomerId() -> Int {
         return self.customerId
     }
-    
+
     /**
      Getter for custpc_id.
-     
+
      - Returns:  Int
+
      */
     public func getCustomerPaymentCardId() -> Int {
         return self.customerPaymentCardId
     }
-    
+
     /**
      Getter for product_id.
-     
+
      - Returns:  Int
+
      */
     public func getProductId() -> Int {
         return self.productId
     }
-    
+
     /**
      Getter for subterm_id.
-     
+
      - Returns:  Int
+
      */
     public func getSubscriptionTermId() -> Int {
         return self.subscriptionTermId
     }
-    
+
     /**
      Getter for addr_id.
-     
+
      - Returns:  Int
+
      */
     public func getAddressId() -> Int {
         return self.addressId
     }
-    
+
     /**
      Getter for ship_id.
-     
+
      - Returns:  Int
+
      */
     public func getShipId() -> Int {
         return self.shipId
     }
-    
+
     /**
      Getter for ship_data.
 
      - Returns:  String
+
      */
     public func getShipData() -> String {
         return self.shipData
     }
-    
+
     /**
      Getter for quantity.
-     
+
      - Returns:  Int
+
      */
     public func getQuantity() -> Int {
         return self.quantity
     }
-    
+
     /**
      Getter for termrem.
-     
+
      - Returns:  Int
+
      */
     public func getTermRemaining() -> Int {
         return self.termRemaining
     }
-    
+
     /**
      Getter for termproc.
-     
+
      - Returns:  Int
+
      */
     public func getTermProcessed() -> Int {
         return self.termProcessed
     }
-    
+
     /**
      Getter for firstdate.
-     
+
      - Returns:  Int
+
      */
     public func getFirstDate() -> Int {
         return self.firstDate
     }
-    
+
     /**
      Getter for lastdate.
-     
+
      - Returns:  Int
+
      */
     public func getLastDate() -> Int {
         return self.lastDate
     }
-    
+
     /**
      Getter for nextdate.
-     
+
      - Returns:  Int
+
      */
     public func getNextDate() -> Int {
         return self.nextDate
     }
-    
+
     /**
      Getter for status.
 
      - Returns:  String
+
      */
     public func getStatus() -> String {
         return self.status
     }
-    
+
     /**
      Getter for message.
 
      - Returns:  String
+
      */
     public func getMessage() -> String {
         return self.message
     }
-    
+
     /**
      Getter for cncldate.
 
      - Returns:  String
+
      */
     public func getCancelDate() -> String {
         return self.cancelDate
     }
-    
+
     /**
      Getter for tax.
-     
-     - Returns:  Decimal
-     */
+
+     - Returns:  Decimal     */
     public func getTax() -> Decimal {
         return self.tax
     }
-    
+
     /**
      Getter for formatted_tax.
 
      - Returns:  String
+
      */
     public func getFormattedTax() -> String {
         return self.formattedTax
     }
-    
+
     /**
      Getter for shipping.
-     
-     - Returns:  Decimal
-     */
+
+     - Returns:  Decimal     */
     public func getShipping() -> Decimal {
         return self.shipping
     }
-    
+
     /**
      Getter for formatted_shipping.
 
      - Returns:  String
+
      */
     public func getFormattedShipping() -> String {
         return self.formattedShipping
     }
-    
+
     /**
      Getter for subtotal.
-     
-     - Returns:  Decimal
-     */
+
+     - Returns:  Decimal     */
     public func getSubtotal() -> Decimal {
         return self.subtotal
     }
-    
+
     /**
      Getter for formatted_subtotal.
 
      - Returns:  String
+
      */
     public func getFormattedSubtotal() -> String {
         return self.formattedSubtotal
     }
-    
+
     /**
      Getter for total.
-     
-     - Returns:  Decimal
-     */
+
+     - Returns:  Decimal     */
     public func getTotal() -> Decimal {
         return self.total
     }
-    
+
     /**
      Getter for formatted_total.
 
      - Returns:  String
+
      */
     public func getFormattedTotal() -> String {
         return self.formattedTotal
-    }
-
-    /**
-     Setter for cncldate.
-
-     - Parameters:
-        - value: String
-     - Returns:  Self
-     */
-    @discardableResult
-    public func setCancelDate(_ value: String) -> Self {
-        self.cancelDate = value
-        return self
     }
 }

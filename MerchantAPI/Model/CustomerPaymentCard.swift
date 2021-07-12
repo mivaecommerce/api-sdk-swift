@@ -3,8 +3,6 @@
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
- *
- * $Id$
  */
 
 import Foundation
@@ -14,64 +12,44 @@ public class CustomerPaymentCard : Model {
 
     /// Model field id.
     var id : Int
-
     /// Model field cust_id.
     var customerId : Int
-
     /// Model field fname.
     var firstName : String
-
     /// Model field lname.
     var lastName : String
-
     /// Model field exp_month.
     var expirationMonth : Int
-
     /// Model field exp_year.
     var expirationYear : Int
-
     /// Model field lastfour.
     var lastFour : String
-
     /// Model field addr1.
     var address1 : String
-
     /// Model field addr2.
     var address2 : String
-
     /// Model field city.
     var city : String
-
     /// Model field state.
     var state : String
-
     /// Model field zip.
     var zip : String
-
     /// Model field cntry.
     var country : String
-
     /// Model field lastused.
     var lastUsed : String
-
     /// Model field token.
     var token : String
-
     /// Model field type_id.
     var typeId : Int
-
     /// Model field refcount.
     var referenceCount : Int
-
     /// Model field type.
     var type : String
-
     /// Model field mod_code.
     var moduleCode : String
-
     /// Model field meth_code.
     var methodCode : String
-
     /**
      CodingKeys used to map the model when encoding and decoding.
 
@@ -197,182 +175,202 @@ public class CustomerPaymentCard : Model {
 
         try super.encode(to: encoder)
     }
-    
+
     /**
      Getter for id.
-     
+
      - Returns:  Int
+
      */
     public func getId() -> Int {
         return self.id
     }
-    
+
     /**
      Getter for cust_id.
-     
+
      - Returns:  Int
+
      */
     public func getCustomerId() -> Int {
         return self.customerId
     }
-    
+
     /**
      Getter for fname.
 
      - Returns:  String
+
      */
     public func getFirstName() -> String {
         return self.firstName
     }
-    
+
     /**
      Getter for lname.
 
      - Returns:  String
+
      */
     public func getLastName() -> String {
         return self.lastName
     }
-    
+
     /**
      Getter for exp_month.
-     
+
      - Returns:  Int
+
      */
     public func getExpirationMonth() -> Int {
         return self.expirationMonth
     }
-    
+
     /**
      Getter for exp_year.
-     
+
      - Returns:  Int
+
      */
     public func getExpirationYear() -> Int {
         return self.expirationYear
     }
-    
+
     /**
      Getter for lastfour.
 
      - Returns:  String
+
      */
     public func getLastFour() -> String {
         return self.lastFour
     }
-    
+
     /**
      Getter for addr1.
 
      - Returns:  String
+
      */
     public func getAddress1() -> String {
         return self.address1
     }
-    
+
     /**
      Getter for addr2.
 
      - Returns:  String
+
      */
     public func getAddress2() -> String {
         return self.address2
     }
-    
+
     /**
      Getter for city.
 
      - Returns:  String
+
      */
     public func getCity() -> String {
         return self.city
     }
-    
+
     /**
      Getter for state.
 
      - Returns:  String
+
      */
     public func getState() -> String {
         return self.state
     }
-    
+
     /**
      Getter for zip.
 
      - Returns:  String
+
      */
     public func getZip() -> String {
         return self.zip
     }
-    
+
     /**
      Getter for cntry.
 
      - Returns:  String
+
      */
     public func getCountry() -> String {
         return self.country
     }
-    
+
     /**
      Getter for lastused.
 
      - Returns:  String
+
      */
     public func getLastUsed() -> String {
         return self.lastUsed
     }
-    
+
     /**
      Getter for token.
 
      - Returns:  String
+
      */
     public func getToken() -> String {
         return self.token
     }
-    
+
     /**
      Getter for type_id.
-     
+
      - Returns:  Int
+
      */
     public func getTypeId() -> Int {
         return self.typeId
     }
-    
+
     /**
      Getter for refcount.
-     
+
      - Returns:  Int
+
      */
     public func getReferenceCount() -> Int {
         return self.referenceCount
     }
-    
+
     /**
      Getter for type.
 
      - Returns:  String
+
      */
     public func getType() -> String {
         return self.type
     }
-    
+
     /**
      Getter for mod_code.
 
      - Returns:  String
+
      */
     public func getModuleCode() -> String {
         return self.moduleCode
     }
-    
+
     /**
      Getter for meth_code.
 
      - Returns:  String
+
      */
     public func getMethodCode() -> String {
         return self.methodCode

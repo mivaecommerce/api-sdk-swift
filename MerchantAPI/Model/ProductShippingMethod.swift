@@ -3,8 +3,6 @@
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
- *
- * $Id$
  */
 
 import Foundation
@@ -14,10 +12,8 @@ public class ProductShippingMethod : Model {
 
     /// Model field mod_code.
     var moduleCode : String
-
     /// Model field meth_code.
     var methodCode : String
-
     /**
      CodingKeys used to map the model when encoding and decoding.
 
@@ -71,20 +67,22 @@ public class ProductShippingMethod : Model {
 
         try super.encode(to: encoder)
     }
-    
+
     /**
      Getter for mod_code.
 
      - Returns:  String
+
      */
     public func getModuleCode() -> String {
         return self.moduleCode
     }
-    
+
     /**
      Getter for meth_code.
 
      - Returns:  String
+
      */
     public func getMethodCode() -> String {
         return self.methodCode

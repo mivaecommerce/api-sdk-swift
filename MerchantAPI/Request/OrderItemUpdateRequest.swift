@@ -3,11 +3,12 @@
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
- *
- * $Id$
  */
 
 import Foundation
+#if os(Linux)
+import FoundationNetworking
+#endif
 
 /**
  Handles API Request OrderItem_Update.
@@ -16,7 +17,7 @@ import Foundation
  */
 public class OrderItemUpdateRequest : Request {
     /**
-     The API function name. 
+     The API function name.
 
      - Note: Overrides
      - Returns: String
@@ -26,7 +27,7 @@ public class OrderItemUpdateRequest : Request {
     }
 
     /**
-     The request scope. 
+     The request scope.
 
      - Note: Overrides
      - Returns: RequestScope
@@ -34,40 +35,40 @@ public class OrderItemUpdateRequest : Request {
     override var scope : RequestScope {
         return RequestScope.Store;
     }
-    
+
     /// Request field Order_ID.
-    var orderId : Optional<Int>
+    var orderId : Optional<Int> = nil
 
     /// Request field Line_ID.
-    var lineId : Optional<Int>
+    var lineId : Optional<Int> = nil
 
     /// Request field Code.
-    var code : Optional<String>
+    var code : Optional<String> = nil
 
     /// Request field Name.
-    var name : Optional<String>
+    var name : Optional<String> = nil
 
     /// Request field Sku.
-    var sku : Optional<String>
+    var sku : Optional<String> = nil
 
     /// Request field Quantity.
-    var quantity : Optional<Int>
+    var quantity : Optional<Int> = nil
 
     /// Request field Price.
-    var price : Optional<Decimal>
+    var price : Optional<Decimal> = nil
 
     /// Request field Weight.
-    var weight : Optional<Decimal>
+    var weight : Optional<Decimal> = nil
 
     /// Request field Taxable.
-    var taxable : Optional<Bool>
+    var taxable : Optional<Bool> = nil
 
     /// Request field Options.
     var options : [OrderItemOption] = []
-    
+
     /**
      CodingKeys used to map the request when encoding.
-     
+
      - SeeAlso: Encodable
      */
     private enum CodingKeys: String, CodingKey {
@@ -83,15 +84,15 @@ public class OrderItemUpdateRequest : Request {
         case taxable = "Taxable"
         case options = "Options"
     }
-    
+
     /**
      Request constructor.
 
      - Parameters:
-        - client: A Client instance.
+        - client: A BaseClient instance.
         - orderItem: An optional OrderItem instance.
      */
-    public init(client: Optional<Client> = nil, orderItem: Optional<OrderItem> = nil) {
+    public init(client: Optional<BaseClient> = nil, orderItem: Optional<OrderItem> = nil) {
         super.init(client: client)
         if let orderItem = orderItem {
             self.orderId = orderItem.orderId
@@ -109,7 +110,7 @@ public class OrderItemUpdateRequest : Request {
             }
         }
     }
-    
+
     /**
      Implementation of Encodable.
 
@@ -134,7 +135,7 @@ public class OrderItemUpdateRequest : Request {
 
         try super.encode(to : encoder)
     }
-    
+
     /**
      Send the request for a response.
 
@@ -142,13 +143,10 @@ public class OrderItemUpdateRequest : Request {
         - callback: The callback function with signature (OrderItemUpdateResponse?, Error?).
      - Note: Overrides
      */
-     public override func send(client: Optional<Client> = nil, callback: @escaping (OrderItemUpdateResponse?, Error?) -> ()) throws {
-        if client != nil {
-            client!.send(self) { request, response, error in
-                callback(response as? OrderItemUpdateResponse, error)
-            }
-        } else if self.client != nil {
-            self.client!.send(self) { request, response, error in
+
+     public override func send(client: Optional<BaseClient> = nil, callback: @escaping (OrderItemUpdateResponse?, Error?) -> ()) throws {
+        if let client = client ?? self.client {
+            client.send(self) { request, response, error in
                 callback(response as? OrderItemUpdateResponse, error)
             }
         } else {
@@ -160,16 +158,18 @@ public class OrderItemUpdateRequest : Request {
      Create a response object by decoding the response data.
 
      - Parameters:
+        - httpResponse: The underlying HTTP response object
         - data: The response data to decode.
      - Throws: Error when unable to decode the response data.
      - Note: Overrides
      */
-    public override func createResponse(data : Data) throws -> OrderItemUpdateResponse {
+    public override func createResponse(httpResponse: URLResponse, data : Data) throws -> OrderItemUpdateResponse {
         let decoder = JSONDecoder()
-        
-        decoder.userInfo[Response.decoderRequestUserInfoKey]      = self
-        decoder.userInfo[Response.decoderResponseDataUserInfoKey] = data
-        
+
+        decoder.userInfo[Response.decoderRequestUserInfoKey]            = self
+        decoder.userInfo[Response.decoderHttpResponseDataUserInfoKey]   = httpResponse
+        decoder.userInfo[Response.decoderResponseDataUserInfoKey]       = data
+
         return try decoder.decode(OrderItemUpdateResponse.self, from: data)
     }
 
@@ -182,100 +182,100 @@ public class OrderItemUpdateRequest : Request {
     override public func getResponseType() -> Response.Type {
         return OrderItemUpdateResponse.self
     }
-    
+
     /**
      Getter for Order_ID.
-     
-     - Returns:  Optional<Int> 
+
+     - Returns:  Optional<Int>
      */
     public func getOrderId() -> Optional<Int> {
         return self.orderId
     }
-    
+
     /**
      Getter for Line_ID.
-     
-     - Returns:  Optional<Int> 
+
+     - Returns:  Optional<Int>
      */
     public func getLineId() -> Optional<Int> {
         return self.lineId
     }
-    
+
     /**
      Getter for Code.
 
-     - Returns:  Optional<String> 
+     - Returns:  Optional<String>
      */
     public func getCode() -> Optional<String> {
         return self.code
     }
-    
+
     /**
      Getter for Name.
 
-     - Returns:  Optional<String> 
+     - Returns:  Optional<String>
      */
     public func getName() -> Optional<String> {
         return self.name
     }
-    
+
     /**
      Getter for Sku.
 
-     - Returns:  Optional<String> 
+     - Returns:  Optional<String>
      */
     public func getSku() -> Optional<String> {
         return self.sku
     }
-    
+
     /**
      Getter for Quantity.
-     
-     - Returns:  Optional<Int> 
+
+     - Returns:  Optional<Int>
      */
     public func getQuantity() -> Optional<Int> {
         return self.quantity
     }
-    
+
     /**
      Getter for Price.
-     
-     - Returns:  Optional<Decimal> 
+
+     - Returns:  Optional<Decimal>
      */
     public func getPrice() -> Optional<Decimal> {
         return self.price
     }
-    
+
     /**
      Getter for Weight.
-     
-     - Returns:  Optional<Decimal> 
+
+     - Returns:  Optional<Decimal>
      */
     public func getWeight() -> Optional<Decimal> {
         return self.weight
     }
-    
+
     /**
      Getter for Taxable.
-     
-     - Returns:  Optional<Bool> 
+
+     - Returns:  Optional<Bool>
      */
     public func getTaxable() -> Optional<Bool> {
         return self.taxable
     }
-    
+
     /**
      Getter for Options.
-     
+
      - Returns:  [OrderItemOption]
      */
     public func getOptions() -> [OrderItemOption] {
         return self.options
     }
-    
+
     /**
      Setter for Order_ID.
-     
+
      - Parameters:
         - value: Optional<Int>
      - Returns:  Self
@@ -285,10 +285,10 @@ public class OrderItemUpdateRequest : Request {
         self.orderId = value
         return self
     }
-    
+
     /**
      Setter for Line_ID.
-     
+
      - Parameters:
         - value: Optional<Int>
      - Returns:  Self
@@ -298,7 +298,7 @@ public class OrderItemUpdateRequest : Request {
         self.lineId = value
         return self
     }
-    
+
     /**
      Setter for Code.
 
@@ -311,7 +311,7 @@ public class OrderItemUpdateRequest : Request {
         self.code = value
         return self
     }
-    
+
     /**
      Setter for Name.
 
@@ -324,7 +324,7 @@ public class OrderItemUpdateRequest : Request {
         self.name = value
         return self
     }
-    
+
     /**
      Setter for Sku.
 
@@ -337,10 +337,10 @@ public class OrderItemUpdateRequest : Request {
         self.sku = value
         return self
     }
-    
+
     /**
      Setter for Quantity.
-     
+
      - Parameters:
         - value: Optional<Int>
      - Returns:  Self
@@ -350,10 +350,10 @@ public class OrderItemUpdateRequest : Request {
         self.quantity = value
         return self
     }
-    
+
     /**
      Setter for Price.
-     
+
      - Parameters:
         - value: Optional<Decimal>
      - Returns:  Self
@@ -363,10 +363,10 @@ public class OrderItemUpdateRequest : Request {
         self.price = value
         return self
     }
-    
+
     /**
      Setter for Weight.
-     
+
      - Parameters:
         - value: Optional<Decimal>
      - Returns:  Self
@@ -376,10 +376,10 @@ public class OrderItemUpdateRequest : Request {
         self.weight = value
         return self
     }
-    
+
     /**
      Setter for Taxable.
-     
+
      - Parameters:
         - value: Optional<Bool>
      - Returns:  Self
@@ -389,12 +389,12 @@ public class OrderItemUpdateRequest : Request {
         self.taxable = value
         return self
     }
-    
+
     /**
      Add a OrderItemOption.
 
      - Parameters:
-        - option: OrderItemOption 
+        - option: OrderItemOption
      - Returns: Self
      */
     @discardableResult
@@ -402,19 +402,19 @@ public class OrderItemUpdateRequest : Request {
         self.options.append(option)
         return self
     }
-    
+
     /**
      Add an array of OrderItemOption.
 
      - Parameters:
         - options: [OrderItemOption]
-     - Returns: Self 
+     - Returns: Self
      */
     @discardableResult
     public func addOptions(_ options: [OrderItemOption]) -> Self {
         for o in options {
             self.options.append(o);
-        }       
+        }
 
         return self
     }

@@ -3,11 +3,12 @@
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
- *
- * $Id$
  */
 
 import Foundation
+#if os(Linux)
+import FoundationNetworking
+#endif
 
 /**
  Handles API Request Note_Insert.
@@ -16,7 +17,7 @@ import Foundation
  */
 public class NoteInsertRequest : Request {
     /**
-     The API function name. 
+     The API function name.
 
      - Note: Overrides
      - Returns: String
@@ -26,7 +27,7 @@ public class NoteInsertRequest : Request {
     }
 
     /**
-     The request scope. 
+     The request scope.
 
      - Note: Overrides
      - Returns: RequestScope
@@ -34,22 +35,22 @@ public class NoteInsertRequest : Request {
     override var scope : RequestScope {
         return RequestScope.Store;
     }
-    
+
     /// Request field NoteText.
-    var noteText : Optional<String>
+    var noteText : Optional<String> = nil
 
     /// Request field Customer_ID.
-    var customerId : Optional<Int>
+    var customerId : Optional<Int> = nil
 
     /// Request field Account_ID.
-    var accountId : Optional<Int>
+    var accountId : Optional<Int> = nil
 
     /// Request field Order_ID.
-    var orderId : Optional<Int>
-    
+    var orderId : Optional<Int> = nil
+
     /**
      CodingKeys used to map the request when encoding.
-     
+
      - SeeAlso: Encodable
      */
     private enum CodingKeys: String, CodingKey {
@@ -59,17 +60,17 @@ public class NoteInsertRequest : Request {
         case accountId = "Account_ID"
         case orderId = "Order_ID"
     }
-    
+
     /**
      Request constructor.
-     
+
      - Parameters:
-        - client: A Client instance.
+        - client: A BaseClient instance.
      */
-    public override init(client: Optional<Client> = nil) {
+    public override init(client: Optional<BaseClient> = nil) {
         super.init(client: client)
     }
-    
+
     /**
      Implementation of Encodable.
 
@@ -88,7 +89,7 @@ public class NoteInsertRequest : Request {
 
         try super.encode(to : encoder)
     }
-    
+
     /**
      Send the request for a response.
 
@@ -96,13 +97,10 @@ public class NoteInsertRequest : Request {
         - callback: The callback function with signature (NoteInsertResponse?, Error?).
      - Note: Overrides
      */
-     public override func send(client: Optional<Client> = nil, callback: @escaping (NoteInsertResponse?, Error?) -> ()) throws {
-        if client != nil {
-            client!.send(self) { request, response, error in
-                callback(response as? NoteInsertResponse, error)
-            }
-        } else if self.client != nil {
-            self.client!.send(self) { request, response, error in
+
+     public override func send(client: Optional<BaseClient> = nil, callback: @escaping (NoteInsertResponse?, Error?) -> ()) throws {
+        if let client = client ?? self.client {
+            client.send(self) { request, response, error in
                 callback(response as? NoteInsertResponse, error)
             }
         } else {
@@ -114,16 +112,18 @@ public class NoteInsertRequest : Request {
      Create a response object by decoding the response data.
 
      - Parameters:
+        - httpResponse: The underlying HTTP response object
         - data: The response data to decode.
      - Throws: Error when unable to decode the response data.
      - Note: Overrides
      */
-    public override func createResponse(data : Data) throws -> NoteInsertResponse {
+    public override func createResponse(httpResponse: URLResponse, data : Data) throws -> NoteInsertResponse {
         let decoder = JSONDecoder()
-        
-        decoder.userInfo[Response.decoderRequestUserInfoKey]      = self
-        decoder.userInfo[Response.decoderResponseDataUserInfoKey] = data
-        
+
+        decoder.userInfo[Response.decoderRequestUserInfoKey]            = self
+        decoder.userInfo[Response.decoderHttpResponseDataUserInfoKey]   = httpResponse
+        decoder.userInfo[Response.decoderResponseDataUserInfoKey]       = data
+
         return try decoder.decode(NoteInsertResponse.self, from: data)
     }
 
@@ -136,43 +136,43 @@ public class NoteInsertRequest : Request {
     override public func getResponseType() -> Response.Type {
         return NoteInsertResponse.self
     }
-    
+
     /**
      Getter for NoteText.
 
-     - Returns:  Optional<String> 
+     - Returns:  Optional<String>
      */
     public func getNoteText() -> Optional<String> {
         return self.noteText
     }
-    
+
     /**
      Getter for Customer_ID.
-     
-     - Returns:  Optional<Int> 
+
+     - Returns:  Optional<Int>
      */
     public func getCustomerId() -> Optional<Int> {
         return self.customerId
     }
-    
+
     /**
      Getter for Account_ID.
-     
-     - Returns:  Optional<Int> 
+
+     - Returns:  Optional<Int>
      */
     public func getAccountId() -> Optional<Int> {
         return self.accountId
     }
-    
+
     /**
      Getter for Order_ID.
-     
-     - Returns:  Optional<Int> 
+
+     - Returns:  Optional<Int>
      */
     public func getOrderId() -> Optional<Int> {
         return self.orderId
     }
-    
+
     /**
      Setter for NoteText.
 
@@ -185,10 +185,10 @@ public class NoteInsertRequest : Request {
         self.noteText = value
         return self
     }
-    
+
     /**
      Setter for Customer_ID.
-     
+
      - Parameters:
         - value: Optional<Int>
      - Returns:  Self
@@ -198,10 +198,10 @@ public class NoteInsertRequest : Request {
         self.customerId = value
         return self
     }
-    
+
     /**
      Setter for Account_ID.
-     
+
      - Parameters:
         - value: Optional<Int>
      - Returns:  Self
@@ -211,10 +211,10 @@ public class NoteInsertRequest : Request {
         self.accountId = value
         return self
     }
-    
+
     /**
      Setter for Order_ID.
-     
+
      - Parameters:
         - value: Optional<Int>
      - Returns:  Self

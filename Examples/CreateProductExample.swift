@@ -3,20 +3,18 @@
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
- *
- * $Id: CreateProductExample.swift 73830 2019-03-05 23:40:40Z gidriss $
  */
 
 import MerchantAPI
 
 /* Initialize a client */
 let client = Client(
-  url : "https://www.mystore.com/mm5/json.mvc", 
-  apiToken : "MY_API_TOKEN", 
-  signingKey : "MY_SIGNING_KEY", 
+  url : "https://www.mystore.com/mm5/json.mvc",
+  apiToken : "MY_API_TOKEN",
+  signingKey : "MY_SIGNING_KEY",
   signingType : MerchantAPI.ClientSignType.SHA256,
-  requireTimestamps: true, 
-  defaultStoreCode : "STORE_CODE" 
+  requireTimestamps: true,
+  defaultStoreCode : "STORE_CODE"
 )
 
 /* Create a ProductInsert request instance, passing client to the constructor */

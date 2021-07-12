@@ -3,8 +3,6 @@
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
- *
- * $Id$
  */
 
 import Foundation
@@ -21,42 +19,35 @@ public class OrderShipment : Model {
 
     /// Model field id.
     var id : Int
-
     /// Model field code.
     var code : String
-
     /// Model field batch_id.
     var batchId : Int
-
     /// Model field order_id.
     var orderId : Int
-
     /// Model field status.
     var status : Int
-
     /// Model field labelcount.
     var labelCount : Int
-
     /// Model field ship_date.
     var shipDate : Int
-
     /// Model field tracknum.
     var trackingNumber : String
-
     /// Model field tracktype.
     var trackingType : String
-
     /// Model field tracklink.
     var trackingLink : String
-
     /// Model field weight.
     var weight : Decimal
-
     /// Model field cost.
     var cost : Decimal
-
     /// Model field formatted_cost.
     var formattedCost : String
+    /// Model field order
+    var order : Order
+
+    /// Model field items.
+    var items : [OrderItem]
 
     /**
      CodingKeys used to map the model when encoding and decoding.
@@ -77,6 +68,8 @@ public class OrderShipment : Model {
         case weight
         case cost
         case formattedCost = "formatted_cost"
+        case order
+        case items
     }
 
     /**
@@ -96,6 +89,8 @@ public class OrderShipment : Model {
         self.weight = Decimal(0.00)
         self.cost = Decimal(0.00)
         self.formattedCost = ""
+        self.order = Order()
+        self.items = []
 
         super.init()
     }
@@ -124,6 +119,8 @@ public class OrderShipment : Model {
         self.weight = try container.decodeIfPresent(Decimal.self, forKey: .weight) ?? Decimal(0.00)
         self.cost = try container.decodeIfPresent(Decimal.self, forKey: .cost) ?? Decimal(0.00)
         self.formattedCost = try container.decodeIfPresent(String.self, forKey: .formattedCost) ?? ""
+        self.order = try container.decodeIfPresent(Order.self, forKey: .order) ?? Order()
+        self.items = try container.decodeIfPresent([OrderItem].self, forKey: .items) ?? []
 
         try super.init(from : decoder)
     }
@@ -152,280 +149,153 @@ public class OrderShipment : Model {
         try container.encodeIfPresent(Decimal.roundForEncoding(value: self.weight, precision: MERCHANTAPI_FLOAT_ENCODE_PRECISION), forKey: .weight)
         try container.encodeIfPresent(Decimal.roundForEncoding(value: self.cost, precision: MERCHANTAPI_FLOAT_ENCODE_PRECISION), forKey: .cost)
         try container.encodeIfPresent(self.formattedCost, forKey: .formattedCost)
+        try container.encodeIfPresent(self.order, forKey: .order)
+        try container.encodeIfPresent(self.items, forKey: .items)
 
         try super.encode(to: encoder)
     }
-    
+
     /**
      Getter for id.
-     
+
      - Returns:  Int
+
      */
     public func getId() -> Int {
         return self.id
     }
-    
+
     /**
      Getter for code.
 
      - Returns:  String
+
      */
     public func getCode() -> String {
         return self.code
     }
-    
+
     /**
      Getter for batch_id.
-     
+
      - Returns:  Int
+
      */
     public func getBatchId() -> Int {
         return self.batchId
     }
-    
+
     /**
      Getter for order_id.
-     
+
      - Returns:  Int
+
      */
     public func getOrderId() -> Int {
         return self.orderId
     }
-    
+
     /**
      Getter for status.
-     
+
      - Returns:  Int
+
      */
     public func getStatus() -> Int {
         return self.status
     }
-    
+
     /**
      Getter for labelcount.
-     
+
      - Returns:  Int
+
      */
     public func getLabelCount() -> Int {
         return self.labelCount
     }
-    
+
     /**
      Getter for ship_date.
-     
+
      - Returns:  Int
+
      */
     public func getShipDate() -> Int {
         return self.shipDate
     }
-    
+
     /**
      Getter for tracknum.
 
      - Returns:  String
+
      */
     public func getTrackingNumber() -> String {
         return self.trackingNumber
     }
-    
+
     /**
      Getter for tracktype.
 
      - Returns:  String
+
      */
     public func getTrackingType() -> String {
         return self.trackingType
     }
-    
+
     /**
      Getter for tracklink.
 
      - Returns:  String
+
      */
     public func getTrackingLink() -> String {
         return self.trackingLink
     }
-    
+
     /**
      Getter for weight.
-     
-     - Returns:  Decimal
-     */
+
+     - Returns:  Decimal     */
     public func getWeight() -> Decimal {
         return self.weight
     }
-    
+
     /**
      Getter for cost.
-     
-     - Returns:  Decimal
-     */
+
+     - Returns:  Decimal     */
     public func getCost() -> Decimal {
         return self.cost
     }
-    
+
     /**
      Getter for formatted_cost.
 
      - Returns:  String
+
      */
     public func getFormattedCost() -> String {
         return self.formattedCost
     }
-    
+
     /**
-     Setter for id.
-     
-     - Parameters:
-        - value: Optional<Int>
-     - Returns:  Self
+     Getter for order.
+
+     - Returns:  Order
      */
-    @discardableResult
-    public func setId(_ value: Int) -> Self {
-        self.id = value
-        return self
+    public func getOrder() -> Order {
+        return self.order
     }
 
     /**
-     Setter for code.
+     Getter for items.
 
-     - Parameters:
-        - value: String
-     - Returns:  Self
+     - Returns:  [OrderItem]
      */
-    @discardableResult
-    public func setCode(_ value: String) -> Self {
-        self.code = value
-        return self
-    }
-    
-    /**
-     Setter for batch_id.
-     
-     - Parameters:
-        - value: Optional<Int>
-     - Returns:  Self
-     */
-    @discardableResult
-    public func setBatchId(_ value: Int) -> Self {
-        self.batchId = value
-        return self
-    }
-    
-    /**
-     Setter for order_id.
-     
-     - Parameters:
-        - value: Optional<Int>
-     - Returns:  Self
-     */
-    @discardableResult
-    public func setOrderId(_ value: Int) -> Self {
-        self.orderId = value
-        return self
-    }
-    
-    /**
-     Setter for status.
-     
-     - Parameters:
-        - value: Optional<Int>
-     - Returns:  Self
-     */
-    @discardableResult
-    public func setStatus(_ value: Int) -> Self {
-        self.status = value
-        return self
-    }
-    
-    /**
-     Setter for labelcount.
-     
-     - Parameters:
-        - value: Optional<Int>
-     - Returns:  Self
-     */
-    @discardableResult
-    public func setLabelCount(_ value: Int) -> Self {
-        self.labelCount = value
-        return self
-    }
-    
-    /**
-     Setter for ship_date.
-     
-     - Parameters:
-        - value: Optional<Int>
-     - Returns:  Self
-     */
-    @discardableResult
-    public func setShipDate(_ value: Int) -> Self {
-        self.shipDate = value
-        return self
-    }
-
-    /**
-     Setter for tracknum.
-
-     - Parameters:
-        - value: String
-     - Returns:  Self
-     */
-    @discardableResult
-    public func setTrackingNumber(_ value: String) -> Self {
-        self.trackingNumber = value
-        return self
-    }
-
-    /**
-     Setter for tracktype.
-
-     - Parameters:
-        - value: String
-     - Returns:  Self
-     */
-    @discardableResult
-    public func setTrackingType(_ value: String) -> Self {
-        self.trackingType = value
-        return self
-    }
-
-    /**
-     Setter for tracklink.
-
-     - Parameters:
-        - value: String
-     - Returns:  Self
-     */
-    @discardableResult
-    public func setTrackingLink(_ value: String) -> Self {
-        self.trackingLink = value
-        return self
-    }
-
-    /**
-     Setter for weight.
-     
-     - Parameters:
-        - value: Decimal
-     - Returns:  Self
-     */
-    @discardableResult
-    public func setWeight(_ value: Decimal) -> Self {
-        self.weight = value
-        return self
-    }
-
-    /**
-     Setter for cost.
-     
-     - Parameters:
-        - value: Decimal
-     - Returns:  Self
-     */
-    @discardableResult
-    public func setCost(_ value: Decimal) -> Self {
-        self.cost = value
-        return self
+    public func getItems() -> [OrderItem] {
+        return self.items
     }
 }

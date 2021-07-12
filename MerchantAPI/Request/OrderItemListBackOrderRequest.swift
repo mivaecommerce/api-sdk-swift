@@ -3,11 +3,12 @@
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
- *
- * $Id$
  */
 
 import Foundation
+#if os(Linux)
+import FoundationNetworking
+#endif
 
 /**
  Handles API Request OrderItemList_BackOrder.
@@ -16,7 +17,7 @@ import Foundation
  */
 public class OrderItemListBackOrderRequest : Request {
     /**
-     The API function name. 
+     The API function name.
 
      - Note: Overrides
      - Returns: String
@@ -26,7 +27,7 @@ public class OrderItemListBackOrderRequest : Request {
     }
 
     /**
-     The request scope. 
+     The request scope.
 
      - Note: Overrides
      - Returns: RequestScope
@@ -34,19 +35,19 @@ public class OrderItemListBackOrderRequest : Request {
     override var scope : RequestScope {
         return RequestScope.Store;
     }
-    
+
     /// Request field Order_ID.
-    var orderId : Optional<Int>
+    var orderId : Optional<Int> = nil
 
     /// Request field Line_IDs.
     var lineIds : [Int] = []
 
     /// Request field Date_InStock.
-    var dateInStock : Optional<Int>
-    
+    var dateInStock : Optional<Date> = nil
+
     /**
      CodingKeys used to map the request when encoding.
-     
+
      - SeeAlso: Encodable
      */
     private enum CodingKeys: String, CodingKey {
@@ -55,15 +56,15 @@ public class OrderItemListBackOrderRequest : Request {
         case lineIds = "Line_IDs"
         case dateInStock = "Date_InStock"
     }
-    
+
     /**
      Request constructor.
 
      - Parameters:
-        - client: A Client instance.
+        - client: A BaseClient instance.
         - order: An optional Order instance.
      */
-    public init(client: Optional<Client> = nil, order: Optional<Order> = nil) {
+    public init(client: Optional<BaseClient> = nil, order: Optional<Order> = nil) {
         super.init(client: client)
         if let order = order {
             if order.id > 0 {
@@ -71,7 +72,7 @@ public class OrderItemListBackOrderRequest : Request {
             }
         }
     }
-    
+
     /**
      Implementation of Encodable.
 
@@ -88,11 +89,13 @@ public class OrderItemListBackOrderRequest : Request {
         }
 
         try container.encodeIfPresent(self.lineIds, forKey: .lineIds)
-        try container.encodeIfPresent(self.dateInStock, forKey: .dateInStock)
+        if let dateInStock = self.dateInStock {
+            try container.encodeIfPresent(Int(dateInStock.timeIntervalSince1970), forKey: .dateInStock)
+        }
 
         try super.encode(to : encoder)
     }
-    
+
     /**
      Send the request for a response.
 
@@ -100,13 +103,10 @@ public class OrderItemListBackOrderRequest : Request {
         - callback: The callback function with signature (OrderItemListBackOrderResponse?, Error?).
      - Note: Overrides
      */
-     public override func send(client: Optional<Client> = nil, callback: @escaping (OrderItemListBackOrderResponse?, Error?) -> ()) throws {
-        if client != nil {
-            client!.send(self) { request, response, error in
-                callback(response as? OrderItemListBackOrderResponse, error)
-            }
-        } else if self.client != nil {
-            self.client!.send(self) { request, response, error in
+
+     public override func send(client: Optional<BaseClient> = nil, callback: @escaping (OrderItemListBackOrderResponse?, Error?) -> ()) throws {
+        if let client = client ?? self.client {
+            client.send(self) { request, response, error in
                 callback(response as? OrderItemListBackOrderResponse, error)
             }
         } else {
@@ -118,16 +118,18 @@ public class OrderItemListBackOrderRequest : Request {
      Create a response object by decoding the response data.
 
      - Parameters:
+        - httpResponse: The underlying HTTP response object
         - data: The response data to decode.
      - Throws: Error when unable to decode the response data.
      - Note: Overrides
      */
-    public override func createResponse(data : Data) throws -> OrderItemListBackOrderResponse {
+    public override func createResponse(httpResponse: URLResponse, data : Data) throws -> OrderItemListBackOrderResponse {
         let decoder = JSONDecoder()
-        
-        decoder.userInfo[Response.decoderRequestUserInfoKey]      = self
-        decoder.userInfo[Response.decoderResponseDataUserInfoKey] = data
-        
+
+        decoder.userInfo[Response.decoderRequestUserInfoKey]            = self
+        decoder.userInfo[Response.decoderHttpResponseDataUserInfoKey]   = httpResponse
+        decoder.userInfo[Response.decoderResponseDataUserInfoKey]       = data
+
         return try decoder.decode(OrderItemListBackOrderResponse.self, from: data)
     }
 
@@ -140,28 +142,28 @@ public class OrderItemListBackOrderRequest : Request {
     override public func getResponseType() -> Response.Type {
         return OrderItemListBackOrderResponse.self
     }
-    
+
     /**
      Getter for Order_ID.
-     
-     - Returns:  Optional<Int> 
+
+     - Returns:  Optional<Int>
      */
     public func getOrderId() -> Optional<Int> {
         return self.orderId
     }
-    
+
     /**
      Getter for Date_InStock.
-     
-     - Returns:  Optional<Int> 
+
+     - Returns:  Optional<Date>
      */
-    public func getDateInStock() -> Optional<Int> {
+    public func getDateInStock() -> Optional<Date> {
         return self.dateInStock
     }
-    
+
     /**
      Setter for Order_ID.
-     
+
      - Parameters:
         - value: Optional<Int>
      - Returns:  Self
@@ -171,20 +173,20 @@ public class OrderItemListBackOrderRequest : Request {
         self.orderId = value
         return self
     }
-    
+
     /**
      Setter for Date_InStock.
-     
+
      - Parameters:
-        - value: Optional<Int>
+        - value: Optional<Date>
      - Returns:  Self
      */
     @discardableResult
-    public func setDateInStock(_ value: Optional<Int>) -> Self {
+    public func setDateInStock(_ value: Optional<Date>) -> Self {
         self.dateInStock = value
         return self
     }
-    
+
     /**
      Add Line_IDs.
 
@@ -197,13 +199,13 @@ public class OrderItemListBackOrderRequest : Request {
         self.lineIds.append(lineId);
         return self
     }
-    
+
     /**
      Add OrderItem model.
 
      - Parameters:
         - orderItem: OrderItem
-     - Returns: Self 
+     - Returns: Self
      */
     @discardableResult
     public func addOrderItem(_ orderItem: OrderItem) -> Self {
