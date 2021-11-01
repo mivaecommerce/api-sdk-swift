@@ -35,6 +35,8 @@ public class JavaScriptResourceChange : Model {
     /// Model field Attributes.
     var attributes : [JavaScriptResourceVersionAttribute]
 
+    /// Model field Notes.
+    var notes : Optional<String>
     /**
      CodingKeys used to map the model when encoding and decoding.
 
@@ -52,6 +54,7 @@ public class JavaScriptResourceChange : Model {
         case linkedPages = "LinkedPages"
         case linkedResources = "LinkedResources"
         case attributes = "Attributes"
+        case notes = "Notes"
     }
 
     /**
@@ -69,6 +72,7 @@ public class JavaScriptResourceChange : Model {
         self.linkedPages = []
         self.linkedResources = []
         self.attributes = []
+        self.notes = nil
 
         super.init()
     }
@@ -95,6 +99,7 @@ public class JavaScriptResourceChange : Model {
         self.linkedPages = try container.decodeIfPresent([String].self, forKey: .linkedPages) ?? []
         self.linkedResources = try container.decodeIfPresent([String].self, forKey: .linkedResources) ?? []
         self.attributes = try container.decodeIfPresent([JavaScriptResourceVersionAttribute].self, forKey: .attributes) ?? []
+        self.notes = try container.decodeIfPresent(String.self, forKey: .notes) ?? nil
 
         try super.init(from : decoder)
     }
@@ -119,6 +124,7 @@ public class JavaScriptResourceChange : Model {
         try container.encodeIfPresent(self.branchlessFilePath, forKey: .branchlessFilePath)
         try container.encodeIfPresent(self.source, forKey: .source)
         try container.encodeIfPresent(self.attributes, forKey: .attributes)
+        try container.encodeIfPresent(self.notes, forKey: .notes)
 
         try super.encode(to: encoder)
     }
@@ -224,6 +230,16 @@ public class JavaScriptResourceChange : Model {
      */
     public func getAttributes() -> [JavaScriptResourceVersionAttribute] {
         return self.attributes
+    }
+
+    /**
+     Getter for Notes.
+
+     - Returns:  Optional<String>
+
+     */
+    public func getNotes() -> Optional<String> {
+        return self.notes
     }
 
     /**
@@ -353,6 +369,19 @@ public class JavaScriptResourceChange : Model {
     @discardableResult
     public func setLinkedResources(_ value: [String]) -> Self {
         self.linkedResources = value
+        return self
+    }
+
+    /**
+     Setter for Notes.
+
+     - Parameters:
+        - value: String
+     - Returns:  Self
+     */
+    @discardableResult
+    public func setNotes(_ value: String) -> Self {
+        self.notes = value
         return self
     }
 

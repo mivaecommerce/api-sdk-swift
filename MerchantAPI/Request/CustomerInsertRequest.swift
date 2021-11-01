@@ -207,6 +207,7 @@ public class CustomerInsertRequest : Request {
             self.customerBillState = customer.billState
             self.customerBillZip = customer.billZip
             self.customerBillCountry = customer.billCountry
+            self.customerTaxExempt = customer.taxExempt
             self.customerBusinessAccount = customer.businessTitle
             self.customFieldValues = customer.customFieldValues
         }

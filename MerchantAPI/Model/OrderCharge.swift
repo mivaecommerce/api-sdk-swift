@@ -22,12 +22,18 @@ public class OrderCharge : Model {
     var description : Optional<String>
     /// Model field amount.
     var amount : Optional<Decimal>
+    /// Model field formatted_amount.
+    var formattedAmount : String
     /// Model field disp_amt.
     var displayAmount : Optional<Decimal>
+    /// Model field formatted_disp_amt.
+    var formattedDisplayAmount : String
     /// Model field tax_exempt.
     var taxExempt : Optional<Bool>
     /// Model field tax.
     var tax : Decimal
+    /// Model field formatted_tax.
+    var formattedTax : String
     /**
      CodingKeys used to map the model when encoding and decoding.
 
@@ -40,9 +46,12 @@ public class OrderCharge : Model {
         case type
         case description = "descrip"
         case amount
+        case formattedAmount = "formatted_amount"
         case displayAmount = "disp_amt"
+        case formattedDisplayAmount = "formatted_disp_amt"
         case taxExempt = "tax_exempt"
         case tax
+        case formattedTax = "formatted_tax"
     }
 
     /**
@@ -55,9 +64,12 @@ public class OrderCharge : Model {
         self.type = nil
         self.description = nil
         self.amount = nil
+        self.formattedAmount = ""
         self.displayAmount = nil
+        self.formattedDisplayAmount = ""
         self.taxExempt = nil
         self.tax = Decimal(0.00)
+        self.formattedTax = ""
 
         super.init()
     }
@@ -79,9 +91,12 @@ public class OrderCharge : Model {
         self.type = try container.decodeIfPresent(String.self, forKey: .type) ?? nil
         self.description = try container.decodeIfPresent(String.self, forKey: .description) ?? nil
         self.amount = try container.decodeIfPresent(Decimal.self, forKey: .amount) ?? nil
+        self.formattedAmount = try container.decodeIfPresent(String.self, forKey: .formattedAmount) ?? ""
         self.displayAmount = try container.decodeIfPresent(Decimal.self, forKey: .displayAmount) ?? nil
+        self.formattedDisplayAmount = try container.decodeIfPresent(String.self, forKey: .formattedDisplayAmount) ?? ""
         self.taxExempt = try container.decodeIfPresent(Bool.self, forKey: .taxExempt) ?? nil
         self.tax = try container.decodeIfPresent(Decimal.self, forKey: .tax) ?? Decimal(0.00)
+        self.formattedTax = try container.decodeIfPresent(String.self, forKey: .formattedTax) ?? ""
 
         try super.init(from : decoder)
     }
@@ -103,9 +118,12 @@ public class OrderCharge : Model {
         try container.encodeIfPresent(self.type, forKey: .type)
         try container.encodeIfPresent(self.description, forKey: .description)
         try container.encodeIfPresent(Decimal.roundForEncoding(value: self.amount, precision: MERCHANTAPI_FLOAT_ENCODE_PRECISION), forKey: .amount)
+        try container.encodeIfPresent(self.formattedAmount, forKey: .formattedAmount)
         try container.encodeIfPresent(Decimal.roundForEncoding(value: self.displayAmount, precision: MERCHANTAPI_FLOAT_ENCODE_PRECISION), forKey: .displayAmount)
+        try container.encodeIfPresent(self.formattedDisplayAmount, forKey: .formattedDisplayAmount)
         try container.encodeIfPresent(self.taxExempt, forKey: .taxExempt)
         try container.encodeIfPresent(Decimal.roundForEncoding(value: self.tax, precision: MERCHANTAPI_FLOAT_ENCODE_PRECISION), forKey: .tax)
+        try container.encodeIfPresent(self.formattedTax, forKey: .formattedTax)
 
         try super.encode(to: encoder)
     }
@@ -169,11 +187,31 @@ public class OrderCharge : Model {
     }
 
     /**
+     Getter for formatted_amount.
+
+     - Returns:  String
+
+     */
+    public func getFormattedAmount() -> String {
+        return self.formattedAmount
+    }
+
+    /**
      Getter for disp_amt.
 
      - Returns:  Optional<Decimal>     */
     public func getDisplayAmount() -> Optional<Decimal> {
         return self.displayAmount
+    }
+
+    /**
+     Getter for formatted_disp_amt.
+
+     - Returns:  String
+
+     */
+    public func getFormattedDisplayAmount() -> String {
+        return self.formattedDisplayAmount
     }
 
     /**
@@ -190,6 +228,16 @@ public class OrderCharge : Model {
      - Returns:  Decimal     */
     public func getTax() -> Decimal {
         return self.tax
+    }
+
+    /**
+     Getter for formatted_tax.
+
+     - Returns:  String
+
+     */
+    public func getFormattedTax() -> String {
+        return self.formattedTax
     }
 
     /**

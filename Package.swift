@@ -5,11 +5,12 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-
+ 
 import PackageDescription
 
 let package = Package(
     name: "MerchantAPI",
+    platforms: [ .macOS(.v10_12) ],
     products: [
         .library(
             name: "MerchantAPI",
@@ -28,7 +29,13 @@ let package = Package(
                 "Socket",
                 "Cryptor"
             ],
-            path: "MerchantAPI")
+            path: "MerchantAPI"),
+        .testTarget(
+            name: "MerchantAPITests",
+            dependencies: [
+                "MerchantAPI"
+            ],
+            path: "MerchantAPITests"),
 
     ]
 )

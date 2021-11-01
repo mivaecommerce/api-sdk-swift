@@ -88,6 +88,7 @@ public class CategoryInsertRequest : Request {
             self.categoryName = category.name
             self.categoryActive = category.active
             self.categoryPageTitle = category.pageTitle
+            self.categoryParentCategory = category.parentCategory
             self.categoryAlternateDisplayPage = category.pageCode
             self.customFieldValues = category.customFieldValues
         }

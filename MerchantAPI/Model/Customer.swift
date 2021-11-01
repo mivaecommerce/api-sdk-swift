@@ -72,12 +72,26 @@ public class Customer : Model {
     var billZip : String
     /// Model field bill_cntry.
     var billCountry : String
+    /// Model field tax_exempt.
+    var taxExempt : Bool
+    /// Model field order_cnt.
+    var orderCount : Int
+    /// Model field order_avg.
+    var orderAverage : Decimal
+    /// Model field formatted_order_avg.
+    var formattedOrderAverage : String
+    /// Model field order_tot.
+    var orderTotal : Decimal
+    /// Model field formatted_order_tot.
+    var formattedOrderTotal : String
     /// Model field note_count.
     var noteCount : Int
     /// Model field dt_created.
     var createdOn : Date
     /// Model field dt_login.
     var lastLogin : Date
+    /// Model field dt_pwchg.
+    var passwordChangeDateTime : Date
     /// Model field credit.
     var credit : Decimal
     /// Model field formatted_credit.
@@ -124,9 +138,16 @@ public class Customer : Model {
         case billState = "bill_state"
         case billZip = "bill_zip"
         case billCountry = "bill_cntry"
+        case taxExempt = "tax_exempt"
+        case orderCount = "order_cnt"
+        case orderAverage = "order_avg"
+        case formattedOrderAverage = "formatted_order_avg"
+        case orderTotal = "order_tot"
+        case formattedOrderTotal = "formatted_order_tot"
         case noteCount = "note_count"
         case createdOn = "dt_created"
         case lastLogin = "dt_login"
+        case passwordChangeDateTime = "dt_pwchg"
         case credit
         case formattedCredit = "formatted_credit"
         case businessTitle = "business_title"
@@ -168,9 +189,16 @@ public class Customer : Model {
         self.billState = ""
         self.billZip = ""
         self.billCountry = ""
+        self.taxExempt = false
+        self.orderCount = 0
+        self.orderAverage = Decimal(0.00)
+        self.formattedOrderAverage = ""
+        self.orderTotal = Decimal(0.00)
+        self.formattedOrderTotal = ""
         self.noteCount = 0
         self.createdOn = Date(timeIntervalSince1970: 0)
         self.lastLogin = Date(timeIntervalSince1970: 0)
+        self.passwordChangeDateTime = Date(timeIntervalSince1970: 0)
         self.credit = Decimal(0.00)
         self.formattedCredit = ""
         self.businessTitle = ""
@@ -221,9 +249,16 @@ public class Customer : Model {
         self.billState = try container.decodeIfPresent(String.self, forKey: .billState) ?? ""
         self.billZip = try container.decodeIfPresent(String.self, forKey: .billZip) ?? ""
         self.billCountry = try container.decodeIfPresent(String.self, forKey: .billCountry) ?? ""
+        self.taxExempt = try container.decodeIfPresent(Bool.self, forKey: .taxExempt) ?? false
+        self.orderCount = try container.decodeIfPresent(Int.self, forKey: .orderCount) ?? 0
+        self.orderAverage = try container.decodeIfPresent(Decimal.self, forKey: .orderAverage) ?? Decimal(0.00)
+        self.formattedOrderAverage = try container.decodeIfPresent(String.self, forKey: .formattedOrderAverage) ?? ""
+        self.orderTotal = try container.decodeIfPresent(Decimal.self, forKey: .orderTotal) ?? Decimal(0.00)
+        self.formattedOrderTotal = try container.decodeIfPresent(String.self, forKey: .formattedOrderTotal) ?? ""
         self.noteCount = try container.decodeIfPresent(Int.self, forKey: .noteCount) ?? 0
         self.createdOn = Date(timeIntervalSince1970: Double(try container.decodeIfPresent(Int.self, forKey: .createdOn) ?? 0))
         self.lastLogin = Date(timeIntervalSince1970: Double(try container.decodeIfPresent(Int.self, forKey: .lastLogin) ?? 0))
+        self.passwordChangeDateTime = Date(timeIntervalSince1970: Double(try container.decodeIfPresent(Int.self, forKey: .passwordChangeDateTime) ?? 0))
         self.credit = try container.decodeIfPresent(Decimal.self, forKey: .credit) ?? Decimal(0.00)
         self.formattedCredit = try container.decodeIfPresent(String.self, forKey: .formattedCredit) ?? ""
         self.businessTitle = try container.decodeIfPresent(String.self, forKey: .businessTitle) ?? ""
@@ -274,9 +309,16 @@ public class Customer : Model {
         try container.encodeIfPresent(self.billState, forKey: .billState)
         try container.encodeIfPresent(self.billZip, forKey: .billZip)
         try container.encodeIfPresent(self.billCountry, forKey: .billCountry)
+        try container.encodeIfPresent(self.taxExempt, forKey: .taxExempt)
+        try container.encodeIfPresent(self.orderCount, forKey: .orderCount)
+        try container.encodeIfPresent(Decimal.roundForEncoding(value: self.orderAverage, precision: MERCHANTAPI_FLOAT_ENCODE_PRECISION), forKey: .orderAverage)
+        try container.encodeIfPresent(self.formattedOrderAverage, forKey: .formattedOrderAverage)
+        try container.encodeIfPresent(Decimal.roundForEncoding(value: self.orderTotal, precision: MERCHANTAPI_FLOAT_ENCODE_PRECISION), forKey: .orderTotal)
+        try container.encodeIfPresent(self.formattedOrderTotal, forKey: .formattedOrderTotal)
         try container.encodeIfPresent(self.noteCount, forKey: .noteCount)
         try container.encodeIfPresent(Int(self.createdOn.timeIntervalSince1970), forKey: .createdOn)
         try container.encodeIfPresent(Int(self.lastLogin.timeIntervalSince1970), forKey: .lastLogin)
+        try container.encodeIfPresent(Int(self.passwordChangeDateTime.timeIntervalSince1970), forKey: .passwordChangeDateTime)
         try container.encodeIfPresent(Decimal.roundForEncoding(value: self.credit, precision: MERCHANTAPI_FLOAT_ENCODE_PRECISION), forKey: .credit)
         try container.encodeIfPresent(self.formattedCredit, forKey: .formattedCredit)
         try container.encodeIfPresent(self.businessTitle, forKey: .businessTitle)
@@ -594,6 +636,60 @@ public class Customer : Model {
     }
 
     /**
+     Getter for tax_exempt.
+
+     - Returns:  Bool     */
+    public func getTaxExempt() -> Bool {
+        return self.taxExempt
+    }
+
+    /**
+     Getter for order_cnt.
+
+     - Returns:  Int
+
+     */
+    public func getOrderCount() -> Int {
+        return self.orderCount
+    }
+
+    /**
+     Getter for order_avg.
+
+     - Returns:  Decimal     */
+    public func getOrderAverage() -> Decimal {
+        return self.orderAverage
+    }
+
+    /**
+     Getter for formatted_order_avg.
+
+     - Returns:  String
+
+     */
+    public func getFormattedOrderAverage() -> String {
+        return self.formattedOrderAverage
+    }
+
+    /**
+     Getter for order_tot.
+
+     - Returns:  Decimal     */
+    public func getOrderTotal() -> Decimal {
+        return self.orderTotal
+    }
+
+    /**
+     Getter for formatted_order_tot.
+
+     - Returns:  String
+
+     */
+    public func getFormattedOrderTotal() -> String {
+        return self.formattedOrderTotal
+    }
+
+    /**
      Getter for note_count.
 
      - Returns:  Int
@@ -617,6 +713,14 @@ public class Customer : Model {
      - Returns:  Date     */
     public func getLastLogin() -> Date {
         return self.lastLogin
+    }
+
+    /**
+     Getter for dt_pwchg.
+
+     - Returns:  Date     */
+    public func getPasswordChangeDateTime() -> Date {
+        return self.passwordChangeDateTime
     }
 
     /**

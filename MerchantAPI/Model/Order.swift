@@ -178,6 +178,9 @@ public class Order : Model {
     /// Model field notes.
     var notes : [OrderNote]
 
+    /// Model field parts.
+    var parts : [OrderPart]
+
     /// Model field CustomField_Values
     var customFieldValues : CustomFieldValues
 
@@ -254,6 +257,7 @@ public class Order : Model {
         case discounts
         case payments
         case notes
+        case parts
         case customFieldValues = "CustomField_Values"
     }
 
@@ -328,6 +332,7 @@ public class Order : Model {
         self.discounts = []
         self.payments = []
         self.notes = []
+        self.parts = []
         self.customFieldValues = CustomFieldValues()
 
         super.init()
@@ -411,6 +416,7 @@ public class Order : Model {
         self.discounts = try container.decodeIfPresent([OrderDiscountTotal].self, forKey: .discounts) ?? []
         self.payments = try container.decodeIfPresent([OrderPayment].self, forKey: .payments) ?? []
         self.notes = try container.decodeIfPresent([OrderNote].self, forKey: .notes) ?? []
+        self.parts = try container.decodeIfPresent([OrderPart].self, forKey: .parts) ?? []
         self.customFieldValues = try container.decodeIfPresent(CustomFieldValues.self, forKey: .customFieldValues) ?? CustomFieldValues()
 
         try super.init(from : decoder)
@@ -494,6 +500,7 @@ public class Order : Model {
         try container.encodeIfPresent(self.discounts, forKey: .discounts)
         try container.encodeIfPresent(self.payments, forKey: .payments)
         try container.encodeIfPresent(self.notes, forKey: .notes)
+        try container.encodeIfPresent(self.parts, forKey: .parts)
         try container.encodeIfPresent(self.customFieldValues, forKey: .customFieldValues)
 
         try super.encode(to: encoder)
@@ -1142,6 +1149,15 @@ public class Order : Model {
      */
     public func getNotes() -> [OrderNote] {
         return self.notes
+    }
+
+    /**
+     Getter for parts.
+
+     - Returns:  [OrderPart]
+     */
+    public func getParts() -> [OrderPart] {
+        return self.parts
     }
 
     /**

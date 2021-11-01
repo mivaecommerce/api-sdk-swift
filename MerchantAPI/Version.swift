@@ -16,8 +16,8 @@ public struct Version {
     public static var VERSION_MINOR = 0
 
     /// The patch version of this release.
-    public static var VERSION_PATCH = 0
+    public static var VERSION_PATCH = 1
 
     // The version of this release as a String.
-    public static var VERSION_STRING = "2.0.0"
+    public static var VERSION_STRING = "2.0.1"
 }

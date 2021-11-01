@@ -181,7 +181,8 @@ public class OrderListLoadQueryRequest : ListQueryRequest {
                 "coupons",
                 "discounts",
                 "payments",
-                "notes"
+                "notes",
+                "parts"
             ]
         }
     }

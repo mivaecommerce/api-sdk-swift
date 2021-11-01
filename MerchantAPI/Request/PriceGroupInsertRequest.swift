@@ -54,6 +54,12 @@ public class PriceGroupInsertRequest : Request {
     /// Request field Module_ID.
     var moduleId : Optional<Int> = nil
 
+    /// Request field Edit_Module.
+    var editModule : Optional<String> = nil
+
+    /// Request field Module_Code.
+    var moduleCode : Optional<String> = nil
+
     /// Request field Exclusion.
     var exclusion : Optional<Bool> = nil
 
@@ -124,6 +130,8 @@ public class PriceGroupInsertRequest : Request {
         case discount = "Discount"
         case markup = "Markup"
         case moduleId = "Module_ID"
+        case editModule = "Edit_Module"
+        case moduleCode = "Module_Code"
         case exclusion = "Exclusion"
         case description = "Description"
         case display = "Display"
@@ -165,12 +173,19 @@ public class PriceGroupInsertRequest : Request {
     public override func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
 
+        if self.moduleId != nil {
+            try container.encodeIfPresent(self.moduleId, forKey: .moduleId)
+        } else if self.editModule != nil {
+            try container.encode(self.editModule, forKey: .editModule)
+        } else if self.moduleCode != nil {
+            try container.encode(self.moduleCode, forKey: .moduleCode)
+        }
+
         try container.encodeIfPresent(self.name, forKey: .name)
         try container.encodeIfPresent(self.customerScope, forKey: .customerScope)
         try container.encodeIfPresent(self.rate, forKey: .rate)
         try container.encodeIfPresent(Decimal.roundForEncoding(value: self.discount, precision: MERCHANTAPI_FLOAT_ENCODE_PRECISION), forKey: .discount)
         try container.encodeIfPresent(Decimal.roundForEncoding(value: self.markup, precision: MERCHANTAPI_FLOAT_ENCODE_PRECISION), forKey: .markup)
-        try container.encodeIfPresent(self.moduleId, forKey: .moduleId)
         try container.encodeIfPresent(self.exclusion, forKey: .exclusion)
         try container.encodeIfPresent(self.description, forKey: .description)
         try container.encodeIfPresent(self.display, forKey: .display)
@@ -302,6 +317,24 @@ public class PriceGroupInsertRequest : Request {
      */
     public func getModuleId() -> Optional<Int> {
         return self.moduleId
+    }
+
+    /**
+     Getter for Edit_Module.
+
+     - Returns:  Optional<String>
+     */
+    public func getEditModule() -> Optional<String> {
+        return self.editModule
+    }
+
+    /**
+     Getter for Module_Code.
+
+     - Returns:  Optional<String>
+     */
+    public func getModuleCode() -> Optional<String> {
+        return self.moduleCode
     }
 
     /**
@@ -550,6 +583,32 @@ public class PriceGroupInsertRequest : Request {
     @discardableResult
     public func setModuleId(_ value: Optional<Int>) -> Self {
         self.moduleId = value
+        return self
+    }
+
+    /**
+     Setter for Edit_Module.
+
+     - Parameters:
+        - value: Optional<String>
+     - Returns:  Self
+     */
+    @discardableResult
+    public func setEditModule(_ value: Optional<String>) -> Self {
+        self.editModule = value
+        return self
+    }
+
+    /**
+     Setter for Module_Code.
+
+     - Parameters:
+        - value: Optional<String>
+     - Returns:  Self
+     */
+    @discardableResult
+    public func setModuleCode(_ value: Optional<String>) -> Self {
+        self.moduleCode = value
         return self
     }
 

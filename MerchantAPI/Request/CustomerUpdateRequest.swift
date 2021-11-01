@@ -127,7 +127,7 @@ public class CustomerUpdateRequest : Request {
     var customerBillCountry : Optional<String> = nil
 
     /// Request field Customer_Tax_Exempt.
-    var customerTaxExempt : Optional<String> = nil
+    var customerTaxExempt : Optional<Bool> = nil
 
     /// Request field Customer_BusinessAccount.
     var customerBusinessAccount : Optional<String> = nil
@@ -221,6 +221,7 @@ public class CustomerUpdateRequest : Request {
             self.customerBillState = customer.billState
             self.customerBillZip = customer.billZip
             self.customerBillCountry = customer.billCountry
+            self.customerTaxExempt = customer.taxExempt
             self.customerBusinessAccount = customer.businessTitle
             self.customFieldValues = customer.customFieldValues
         }
@@ -598,9 +599,9 @@ public class CustomerUpdateRequest : Request {
     /**
      Getter for Customer_Tax_Exempt.
 
-     - Returns:  Optional<String>
+     - Returns:  Optional<Bool>
      */
-    public func getCustomerTaxExempt() -> Optional<String> {
+    public func getCustomerTaxExempt() -> Optional<Bool> {
         return self.customerTaxExempt
     }
 
@@ -1016,11 +1017,11 @@ public class CustomerUpdateRequest : Request {
      Setter for Customer_Tax_Exempt.
 
      - Parameters:
-        - value: Optional<String>
+        - value: Optional<Bool>
      - Returns:  Self
      */
     @discardableResult
-    public func setCustomerTaxExempt(_ value: Optional<String>) -> Self {
+    public func setCustomerTaxExempt(_ value: Optional<Bool>) -> Self {
         self.customerTaxExempt = value
         return self
     }

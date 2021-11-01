@@ -19,6 +19,8 @@ public class TemplateChange : Model {
     /// Model field Settings
     var settings : TemplateVersionSettings
 
+    /// Model field Notes.
+    var notes : Optional<String>
     /**
      CodingKeys used to map the model when encoding and decoding.
 
@@ -29,6 +31,7 @@ public class TemplateChange : Model {
         case templateFilename = "Template_Filename"
         case source = "Source"
         case settings = "Settings"
+        case notes = "Notes"
     }
 
     /**
@@ -39,6 +42,7 @@ public class TemplateChange : Model {
         self.templateFilename = nil
         self.source = ""
         self.settings = TemplateVersionSettings()
+        self.notes = nil
 
         super.init()
     }
@@ -58,6 +62,7 @@ public class TemplateChange : Model {
         self.templateFilename = try container.decodeIfPresent(String.self, forKey: .templateFilename) ?? nil
         self.source = try container.decodeIfPresent(String.self, forKey: .source) ?? ""
         self.settings = try container.decodeIfPresent(TemplateVersionSettings.self, forKey: .settings) ?? TemplateVersionSettings()
+        self.notes = try container.decodeIfPresent(String.self, forKey: .notes) ?? nil
 
         try super.init(from : decoder)
     }
@@ -77,6 +82,7 @@ public class TemplateChange : Model {
         try container.encodeIfPresent(self.templateFilename, forKey: .templateFilename)
         try container.encodeIfPresent(self.source, forKey: .source)
         try container.encodeIfPresent(self.settings, forKey: .settings)
+        try container.encodeIfPresent(self.notes, forKey: .notes)
 
         try super.encode(to: encoder)
     }
@@ -121,6 +127,16 @@ public class TemplateChange : Model {
     }
 
     /**
+     Getter for Notes.
+
+     - Returns:  Optional<String>
+
+     */
+    public func getNotes() -> Optional<String> {
+        return self.notes
+    }
+
+    /**
      Setter for Template_ID.
 
      - Parameters:
@@ -156,6 +172,19 @@ public class TemplateChange : Model {
     @discardableResult
     public func setSource(_ value: String) -> Self {
         self.source = value
+        return self
+    }
+
+    /**
+     Setter for Notes.
+
+     - Parameters:
+        - value: String
+     - Returns:  Self
+     */
+    @discardableResult
+    public func setNotes(_ value: String) -> Self {
+        self.notes = value
         return self
     }
 }

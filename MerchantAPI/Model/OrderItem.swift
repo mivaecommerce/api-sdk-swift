@@ -59,7 +59,7 @@ public class OrderItem : Model {
     /// Model field price.
     var price : Optional<Decimal>
     /// Model field tax.
-    var tax : Decimal
+    var tax : Optional<Decimal>
     /// Model field formatted_tax.
     var formattedTax : String
     /// Model field weight.
@@ -148,7 +148,7 @@ public class OrderItem : Model {
         self.retail = Decimal(0.00)
         self.basePrice = Decimal(0.00)
         self.price = nil
-        self.tax = Decimal(0.00)
+        self.tax = nil
         self.formattedTax = ""
         self.weight = nil
         self.taxable = nil
@@ -193,7 +193,7 @@ public class OrderItem : Model {
         self.retail = try container.decodeIfPresent(Decimal.self, forKey: .retail) ?? Decimal(0.00)
         self.basePrice = try container.decodeIfPresent(Decimal.self, forKey: .basePrice) ?? Decimal(0.00)
         self.price = try container.decodeIfPresent(Decimal.self, forKey: .price) ?? nil
-        self.tax = try container.decodeIfPresent(Decimal.self, forKey: .tax) ?? Decimal(0.00)
+        self.tax = try container.decodeIfPresent(Decimal.self, forKey: .tax) ?? nil
         self.formattedTax = try container.decodeIfPresent(String.self, forKey: .formattedTax) ?? ""
         self.weight = try container.decodeIfPresent(Decimal.self, forKey: .weight) ?? nil
         self.taxable = try container.decodeIfPresent(Bool.self, forKey: .taxable) ?? nil
@@ -407,8 +407,8 @@ public class OrderItem : Model {
     /**
      Getter for tax.
 
-     - Returns:  Decimal     */
-    public func getTax() -> Decimal {
+     - Returns:  Optional<Decimal>     */
+    public func getTax() -> Optional<Decimal> {
         return self.tax
     }
 
@@ -579,6 +579,19 @@ public class OrderItem : Model {
     @discardableResult
     public func setPrice(_ value: Decimal) -> Self {
         self.price = value
+        return self
+    }
+
+    /**
+     Setter for tax.
+
+     - Parameters:
+        - value: Decimal
+     - Returns:  Self
+     */
+    @discardableResult
+    public func setTax(_ value: Decimal) -> Self {
+        self.tax = value
         return self
     }
 

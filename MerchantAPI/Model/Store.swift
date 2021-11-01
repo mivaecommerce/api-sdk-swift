@@ -10,6 +10,12 @@ import Foundation
 /// Store data model.
 public class Store : Model {
 
+    /// Enumeration CacheTypes
+    public enum CacheTypes : String {
+        case CacheTypeNone = ""
+        case CacheTypeRedis = "redis"
+    }
+
     /// Model field id.
     var id : Int
     /// Model field manager_id.
@@ -81,6 +87,16 @@ public class Store : Model {
     var requireFreeOrderShipping : Bool
     /// Model field item_adel.
     var itemModuleUninstallable : Bool
+    /// Model field cache_type.
+    var cacheType : String
+    /// Model field redishost.
+    var redisHost : String
+    /// Model field redisport.
+    var redisPort : Int
+    /// Model field redisto.
+    var redisTimeout : Int
+    /// Model field redisex.
+    var redisExpiration : Int
     /**
      CodingKeys used to map the model when encoding and decoding.
 
@@ -123,6 +139,11 @@ public class Store : Model {
         case requireTax = "req_tax"
         case requireFreeOrderShipping = "req_frship"
         case itemModuleUninstallable = "item_adel"
+        case cacheType = "cache_type"
+        case redisHost = "redishost"
+        case redisPort = "redisport"
+        case redisTimeout = "redisto"
+        case redisExpiration = "redisex"
     }
 
     /**
@@ -164,6 +185,11 @@ public class Store : Model {
         self.requireTax = false
         self.requireFreeOrderShipping = false
         self.itemModuleUninstallable = false
+        self.cacheType = ""
+        self.redisHost = ""
+        self.redisPort = 0
+        self.redisTimeout = 0
+        self.redisExpiration = 0
 
         super.init()
     }
@@ -214,6 +240,11 @@ public class Store : Model {
         self.requireTax = try container.decodeIfPresent(Bool.self, forKey: .requireTax) ?? false
         self.requireFreeOrderShipping = try container.decodeIfPresent(Bool.self, forKey: .requireFreeOrderShipping) ?? false
         self.itemModuleUninstallable = try container.decodeIfPresent(Bool.self, forKey: .itemModuleUninstallable) ?? false
+        self.cacheType = try container.decodeIfPresent(String.self, forKey: .cacheType) ?? ""
+        self.redisHost = try container.decodeIfPresent(String.self, forKey: .redisHost) ?? ""
+        self.redisPort = try container.decodeIfPresent(Int.self, forKey: .redisPort) ?? 0
+        self.redisTimeout = try container.decodeIfPresent(Int.self, forKey: .redisTimeout) ?? 0
+        self.redisExpiration = try container.decodeIfPresent(Int.self, forKey: .redisExpiration) ?? 0
 
         try super.init(from : decoder)
     }
@@ -264,6 +295,11 @@ public class Store : Model {
         try container.encodeIfPresent(self.requireTax, forKey: .requireTax)
         try container.encodeIfPresent(self.requireFreeOrderShipping, forKey: .requireFreeOrderShipping)
         try container.encodeIfPresent(self.itemModuleUninstallable, forKey: .itemModuleUninstallable)
+        try container.encodeIfPresent(self.cacheType, forKey: .cacheType)
+        try container.encodeIfPresent(self.redisHost, forKey: .redisHost)
+        try container.encodeIfPresent(self.redisPort, forKey: .redisPort)
+        try container.encodeIfPresent(self.redisTimeout, forKey: .redisTimeout)
+        try container.encodeIfPresent(self.redisExpiration, forKey: .redisExpiration)
 
         try super.encode(to: encoder)
     }
@@ -606,5 +642,55 @@ public class Store : Model {
      - Returns:  Bool     */
     public func getItemModuleUninstallable() -> Bool {
         return self.itemModuleUninstallable
+    }
+
+    /**
+     Getter for cache_type.
+
+     - Returns:  String
+
+     */
+    public func getCacheType() -> String {
+        return self.cacheType
+    }
+
+    /**
+     Getter for redishost.
+
+     - Returns:  String
+
+     */
+    public func getRedisHost() -> String {
+        return self.redisHost
+    }
+
+    /**
+     Getter for redisport.
+
+     - Returns:  Int
+
+     */
+    public func getRedisPort() -> Int {
+        return self.redisPort
+    }
+
+    /**
+     Getter for redisto.
+
+     - Returns:  Int
+
+     */
+    public func getRedisTimeout() -> Int {
+        return self.redisTimeout
+    }
+
+    /**
+     Getter for redisex.
+
+     - Returns:  Int
+
+     */
+    public func getRedisExpiration() -> Int {
+        return self.redisExpiration
     }
 }

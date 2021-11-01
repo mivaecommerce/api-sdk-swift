@@ -139,7 +139,8 @@ public class CustomerAddressUpdateRequest : Request {
             self.firstName = customerAddress.firstName
             self.lastName = customerAddress.lastName
             self.email = customerAddress.email
-            self.fax = customerAddress.phone
+            self.phone = customerAddress.phone
+            self.fax = customerAddress.fax
             self.company = customerAddress.company
             self.address1 = customerAddress.address1
             self.address2 = customerAddress.address2
