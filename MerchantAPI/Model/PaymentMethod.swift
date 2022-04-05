@@ -12,14 +12,19 @@ public class PaymentMethod : Model {
 
     /// Model field module_id.
     var moduleId : Int
+
     /// Model field module_api.
     var moduleApi : Decimal
+
     /// Model field method_code.
     var methodCode : String
+
     /// Model field method_name.
     var methodName : String
+
     /// Model field mivapay.
     var mivapay : Bool
+
     /// Model field paymentcard
     var paymentCard : Optional<CustomerPaymentCard> = nil
 

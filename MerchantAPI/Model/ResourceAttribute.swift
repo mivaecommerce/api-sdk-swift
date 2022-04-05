@@ -12,8 +12,10 @@ public class ResourceAttribute : Model {
 
     /// Model field name.
     var name : Optional<String>
+
     /// Model field value.
     var value : Optional<String>
+
     /**
      CodingKeys used to map the model when encoding and decoding.
 

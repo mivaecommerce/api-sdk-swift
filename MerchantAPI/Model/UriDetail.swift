@@ -12,10 +12,13 @@ public class UriDetail : Model {
 
     /// Model field code.
     var code : String
+
     /// Model field name.
     var name : String
+
     /// Model field sku.
     var sku : String
+
     /**
      CodingKeys used to map the model when encoding and decoding.
 

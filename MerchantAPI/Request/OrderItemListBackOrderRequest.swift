@@ -90,7 +90,7 @@ public class OrderItemListBackOrderRequest : Request {
 
         try container.encodeIfPresent(self.lineIds, forKey: .lineIds)
         if let dateInStock = self.dateInStock {
-            try container.encodeIfPresent(Int(dateInStock.timeIntervalSince1970), forKey: .dateInStock)
+            try container.encodeIfPresent(Int64(dateInStock.timeIntervalSince1970), forKey: .dateInStock)
         }
 
         try super.encode(to : encoder)

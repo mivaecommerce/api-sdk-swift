@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		A30597BB27C8354300395F30 /* VersionSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = A30597BA27C8354300395F30 /* VersionSettings.swift */; };
 		A30782932527F980005554B6 /* BranchListDeleteRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = A30782912527F980005554B6 /* BranchListDeleteRequest.swift */; };
 		A30782942527F980005554B6 /* MivaMerchantVersionRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = A30782922527F980005554B6 /* MivaMerchantVersionRequest.swift */; };
 		A30782962527F98C005554B6 /* MerchantVersion.swift in Sources */ = {isa = PBXBuildFile; fileRef = A30782952527F98C005554B6 /* MerchantVersion.swift */; };
@@ -271,7 +272,6 @@
 		A3630F6A24B4FE2C00C7F729 /* CustomerCreditHistory.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3630E5A24B4FE2B00C7F729 /* CustomerCreditHistory.swift */; };
 		A3630F6B24B4FE2C00C7F729 /* SubscriptionOption.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3630E5B24B4FE2B00C7F729 /* SubscriptionOption.swift */; };
 		A3630F6C24B4FE2C00C7F729 /* ProductVariant.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3630E5C24B4FE2B00C7F729 /* ProductVariant.swift */; };
-		A3630F6D24B4FE2C00C7F729 /* TemplateVersionSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3630E5D24B4FE2B00C7F729 /* TemplateVersionSettings.swift */; };
 		A3630F6F24B4FE2C00C7F729 /* ProductInventorySettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3630E5F24B4FE2B00C7F729 /* ProductInventorySettings.swift */; };
 		A3630F7024B4FE2C00C7F729 /* PaymentMethod.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3630E6024B4FE2B00C7F729 /* PaymentMethod.swift */; };
 		A3630F7124B4FE2C00C7F729 /* Subscription.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3630E6124B4FE2B00C7F729 /* Subscription.swift */; };
@@ -579,6 +579,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		A30597BA27C8354300395F30 /* VersionSettings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VersionSettings.swift; sourceTree = "<group>"; };
 		A30782912527F980005554B6 /* BranchListDeleteRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BranchListDeleteRequest.swift; sourceTree = "<group>"; };
 		A30782922527F980005554B6 /* MivaMerchantVersionRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MivaMerchantVersionRequest.swift; sourceTree = "<group>"; };
 		A30782952527F98C005554B6 /* MerchantVersion.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MerchantVersion.swift; sourceTree = "<group>"; };
@@ -840,7 +841,6 @@
 		A3630E5A24B4FE2B00C7F729 /* CustomerCreditHistory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomerCreditHistory.swift; sourceTree = "<group>"; };
 		A3630E5B24B4FE2B00C7F729 /* SubscriptionOption.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SubscriptionOption.swift; sourceTree = "<group>"; };
 		A3630E5C24B4FE2B00C7F729 /* ProductVariant.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProductVariant.swift; sourceTree = "<group>"; };
-		A3630E5D24B4FE2B00C7F729 /* TemplateVersionSettings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TemplateVersionSettings.swift; sourceTree = "<group>"; };
 		A3630E5E24B4FE2B00C7F729 /* OrderItemAttribute.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OrderItemAttribute.swift; sourceTree = "<group>"; };
 		A3630E5F24B4FE2B00C7F729 /* ProductInventorySettings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProductInventorySettings.swift; sourceTree = "<group>"; };
 		A3630E6024B4FE2B00C7F729 /* PaymentMethod.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PaymentMethod.swift; sourceTree = "<group>"; };
@@ -1807,11 +1807,11 @@
 				A3630E6124B4FE2B00C7F729 /* Subscription.swift */,
 				A3630E5B24B4FE2B00C7F729 /* SubscriptionOption.swift */,
 				A3630E5224B4FE2B00C7F729 /* TemplateChange.swift */,
-				A3630E5D24B4FE2B00C7F729 /* TemplateVersionSettings.swift */,
 				A3630E7424B4FE2B00C7F729 /* Uri.swift */,
 				A3C663642682ACC000B981E0 /* UriDetail.swift */,
 				A3C6636B2682ACC000B981E0 /* VariantAttribute.swift */,
 				A3C6636C2682ACC000B981E0 /* VariantPart.swift */,
+				A30597BA27C8354300395F30 /* VersionSettings.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -1918,7 +1918,6 @@
 				A3630EF324B4FE2C00C7F729 /* OrderPaymentCaptureResponse.swift in Sources */,
 				A39BA58624B8ECC5008461BF /* BranchPropertyVersionListLoadQueryResponse.swift in Sources */,
 				A3C664522682B03D00B981E0 /* PageURIUpdateResponse.swift in Sources */,
-				A3630F6D24B4FE2C00C7F729 /* TemplateVersionSettings.swift in Sources */,
 				A3C6633C2682ACA800B981E0 /* ProductVariantListDeleteRequest.swift in Sources */,
 				A3630EC124B4FE2B00C7F729 /* OrderListLoadQueryRequest.swift in Sources */,
 				A3C663812682ACC100B981E0 /* ProductKit.swift in Sources */,
@@ -2351,6 +2350,7 @@
 				A3630F7224B4FE2C00C7F729 /* OrderPaymentTotal.swift in Sources */,
 				A3630EBD24B4FE2B00C7F729 /* AvailabilityGroupShippingMethodUpdateAssignedRequest.swift in Sources */,
 				A3630ECB24B4FE2C00C7F729 /* ChangesetChangeListLoadQueryRequest.swift in Sources */,
+				A30597BB27C8354300395F30 /* VersionSettings.swift in Sources */,
 				A3C664082682ACD200B981E0 /* AttributeTemplateInsertResponse.swift in Sources */,
 				A3630EE924B4FE2C00C7F729 /* MultiCallOperation.swift in Sources */,
 				A3630EB824B4FE2B00C7F729 /* NoteUpdateRequest.swift in Sources */,
@@ -2628,7 +2628,7 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				MARKETING_VERSION = 2.0.1;
+				MARKETING_VERSION = 2.1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.miva.framework.MerchantAPI;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SDKROOT = macosx;
@@ -2658,7 +2658,7 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				MARKETING_VERSION = 2.0.1;
+				MARKETING_VERSION = 2.1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.miva.framework.MerchantAPI;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SDKROOT = macosx;

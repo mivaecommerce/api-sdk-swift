@@ -12,14 +12,19 @@ public class OrderCustomField : Model {
 
     /// Model field code.
     var code : String
+
     /// Model field name.
     var name : String
+
     /// Model field type.
     var type : String
+
     /// Model field searchable.
     var searchable : Bool
+
     /// Model field sortable.
     var sortable : Bool
+
     /// Model field module
     var module : Module
 

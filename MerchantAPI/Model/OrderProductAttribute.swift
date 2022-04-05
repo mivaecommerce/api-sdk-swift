@@ -12,10 +12,13 @@ public class OrderProductAttribute : Model {
 
     /// Model field code.
     var code : Optional<String>
+
     /// Model field template_code.
     var templateCode : Optional<String>
+
     /// Model field value.
     var value : Optional<String>
+
     /**
      CodingKeys used to map the model when encoding and decoding.
 

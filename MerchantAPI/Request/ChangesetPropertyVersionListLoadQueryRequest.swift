@@ -102,7 +102,8 @@ public class ChangesetPropertyVersionListLoadQueryRequest : ListQueryRequest {
                 "product",
                 "category",
                 "source",
-                "source_notes"
+                "source_notes",
+                "image"
             ]
         }
     }

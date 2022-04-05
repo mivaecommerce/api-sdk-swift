@@ -182,7 +182,9 @@ public class OrderListLoadQueryRequest : ListQueryRequest {
                 "discounts",
                 "payments",
                 "notes",
-                "parts"
+                "parts",
+                "shipments",
+                "returns"
             ]
         }
     }

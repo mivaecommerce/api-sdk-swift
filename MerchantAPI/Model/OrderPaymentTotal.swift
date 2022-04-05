@@ -12,22 +12,31 @@ public class OrderPaymentTotal : Model {
 
     /// Model field order_id.
     var orderId : Int
+
     /// Model field total_auth.
     var totalAuthorized : Decimal
+
     /// Model field formatted_total_auth.
     var formattedTotalAuthorized : String
+
     /// Model field total_capt.
     var totalCaptured : Decimal
+
     /// Model field formatted_total_capt.
     var formattedTotalCaptured : String
+
     /// Model field total_rfnd.
     var totalRefunded : Decimal
+
     /// Model field formatted_total_rfnd.
     var formattedTotalRefunded : String
+
     /// Model field net_capt.
     var netCaptured : Decimal
+
     /// Model field formatted_net_capt.
     var formattedNetCaptured : String
+
     /**
      CodingKeys used to map the model when encoding and decoding.
 

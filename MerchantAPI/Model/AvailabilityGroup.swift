@@ -12,10 +12,13 @@ public class AvailabilityGroup : Model {
 
     /// Model field id.
     var id : Int
+
     /// Model field name.
     var name : String
+
     /// Model field tax_exempt.
     var taxExempt : Bool
+
     /**
      CodingKeys used to map the model when encoding and decoding.
 

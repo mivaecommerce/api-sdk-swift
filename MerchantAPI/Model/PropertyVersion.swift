@@ -12,34 +12,48 @@ public class PropertyVersion : Model {
 
     /// Model field id.
     var id : Int
+
     /// Model field prop_id.
     var propertyId : Int
+
     /// Model field version_id.
     var versionId : Int
+
     /// Model field type.
     var type : String
+
     /// Model field code.
     var code : String
+
     /// Model field product_id.
     var productId : Int
+
     /// Model field cat_id.
     var categoryId : Int
+
     /// Model field version_user_id.
     var versionUserId : Int
+
     /// Model field version_user_name.
     var versionUserName : String
+
     /// Model field version_user_icon.
     var versionUserIcon : String
+
     /// Model field source_user_id.
     var sourceUserId : Int
+
     /// Model field source_user_name.
     var sourceUserName : String
+
     /// Model field source_user_icon.
     var sourceUserIcon : String
+
     /// Model field templ_id.
     var templateId : Int
+
     /// Model field settings
-    var settings : TemplateVersionSettings
+    var settings : VersionSettings
 
     /// Model field product
     var product : Product
@@ -49,10 +63,25 @@ public class PropertyVersion : Model {
 
     /// Model field source.
     var source : String
+
     /// Model field sync.
     var sync : Bool
+
     /// Model field source_notes.
     var sourceNotes : String
+
+    /// Model field image_id.
+    var imageId : Int
+
+    /// Model field image.
+    var image : String
+
+    /// Model field image_refcount.
+    var imageRefcount : Int
+
+    /// Model field image_head_count.
+    var imageHeadCount : Int
+
     /**
      CodingKeys used to map the model when encoding and decoding.
 
@@ -79,6 +108,10 @@ public class PropertyVersion : Model {
         case source
         case sync
         case sourceNotes = "source_notes"
+        case imageId = "image_id"
+        case image
+        case imageRefcount = "image_refcount"
+        case imageHeadCount = "image_head_count"
     }
 
     /**
@@ -99,12 +132,16 @@ public class PropertyVersion : Model {
         self.sourceUserName = ""
         self.sourceUserIcon = ""
         self.templateId = 0
-        self.settings = TemplateVersionSettings()
+        self.settings = VersionSettings()
         self.product = Product()
         self.category = Category()
         self.source = ""
         self.sync = false
         self.sourceNotes = ""
+        self.imageId = 0
+        self.image = ""
+        self.imageRefcount = 0
+        self.imageHeadCount = 0
 
         super.init()
     }
@@ -134,12 +171,16 @@ public class PropertyVersion : Model {
         self.sourceUserName = try container.decodeIfPresent(String.self, forKey: .sourceUserName) ?? ""
         self.sourceUserIcon = try container.decodeIfPresent(String.self, forKey: .sourceUserIcon) ?? ""
         self.templateId = try container.decodeIfPresent(Int.self, forKey: .templateId) ?? 0
-        self.settings = try container.decodeIfPresent(TemplateVersionSettings.self, forKey: .settings) ?? TemplateVersionSettings()
+        self.settings = try container.decodeIfPresent(VersionSettings.self, forKey: .settings) ?? VersionSettings()
         self.product = try container.decodeIfPresent(Product.self, forKey: .product) ?? Product()
         self.category = try container.decodeIfPresent(Category.self, forKey: .category) ?? Category()
         self.source = try container.decodeIfPresent(String.self, forKey: .source) ?? ""
         self.sync = try container.decodeIfPresent(Bool.self, forKey: .sync) ?? false
         self.sourceNotes = try container.decodeIfPresent(String.self, forKey: .sourceNotes) ?? ""
+        self.imageId = try container.decodeIfPresent(Int.self, forKey: .imageId) ?? 0
+        self.image = try container.decodeIfPresent(String.self, forKey: .image) ?? ""
+        self.imageRefcount = try container.decodeIfPresent(Int.self, forKey: .imageRefcount) ?? 0
+        self.imageHeadCount = try container.decodeIfPresent(Int.self, forKey: .imageHeadCount) ?? 0
 
         try super.init(from : decoder)
     }
@@ -175,6 +216,10 @@ public class PropertyVersion : Model {
         try container.encodeIfPresent(self.source, forKey: .source)
         try container.encodeIfPresent(self.sync, forKey: .sync)
         try container.encodeIfPresent(self.sourceNotes, forKey: .sourceNotes)
+        try container.encodeIfPresent(self.imageId, forKey: .imageId)
+        try container.encodeIfPresent(self.image, forKey: .image)
+        try container.encodeIfPresent(self.imageRefcount, forKey: .imageRefcount)
+        try container.encodeIfPresent(self.imageHeadCount, forKey: .imageHeadCount)
 
         try super.encode(to: encoder)
     }
@@ -322,9 +367,9 @@ public class PropertyVersion : Model {
     /**
      Getter for settings.
 
-     - Returns:  TemplateVersionSettings
+     - Returns:  VersionSettings
      */
-    public func getSettings() -> TemplateVersionSettings {
+    public func getSettings() -> VersionSettings {
         return self.settings
     }
 
@@ -372,5 +417,45 @@ public class PropertyVersion : Model {
      */
     public func getSourceNotes() -> String {
         return self.sourceNotes
+    }
+
+    /**
+     Getter for image_id.
+
+     - Returns:  Int
+
+     */
+    public func getImageId() -> Int {
+        return self.imageId
+    }
+
+    /**
+     Getter for image.
+
+     - Returns:  String
+
+     */
+    public func getImage() -> String {
+        return self.image
+    }
+
+    /**
+     Getter for image_refcount.
+
+     - Returns:  Int
+
+     */
+    public func getImageRefcount() -> Int {
+        return self.imageRefcount
+    }
+
+    /**
+     Getter for image_head_count.
+
+     - Returns:  Int
+
+     */
+    public func getImageHeadCount() -> Int {
+        return self.imageHeadCount
     }
 }

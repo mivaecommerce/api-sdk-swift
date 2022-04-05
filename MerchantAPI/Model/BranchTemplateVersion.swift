@@ -12,32 +12,45 @@ public class BranchTemplateVersion : Model {
 
     /// Model field id.
     var id : Int
+
     /// Model field templ_id.
     var templateId : Int
+
     /// Model field parent_id.
     var parentId : Int
+
     /// Model field user_id.
     var userId : Int
+
     /// Model field user_name.
     var userName : String
+
     /// Model field user_icon.
     var userIcon : String
+
     /// Model field item_id.
     var itemId : Int
+
     /// Model field prop_id.
     var propertyId : Int
+
     /// Model field sync.
     var sync : Bool
+
     /// Model field filename.
     var filename : String
+
     /// Model field dtstamp.
     var dateTimeStamp : Date
+
     /// Model field notes.
     var notes : String
+
     /// Model field source.
     var source : String
+
     /// Model field settings
-    var settings : TemplateVersionSettings
+    var settings : VersionSettings
 
     /**
      CodingKeys used to map the model when encoding and decoding.
@@ -78,7 +91,7 @@ public class BranchTemplateVersion : Model {
         self.dateTimeStamp = Date(timeIntervalSince1970: 0)
         self.notes = ""
         self.source = ""
-        self.settings = TemplateVersionSettings()
+        self.settings = VersionSettings()
 
         super.init()
     }
@@ -104,10 +117,10 @@ public class BranchTemplateVersion : Model {
         self.propertyId = try container.decodeIfPresent(Int.self, forKey: .propertyId) ?? 0
         self.sync = try container.decodeIfPresent(Bool.self, forKey: .sync) ?? false
         self.filename = try container.decodeIfPresent(String.self, forKey: .filename) ?? ""
-        self.dateTimeStamp = Date(timeIntervalSince1970: Double(try container.decodeIfPresent(Int.self, forKey: .dateTimeStamp) ?? 0))
+        self.dateTimeStamp = Date(timeIntervalSince1970: Double(try container.decodeIfPresent(Int64.self, forKey: .dateTimeStamp) ?? 0))
         self.notes = try container.decodeIfPresent(String.self, forKey: .notes) ?? ""
         self.source = try container.decodeIfPresent(String.self, forKey: .source) ?? ""
-        self.settings = try container.decodeIfPresent(TemplateVersionSettings.self, forKey: .settings) ?? TemplateVersionSettings()
+        self.settings = try container.decodeIfPresent(VersionSettings.self, forKey: .settings) ?? VersionSettings()
 
         try super.init(from : decoder)
     }
@@ -133,7 +146,7 @@ public class BranchTemplateVersion : Model {
         try container.encodeIfPresent(self.propertyId, forKey: .propertyId)
         try container.encodeIfPresent(self.sync, forKey: .sync)
         try container.encodeIfPresent(self.filename, forKey: .filename)
-        try container.encodeIfPresent(Int(self.dateTimeStamp.timeIntervalSince1970), forKey: .dateTimeStamp)
+        try container.encodeIfPresent(Int64(self.dateTimeStamp.timeIntervalSince1970), forKey: .dateTimeStamp)
         try container.encodeIfPresent(self.notes, forKey: .notes)
         try container.encodeIfPresent(self.source, forKey: .source)
         try container.encodeIfPresent(self.settings, forKey: .settings)
@@ -270,9 +283,9 @@ public class BranchTemplateVersion : Model {
     /**
      Getter for settings.
 
-     - Returns:  TemplateVersionSettings
+     - Returns:  VersionSettings
      */
-    public func getSettings() -> TemplateVersionSettings {
+    public func getSettings() -> VersionSettings {
         return self.settings
     }
 }

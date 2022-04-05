@@ -12,8 +12,10 @@ public class OrderTotal : Model {
 
     /// Model field total.
     var total : Decimal
+
     /// Model field formatted_total.
     var formattedTotal : String
+
     /**
      CodingKeys used to map the model when encoding and decoding.
 

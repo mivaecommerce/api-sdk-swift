@@ -12,28 +12,40 @@ public class PrintQueueJob : Model {
 
     /// Model field id.
     var id : Int
+
     /// Model field queue_id.
     var queueId : Int
+
     /// Model field store_id.
     var storeId : Int
+
     /// Model field user_id.
     var userId : Int
+
     /// Model field descrip.
     var description : String
+
     /// Model field job_fmt.
     var jobFormat : String
+
     /// Model field job_data.
     var jobData : String
+
     /// Model field dt_created.
     var dateTimeCreated : Date
+
     /// Model field printqueue_descrip.
     var printQueueDescription : String
+
     /// Model field user_name.
     var userName : String
+
     /// Model field store_code.
     var storeCode : String
+
     /// Model field store_name.
     var storeName : String
+
     /**
      CodingKeys used to map the model when encoding and decoding.
 
@@ -92,7 +104,7 @@ public class PrintQueueJob : Model {
         self.description = try container.decodeIfPresent(String.self, forKey: .description) ?? ""
         self.jobFormat = try container.decodeIfPresent(String.self, forKey: .jobFormat) ?? ""
         self.jobData = try container.decodeIfPresent(String.self, forKey: .jobData) ?? ""
-        self.dateTimeCreated = Date(timeIntervalSince1970: Double(try container.decodeIfPresent(Int.self, forKey: .dateTimeCreated) ?? 0))
+        self.dateTimeCreated = Date(timeIntervalSince1970: Double(try container.decodeIfPresent(Int64.self, forKey: .dateTimeCreated) ?? 0))
         self.printQueueDescription = try container.decodeIfPresent(String.self, forKey: .printQueueDescription) ?? ""
         self.userName = try container.decodeIfPresent(String.self, forKey: .userName) ?? ""
         self.storeCode = try container.decodeIfPresent(String.self, forKey: .storeCode) ?? ""
@@ -119,7 +131,7 @@ public class PrintQueueJob : Model {
         try container.encodeIfPresent(self.description, forKey: .description)
         try container.encodeIfPresent(self.jobFormat, forKey: .jobFormat)
         try container.encodeIfPresent(self.jobData, forKey: .jobData)
-        try container.encodeIfPresent(Int(self.dateTimeCreated.timeIntervalSince1970), forKey: .dateTimeCreated)
+        try container.encodeIfPresent(Int64(self.dateTimeCreated.timeIntervalSince1970), forKey: .dateTimeCreated)
         try container.encodeIfPresent(self.printQueueDescription, forKey: .printQueueDescription)
         try container.encodeIfPresent(self.userName, forKey: .userName)
         try container.encodeIfPresent(self.storeCode, forKey: .storeCode)

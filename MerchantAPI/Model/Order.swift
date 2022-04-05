@@ -39,124 +39,184 @@ public class Order : Model {
 
     /// Model field id.
     var id : Int
+
     /// Model field pay_id.
     var paymentId : Int
+
     /// Model field batch_id.
     var batchId : Int
+
     /// Model field status.
     var status : Int
+
     /// Model field pay_status.
     var paymentStatus : Int
+
     /// Model field stk_status.
     var stockStatus : Int
+
     /// Model field dt_instock.
     var dateInStock : Date
+
     /// Model field orderdate.
     var orderDate : Int
+
     /// Model field cust_id.
     var customerId : Int
+
     /// Model field ship_res.
     var shipResidential : Bool
+
     /// Model field ship_fname.
     var shipFirstName : String
+
     /// Model field ship_lname.
     var shipLastName : String
+
     /// Model field ship_email.
     var shipEmail : String
+
     /// Model field ship_comp.
     var shipCompany : String
+
     /// Model field ship_phone.
     var shipPhone : String
+
     /// Model field ship_fax.
     var shipFax : String
+
     /// Model field ship_addr1.
     var shipAddress1 : String
+
     /// Model field ship_addr2.
     var shipAddress2 : String
+
     /// Model field ship_city.
     var shipCity : String
+
     /// Model field ship_state.
     var shipState : String
+
     /// Model field ship_zip.
     var shipZip : String
+
     /// Model field ship_cntry.
     var shipCountry : String
+
     /// Model field bill_fname.
     var billFirstName : String
+
     /// Model field bill_lname.
     var billLastName : String
+
     /// Model field bill_email.
     var billEmail : String
+
     /// Model field bill_comp.
     var billCompany : String
+
     /// Model field bill_phone.
     var billPhone : String
+
     /// Model field bill_fax.
     var billFax : String
+
     /// Model field bill_addr1.
     var billAddress1 : String
+
     /// Model field bill_addr2.
     var billAddress2 : String
+
     /// Model field bill_city.
     var billCity : String
+
     /// Model field bill_state.
     var billState : String
+
     /// Model field bill_zip.
     var billZip : String
+
     /// Model field bill_cntry.
     var billCountry : String
+
     /// Model field ship_id.
     var shipmentId : Int
+
     /// Model field ship_data.
     var shipData : String
+
     /// Model field ship_method.
     var shipMethod : String
+
     /// Model field cust_login.
     var customerLogin : String
+
     /// Model field cust_pw_email.
     var customerPasswordEmail : String
+
     /// Model field business_title.
     var businessTitle : String
+
     /// Model field payment_module.
     var paymentModule : String
+
     /// Model field source.
     var source : String
+
     /// Model field source_id.
     var sourceId : Int
+
     /// Model field total.
     var total : Decimal
+
     /// Model field formatted_total.
     var formattedTotal : String
+
     /// Model field total_ship.
     var totalShip : Decimal
+
     /// Model field formatted_total_ship.
     var formattedTotalShip : String
+
     /// Model field total_tax.
     var totalTax : Decimal
+
     /// Model field formatted_total_tax.
     var formattedTotalTax : String
+
     /// Model field total_auth.
     var totalAuthorized : Decimal
+
     /// Model field formatted_total_auth.
     var formattedTotalAuthorized : String
+
     /// Model field total_capt.
     var totalCaptured : Decimal
+
     /// Model field formatted_total_capt.
     var formattedTotalCaptured : String
+
     /// Model field total_rfnd.
     var totalRefunded : Decimal
+
     /// Model field formatted_total_rfnd.
     var formattedTotalRefunded : String
+
     /// Model field net_capt.
     var netCaptured : Decimal
+
     /// Model field formatted_net_capt.
     var formattedNetCaptured : String
+
     /// Model field pend_count.
     var pendingCount : Int
+
     /// Model field bord_count.
     var backorderCount : Int
+
     /// Model field note_count.
     var noteCount : Int
+
     /// Model field customer
     var customer : Customer
 
@@ -183,6 +243,15 @@ public class Order : Model {
 
     /// Model field CustomField_Values
     var customFieldValues : CustomFieldValues
+
+    /// Model field dt_updated.
+    var dtUpdated : Date
+
+    /// Model field shipments.
+    var shipments : [OrderShipment]
+
+    /// Model field returns.
+    var returns : [OrderReturn]
 
     /**
      CodingKeys used to map the model when encoding and decoding.
@@ -259,6 +328,9 @@ public class Order : Model {
         case notes
         case parts
         case customFieldValues = "CustomField_Values"
+        case dtUpdated = "dt_updated"
+        case shipments
+        case returns
     }
 
     /**
@@ -334,6 +406,9 @@ public class Order : Model {
         self.notes = []
         self.parts = []
         self.customFieldValues = CustomFieldValues()
+        self.dtUpdated = Date(timeIntervalSince1970: 0)
+        self.shipments = []
+        self.returns = []
 
         super.init()
     }
@@ -355,7 +430,7 @@ public class Order : Model {
         self.status = try container.decodeIfPresent(Int.self, forKey: .status) ?? 0
         self.paymentStatus = try container.decodeIfPresent(Int.self, forKey: .paymentStatus) ?? 0
         self.stockStatus = try container.decodeIfPresent(Int.self, forKey: .stockStatus) ?? 0
-        self.dateInStock = Date(timeIntervalSince1970: Double(try container.decodeIfPresent(Int.self, forKey: .dateInStock) ?? 0))
+        self.dateInStock = Date(timeIntervalSince1970: Double(try container.decodeIfPresent(Int64.self, forKey: .dateInStock) ?? 0))
         self.orderDate = try container.decodeIfPresent(Int.self, forKey: .orderDate) ?? 0
         self.customerId = try container.decodeIfPresent(Int.self, forKey: .customerId) ?? 0
         self.shipResidential = try container.decodeIfPresent(Bool.self, forKey: .shipResidential) ?? false
@@ -418,6 +493,9 @@ public class Order : Model {
         self.notes = try container.decodeIfPresent([OrderNote].self, forKey: .notes) ?? []
         self.parts = try container.decodeIfPresent([OrderPart].self, forKey: .parts) ?? []
         self.customFieldValues = try container.decodeIfPresent(CustomFieldValues.self, forKey: .customFieldValues) ?? CustomFieldValues()
+        self.dtUpdated = Date(timeIntervalSince1970: Double(try container.decodeIfPresent(Int64.self, forKey: .dtUpdated) ?? 0))
+        self.shipments = try container.decodeIfPresent([OrderShipment].self, forKey: .shipments) ?? []
+        self.returns = try container.decodeIfPresent([OrderReturn].self, forKey: .returns) ?? []
 
         try super.init(from : decoder)
     }
@@ -439,7 +517,7 @@ public class Order : Model {
         try container.encodeIfPresent(self.status, forKey: .status)
         try container.encodeIfPresent(self.paymentStatus, forKey: .paymentStatus)
         try container.encodeIfPresent(self.stockStatus, forKey: .stockStatus)
-        try container.encodeIfPresent(Int(self.dateInStock.timeIntervalSince1970), forKey: .dateInStock)
+        try container.encodeIfPresent(Int64(self.dateInStock.timeIntervalSince1970), forKey: .dateInStock)
         try container.encodeIfPresent(self.orderDate, forKey: .orderDate)
         try container.encodeIfPresent(self.customerId, forKey: .customerId)
         try container.encodeIfPresent(self.shipResidential, forKey: .shipResidential)
@@ -502,6 +580,9 @@ public class Order : Model {
         try container.encodeIfPresent(self.notes, forKey: .notes)
         try container.encodeIfPresent(self.parts, forKey: .parts)
         try container.encodeIfPresent(self.customFieldValues, forKey: .customFieldValues)
+        try container.encodeIfPresent(Int64(self.dtUpdated.timeIntervalSince1970), forKey: .dtUpdated)
+        try container.encodeIfPresent(self.shipments, forKey: .shipments)
+        try container.encodeIfPresent(self.returns, forKey: .returns)
 
         try super.encode(to: encoder)
     }
@@ -1167,5 +1248,31 @@ public class Order : Model {
      */
     public func getCustomFieldValues() -> CustomFieldValues {
         return self.customFieldValues
+    }
+
+    /**
+     Getter for dt_updated.
+
+     - Returns:  Date     */
+    public func getDtUpdated() -> Date {
+        return self.dtUpdated
+    }
+
+    /**
+     Getter for shipments.
+
+     - Returns:  [OrderShipment]
+     */
+    public func getShipments() -> [OrderShipment] {
+        return self.shipments
+    }
+
+    /**
+     Getter for returns.
+
+     - Returns:  [OrderReturn]
+     */
+    public func getReturns() -> [OrderReturn] {
+        return self.returns
     }
 }

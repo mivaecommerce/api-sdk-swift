@@ -12,36 +12,52 @@ public class CustomerAddress : Model {
 
     /// Model field id.
     var id : Int
+
     /// Model field cust_id.
     var customerId : Int
+
     /// Model field descrip.
     var description : String
+
     /// Model field fname.
     var firstName : String
+
     /// Model field lname.
     var lastName : String
+
     /// Model field email.
     var email : String
+
     /// Model field comp.
     var company : String
+
     /// Model field phone.
     var phone : String
+
     /// Model field fax.
     var fax : String
+
     /// Model field addr1.
     var address1 : String
+
     /// Model field addr2.
     var address2 : String
+
     /// Model field city.
     var city : String
+
     /// Model field state.
     var state : String
+
     /// Model field zip.
     var zip : String
+
     /// Model field cntry.
     var country : String
+
     /// Model field resdntl.
     var residential : Bool
+
     /**
      CodingKeys used to map the model when encoding and decoding.
 

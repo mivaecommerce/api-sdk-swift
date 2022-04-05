@@ -12,12 +12,16 @@ public class ProductVariantDimension : Model {
 
     /// Model field attr_id.
     var attributeId : Int
+
     /// Model field attmpat_id.
     var attributeTemplateAttributeId : Int
+
     /// Model field option_id.
     var optionId : Int
+
     /// Model field option_code.
     var optionCode : String
+
     /**
      CodingKeys used to map the model when encoding and decoding.
 

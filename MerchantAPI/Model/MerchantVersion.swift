@@ -12,12 +12,16 @@ public class MerchantVersion : Model {
 
     /// Model field version.
     var version : String
+
     /// Model field major.
     var major : Int
+
     /// Model field minor.
     var minor : Int
+
     /// Model field bugfix.
     var bugfix : Int
+
     /**
      CodingKeys used to map the model when encoding and decoding.
 

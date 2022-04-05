@@ -15,26 +15,37 @@ public class AttributeTemplateOption : Model {
 
     /// Model field attmpat_id.
     var attributeTemplateAttributeId : Int
+
     /// Model field disporder.
     var displayOrder : Int
+
     /// Model field code.
     var code : String
+
     /// Model field prompt.
     var prompt : String
+
     /// Model field price.
     var price : Decimal
+
     /// Model field cost.
     var cost : Decimal
+
     /// Model field weight.
     var weight : Decimal
+
     /// Model field image.
     var image : String
+
     /// Model field formatted_price.
     var formattedPrice : String
+
     /// Model field formatted_cost.
     var formattedCost : String
+
     /// Model field default_opt.
     var defaultOpt : Bool
+
     /**
      CodingKeys used to map the model when encoding and decoding.
 

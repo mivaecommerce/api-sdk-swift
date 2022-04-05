@@ -12,38 +12,55 @@ public class OrderItemOption : Model {
 
     /// Model field id.
     var id : Int
+
     /// Model field order_id.
     var orderId : Int
+
     /// Model field line_id.
     var lineId : Int
+
     /// Model field option_id.
     var optionId : Int
+
     /// Model field opt_code.
     var optionCode : String
+
     /// Model field attr_code.
     var attributeCode : Optional<String>
+
     /// Model field attr_id.
     var attributeId : Optional<Int>
+
     /// Model field attmpat_id.
     var attributeTemplateAttributeId : Optional<Int>
+
     /// Model field value.
     var value : Optional<String>
+
     /// Model field weight.
     var weight : Optional<Decimal>
+
     /// Model field retail.
     var retail : Optional<Decimal>
+
     /// Model field base_price.
     var basePrice : Optional<Decimal>
+
     /// Model field price.
     var price : Optional<Decimal>
+
     /// Model field data.
     var optionData : String
+
     /// Model field data_long.
     var optionDataLong : String
+
     /// Model field attr_prompt.
     var attributePrompt : String
+
     /// Model field opt_prompt.
     var optionPrompt : String
+
     /**
      CodingKeys used to map the model when decoding.
 

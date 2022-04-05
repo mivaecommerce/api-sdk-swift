@@ -12,23 +12,31 @@ public class Changeset : Model {
 
     /// Model field id.
     var id : Int
+
     /// Model field branch_id.
     var branchId : Int
+
     /// Model field user_id.
     var userId : Int
+
     /// Model field dtstamp.
     var dateTimeStamp : Date
+
     /// Model field notes.
     var notes : String
+
     /// Model field user_name.
     var userName : String
+
     /// Model field user_icon.
     var userIcon : String
+
     /// Model field tags.
     var tags : [String]
 
     /// Model field formatted_tags.
     var formattedTags : String
+
     /**
      CodingKeys used to map the model when encoding and decoding.
 
@@ -77,7 +85,7 @@ public class Changeset : Model {
         self.id = try container.decodeIfPresent(Int.self, forKey: .id) ?? 0
         self.branchId = try container.decodeIfPresent(Int.self, forKey: .branchId) ?? 0
         self.userId = try container.decodeIfPresent(Int.self, forKey: .userId) ?? 0
-        self.dateTimeStamp = Date(timeIntervalSince1970: Double(try container.decodeIfPresent(Int.self, forKey: .dateTimeStamp) ?? 0))
+        self.dateTimeStamp = Date(timeIntervalSince1970: Double(try container.decodeIfPresent(Int64.self, forKey: .dateTimeStamp) ?? 0))
         self.notes = try container.decodeIfPresent(String.self, forKey: .notes) ?? ""
         self.userName = try container.decodeIfPresent(String.self, forKey: .userName) ?? ""
         self.userIcon = try container.decodeIfPresent(String.self, forKey: .userIcon) ?? ""
@@ -101,7 +109,7 @@ public class Changeset : Model {
         try container.encodeIfPresent(self.id, forKey: .id)
         try container.encodeIfPresent(self.branchId, forKey: .branchId)
         try container.encodeIfPresent(self.userId, forKey: .userId)
-        try container.encodeIfPresent(Int(self.dateTimeStamp.timeIntervalSince1970), forKey: .dateTimeStamp)
+        try container.encodeIfPresent(Int64(self.dateTimeStamp.timeIntervalSince1970), forKey: .dateTimeStamp)
         try container.encodeIfPresent(self.notes, forKey: .notes)
         try container.encodeIfPresent(self.userName, forKey: .userName)
         try container.encodeIfPresent(self.userIcon, forKey: .userIcon)

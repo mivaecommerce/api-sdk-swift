@@ -24,34 +24,49 @@ public class OrderPayment : Model {
 
     /// Model field id.
     var id : Int
+
     /// Model field order_id.
     var orderId : Int
+
     /// Model field type.
     var type : Int
+
     /// Model field refnum.
     var referenceNumber : String
+
     /// Model field amount.
     var amount : Decimal
+
     /// Model field formatted_amount.
     var formattedAmount : String
+
     /// Model field available.
     var available : Decimal
+
     /// Model field formatted_available.
     var formattedAvailable : String
+
     /// Model field dtstamp.
     var dateTimeStamp : Date
+
     /// Model field expires.
     var expires : String
+
     /// Model field pay_id.
     var paymentId : Int
+
     /// Model field pay_secid.
     var paymentSecId : Int
+
     /// Model field decrypt_status.
     var decryptStatus : String
+
     /// Model field decrypt_error.
     var decryptError : String
+
     /// Model field description.
     var description : String
+
     /// Model field data.
     var paymentData : [String]
 
@@ -122,7 +137,7 @@ public class OrderPayment : Model {
         self.formattedAmount = try container.decodeIfPresent(String.self, forKey: .formattedAmount) ?? ""
         self.available = try container.decodeIfPresent(Decimal.self, forKey: .available) ?? Decimal(0.00)
         self.formattedAvailable = try container.decodeIfPresent(String.self, forKey: .formattedAvailable) ?? ""
-        self.dateTimeStamp = Date(timeIntervalSince1970: Double(try container.decodeIfPresent(Int.self, forKey: .dateTimeStamp) ?? 0))
+        self.dateTimeStamp = Date(timeIntervalSince1970: Double(try container.decodeIfPresent(Int64.self, forKey: .dateTimeStamp) ?? 0))
         self.expires = try container.decodeIfPresent(String.self, forKey: .expires) ?? ""
         self.paymentId = try container.decodeIfPresent(Int.self, forKey: .paymentId) ?? 0
         self.paymentSecId = try container.decodeIfPresent(Int.self, forKey: .paymentSecId) ?? 0
@@ -153,7 +168,7 @@ public class OrderPayment : Model {
         try container.encodeIfPresent(self.formattedAmount, forKey: .formattedAmount)
         try container.encodeIfPresent(Decimal.roundForEncoding(value: self.available, precision: MERCHANTAPI_FLOAT_ENCODE_PRECISION), forKey: .available)
         try container.encodeIfPresent(self.formattedAvailable, forKey: .formattedAvailable)
-        try container.encodeIfPresent(Int(self.dateTimeStamp.timeIntervalSince1970), forKey: .dateTimeStamp)
+        try container.encodeIfPresent(Int64(self.dateTimeStamp.timeIntervalSince1970), forKey: .dateTimeStamp)
         try container.encodeIfPresent(self.expires, forKey: .expires)
         try container.encodeIfPresent(self.paymentId, forKey: .paymentId)
         try container.encodeIfPresent(self.paymentSecId, forKey: .paymentSecId)

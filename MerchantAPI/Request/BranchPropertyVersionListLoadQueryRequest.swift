@@ -111,7 +111,8 @@ public class BranchPropertyVersionListLoadQueryRequest : ListQueryRequest {
                 "product",
                 "category",
                 "source",
-                "source_notes"
+                "source_notes",
+                "image"
             ]
         }
     }

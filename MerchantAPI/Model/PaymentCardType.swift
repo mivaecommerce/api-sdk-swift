@@ -12,14 +12,19 @@ public class PaymentCardType : Model {
 
     /// Model field id.
     var id : Int
+
     /// Model field type.
     var type : String
+
     /// Model field prefixes.
     var prefixes : String
+
     /// Model field lengths.
     var lengths : String
+
     /// Model field cvv.
     var cvv : Bool
+
     /**
      CodingKeys used to map the model when encoding and decoding.
 

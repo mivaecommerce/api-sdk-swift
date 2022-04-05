@@ -12,22 +12,31 @@ public class Branch : Model {
 
     /// Model field id.
     var id : Int
+
     /// Model field immutable.
     var immutable : Bool
+
     /// Model field branchkey.
     var branchKey : String
+
     /// Model field name.
     var name : String
+
     /// Model field color.
     var color : String
+
     /// Model field framework.
     var framework : String
+
     /// Model field is_primary.
     var isPrimary : Bool
+
     /// Model field is_working.
     var isWorking : Bool
+
     /// Model field preview_url.
     var previewUrl : String
+
     /**
      CodingKeys used to map the model when encoding and decoding.
 

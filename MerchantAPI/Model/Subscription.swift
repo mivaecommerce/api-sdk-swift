@@ -12,58 +12,94 @@ public class Subscription : Model {
 
     /// Model field id.
     var id : Int
+
     /// Model field order_id.
     var orderId : Int
+
     /// Model field line_id.
     var lineId : Int
+
     /// Model field cust_id.
     var customerId : Int
+
     /// Model field custpc_id.
     var customerPaymentCardId : Int
+
     /// Model field product_id.
     var productId : Int
+
     /// Model field subterm_id.
     var subscriptionTermId : Int
+
     /// Model field addr_id.
     var addressId : Int
+
     /// Model field ship_id.
     var shipId : Int
+
     /// Model field ship_data.
     var shipData : String
+
     /// Model field quantity.
     var quantity : Int
+
     /// Model field termrem.
     var termRemaining : Int
+
     /// Model field termproc.
     var termProcessed : Int
+
     /// Model field firstdate.
-    var firstDate : Int
+    var firstDate : Date
+
     /// Model field lastdate.
-    var lastDate : Int
+    var lastDate : Date
+
     /// Model field nextdate.
-    var nextDate : Int
+    var nextDate : Date
+
     /// Model field status.
     var status : String
+
     /// Model field message.
     var message : String
+
     /// Model field cncldate.
-    var cancelDate : String
+    var cancelDate : Date
+
     /// Model field tax.
     var tax : Decimal
+
     /// Model field formatted_tax.
     var formattedTax : String
+
     /// Model field shipping.
     var shipping : Decimal
+
     /// Model field formatted_shipping.
     var formattedShipping : String
+
     /// Model field subtotal.
     var subtotal : Decimal
+
     /// Model field formatted_subtotal.
     var formattedSubtotal : String
+
     /// Model field total.
     var total : Decimal
+
     /// Model field formatted_total.
     var formattedTotal : String
+
+    /// Model field authfails.
+    var authorizationFailureCount : Int
+
+    /// Model field lastafail.
+    var lastAuthorizationFailure : Date
+
+    /// Model field options.
+    var options : [SubscriptionOption]
+
     /**
      CodingKeys used to map the model when encoding and decoding.
 
@@ -97,6 +133,9 @@ public class Subscription : Model {
         case formattedSubtotal = "formatted_subtotal"
         case total
         case formattedTotal = "formatted_total"
+        case authorizationFailureCount = "authfails"
+        case lastAuthorizationFailure = "lastafail"
+        case options
     }
 
     /**
@@ -116,12 +155,12 @@ public class Subscription : Model {
         self.quantity = 0
         self.termRemaining = 0
         self.termProcessed = 0
-        self.firstDate = 0
-        self.lastDate = 0
-        self.nextDate = 0
+        self.firstDate = Date(timeIntervalSince1970: 0)
+        self.lastDate = Date(timeIntervalSince1970: 0)
+        self.nextDate = Date(timeIntervalSince1970: 0)
         self.status = ""
         self.message = ""
-        self.cancelDate = ""
+        self.cancelDate = Date(timeIntervalSince1970: 0)
         self.tax = Decimal(0.00)
         self.formattedTax = ""
         self.shipping = Decimal(0.00)
@@ -130,6 +169,9 @@ public class Subscription : Model {
         self.formattedSubtotal = ""
         self.total = Decimal(0.00)
         self.formattedTotal = ""
+        self.authorizationFailureCount = 0
+        self.lastAuthorizationFailure = Date(timeIntervalSince1970: 0)
+        self.options = []
 
         super.init()
     }
@@ -158,12 +200,12 @@ public class Subscription : Model {
         self.quantity = try container.decodeIfPresent(Int.self, forKey: .quantity) ?? 0
         self.termRemaining = try container.decodeIfPresent(Int.self, forKey: .termRemaining) ?? 0
         self.termProcessed = try container.decodeIfPresent(Int.self, forKey: .termProcessed) ?? 0
-        self.firstDate = try container.decodeIfPresent(Int.self, forKey: .firstDate) ?? 0
-        self.lastDate = try container.decodeIfPresent(Int.self, forKey: .lastDate) ?? 0
-        self.nextDate = try container.decodeIfPresent(Int.self, forKey: .nextDate) ?? 0
+        self.firstDate = try container.decodeIfPresent(DateTimeStruct.self, forKey: .firstDate)?.timeT ?? Date(timeIntervalSince1970: 0)
+        self.lastDate = try container.decodeIfPresent(DateTimeStruct.self, forKey: .lastDate)?.timeT ?? Date(timeIntervalSince1970: 0)
+        self.nextDate = try container.decodeIfPresent(DateTimeStruct.self, forKey: .nextDate)?.timeT ?? Date(timeIntervalSince1970: 0)
         self.status = try container.decodeIfPresent(String.self, forKey: .status) ?? ""
         self.message = try container.decodeIfPresent(String.self, forKey: .message) ?? ""
-        self.cancelDate = try container.decodeIfPresent(String.self, forKey: .cancelDate) ?? ""
+        self.cancelDate = try container.decodeIfPresent(DateTimeStruct.self, forKey: .cancelDate)?.timeT ?? Date(timeIntervalSince1970: 0)
         self.tax = try container.decodeIfPresent(Decimal.self, forKey: .tax) ?? Decimal(0.00)
         self.formattedTax = try container.decodeIfPresent(String.self, forKey: .formattedTax) ?? ""
         self.shipping = try container.decodeIfPresent(Decimal.self, forKey: .shipping) ?? Decimal(0.00)
@@ -172,6 +214,9 @@ public class Subscription : Model {
         self.formattedSubtotal = try container.decodeIfPresent(String.self, forKey: .formattedSubtotal) ?? ""
         self.total = try container.decodeIfPresent(Decimal.self, forKey: .total) ?? Decimal(0.00)
         self.formattedTotal = try container.decodeIfPresent(String.self, forKey: .formattedTotal) ?? ""
+        self.authorizationFailureCount = try container.decodeIfPresent(Int.self, forKey: .authorizationFailureCount) ?? 0
+        self.lastAuthorizationFailure = try container.decodeIfPresent(DateTimeStruct.self, forKey: .lastAuthorizationFailure)?.timeT ?? Date(timeIntervalSince1970: 0)
+        self.options = try container.decodeIfPresent([SubscriptionOption].self, forKey: .options) ?? []
 
         try super.init(from : decoder)
     }
@@ -200,12 +245,12 @@ public class Subscription : Model {
         try container.encodeIfPresent(self.quantity, forKey: .quantity)
         try container.encodeIfPresent(self.termRemaining, forKey: .termRemaining)
         try container.encodeIfPresent(self.termProcessed, forKey: .termProcessed)
-        try container.encodeIfPresent(self.firstDate, forKey: .firstDate)
-        try container.encodeIfPresent(self.lastDate, forKey: .lastDate)
-        try container.encodeIfPresent(self.nextDate, forKey: .nextDate)
+        try container.encodeIfPresent(Int64(self.firstDate.timeIntervalSince1970), forKey: .firstDate)
+        try container.encodeIfPresent(Int64(self.lastDate.timeIntervalSince1970), forKey: .lastDate)
+        try container.encodeIfPresent(Int64(self.nextDate.timeIntervalSince1970), forKey: .nextDate)
         try container.encodeIfPresent(self.status, forKey: .status)
         try container.encodeIfPresent(self.message, forKey: .message)
-        try container.encodeIfPresent(self.cancelDate, forKey: .cancelDate)
+        try container.encodeIfPresent(Int64(self.cancelDate.timeIntervalSince1970), forKey: .cancelDate)
         try container.encodeIfPresent(Decimal.roundForEncoding(value: self.tax, precision: MERCHANTAPI_FLOAT_ENCODE_PRECISION), forKey: .tax)
         try container.encodeIfPresent(self.formattedTax, forKey: .formattedTax)
         try container.encodeIfPresent(Decimal.roundForEncoding(value: self.shipping, precision: MERCHANTAPI_FLOAT_ENCODE_PRECISION), forKey: .shipping)
@@ -214,6 +259,9 @@ public class Subscription : Model {
         try container.encodeIfPresent(self.formattedSubtotal, forKey: .formattedSubtotal)
         try container.encodeIfPresent(Decimal.roundForEncoding(value: self.total, precision: MERCHANTAPI_FLOAT_ENCODE_PRECISION), forKey: .total)
         try container.encodeIfPresent(self.formattedTotal, forKey: .formattedTotal)
+        try container.encodeIfPresent(self.authorizationFailureCount, forKey: .authorizationFailureCount)
+        try container.encodeIfPresent(Int64(self.lastAuthorizationFailure.timeIntervalSince1970), forKey: .lastAuthorizationFailure)
+        try container.encodeIfPresent(self.options, forKey: .options)
 
         try super.encode(to: encoder)
     }
@@ -351,30 +399,24 @@ public class Subscription : Model {
     /**
      Getter for firstdate.
 
-     - Returns:  Int
-
-     */
-    public func getFirstDate() -> Int {
+     - Returns:  Date     */
+    public func getFirstDate() -> Date {
         return self.firstDate
     }
 
     /**
      Getter for lastdate.
 
-     - Returns:  Int
-
-     */
-    public func getLastDate() -> Int {
+     - Returns:  Date     */
+    public func getLastDate() -> Date {
         return self.lastDate
     }
 
     /**
      Getter for nextdate.
 
-     - Returns:  Int
-
-     */
-    public func getNextDate() -> Int {
+     - Returns:  Date     */
+    public func getNextDate() -> Date {
         return self.nextDate
     }
 
@@ -401,10 +443,8 @@ public class Subscription : Model {
     /**
      Getter for cncldate.
 
-     - Returns:  String
-
-     */
-    public func getCancelDate() -> String {
+     - Returns:  Date     */
+    public func getCancelDate() -> Date {
         return self.cancelDate
     }
 
@@ -478,5 +518,32 @@ public class Subscription : Model {
      */
     public func getFormattedTotal() -> String {
         return self.formattedTotal
+    }
+
+    /**
+     Getter for authfails.
+
+     - Returns:  Int
+
+     */
+    public func getAuthorizationFailureCount() -> Int {
+        return self.authorizationFailureCount
+    }
+
+    /**
+     Getter for lastafail.
+
+     - Returns:  Date     */
+    public func getLastAuthorizationFailure() -> Date {
+        return self.lastAuthorizationFailure
+    }
+
+    /**
+     Getter for options.
+
+     - Returns:  [SubscriptionOption]
+     */
+    public func getOptions() -> [SubscriptionOption] {
+        return self.options
     }
 }

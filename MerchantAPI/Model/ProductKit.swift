@@ -12,20 +12,28 @@ public class ProductKit : Model {
 
     /// Model field attr_id.
     var attrId : Int
+
     /// Model field attr_type.
     var attrType : String
+
     /// Model field attr_code.
     var attrCode : String
+
     /// Model field attr_prompt.
     var attrPrompt : String
+
     /// Model field attmpat_id.
     var attmpatId : Int
+
     /// Model field option_id.
     var optionId : Int
+
     /// Model field option_code.
     var optionCode : String
+
     /// Model field option_prompt.
     var optionPrompt : String
+
     /// Model field parts.
     var parts : [ProductKitPart]
 

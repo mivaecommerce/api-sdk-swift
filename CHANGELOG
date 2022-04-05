@@ -1,3 +1,24 @@
+v2.1.0
+	- MMAPI-39 - Added the following functions introduced in 10.03.00
+				CustomerSubscriptionList_Load_Query
+				ProductAndSubscriptionTermList_Load_Query
+				ProductSubscriptionTermList_Load_Query
+				SubscriptionShippingMethodList_Load_Query
+				Subscription_Update
+				Subscription_Insert
+				SubscriptionList_Delete
+				SubscriptionAndOrderItem_Add
+				SubscriptionAndOrderItem_Update
+	- MMAPI-40 - TemplateVersionSettings renamed to VersionSettings
+	- MMAPI-43 - Add support for the new JSON_DateTime structure format
+	- MMAPI-44 - New fields on Order model - shipment and returns
+			   New ondemand column support for shipment and returns on OrderList_Load_Query
+	- MMAPI-45 -  Added url ondemandcolumn to ProductList_Load_Query
+				Added imagetype ondemandcolumn to ProductList_Load_Query
+	- MMAPI-46 - Added new field on Order model - dt_updated
+	- MMAPI-47 - Added support for image properties when creating managed property changes (MM-11193)
+	- MMAPI-48 - OrderItemSubscription now inherits from Subscription model
+	- MMAPI-50 - Add example subscription usage
 v2.0.1
 	MM-10502 - Added the following API Functions introduced in 10.01.00:
 		Attribute_CopyTemplate
@@ -11,7 +32,6 @@ v2.0.1
 	MM-10814 MM-10502 - OrderItem tax field is now mutable
 	Added fields on Customer model: tax_exempt, order_cnt, order_avg, formatted_order_avg, order_tot, formatted_order_tot,
 	Added Tax_Exempt field to Customer_Insert and Customer_Update
-
 v2.0.0
 	- Minimum Merchant version required is now 10.x. For 9.x use the 1.x release.
 	- MMAPI-25 - Added the follwing API functions introduced in Miva Merchant 10.01.00:

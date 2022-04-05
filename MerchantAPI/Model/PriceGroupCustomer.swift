@@ -12,6 +12,7 @@ public class PriceGroupCustomer : Customer {
 
     /// Model field assigned.
     var assigned : Bool
+
     /**
      CodingKeys used to map the model when encoding and decoding.
 

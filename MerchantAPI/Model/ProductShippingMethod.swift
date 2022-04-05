@@ -12,8 +12,10 @@ public class ProductShippingMethod : Model {
 
     /// Model field mod_code.
     var moduleCode : String
+
     /// Model field meth_code.
     var methodCode : String
+
     /**
      CodingKeys used to map the model when encoding and decoding.
 

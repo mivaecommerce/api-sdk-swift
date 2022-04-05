@@ -12,10 +12,13 @@ public class VariantAttribute : Model {
 
     /// Model field attr_id.
     var attributeId : Optional<Int>
+
     /// Model field attmpat_id.
     var attributeTemplateAttributeId : Optional<Int>
+
     /// Model field option_id.
     var optionId : Optional<Int>
+
     /**
      CodingKeys used to map the model when encoding and decoding.
 

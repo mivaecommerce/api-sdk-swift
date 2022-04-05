@@ -231,10 +231,10 @@ public class PriceGroupUpdateRequest : Request {
         try container.encodeIfPresent(self.description, forKey: .description)
         try container.encodeIfPresent(self.display, forKey: .display)
         if let dateTimeStart = self.dateTimeStart {
-            try container.encodeIfPresent(Int(dateTimeStart.timeIntervalSince1970), forKey: .dateTimeStart)
+            try container.encodeIfPresent(Int64(dateTimeStart.timeIntervalSince1970), forKey: .dateTimeStart)
         }
         if let dateTimeEnd = self.dateTimeEnd {
-            try container.encodeIfPresent(Int(dateTimeEnd.timeIntervalSince1970), forKey: .dateTimeEnd)
+            try container.encodeIfPresent(Int64(dateTimeEnd.timeIntervalSince1970), forKey: .dateTimeEnd)
         }
         try container.encodeIfPresent(Decimal.roundForEncoding(value: self.qualifyingMinSubtotal, precision: MERCHANTAPI_FLOAT_ENCODE_PRECISION), forKey: .qualifyingMinSubtotal)
         try container.encodeIfPresent(Decimal.roundForEncoding(value: self.qualifyingMaxSubtotal, precision: MERCHANTAPI_FLOAT_ENCODE_PRECISION), forKey: .qualifyingMaxSubtotal)

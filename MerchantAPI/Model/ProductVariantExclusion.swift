@@ -12,10 +12,13 @@ public class ProductVariantExclusion : Model {
 
     /// Model field attr_id.
     var attributeId : Optional<Int>
+
     /// Model field attmpat_id.
     var attributeTemplateId : Optional<Int>
+
     /// Model field option_id.
     var optionId : Optional<Int>
+
     /**
      CodingKeys used to map the model when encoding and decoding.
 

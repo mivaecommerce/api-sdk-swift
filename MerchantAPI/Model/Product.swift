@@ -12,51 +12,73 @@ public class Product : Model {
 
     /// Model field id.
     var id : Int
+
     /// Model field code.
     var code : String
+
     /// Model field sku.
     var sku : String
+
     /// Model field name.
     var name : String
+
     /// Model field thumbnail.
     var thumbnail : String
+
     /// Model field image.
     var image : String
+
     /// Model field price.
     var price : Decimal
+
     /// Model field formatted_price.
     var formattedPrice : String
+
     /// Model field cost.
     var cost : Decimal
+
     /// Model field formatted_cost.
     var formattedCost : String
+
     /// Model field descrip.
     var description : String
+
     /// Model field catcount.
     var categoryCount : Int
+
     /// Model field weight.
     var weight : Decimal
+
     /// Model field active.
     var active : Bool
+
     /// Model field page_title.
     var pageTitle : String
+
     /// Model field taxable.
     var taxable : Bool
+
     /// Model field dt_created.
     var dateTimeCreated : Date
+
     /// Model field dt_updated.
     var dateTimeUpdate : Date
+
     /// Model field productinventorysettings
     var productInventorySettings : ProductInventorySettings
 
     /// Model field product_inventory_active.
     var productInventoryActive : Bool
+
     /// Model field product_inventory.
     var productInventory : Int
+
     /// Model field cancat_code.
     var canonicalCategoryCode : String
+
     /// Model field page_code.
     var pageCode : String
+
     /// Model field CustomField_Values
     var customFieldValues : CustomFieldValues
 
@@ -77,6 +99,12 @@ public class Product : Model {
 
     /// Model field attributes.
     var attributes : [ProductAttribute]
+
+    /// Model field url.
+    var url : String
+
+    /// Model field imagetypes.
+    var imageTypes : Dictionary<String, Int32>
 
     /**
      CodingKeys used to map the model when encoding and decoding.
@@ -114,6 +142,8 @@ public class Product : Model {
         case productShippingRules = "productshippingrules"
         case productImageData = "productimagedata"
         case attributes
+        case url
+        case imageTypes = "imagetypes"
     }
 
     /**
@@ -150,6 +180,8 @@ public class Product : Model {
         self.productShippingRules = ProductShippingRules()
         self.productImageData = []
         self.attributes = []
+        self.url = ""
+        self.imageTypes = [:]
 
         super.init()
     }
@@ -181,8 +213,8 @@ public class Product : Model {
         self.active = try container.decodeIfPresent(Bool.self, forKey: .active) ?? false
         self.pageTitle = try container.decodeIfPresent(String.self, forKey: .pageTitle) ?? ""
         self.taxable = try container.decodeIfPresent(Bool.self, forKey: .taxable) ?? false
-        self.dateTimeCreated = Date(timeIntervalSince1970: Double(try container.decodeIfPresent(Int.self, forKey: .dateTimeCreated) ?? 0))
-        self.dateTimeUpdate = Date(timeIntervalSince1970: Double(try container.decodeIfPresent(Int.self, forKey: .dateTimeUpdate) ?? 0))
+        self.dateTimeCreated = Date(timeIntervalSince1970: Double(try container.decodeIfPresent(Int64.self, forKey: .dateTimeCreated) ?? 0))
+        self.dateTimeUpdate = Date(timeIntervalSince1970: Double(try container.decodeIfPresent(Int64.self, forKey: .dateTimeUpdate) ?? 0))
         self.productInventorySettings = try container.decodeIfPresent(ProductInventorySettings.self, forKey: .productInventorySettings) ?? ProductInventorySettings()
         self.productInventoryActive = try container.decodeIfPresent(Bool.self, forKey: .productInventoryActive) ?? false
         self.productInventory = try container.decodeIfPresent(Int.self, forKey: .productInventory) ?? 0
@@ -195,6 +227,19 @@ public class Product : Model {
         self.productShippingRules = try container.decodeIfPresent(ProductShippingRules.self, forKey: .productShippingRules) ?? ProductShippingRules()
         self.productImageData = try container.decodeIfPresent([ProductImageData].self, forKey: .productImageData) ?? []
         self.attributes = try container.decodeIfPresent([ProductAttribute].self, forKey: .attributes) ?? []
+        self.url = try container.decodeIfPresent(String.self, forKey: .url) ?? ""
+
+        self.imageTypes = [:]
+        let imageTypesContainer = try decoder.container(keyedBy: RuntimeCodingKey.self)
+
+        for key in imageTypesContainer.allKeys {
+            if key.stringValue.starts(with: "imagetype:") {
+                let imageType = String(key.stringValue[key.stringValue.index(after: key.stringValue.firstIndex(of: ":")!)...])
+                let imageId = try imageTypesContainer.decode(Int32.self, forKey: key)
+                
+                self.imageTypes[imageType] = imageId;
+            }
+        }
 
         try super.init(from : decoder)
     }
@@ -226,8 +271,8 @@ public class Product : Model {
         try container.encodeIfPresent(self.active, forKey: .active)
         try container.encodeIfPresent(self.pageTitle, forKey: .pageTitle)
         try container.encodeIfPresent(self.taxable, forKey: .taxable)
-        try container.encodeIfPresent(Int(self.dateTimeCreated.timeIntervalSince1970), forKey: .dateTimeCreated)
-        try container.encodeIfPresent(Int(self.dateTimeUpdate.timeIntervalSince1970), forKey: .dateTimeUpdate)
+        try container.encodeIfPresent(Int64(self.dateTimeCreated.timeIntervalSince1970), forKey: .dateTimeCreated)
+        try container.encodeIfPresent(Int64(self.dateTimeUpdate.timeIntervalSince1970), forKey: .dateTimeUpdate)
         try container.encodeIfPresent(self.productInventorySettings, forKey: .productInventorySettings)
         try container.encodeIfPresent(self.productInventoryActive, forKey: .productInventoryActive)
         try container.encodeIfPresent(self.productInventory, forKey: .productInventory)
@@ -240,6 +285,7 @@ public class Product : Model {
         try container.encodeIfPresent(self.productShippingRules, forKey: .productShippingRules)
         try container.encodeIfPresent(self.productImageData, forKey: .productImageData)
         try container.encodeIfPresent(self.attributes, forKey: .attributes)
+        try container.encodeIfPresent(self.url, forKey: .url)
 
         try super.encode(to: encoder)
     }
@@ -518,5 +564,15 @@ public class Product : Model {
      */
     public func getAttributes() -> [ProductAttribute] {
         return self.attributes
+    }
+
+    /**
+     Getter for url.
+
+     - Returns:  String
+
+     */
+    public func getUrl() -> String {
+        return self.url
     }
 }

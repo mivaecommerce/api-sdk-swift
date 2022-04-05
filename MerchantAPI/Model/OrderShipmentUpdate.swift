@@ -12,14 +12,19 @@ public class OrderShipmentUpdate : Model {
 
     /// Model field shpmnt_id.
     var shipmentId : Int
+
     /// Model field mark_shipped.
     var markShipped : Optional<Bool>
+
     /// Model field tracknum.
     var trackingNumber : String
+
     /// Model field tracktype.
     var trackingType : String
+
     /// Model field cost.
     var cost : Optional<Decimal>
+
     /**
      CodingKeys used to map the model when encoding and decoding.
 

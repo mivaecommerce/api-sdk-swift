@@ -12,22 +12,31 @@ public class CustomerCreditHistory : Model {
 
     /// Model field id.
     var id : Int
+
     /// Model field user_id.
     var userId : Int
+
     /// Model field cust_id.
     var customerId : Int
+
     /// Model field order_id.
     var orderId : Int
+
     /// Model field txref.
     var transactionReference : String
+
     /// Model field descrip.
     var description : String
+
     /// Model field amount.
     var amount : Decimal
+
     /// Model field dtstamp.
     var dateTimeStamp : Date
+
     /// Model field user_name.
     var userName : String
+
     /**
      CodingKeys used to map the model when encoding and decoding.
 
@@ -80,7 +89,7 @@ public class CustomerCreditHistory : Model {
         self.transactionReference = try container.decodeIfPresent(String.self, forKey: .transactionReference) ?? ""
         self.description = try container.decodeIfPresent(String.self, forKey: .description) ?? ""
         self.amount = try container.decodeIfPresent(Decimal.self, forKey: .amount) ?? Decimal(0.00)
-        self.dateTimeStamp = Date(timeIntervalSince1970: Double(try container.decodeIfPresent(Int.self, forKey: .dateTimeStamp) ?? 0))
+        self.dateTimeStamp = Date(timeIntervalSince1970: Double(try container.decodeIfPresent(Int64.self, forKey: .dateTimeStamp) ?? 0))
         self.userName = try container.decodeIfPresent(String.self, forKey: .userName) ?? ""
 
         try super.init(from : decoder)
@@ -104,7 +113,7 @@ public class CustomerCreditHistory : Model {
         try container.encodeIfPresent(self.transactionReference, forKey: .transactionReference)
         try container.encodeIfPresent(self.description, forKey: .description)
         try container.encodeIfPresent(Decimal.roundForEncoding(value: self.amount, precision: MERCHANTAPI_FLOAT_ENCODE_PRECISION), forKey: .amount)
-        try container.encodeIfPresent(Int(self.dateTimeStamp.timeIntervalSince1970), forKey: .dateTimeStamp)
+        try container.encodeIfPresent(Int64(self.dateTimeStamp.timeIntervalSince1970), forKey: .dateTimeStamp)
         try container.encodeIfPresent(self.userName, forKey: .userName)
 
         try super.encode(to: encoder)

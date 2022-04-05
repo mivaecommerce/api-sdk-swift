@@ -18,85 +18,124 @@ public class Store : Model {
 
     /// Model field id.
     var id : Int
+
     /// Model field manager_id.
     var managerId : Int
+
     /// Model field code.
     var code : String
+
     /// Model field license.
     var license : String
+
     /// Model field name.
     var name : String
+
     /// Model field owner.
     var owner : String
+
     /// Model field email.
     var email : String
+
     /// Model field company.
     var company : String
+
     /// Model field address.
     var address : String
+
     /// Model field city.
     var city : String
+
     /// Model field state.
     var state : String
+
     /// Model field zip.
     var zip : String
+
     /// Model field phone.
     var phone : String
+
     /// Model field fax.
     var fax : String
+
     /// Model field country.
     var country : String
+
     /// Model field wtunits.
     var weightUnits : String
+
     /// Model field wtunitcode.
     var weightUnitCode : String
+
     /// Model field dmunitcode.
     var dimensionUnits : String
+
     /// Model field baskexp.
     var basketExpiration : Int
+
     /// Model field pgrp_ovlp.
     var priceGroupOverlapResolution : String
+
     /// Model field ui_id.
     var userInterfaceId : Int
+
     /// Model field tax_id.
     var taxId : Int
+
     /// Model field currncy_id.
     var currencyId : Int
+
     /// Model field mnt_warn.
     var maintenanceWarningMessage : String
+
     /// Model field mnt_close.
     var maintenanceClosedMessage : String
+
     /// Model field mnt_time.
     var maintenanceTime : Int
+
     /// Model field mnt_no_new.
     var maintenanceNoNewCustomersBefore : Int
+
     /// Model field omin_quant.
     var orderMinimumQuantity : Int
 
     /// Model field omin_all.
     var orderMinimumRequiredAll : Bool
+
     /// Model field omin_msg.
     var orderMinimumMessage : String
+
     /// Model field crypt_id.
     var cryptId : Int
+
     /// Model field req_ship.
     var requireShipping : Bool
+
     /// Model field req_tax.
     var requireTax : Bool
+
     /// Model field req_frship.
     var requireFreeOrderShipping : Bool
+
     /// Model field item_adel.
     var itemModuleUninstallable : Bool
+
     /// Model field cache_type.
     var cacheType : String
+
     /// Model field redishost.
     var redisHost : String
+
     /// Model field redisport.
     var redisPort : Int
+
     /// Model field redisto.
     var redisTimeout : Int
+
     /// Model field redisex.
     var redisExpiration : Int
+
     /**
      CodingKeys used to map the model when encoding and decoding.
 

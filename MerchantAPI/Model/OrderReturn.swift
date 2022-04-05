@@ -18,16 +18,22 @@ public class OrderReturn : Model {
 
     /// Model field id.
     var id : Int
+
     /// Model field order_id.
     var orderId : Int
+
     /// Model field code.
     var code : String
+
     /// Model field status.
     var status : Int
+
     /// Model field dt_issued.
     var dateTimeIssued : Date
+
     /// Model field dt_recvd.
     var dateTimeReceived : Date
+
     /**
      CodingKeys used to map the model when encoding and decoding.
 
@@ -71,8 +77,8 @@ public class OrderReturn : Model {
         self.orderId = try container.decodeIfPresent(Int.self, forKey: .orderId) ?? 0
         self.code = try container.decodeIfPresent(String.self, forKey: .code) ?? ""
         self.status = try container.decodeIfPresent(Int.self, forKey: .status) ?? 0
-        self.dateTimeIssued = Date(timeIntervalSince1970: Double(try container.decodeIfPresent(Int.self, forKey: .dateTimeIssued) ?? 0))
-        self.dateTimeReceived = Date(timeIntervalSince1970: Double(try container.decodeIfPresent(Int.self, forKey: .dateTimeReceived) ?? 0))
+        self.dateTimeIssued = Date(timeIntervalSince1970: Double(try container.decodeIfPresent(Int64.self, forKey: .dateTimeIssued) ?? 0))
+        self.dateTimeReceived = Date(timeIntervalSince1970: Double(try container.decodeIfPresent(Int64.self, forKey: .dateTimeReceived) ?? 0))
 
         try super.init(from : decoder)
     }
@@ -92,8 +98,8 @@ public class OrderReturn : Model {
         try container.encodeIfPresent(self.orderId, forKey: .orderId)
         try container.encodeIfPresent(self.code, forKey: .code)
         try container.encodeIfPresent(self.status, forKey: .status)
-        try container.encodeIfPresent(Int(self.dateTimeIssued.timeIntervalSince1970), forKey: .dateTimeIssued)
-        try container.encodeIfPresent(Int(self.dateTimeReceived.timeIntervalSince1970), forKey: .dateTimeReceived)
+        try container.encodeIfPresent(Int64(self.dateTimeIssued.timeIntervalSince1970), forKey: .dateTimeIssued)
+        try container.encodeIfPresent(Int64(self.dateTimeReceived.timeIntervalSince1970), forKey: .dateTimeReceived)
 
         try super.encode(to: encoder)
     }

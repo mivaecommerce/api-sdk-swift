@@ -19,30 +19,43 @@ public class OrderShipment : Model {
 
     /// Model field id.
     var id : Int
+
     /// Model field code.
     var code : String
+
     /// Model field batch_id.
     var batchId : Int
+
     /// Model field order_id.
     var orderId : Int
+
     /// Model field status.
     var status : Int
+
     /// Model field labelcount.
     var labelCount : Int
+
     /// Model field ship_date.
     var shipDate : Int
+
     /// Model field tracknum.
     var trackingNumber : String
+
     /// Model field tracktype.
     var trackingType : String
+
     /// Model field tracklink.
     var trackingLink : String
+
     /// Model field weight.
     var weight : Decimal
+
     /// Model field cost.
     var cost : Decimal
+
     /// Model field formatted_cost.
     var formattedCost : String
+
     /// Model field order
     var order : Order
 

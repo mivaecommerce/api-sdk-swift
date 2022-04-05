@@ -28,46 +28,67 @@ public class PriceGroup : Model {
 
     /// Model field id.
     var id : Int
+
     /// Model field name.
     var name : String
+
     /// Model field custscope.
     var customerScope : String
+
     /// Model field rate.
     var rate : String
+
     /// Model field discount.
     var discount : Decimal
+
     /// Model field markup.
     var markup : Decimal
+
     /// Model field dt_start.
     var dateTimeStart : Date
+
     /// Model field dt_end.
     var dateTimeEnd : Date
+
     /// Model field qmn_subtot.
     var minimumSubtotal : Decimal
+
     /// Model field qmx_subtot.
     var maximumSubtotal : Decimal
+
     /// Model field qmn_quan.
     var minimumQuantity : Int
+
     /// Model field qmx_quan.
     var maximumQuantity : Int
+
     /// Model field qmn_weight.
     var minimumWeight : Decimal
+
     /// Model field qmx_weight.
     var maximumWeight : Decimal
+
     /// Model field bmn_subtot.
     var basketMinimumSubtotal : Decimal
+
     /// Model field bmx_subtot.
     var basketMaximumSubtotal : Decimal
+
     /// Model field bmn_quan.
     var basketMinimumQuantity : Int
+
     /// Model field bmx_quan.
     var basketMaximumQuantity : Int
+
     /// Model field bmn_weight.
     var basketMinimumWeight : Decimal
+
     /// Model field bmx_weight.
     var basketMaximumWeight : Decimal
+
     /// Model field priority.
     var priority : Int
+
     /// Model field module
     var module : Module
 
@@ -76,10 +97,13 @@ public class PriceGroup : Model {
 
     /// Model field exclusion.
     var exclusion : Bool
+
     /// Model field descrip.
     var description : String
+
     /// Model field display.
     var display : Bool
+
     /**
      CodingKeys used to map the model when encoding and decoding.
 
@@ -165,8 +189,8 @@ public class PriceGroup : Model {
         self.rate = try container.decodeIfPresent(String.self, forKey: .rate) ?? ""
         self.discount = try container.decodeIfPresent(Decimal.self, forKey: .discount) ?? Decimal(0.00)
         self.markup = try container.decodeIfPresent(Decimal.self, forKey: .markup) ?? Decimal(0.00)
-        self.dateTimeStart = Date(timeIntervalSince1970: Double(try container.decodeIfPresent(Int.self, forKey: .dateTimeStart) ?? 0))
-        self.dateTimeEnd = Date(timeIntervalSince1970: Double(try container.decodeIfPresent(Int.self, forKey: .dateTimeEnd) ?? 0))
+        self.dateTimeStart = Date(timeIntervalSince1970: Double(try container.decodeIfPresent(Int64.self, forKey: .dateTimeStart) ?? 0))
+        self.dateTimeEnd = Date(timeIntervalSince1970: Double(try container.decodeIfPresent(Int64.self, forKey: .dateTimeEnd) ?? 0))
         self.minimumSubtotal = try container.decodeIfPresent(Decimal.self, forKey: .minimumSubtotal) ?? Decimal(0.00)
         self.maximumSubtotal = try container.decodeIfPresent(Decimal.self, forKey: .maximumSubtotal) ?? Decimal(0.00)
         self.minimumQuantity = try container.decodeIfPresent(Int.self, forKey: .minimumQuantity) ?? 0
@@ -206,8 +230,8 @@ public class PriceGroup : Model {
         try container.encodeIfPresent(self.rate, forKey: .rate)
         try container.encodeIfPresent(Decimal.roundForEncoding(value: self.discount, precision: MERCHANTAPI_FLOAT_ENCODE_PRECISION), forKey: .discount)
         try container.encodeIfPresent(Decimal.roundForEncoding(value: self.markup, precision: MERCHANTAPI_FLOAT_ENCODE_PRECISION), forKey: .markup)
-        try container.encodeIfPresent(Int(self.dateTimeStart.timeIntervalSince1970), forKey: .dateTimeStart)
-        try container.encodeIfPresent(Int(self.dateTimeEnd.timeIntervalSince1970), forKey: .dateTimeEnd)
+        try container.encodeIfPresent(Int64(self.dateTimeStart.timeIntervalSince1970), forKey: .dateTimeStart)
+        try container.encodeIfPresent(Int64(self.dateTimeEnd.timeIntervalSince1970), forKey: .dateTimeEnd)
         try container.encodeIfPresent(Decimal.roundForEncoding(value: self.minimumSubtotal, precision: MERCHANTAPI_FLOAT_ENCODE_PRECISION), forKey: .minimumSubtotal)
         try container.encodeIfPresent(Decimal.roundForEncoding(value: self.maximumSubtotal, precision: MERCHANTAPI_FLOAT_ENCODE_PRECISION), forKey: .maximumSubtotal)
         try container.encodeIfPresent(self.minimumQuantity, forKey: .minimumQuantity)

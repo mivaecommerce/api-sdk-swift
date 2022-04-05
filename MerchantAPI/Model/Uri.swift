@@ -21,24 +21,34 @@ public class Uri : Model {
 
     /// Model field id.
     var id : Int
+
     /// Model field uri.
     var uri : String
+
     /// Model field store_id.
     var storeId : Int
+
     /// Model field screen.
     var screen : String
+
     /// Model field page_id.
     var pageId : Int
+
     /// Model field cat_id.
     var categoryId : Int
+
     /// Model field product_id.
     var productId : Int
+
     /// Model field feed_id.
     var feedId : Int
+
     /// Model field canonical.
     var canonical : Bool
+
     /// Model field status.
     var status : Int
+
     /// Model field store
     var store : UriDetail
 

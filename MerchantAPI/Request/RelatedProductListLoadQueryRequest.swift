@@ -133,7 +133,8 @@ public class RelatedProductListLoadQueryRequest : ListQueryRequest {
                 "categories",
                 "productshippingrules",
                 "relatedproducts",
-                "uris"
+                "uris",
+                "url"
             ]
         }
     }

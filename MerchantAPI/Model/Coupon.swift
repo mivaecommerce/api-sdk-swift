@@ -19,24 +19,34 @@ public class Coupon : Model {
 
     /// Model field id.
     var id : Int
+
     /// Model field code.
     var code : String
+
     /// Model field descrip.
     var description : String
+
     /// Model field custscope.
     var customerScope : String
+
     /// Model field dt_start.
     var dateTimeStart : Date
+
     /// Model field dt_end.
     var dateTimeEnd : Date
+
     /// Model field max_use.
     var maxUse : Int
+
     /// Model field max_per.
     var maxPer : Int
+
     /// Model field active.
     var active : Bool
+
     /// Model field use_count.
     var useCount : Int
+
     /**
      CodingKeys used to map the model when encoding and decoding.
 
@@ -88,8 +98,8 @@ public class Coupon : Model {
         self.code = try container.decodeIfPresent(String.self, forKey: .code) ?? ""
         self.description = try container.decodeIfPresent(String.self, forKey: .description) ?? ""
         self.customerScope = try container.decodeIfPresent(String.self, forKey: .customerScope) ?? ""
-        self.dateTimeStart = Date(timeIntervalSince1970: Double(try container.decodeIfPresent(Int.self, forKey: .dateTimeStart) ?? 0))
-        self.dateTimeEnd = Date(timeIntervalSince1970: Double(try container.decodeIfPresent(Int.self, forKey: .dateTimeEnd) ?? 0))
+        self.dateTimeStart = Date(timeIntervalSince1970: Double(try container.decodeIfPresent(Int64.self, forKey: .dateTimeStart) ?? 0))
+        self.dateTimeEnd = Date(timeIntervalSince1970: Double(try container.decodeIfPresent(Int64.self, forKey: .dateTimeEnd) ?? 0))
         self.maxUse = try container.decodeIfPresent(Int.self, forKey: .maxUse) ?? 0
         self.maxPer = try container.decodeIfPresent(Int.self, forKey: .maxPer) ?? 0
         self.active = try container.decodeIfPresent(Bool.self, forKey: .active) ?? false
@@ -113,8 +123,8 @@ public class Coupon : Model {
         try container.encodeIfPresent(self.code, forKey: .code)
         try container.encodeIfPresent(self.description, forKey: .description)
         try container.encodeIfPresent(self.customerScope, forKey: .customerScope)
-        try container.encodeIfPresent(Int(self.dateTimeStart.timeIntervalSince1970), forKey: .dateTimeStart)
-        try container.encodeIfPresent(Int(self.dateTimeEnd.timeIntervalSince1970), forKey: .dateTimeEnd)
+        try container.encodeIfPresent(Int64(self.dateTimeStart.timeIntervalSince1970), forKey: .dateTimeStart)
+        try container.encodeIfPresent(Int64(self.dateTimeEnd.timeIntervalSince1970), forKey: .dateTimeEnd)
         try container.encodeIfPresent(self.maxUse, forKey: .maxUse)
         try container.encodeIfPresent(self.maxPer, forKey: .maxPer)
         try container.encodeIfPresent(self.active, forKey: .active)

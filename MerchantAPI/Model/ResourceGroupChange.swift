@@ -12,8 +12,10 @@ public class ResourceGroupChange : Model {
 
     /// Model field ResourceGroup_ID.
     var resourceGroupId : Optional<Int>
+
     /// Model field ResourceGroup_Code.
     var resourceGroupCode : Optional<String>
+
     /// Model field LinkedCSSResources.
     var linkedCSSResources : [String]
 

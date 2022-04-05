@@ -12,18 +12,25 @@ public class JavaScriptResource : Model {
 
     /// Model field id.
     var id : Int
+
     /// Model field code.
     var code : String
+
     /// Model field type.
     var type : String
+
     /// Model field is_global.
     var isGlobal : Bool
+
     /// Model field active.
     var active : Bool
+
     /// Model field file.
     var file : Int
+
     /// Model field templ_id.
     var templateId : Int
+
     /// Model field attributes.
     var attributes : [JavaScriptResourceAttribute]
 

@@ -12,12 +12,16 @@ public class SubscriptionOption : Model {
 
     /// Model field subscrp_id.
     var subscriptionId : Int
+
     /// Model field templ_code.
     var templateCode : String
+
     /// Model field attr_code.
     var attributeCode : String
+
     /// Model field value.
     var value : String
+
     /**
      CodingKeys used to map the model when encoding and decoding.
 

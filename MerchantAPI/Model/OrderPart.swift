@@ -12,16 +12,22 @@ public class OrderPart : Model {
 
     /// Model field code.
     var code : String
+
     /// Model field sku.
     var sku : String
+
     /// Model field name.
     var name : String
+
     /// Model field quantity.
     var quantity : Int
+
     /// Model field total_quantity.
     var totalQuantity : Int
+
     /// Model field price.
     var price : Decimal
+
     /**
      CodingKeys used to map the model when encoding and decoding.
 

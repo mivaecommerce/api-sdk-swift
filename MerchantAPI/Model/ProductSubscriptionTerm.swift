@@ -27,22 +27,34 @@ public class ProductSubscriptionTerm : Model {
 
     /// Model field id.
     var id : Int
+
     /// Model field product_id.
     var productId : Int
+
     /// Model field frequency.
     var frequency : String
+
     /// Model field term.
     var term : Int
+
     /// Model field descrip.
     var description : String
+
     /// Model field n.
     var n : Int
+
     /// Model field fixed_dow.
     var fixedDayOfWeek : Int
+
     /// Model field fixed_dom.
     var fixedDayOfMonth : Int
+
     /// Model field sub_count.
     var subscriptionCount : Int
+
+    /// Model field dates.
+    var dates : [ProductSubscriptionTermDate]
+
     /**
      CodingKeys used to map the model when encoding and decoding.
 
@@ -58,6 +70,7 @@ public class ProductSubscriptionTerm : Model {
         case fixedDayOfWeek = "fixed_dow"
         case fixedDayOfMonth = "fixed_dom"
         case subscriptionCount = "sub_count"
+        case dates
     }
 
     /**
@@ -73,6 +86,7 @@ public class ProductSubscriptionTerm : Model {
         self.fixedDayOfWeek = 0
         self.fixedDayOfMonth = 0
         self.subscriptionCount = 0
+        self.dates = []
 
         super.init()
     }
@@ -97,6 +111,7 @@ public class ProductSubscriptionTerm : Model {
         self.fixedDayOfWeek = try container.decodeIfPresent(Int.self, forKey: .fixedDayOfWeek) ?? 0
         self.fixedDayOfMonth = try container.decodeIfPresent(Int.self, forKey: .fixedDayOfMonth) ?? 0
         self.subscriptionCount = try container.decodeIfPresent(Int.self, forKey: .subscriptionCount) ?? 0
+        self.dates = try container.decodeIfPresent([ProductSubscriptionTermDate].self, forKey: .dates) ?? []
 
         try super.init(from : decoder)
     }
@@ -121,6 +136,7 @@ public class ProductSubscriptionTerm : Model {
         try container.encodeIfPresent(self.fixedDayOfWeek, forKey: .fixedDayOfWeek)
         try container.encodeIfPresent(self.fixedDayOfMonth, forKey: .fixedDayOfMonth)
         try container.encodeIfPresent(self.subscriptionCount, forKey: .subscriptionCount)
+        try container.encodeIfPresent(self.dates, forKey: .dates)
 
         try super.encode(to: encoder)
     }
@@ -213,5 +229,14 @@ public class ProductSubscriptionTerm : Model {
      */
     public func getSubscriptionCount() -> Int {
         return self.subscriptionCount
+    }
+
+    /**
+     Getter for dates.
+
+     - Returns:  [ProductSubscriptionTermDate]
+     */
+    public func getDates() -> [ProductSubscriptionTermDate] {
+        return self.dates
     }
 }

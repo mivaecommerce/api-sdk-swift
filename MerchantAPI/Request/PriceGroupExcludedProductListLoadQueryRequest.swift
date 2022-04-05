@@ -133,7 +133,8 @@ public class PriceGroupExcludedProductListLoadQueryRequest : ListQueryRequest {
                 "categories",
                 "productshippingrules",
                 "relatedproducts",
-                "uris"
+                "uris",
+                "url"
             ]
         }
     }

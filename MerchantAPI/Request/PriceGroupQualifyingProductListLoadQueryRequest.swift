@@ -133,7 +133,8 @@ public class PriceGroupQualifyingProductListLoadQueryRequest : ListQueryRequest 
                 "categories",
                 "productshippingrules",
                 "relatedproducts",
-                "uris"
+                "uris",
+                "url"
             ]
         }
     }

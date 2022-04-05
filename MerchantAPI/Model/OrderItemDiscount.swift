@@ -12,16 +12,22 @@ public class OrderItemDiscount : Model {
 
     /// Model field order_id.
     var orderId : Int
+
     /// Model field line_id.
     var lineId : Int
+
     /// Model field pgrp_id.
     var priceGroupId : Int
+
     /// Model field display.
     var display : Bool
+
     /// Model field descrip.
     var description : String
+
     /// Model field discount.
     var discount : Decimal
+
     /**
      CodingKeys used to map the model when encoding and decoding.
 

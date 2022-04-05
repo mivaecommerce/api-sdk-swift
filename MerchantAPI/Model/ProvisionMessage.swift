@@ -12,12 +12,16 @@ public class ProvisionMessage : Model {
 
     /// Model field dtstamp.
     var dateTimeStamp : String
+
     /// Model field lineno.
     var lineNumber : Int
+
     /// Model field tag.
     var tag : String
+
     /// Model field message.
     var message : String
+
     /**
      CodingKeys used to map the model when encoding and decoding.
 

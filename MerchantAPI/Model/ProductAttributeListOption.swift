@@ -12,30 +12,43 @@ public class ProductAttributeListOption : Model {
 
     /// Model field id.
     var id : Int
+
     /// Model field product_id.
     var productId : Int
+
     /// Model field attr_id.
     var attributeId : Int
+
     /// Model field attemp_id.
     var attributeTemplateId : Int
+
     /// Model field attmpat_id.
     var attributeTemplateAttributeId : Int
+
     /// Model field disp_order.
     var displayOrder : Int
+
     /// Model field code.
     var code : String
+
     /// Model field prompt.
     var prompt : String
+
     /// Model field price.
     var price : Decimal
+
     /// Model field cost.
     var cost : Decimal
+
     /// Model field weight.
     var weight : Decimal
+
     /// Model field image.
     var image : String
+
     /// Model field default_opt.
     var defaultOption : Bool
+
     /**
      CodingKeys used to map the model when encoding and decoding.
 

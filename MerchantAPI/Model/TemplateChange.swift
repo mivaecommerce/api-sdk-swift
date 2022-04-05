@@ -12,15 +12,19 @@ public class TemplateChange : Model {
 
     /// Model field Template_ID.
     var templateId : Optional<Int>
+
     /// Model field Template_Filename.
     var templateFilename : Optional<String>
+
     /// Model field Source.
     var source : String
+
     /// Model field Settings
-    var settings : TemplateVersionSettings
+    var settings : VersionSettings
 
     /// Model field Notes.
     var notes : Optional<String>
+
     /**
      CodingKeys used to map the model when encoding and decoding.
 
@@ -41,7 +45,7 @@ public class TemplateChange : Model {
         self.templateId = nil
         self.templateFilename = nil
         self.source = ""
-        self.settings = TemplateVersionSettings()
+        self.settings = VersionSettings()
         self.notes = nil
 
         super.init()
@@ -61,7 +65,7 @@ public class TemplateChange : Model {
         self.templateId = try container.decodeIfPresent(Int.self, forKey: .templateId) ?? nil
         self.templateFilename = try container.decodeIfPresent(String.self, forKey: .templateFilename) ?? nil
         self.source = try container.decodeIfPresent(String.self, forKey: .source) ?? ""
-        self.settings = try container.decodeIfPresent(TemplateVersionSettings.self, forKey: .settings) ?? TemplateVersionSettings()
+        self.settings = try container.decodeIfPresent(VersionSettings.self, forKey: .settings) ?? VersionSettings()
         self.notes = try container.decodeIfPresent(String.self, forKey: .notes) ?? nil
 
         try super.init(from : decoder)
@@ -120,9 +124,9 @@ public class TemplateChange : Model {
     /**
      Getter for Settings.
 
-     - Returns:  TemplateVersionSettings
+     - Returns:  VersionSettings
      */
-    public func getSettings() -> TemplateVersionSettings {
+    public func getSettings() -> VersionSettings {
         return self.settings
     }
 

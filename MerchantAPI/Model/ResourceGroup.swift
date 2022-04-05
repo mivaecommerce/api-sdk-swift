@@ -12,8 +12,10 @@ public class ResourceGroup : Model {
 
     /// Model field id.
     var id : Int
+
     /// Model field code.
     var code : String
+
     /// Model field linkedcssresources.
     var linkedCSSResources : [CSSResource]
 

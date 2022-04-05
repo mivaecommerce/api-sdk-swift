@@ -12,32 +12,46 @@ public class ProductAttributeListAttribute : Model {
 
     /// Model field id.
     var id : Int
+
     /// Model field product_id.
     var productId : Int
+
     /// Model field default_id.
     var defaultId : Int
+
     /// Model field disp_order.
     var displayOrder : Int
+
     /// Model field attemp_id.
     var attributeTemplateId : Int
+
     /// Model field code.
     var code : String
+
     /// Model field type.
     var type : String
+
     /// Model field prompt.
     var prompt : String
+
     /// Model field price.
     var price : Decimal
+
     /// Model field cost.
     var cost : Decimal
+
     /// Model field weight.
     var weight : Decimal
+
     /// Model field required.
     var required : Bool
+
     /// Model field inventory.
     var inventory : Bool
+
     /// Model field image.
     var image : String
+
     /// Model field attributes.
     var templateAttributes : [ProductAttributeListAttribute]
 
@@ -46,6 +60,7 @@ public class ProductAttributeListAttribute : Model {
 
     /// Model field has_variant_parts.
     var hasVariantParts : Bool
+
     /// Model field template
     var template : ProductAttributeListTemplate
 

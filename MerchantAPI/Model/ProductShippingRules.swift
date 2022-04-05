@@ -12,16 +12,22 @@ public class ProductShippingRules : Model {
 
     /// Model field product_id.
     var productId : Int
+
     /// Model field ownpackage.
     var ownPackage : Bool
+
     /// Model field width.
     var width : Decimal
+
     /// Model field length.
     var length : Decimal
+
     /// Model field height.
     var height : Decimal
+
     /// Model field limitmeths.
     var limitMethods : Bool
+
     /// Model field methods.
     var methods : [ProductShippingMethod]
 

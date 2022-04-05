@@ -12,14 +12,19 @@ public class OrderDiscountTotal : Model {
 
     /// Model field order_id.
     var orderId : Int
+
     /// Model field pgrp_id.
     var priceGroupId : Int
+
     /// Model field name.
     var name : String
+
     /// Model field descrip.
     var description : String
+
     /// Model field total.
     var total : Decimal
+
     /**
      CodingKeys used to map the model when encoding and decoding.
 

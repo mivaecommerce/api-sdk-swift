@@ -19,8 +19,10 @@ public class PriceGroupExclusion : Model {
 
     /// Model field id.
     var id : Int
+
     /// Model field scope.
     var scope : Optional<String>
+
     /**
      CodingKeys used to map the model when encoding and decoding.
 

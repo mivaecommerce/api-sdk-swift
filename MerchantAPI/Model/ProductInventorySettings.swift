@@ -12,34 +12,49 @@ public class ProductInventorySettings : Model {
 
     /// Model field active.
     var active : Bool
+
     /// Model field in_short.
     var inStockMessageShort : String
+
     /// Model field in_long.
     var inStockMessageLong : String
+
     /// Model field low_track.
     var trackLowStockLevel : String
+
     /// Model field low_level.
     var lowStockLevel : Int
+
     /// Model field low_lvl_d.
     var lowStockLevelDefault : Bool
+
     /// Model field low_short.
     var lowStockMessageShort : String
+
     /// Model field low_long.
     var lowStockMessageLong : String
+
     /// Model field out_track.
     var trackOutOfStockLevel : String
+
     /// Model field out_hide.
     var hideOutOfStock : String
+
     /// Model field out_level.
     var outOfStockLevel : Int
+
     /// Model field out_lvl_d.
     var outOfStockLevelDefault : Bool
+
     /// Model field out_short.
     var outOfStockMessageShort : String
+
     /// Model field out_long.
     var outOfStockMessageLong : String
+
     /// Model field ltd_long.
     var limitedStockMessage : String
+
     /**
      CodingKeys used to map the model when encoding and decoding.
 

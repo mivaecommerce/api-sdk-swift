@@ -12,44 +12,64 @@ public class CustomerPaymentCard : Model {
 
     /// Model field id.
     var id : Int
+
     /// Model field cust_id.
     var customerId : Int
+
     /// Model field fname.
     var firstName : String
+
     /// Model field lname.
     var lastName : String
+
     /// Model field exp_month.
     var expirationMonth : Int
+
     /// Model field exp_year.
     var expirationYear : Int
+
     /// Model field lastfour.
     var lastFour : String
+
     /// Model field addr1.
     var address1 : String
+
     /// Model field addr2.
     var address2 : String
+
     /// Model field city.
     var city : String
+
     /// Model field state.
     var state : String
+
     /// Model field zip.
     var zip : String
+
     /// Model field cntry.
     var country : String
+
     /// Model field lastused.
     var lastUsed : String
+
     /// Model field token.
     var token : String
+
     /// Model field type_id.
     var typeId : Int
+
     /// Model field refcount.
     var referenceCount : Int
+
     /// Model field type.
     var type : String
+
     /// Model field mod_code.
     var moduleCode : String
+
     /// Model field meth_code.
     var methodCode : String
+
     /**
      CodingKeys used to map the model when encoding and decoding.
 

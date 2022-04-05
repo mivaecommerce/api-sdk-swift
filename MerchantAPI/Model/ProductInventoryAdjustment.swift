@@ -12,12 +12,16 @@ public class ProductInventoryAdjustment : Model {
 
     /// Model field product_id.
     var productId : Optional<Int>
+
     /// Model field product_code.
     var productCode : Optional<String>
+
     /// Model field product_sku.
     var productSku : Optional<String>
+
     /// Model field adjustment.
     var adjustment : Decimal
+
     /**
      CodingKeys used to map the model when encoding and decoding.
 

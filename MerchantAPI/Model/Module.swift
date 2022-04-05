@@ -12,22 +12,31 @@ public class Module : Model {
 
     /// Model field id.
     var id : Int
+
     /// Model field code.
     var code : String
+
     /// Model field name.
     var name : String
+
     /// Model field provider.
     var provider : String
+
     /// Model field api_ver.
     var apiVersion : String
+
     /// Model field version.
     var version : String
+
     /// Model field module.
     var module : String
+
     /// Model field refcount.
     var referenceCount : Int
+
     /// Model field active.
     var active : Bool
+
     /**
      CodingKeys used to map the model when encoding and decoding.
 

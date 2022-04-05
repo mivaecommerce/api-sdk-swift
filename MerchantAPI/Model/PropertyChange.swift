@@ -12,29 +12,46 @@ public class PropertyChange : Model {
 
     /// Model field Property_ID.
     var propertyId : Optional<Int>
+
     /// Model field Property_Type.
     var propertyType : Optional<String>
+
     /// Model field Property_Code.
     var propertyCode : Optional<String>
+
     /// Model field Product_ID.
     var productId : Optional<Int>
+
     /// Model field Product_Code.
     var productCode : Optional<String>
+
     /// Model field Edit_Product.
     var editProduct : Optional<String>
+
     /// Model field Category_ID.
     var categoryId : Optional<Int>
+
     /// Model field Category_Code.
     var categoryCode : Optional<String>
+
     /// Model field Edit_Category.
     var editCategory : Optional<String>
+
     /// Model field Source.
     var source : Optional<String>
+
     /// Model field Settings
-    var settings : TemplateVersionSettings
+    var settings : VersionSettings
+
+    /// Model field Image.
+    var image : Optional<String>
+
+    /// Model field Image_ID.
+    var imageId : Optional<Int>
 
     /// Model field Notes.
     var notes : Optional<String>
+
     /**
      CodingKeys used to map the model when encoding and decoding.
 
@@ -52,6 +69,8 @@ public class PropertyChange : Model {
         case editCategory = "Edit_Category"
         case source = "Source"
         case settings = "Settings"
+        case image = "Image"
+        case imageId = "Image_ID"
         case notes = "Notes"
     }
 
@@ -69,7 +88,9 @@ public class PropertyChange : Model {
         self.categoryCode = nil
         self.editCategory = nil
         self.source = nil
-        self.settings = TemplateVersionSettings()
+        self.settings = VersionSettings()
+        self.image = nil
+        self.imageId = nil
         self.notes = nil
 
         super.init()
@@ -96,7 +117,9 @@ public class PropertyChange : Model {
         self.categoryCode = try container.decodeIfPresent(String.self, forKey: .categoryCode) ?? nil
         self.editCategory = try container.decodeIfPresent(String.self, forKey: .editCategory) ?? nil
         self.source = try container.decodeIfPresent(String.self, forKey: .source) ?? nil
-        self.settings = try container.decodeIfPresent(TemplateVersionSettings.self, forKey: .settings) ?? TemplateVersionSettings()
+        self.settings = try container.decodeIfPresent(VersionSettings.self, forKey: .settings) ?? VersionSettings()
+        self.image = try container.decodeIfPresent(String.self, forKey: .image) ?? nil
+        self.imageId = try container.decodeIfPresent(Int.self, forKey: .imageId) ?? nil
         self.notes = try container.decodeIfPresent(String.self, forKey: .notes) ?? nil
 
         try super.init(from : decoder)
@@ -124,6 +147,8 @@ public class PropertyChange : Model {
         try container.encodeIfPresent(self.editCategory, forKey: .editCategory)
         try container.encodeIfPresent(self.source, forKey: .source)
         try container.encodeIfPresent(self.settings, forKey: .settings)
+        try container.encodeIfPresent(self.image, forKey: .image)
+        try container.encodeIfPresent(self.imageId, forKey: .imageId)
         try container.encodeIfPresent(self.notes, forKey: .notes)
 
         try super.encode(to: encoder)
@@ -232,10 +257,30 @@ public class PropertyChange : Model {
     /**
      Getter for Settings.
 
-     - Returns:  TemplateVersionSettings
+     - Returns:  VersionSettings
      */
-    public func getSettings() -> TemplateVersionSettings {
+    public func getSettings() -> VersionSettings {
         return self.settings
+    }
+
+    /**
+     Getter for Image.
+
+     - Returns:  Optional<String>
+
+     */
+    public func getImage() -> Optional<String> {
+        return self.image
+    }
+
+    /**
+     Getter for Image_ID.
+
+     - Returns:  Optional<Int>
+
+     */
+    public func getImageId() -> Optional<Int> {
+        return self.imageId
     }
 
     /**
@@ -375,6 +420,32 @@ public class PropertyChange : Model {
     @discardableResult
     public func setSource(_ value: String) -> Self {
         self.source = value
+        return self
+    }
+
+    /**
+     Setter for Image.
+
+     - Parameters:
+        - value: String
+     - Returns:  Self
+     */
+    @discardableResult
+    public func setImage(_ value: String) -> Self {
+        self.image = value
+        return self
+    }
+
+    /**
+     Setter for Image_ID.
+
+     - Parameters:
+        - value: Optional<Int>
+     - Returns:  Self
+     */
+    @discardableResult
+    public func setImageId(_ value: Int) -> Self {
+        self.imageId = value
         return self
     }
 

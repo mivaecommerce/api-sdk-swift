@@ -12,12 +12,16 @@ public class ProductAttributeListTemplate : Model {
 
     /// Model field id.
     var id : Int
+
     /// Model field code.
     var code : String
+
     /// Model field prompt.
     var prompt : String
+
     /// Model field refcount.
     var referenceCount : Int
+
     /**
      CodingKeys used to map the model when encoding and decoding.
 

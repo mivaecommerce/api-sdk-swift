@@ -12,20 +12,28 @@ public class JavaScriptResourceChange : Model {
 
     /// Model field JavaScriptResource_ID.
     var javaScriptResourceId : Optional<Int>
+
     /// Model field JavaScriptResource_Code.
     var javaScriptResourceCode : Optional<String>
+
     /// Model field Type.
     var type : Optional<String>
+
     /// Model field Global.
     var global : Optional<Bool>
+
     /// Model field Active.
     var active : Optional<Bool>
+
     /// Model field File_Path.
     var filePath : Optional<String>
+
     /// Model field Branchless_File_Path.
     var branchlessFilePath : Optional<String>
+
     /// Model field Source.
     var source : Optional<String>
+
     /// Model field LinkedPages.
     var linkedPages : [String]
 
@@ -37,6 +45,7 @@ public class JavaScriptResourceChange : Model {
 
     /// Model field Notes.
     var notes : Optional<String>
+
     /**
      CodingKeys used to map the model when encoding and decoding.
 

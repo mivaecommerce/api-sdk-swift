@@ -12,8 +12,10 @@ public class PrintQueue : Model {
 
     /// Model field id.
     var id : Int
+
     /// Model field descrip.
     var description : String
+
     /**
      CodingKeys used to map the model when encoding and decoding.
 

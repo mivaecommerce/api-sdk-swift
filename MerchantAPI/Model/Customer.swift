@@ -12,92 +12,136 @@ public class Customer : Model {
 
     /// Model field id.
     var id : Int
+
     /// Model field account_id.
     var accountId : Int
+
     /// Model field login.
     var login : String
+
     /// Model field pw_email.
     var passwordEmail : String
+
     /// Model field ship_id.
     var shipId : Int
+
     /// Model field ship_res.
     var shippingResidential : Bool
+
     /// Model field ship_fname.
     var shipFirstName : String
+
     /// Model field ship_lname.
     var shipLastName : String
+
     /// Model field ship_email.
     var shipEmail : String
+
     /// Model field ship_comp.
     var shipCompany : String
+
     /// Model field ship_phone.
     var shipPhone : String
+
     /// Model field ship_fax.
     var shipFax : String
+
     /// Model field ship_addr1.
     var shipAddress1 : String
+
     /// Model field ship_addr2.
     var shipAddress2 : String
+
     /// Model field ship_city.
     var shipCity : String
+
     /// Model field ship_state.
     var shipState : String
+
     /// Model field ship_zip.
     var shipZip : String
+
     /// Model field ship_cntry.
     var shipCountry : String
+
     /// Model field bill_id.
     var billId : Int
+
     /// Model field bill_fname.
     var billFirstName : String
+
     /// Model field bill_lname.
     var billLastName : String
+
     /// Model field bill_email.
     var billEmail : String
+
     /// Model field bill_comp.
     var billCompany : String
+
     /// Model field bill_phone.
     var billPhone : String
+
     /// Model field bill_fax.
     var billFax : String
+
     /// Model field bill_addr1.
     var billAddress1 : String
+
     /// Model field bill_addr2.
     var billAddress2 : String
+
     /// Model field bill_city.
     var billCity : String
+
     /// Model field bill_state.
     var billState : String
+
     /// Model field bill_zip.
     var billZip : String
+
     /// Model field bill_cntry.
     var billCountry : String
+
     /// Model field tax_exempt.
     var taxExempt : Bool
+
     /// Model field order_cnt.
     var orderCount : Int
+
     /// Model field order_avg.
     var orderAverage : Decimal
+
     /// Model field formatted_order_avg.
     var formattedOrderAverage : String
+
     /// Model field order_tot.
     var orderTotal : Decimal
+
     /// Model field formatted_order_tot.
     var formattedOrderTotal : String
+
     /// Model field note_count.
     var noteCount : Int
+
     /// Model field dt_created.
     var createdOn : Date
+
     /// Model field dt_login.
     var lastLogin : Date
+
     /// Model field dt_pwchg.
     var passwordChangeDateTime : Date
+
     /// Model field credit.
     var credit : Decimal
+
     /// Model field formatted_credit.
     var formattedCredit : String
+
     /// Model field business_title.
     var businessTitle : String
+
     /// Model field CustomField_Values
     var customFieldValues : CustomFieldValues
 
@@ -256,9 +300,9 @@ public class Customer : Model {
         self.orderTotal = try container.decodeIfPresent(Decimal.self, forKey: .orderTotal) ?? Decimal(0.00)
         self.formattedOrderTotal = try container.decodeIfPresent(String.self, forKey: .formattedOrderTotal) ?? ""
         self.noteCount = try container.decodeIfPresent(Int.self, forKey: .noteCount) ?? 0
-        self.createdOn = Date(timeIntervalSince1970: Double(try container.decodeIfPresent(Int.self, forKey: .createdOn) ?? 0))
-        self.lastLogin = Date(timeIntervalSince1970: Double(try container.decodeIfPresent(Int.self, forKey: .lastLogin) ?? 0))
-        self.passwordChangeDateTime = Date(timeIntervalSince1970: Double(try container.decodeIfPresent(Int.self, forKey: .passwordChangeDateTime) ?? 0))
+        self.createdOn = Date(timeIntervalSince1970: Double(try container.decodeIfPresent(Int64.self, forKey: .createdOn) ?? 0))
+        self.lastLogin = Date(timeIntervalSince1970: Double(try container.decodeIfPresent(Int64.self, forKey: .lastLogin) ?? 0))
+        self.passwordChangeDateTime = Date(timeIntervalSince1970: Double(try container.decodeIfPresent(Int64.self, forKey: .passwordChangeDateTime) ?? 0))
         self.credit = try container.decodeIfPresent(Decimal.self, forKey: .credit) ?? Decimal(0.00)
         self.formattedCredit = try container.decodeIfPresent(String.self, forKey: .formattedCredit) ?? ""
         self.businessTitle = try container.decodeIfPresent(String.self, forKey: .businessTitle) ?? ""
@@ -316,9 +360,9 @@ public class Customer : Model {
         try container.encodeIfPresent(Decimal.roundForEncoding(value: self.orderTotal, precision: MERCHANTAPI_FLOAT_ENCODE_PRECISION), forKey: .orderTotal)
         try container.encodeIfPresent(self.formattedOrderTotal, forKey: .formattedOrderTotal)
         try container.encodeIfPresent(self.noteCount, forKey: .noteCount)
-        try container.encodeIfPresent(Int(self.createdOn.timeIntervalSince1970), forKey: .createdOn)
-        try container.encodeIfPresent(Int(self.lastLogin.timeIntervalSince1970), forKey: .lastLogin)
-        try container.encodeIfPresent(Int(self.passwordChangeDateTime.timeIntervalSince1970), forKey: .passwordChangeDateTime)
+        try container.encodeIfPresent(Int64(self.createdOn.timeIntervalSince1970), forKey: .createdOn)
+        try container.encodeIfPresent(Int64(self.lastLogin.timeIntervalSince1970), forKey: .lastLogin)
+        try container.encodeIfPresent(Int64(self.passwordChangeDateTime.timeIntervalSince1970), forKey: .passwordChangeDateTime)
         try container.encodeIfPresent(Decimal.roundForEncoding(value: self.credit, precision: MERCHANTAPI_FLOAT_ENCODE_PRECISION), forKey: .credit)
         try container.encodeIfPresent(self.formattedCredit, forKey: .formattedCredit)
         try container.encodeIfPresent(self.businessTitle, forKey: .businessTitle)

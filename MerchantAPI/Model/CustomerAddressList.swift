@@ -12,8 +12,10 @@ public class CustomerAddressList : Model {
 
     /// Model field ship_id.
     var shipId : Int
+
     /// Model field bill_id.
     var billId : Int
+
     /// Model field addresses.
     var addresses : [CustomerAddress]
 

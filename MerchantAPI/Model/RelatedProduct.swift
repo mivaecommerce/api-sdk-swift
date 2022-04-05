@@ -12,38 +12,55 @@ public class RelatedProduct : Model {
 
     /// Model field id.
     var id : Int
+
     /// Model field code.
     var code : String
+
     /// Model field sku.
     var sku : String
+
     /// Model field name.
     var name : String
+
     /// Model field thumbnail.
     var thumbnail : String
+
     /// Model field image.
     var image : String
+
     /// Model field price.
     var price : Decimal
+
     /// Model field formatted_price.
     var formattedPrice : String
+
     /// Model field cost.
     var cost : Decimal
+
     /// Model field formatted_cost.
     var formattedCost : String
+
     /// Model field weight.
     var weight : Decimal
+
     /// Model field active.
     var active : Bool
+
     /// Model field page_title.
     var pageTitle : String
+
     /// Model field taxable.
     var taxable : Bool
+
     /// Model field dt_created.
     var dateTimeCreated : Date
+
     /// Model field dt_updated.
     var dateTimeUpdated : Date
+
     /// Model field assigned.
     var assigned : Bool
+
     /**
      CodingKeys used to map the model when encoding and decoding.
 
@@ -119,8 +136,8 @@ public class RelatedProduct : Model {
         self.active = try container.decodeIfPresent(Bool.self, forKey: .active) ?? false
         self.pageTitle = try container.decodeIfPresent(String.self, forKey: .pageTitle) ?? ""
         self.taxable = try container.decodeIfPresent(Bool.self, forKey: .taxable) ?? false
-        self.dateTimeCreated = Date(timeIntervalSince1970: Double(try container.decodeIfPresent(Int.self, forKey: .dateTimeCreated) ?? 0))
-        self.dateTimeUpdated = Date(timeIntervalSince1970: Double(try container.decodeIfPresent(Int.self, forKey: .dateTimeUpdated) ?? 0))
+        self.dateTimeCreated = Date(timeIntervalSince1970: Double(try container.decodeIfPresent(Int64.self, forKey: .dateTimeCreated) ?? 0))
+        self.dateTimeUpdated = Date(timeIntervalSince1970: Double(try container.decodeIfPresent(Int64.self, forKey: .dateTimeUpdated) ?? 0))
         self.assigned = try container.decodeIfPresent(Bool.self, forKey: .assigned) ?? false
 
         try super.init(from : decoder)
@@ -151,8 +168,8 @@ public class RelatedProduct : Model {
         try container.encodeIfPresent(self.active, forKey: .active)
         try container.encodeIfPresent(self.pageTitle, forKey: .pageTitle)
         try container.encodeIfPresent(self.taxable, forKey: .taxable)
-        try container.encodeIfPresent(Int(self.dateTimeCreated.timeIntervalSince1970), forKey: .dateTimeCreated)
-        try container.encodeIfPresent(Int(self.dateTimeUpdated.timeIntervalSince1970), forKey: .dateTimeUpdated)
+        try container.encodeIfPresent(Int64(self.dateTimeCreated.timeIntervalSince1970), forKey: .dateTimeCreated)
+        try container.encodeIfPresent(Int64(self.dateTimeUpdated.timeIntervalSince1970), forKey: .dateTimeUpdated)
         try container.encodeIfPresent(self.assigned, forKey: .assigned)
 
         try super.encode(to: encoder)

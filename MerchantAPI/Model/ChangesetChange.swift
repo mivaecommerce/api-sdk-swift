@@ -12,12 +12,16 @@ public class ChangesetChange : Model {
 
     /// Model field item_type.
     var itemType : String
+
     /// Model field item_id.
     var itemId : Int
+
     /// Model field item_version_id.
     var itemVersionId : Int
+
     /// Model field item_identifier.
     var itemIdentifier : String
+
     /**
      CodingKeys used to map the model when encoding and decoding.
 

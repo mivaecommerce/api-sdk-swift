@@ -12,22 +12,31 @@ public class BusinessAccount : Model {
 
     /// Model field id.
     var id : Int
+
     /// Model field title.
     var title : String
+
     /// Model field tax_exempt.
     var taxExempt : Bool
+
     /// Model field order_cnt.
     var orderCount : Int
+
     /// Model field order_avg.
     var orderAverage : Decimal
+
     /// Model field formatted_order_avg.
     var formattedOrderAverage : String
+
     /// Model field order_tot.
     var orderTotal : Decimal
+
     /// Model field formatted_order_tot.
     var formattedOrderTotal : String
+
     /// Model field note_count.
     var noteCount : Int
+
     /**
      CodingKeys used to map the model when encoding and decoding.
 

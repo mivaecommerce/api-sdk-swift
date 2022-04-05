@@ -10,7 +10,7 @@ For api documentation visit [https://docs.miva.com/json-api](https://docs.miva.c
 # Requirements
 
 - Miva Merchant 10.00.00+
-- Swift 5.0
+- Swift 5.x
 
 **For Miva Merchant 9.x, use the 1.x release**
 
@@ -21,7 +21,7 @@ For api documentation visit [https://docs.miva.com/json-api](https://docs.miva.c
 To include the bundle in your project via the [package manager](https://swift.org/package-manager/), include in your dependencies of your `Package.swift` file:
 
     dependencies: [
-        .package(url: "https://github.com/mivaecommerce/api-sdk-swift", from: "2.0.1")
+        .package(url: "https://github.com/mivaecommerce/api-sdk-swift", from: "2.1.0")
     ]
 
 ## Via Release Package

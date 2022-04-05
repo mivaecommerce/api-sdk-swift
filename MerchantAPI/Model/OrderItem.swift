@@ -28,48 +28,70 @@ public class OrderItem : Model {
 
     /// Model field order_id.
     var orderId : Int
+
     /// Model field line_id.
     var lineId : Int
+
     /// Model field status.
     var status : Int
+
     /// Model field subscrp_id.
     var subscriptionId : Int
+
     /// Model field subterm_id.
     var subscriptionTermId : Int
+
     /// Model field rma_id.
     var rmaId : Int
+
     /// Model field rma_code.
     var rmaCode : String
+
     /// Model field rma_dt_issued.
     var rmaDataTimeIssued : Date
+
     /// Model field rma_dt_recvd.
     var rmaDateTimeReceived : Date
+
     /// Model field dt_instock.
     var dateInStock : Date
+
     /// Model field code.
     var code : Optional<String>
+
     /// Model field name.
     var name : Optional<String>
+
     /// Model field sku.
     var sku : Optional<String>
+
     /// Model field retail.
     var retail : Decimal
+
     /// Model field base_price.
     var basePrice : Decimal
+
     /// Model field price.
     var price : Optional<Decimal>
+
     /// Model field tax.
     var tax : Optional<Decimal>
+
     /// Model field formatted_tax.
     var formattedTax : String
+
     /// Model field weight.
     var weight : Optional<Decimal>
+
     /// Model field taxable.
     var taxable : Optional<Bool>
+
     /// Model field upsold.
     var upsold : Optional<Bool>
+
     /// Model field quantity.
     var quantity : Optional<Int>
+
     /// Model field shipment
     var shipment : OrderShipment
 
@@ -84,12 +106,16 @@ public class OrderItem : Model {
 
     /// Model field total.
     var total : Decimal
+
     /// Model field tracktype.
     var trackingType : Optional<String>
+
     /// Model field tracknum.
     var trackingNumber : Optional<String>
+
     /// Model field shpmnt_id.
     var shipmentId : Int
+
     /**
      CodingKeys used to map the model when encoding and decoding.
 
@@ -184,9 +210,9 @@ public class OrderItem : Model {
         self.subscriptionTermId = try container.decodeIfPresent(Int.self, forKey: .subscriptionTermId) ?? 0
         self.rmaId = try container.decodeIfPresent(Int.self, forKey: .rmaId) ?? 0
         self.rmaCode = try container.decodeIfPresent(String.self, forKey: .rmaCode) ?? ""
-        self.rmaDataTimeIssued = Date(timeIntervalSince1970: Double(try container.decodeIfPresent(Int.self, forKey: .rmaDataTimeIssued) ?? 0))
-        self.rmaDateTimeReceived = Date(timeIntervalSince1970: Double(try container.decodeIfPresent(Int.self, forKey: .rmaDateTimeReceived) ?? 0))
-        self.dateInStock = Date(timeIntervalSince1970: Double(try container.decodeIfPresent(Int.self, forKey: .dateInStock) ?? 0))
+        self.rmaDataTimeIssued = Date(timeIntervalSince1970: Double(try container.decodeIfPresent(Int64.self, forKey: .rmaDataTimeIssued) ?? 0))
+        self.rmaDateTimeReceived = Date(timeIntervalSince1970: Double(try container.decodeIfPresent(Int64.self, forKey: .rmaDateTimeReceived) ?? 0))
+        self.dateInStock = Date(timeIntervalSince1970: Double(try container.decodeIfPresent(Int64.self, forKey: .dateInStock) ?? 0))
         self.code = try container.decodeIfPresent(String.self, forKey: .code) ?? nil
         self.name = try container.decodeIfPresent(String.self, forKey: .name) ?? nil
         self.sku = try container.decodeIfPresent(String.self, forKey: .sku) ?? nil
@@ -229,9 +255,9 @@ public class OrderItem : Model {
         try container.encodeIfPresent(self.subscriptionTermId, forKey: .subscriptionTermId)
         try container.encodeIfPresent(self.rmaId, forKey: .rmaId)
         try container.encodeIfPresent(self.rmaCode, forKey: .rmaCode)
-        try container.encodeIfPresent(Int(self.rmaDataTimeIssued.timeIntervalSince1970), forKey: .rmaDataTimeIssued)
-        try container.encodeIfPresent(Int(self.rmaDateTimeReceived.timeIntervalSince1970), forKey: .rmaDateTimeReceived)
-        try container.encodeIfPresent(Int(self.dateInStock.timeIntervalSince1970), forKey: .dateInStock)
+        try container.encodeIfPresent(Int64(self.rmaDataTimeIssued.timeIntervalSince1970), forKey: .rmaDataTimeIssued)
+        try container.encodeIfPresent(Int64(self.rmaDateTimeReceived.timeIntervalSince1970), forKey: .rmaDateTimeReceived)
+        try container.encodeIfPresent(Int64(self.dateInStock.timeIntervalSince1970), forKey: .dateInStock)
         try container.encodeIfPresent(self.code, forKey: .code)
         try container.encodeIfPresent(self.name, forKey: .name)
         try container.encodeIfPresent(self.sku, forKey: .sku)

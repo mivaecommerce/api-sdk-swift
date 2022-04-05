@@ -12,8 +12,10 @@ public class ProductVariant : Model {
 
     /// Model field product_id.
     var productId : Int
+
     /// Model field variant_id.
     var variantId : Int
+
     /// Model field parts.
     var parts : [ProductVariantPart]
 

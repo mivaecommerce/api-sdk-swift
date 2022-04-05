@@ -12,36 +12,52 @@ public class JavaScriptResourceVersion : Model {
 
     /// Model field id.
     var id : Int
+
     /// Model field res_id.
     var resourceId : Int
+
     /// Model field code.
     var code : String
+
     /// Model field type.
     var type : String
+
     /// Model field is_global.
     var isGlobal : Bool
+
     /// Model field active.
     var active : Bool
+
     /// Model field file.
     var file : String
+
     /// Model field branchless_file.
     var branchlessFile : String
+
     /// Model field templ_id.
     var templateId : Int
+
     /// Model field user_id.
     var userId : Int
+
     /// Model field user_name.
     var userName : String
+
     /// Model field user_icon.
     var userIcon : String
+
     /// Model field source_user_id.
     var sourceUserId : Int
+
     /// Model field source_user_name.
     var sourceUserName : String
+
     /// Model field source_user_icon.
     var sourceUserIcon : String
+
     /// Model field source.
     var source : String
+
     /// Model field attributes.
     var attributes : [JavaScriptResourceVersionAttribute]
 
@@ -53,6 +69,7 @@ public class JavaScriptResourceVersion : Model {
 
     /// Model field source_notes.
     var sourceNotes : String
+
     /**
      CodingKeys used to map the model when encoding and decoding.
 

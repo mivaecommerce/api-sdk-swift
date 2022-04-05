@@ -12,8 +12,10 @@ public class KitPart : Model {
 
     /// Model field part_id.
     var partId : Optional<Int>
+
     /// Model field quantity.
     var quantity : Optional<Int>
+
     /**
      CodingKeys used to map the model when encoding and decoding.
 

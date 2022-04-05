@@ -12,16 +12,22 @@ public class OrderCoupon : Model {
 
     /// Model field order_id.
     var orderId : Int
+
     /// Model field coupon_id.
     var couponId : Int
+
     /// Model field code.
     var code : String
+
     /// Model field descrip.
     var description : String
+
     /// Model field total.
     var total : Decimal
+
     /// Model field assigned.
     var assigned : Bool
+
     /**
      CodingKeys used to map the model when encoding and decoding.
 

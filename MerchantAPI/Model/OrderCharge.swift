@@ -12,28 +12,40 @@ public class OrderCharge : Model {
 
     /// Model field order_id.
     var orderId : Int
+
     /// Model field charge_id.
     var chargeId : Int
+
     /// Model field module_id.
     var moduleId : Int
+
     /// Model field type.
     var type : Optional<String>
+
     /// Model field descrip.
     var description : Optional<String>
+
     /// Model field amount.
     var amount : Optional<Decimal>
+
     /// Model field formatted_amount.
     var formattedAmount : String
+
     /// Model field disp_amt.
     var displayAmount : Optional<Decimal>
+
     /// Model field formatted_disp_amt.
     var formattedDisplayAmount : String
+
     /// Model field tax_exempt.
     var taxExempt : Optional<Bool>
+
     /// Model field tax.
     var tax : Decimal
+
     /// Model field formatted_tax.
     var formattedTax : String
+
     /**
      CodingKeys used to map the model when encoding and decoding.
 

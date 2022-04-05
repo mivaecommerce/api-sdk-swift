@@ -12,12 +12,16 @@ public class ProductKitPart : Model {
 
     /// Model field product_id.
     var productId : Int
+
     /// Model field product_code.
     var productCode : String
+
     /// Model field product_name.
     var productName : String
+
     /// Model field quantity.
     var quantity : Int
+
     /**
      CodingKeys used to map the model when encoding and decoding.
 

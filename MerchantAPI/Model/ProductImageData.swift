@@ -12,24 +12,34 @@ public class ProductImageData : Model {
 
     /// Model field id.
     var id : Int
+
     /// Model field product_id.
     var productId : Int
+
     /// Model field image_id.
     var imageId : Int
+
     /// Model field type_id.
     var typeId : Int
+
     /// Model field code.
     var code : String
+
     /// Model field type_desc.
     var typeDescription : String
+
     /// Model field image.
     var image : String
+
     /// Model field width.
     var width : Int
+
     /// Model field height.
     var height : Int
+
     /// Model field disp_order.
     var displayOrder : Int
+
     /**
      CodingKeys used to map the model when encoding and decoding.
 

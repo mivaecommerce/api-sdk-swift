@@ -12,16 +12,22 @@ public class DiscountModuleCapabilities : Model {
 
     /// Model field preitems.
     var preitems : Bool
+
     /// Model field items.
     var items : Bool
+
     /// Model field eligibility.
     var eligibility : String
+
     /// Model field basket.
     var basket : Bool
+
     /// Model field shipping.
     var shipping : Bool
+
     /// Model field qualifying.
     var qualifying : Bool
+
     /**
      CodingKeys used to map the model when encoding and decoding.
 

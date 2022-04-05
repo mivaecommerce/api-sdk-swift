@@ -12,16 +12,22 @@ public class Page : Model {
 
     /// Model field id.
     var id : Int
+
     /// Model field secure.
     var secure : Bool
+
     /// Model field code.
     var code : String
+
     /// Model field name.
     var name : String
+
     /// Model field title.
     var title : String
+
     /// Model field ui_id.
     var uiId : Int
+
     /**
      CodingKeys used to map the model when encoding and decoding.
 

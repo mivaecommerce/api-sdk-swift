@@ -139,10 +139,10 @@ public class CouponUpdateRequest : Request {
         try container.encodeIfPresent(self.description, forKey: .description)
         try container.encodeIfPresent(self.customerScope, forKey: .customerScope)
         if let dateTimeStart = self.dateTimeStart {
-            try container.encodeIfPresent(Int(dateTimeStart.timeIntervalSince1970), forKey: .dateTimeStart)
+            try container.encodeIfPresent(Int64(dateTimeStart.timeIntervalSince1970), forKey: .dateTimeStart)
         }
         if let dateTimeEnd = self.dateTimeEnd {
-            try container.encodeIfPresent(Int(dateTimeEnd.timeIntervalSince1970), forKey: .dateTimeEnd)
+            try container.encodeIfPresent(Int64(dateTimeEnd.timeIntervalSince1970), forKey: .dateTimeEnd)
         }
         try container.encodeIfPresent(self.maxUse, forKey: .maxUse)
         try container.encodeIfPresent(self.maxPer, forKey: .maxPer)

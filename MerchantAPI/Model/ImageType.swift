@@ -12,10 +12,13 @@ public class ImageType : Model {
 
     /// Model field id.
     var id : Int
+
     /// Model field code.
     var code : String
+
     /// Model field descrip.
     var description : String
+
     /**
      CodingKeys used to map the model when encoding and decoding.
 

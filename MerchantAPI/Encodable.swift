@@ -170,7 +170,7 @@ public class VariableValue : Codable {
     }
 
     /**
-     CustomFieldValues Decodable Constructor.
+     VariableValue Decodable Constructor.
 
      - Parameters:
         - decoder: The Decoder instance.
@@ -513,5 +513,55 @@ public class VariableValue : Codable {
         case .Unknown:
             throw DecodingError.typeMismatch(CustomFieldValue.self, DecodingError.Context(codingPath: encoder.codingPath, debugDescription: "Expected a primitive value, array, or dictionary of values"))
         }
+    }
+}
+
+
+/// DateTimeStruct data model. Represents a DateTime in JSON_DateTime structure format
+public class DateTimeStruct : Codable {
+    var timeT : Date
+    var year : Int
+    var month : Int
+    var day : Int
+    var hour : Int
+    var minute : Int
+    var second : Int
+    var timezone : Int
+
+    /**
+     CodingKeys used to map the model when encoding and decoding.
+
+     - SeeAlso: Codable
+     */
+    private enum CodingKeys: String, CodingKey {
+        case timeT = "time_t"
+        case year
+        case month
+        case day
+        case hour
+        case minute
+        case second
+        case timezone
+    }
+    
+    /**
+     CustomFieldValues Decodable Constructor.
+
+     - Parameters:
+        - decoder: The Decoder instance.
+     - Throws: error when unable to decode.
+     - SeeAlso: Decodable
+     */
+    public required init(from decoder: Decoder) throws {
+        let container  = try decoder.container(keyedBy: CodingKeys.self)
+        
+        self.timeT = Date(timeIntervalSince1970: Double(try container.decodeIfPresent(Int64.self, forKey: .timeT) ?? 0))
+        self.year = try container.decode(Int.self, forKey: .year)
+        self.month = try container.decode(Int.self, forKey: .month)
+        self.day = try container.decode(Int.self, forKey: .day)
+        self.hour = try container.decode(Int.self, forKey: .hour)
+        self.minute = try container.decode(Int.self, forKey: .minute)
+        self.second = try container.decode(Int.self, forKey: .second)
+        self.timezone = try container.decode(Int.self, forKey: .timezone)       
     }
 }

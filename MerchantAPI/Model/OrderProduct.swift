@@ -12,16 +12,22 @@ public class OrderProduct : Model {
 
     /// Model field status.
     var status : Optional<Int>
+
     /// Model field code.
     var code : String
+
     /// Model field sku.
     var sku : Optional<String>
+
     /// Model field tracknum.
     var trackingNumber : Optional<String>
+
     /// Model field tracktype.
     var trackingType : Optional<String>
+
     /// Model field quantity.
     var quantity : Int
+
     /// Model field attributes.
     var attributes : [OrderProductAttribute]
 

@@ -7,14 +7,14 @@
 
 import Foundation
 
-/// TemplateVersionSetting data model. Represents a single value of unknown type, resolved during runtime.
+/// VersionSetting data model. Represents a single value of unknown type, resolved during runtime.
 /// SeeAlso: VariableValue
-public typealias TemplateVersionSetting = VariableValue
+public typealias VersionSetting = VariableValue
 
-/// TemplateVersionSettings data model. The container for all TemplateVersionSetting objects.
-public class TemplateVersionSettings : Codable {
+/// VersionSettings data model. The container for all VersionSetting objects.
+public class VersionSettings : Codable {
     /// The value container
-    var settings : Optional<TemplateVersionSetting>
+    var settings : Optional<VersionSetting>
 
     /**
      EncodingKey used to map unknown keys into the object.
@@ -40,7 +40,7 @@ public class TemplateVersionSettings : Codable {
 
      - Parameter: values Defaults to empty container
      */
-    public init(_ values: Optional<TemplateVersionSetting> = nil) {
+    public init(_ values: Optional<VersionSetting> = nil) {
         self.settings = values
     }
 
@@ -52,7 +52,7 @@ public class TemplateVersionSettings : Codable {
      */
     public required init( from decoder: Decoder ) throws {
         let container = try decoder.singleValueContainer()
-        self.settings   = try container.decode(Optional<TemplateVersionSetting>.self)
+        self.settings   = try container.decode(Optional<VersionSetting>.self)
     }
 
     public func hasItem(item: String) -> Bool {
@@ -64,7 +64,7 @@ public class TemplateVersionSettings : Codable {
         return false
     }
 
-    public func getItem(item: String) -> Optional<TemplateVersionSetting> {
+    public func getItem(item: String) -> Optional<VersionSetting> {
         if let entry = self.settings?.getDictionaryValue() {
             if  entry[item] != nil {
                 return entry[item]
@@ -88,7 +88,7 @@ public class TemplateVersionSettings : Codable {
         return false
     }
 
-    public func getItemProperty(item: String, property: String) -> Optional<TemplateVersionSetting> {
+    public func getItemProperty(item: String, property: String) -> Optional<VersionSetting> {
         if let entry = self.settings?.getDictionaryValue() {
             if  entry[item] != nil {
                 if let ientry = entry[item]!.getDictionaryValue() {
@@ -103,9 +103,9 @@ public class TemplateVersionSettings : Codable {
     }
 
     @discardableResult
-    public func setItem(item: String, value: TemplateVersionSetting) -> Self {
+    public func setItem(item: String, value: VersionSetting) -> Self {
         if self.settings == nil {
-            self.settings = TemplateVersionSetting(from: [item:value])
+            self.settings = VersionSetting(from: [item:value])
             return self
         }
         else if let s = self.settings {
@@ -118,9 +118,9 @@ public class TemplateVersionSettings : Codable {
     }
 
     @discardableResult
-    public func setItemProperty(item: String, property: String, value: TemplateVersionSetting) -> Self {
+    public func setItemProperty(item: String, property: String, value: VersionSetting) -> Self {
        if self.settings == nil {
-        self.settings = TemplateVersionSetting(from: [item:TemplateVersionSetting(from: [:])])
+        self.settings = VersionSetting(from: [item:VersionSetting(from: [:])])
        }
 
         if let s = self.settings {
@@ -128,7 +128,7 @@ public class TemplateVersionSettings : Codable {
                 if let pitem = d[item] {
                     pitem.addToDictionary(key: property, value: value)
                 } else {
-                    d[item] = TemplateVersionSetting(from: [property:value])
+                    d[item] = VersionSetting(from: [property:value])
                 }
             }
         }
@@ -174,7 +174,7 @@ public class TemplateVersionSettings : Codable {
                 }
             }
         } else if self.settings != nil {
-            throw DecodingError.typeMismatch(TemplateVersionSetting.self, DecodingError.Context(codingPath: encoder.codingPath, debugDescription: "Expected a primitive value, array, or dictionary of values"))
+            throw DecodingError.typeMismatch(VersionSetting.self, DecodingError.Context(codingPath: encoder.codingPath, debugDescription: "Expected a primitive value, array, or dictionary of values"))
         }
     }
 }

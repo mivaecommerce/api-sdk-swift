@@ -12,8 +12,10 @@ public class ReceivedReturn : Model {
 
     /// Model field return_id.
     var returnId : Optional<Int>
+
     /// Model field adjust_inventory.
     var adjustInventory : Optional<Int>
+
     /**
      CodingKeys used to map the model when encoding and decoding.
 

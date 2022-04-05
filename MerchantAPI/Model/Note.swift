@@ -12,24 +12,34 @@ public class Note : Model {
 
     /// Model field id.
     var id : Int
+
     /// Model field cust_id.
     var customerId : Int
+
     /// Model field account_id.
     var accountId : Int
+
     /// Model field order_id.
     var orderId : Int
+
     /// Model field user_id.
     var userId : Int
+
     /// Model field notetext.
     var noteText : String
+
     /// Model field dtstamp.
     var dateTimeStamp : Date
+
     /// Model field cust_login.
     var customerLogin : String
+
     /// Model field business_title.
     var businessTitle : String
+
     /// Model field admin_user.
     var adminUser : String
+
     /**
      CodingKeys used to map the model when encoding and decoding.
 
@@ -83,7 +93,7 @@ public class Note : Model {
         self.orderId = try container.decodeIfPresent(Int.self, forKey: .orderId) ?? 0
         self.userId = try container.decodeIfPresent(Int.self, forKey: .userId) ?? 0
         self.noteText = try container.decodeIfPresent(String.self, forKey: .noteText) ?? ""
-        self.dateTimeStamp = Date(timeIntervalSince1970: Double(try container.decodeIfPresent(Int.self, forKey: .dateTimeStamp) ?? 0))
+        self.dateTimeStamp = Date(timeIntervalSince1970: Double(try container.decodeIfPresent(Int64.self, forKey: .dateTimeStamp) ?? 0))
         self.customerLogin = try container.decodeIfPresent(String.self, forKey: .customerLogin) ?? ""
         self.businessTitle = try container.decodeIfPresent(String.self, forKey: .businessTitle) ?? ""
         self.adminUser = try container.decodeIfPresent(String.self, forKey: .adminUser) ?? ""
@@ -108,7 +118,7 @@ public class Note : Model {
         try container.encodeIfPresent(self.orderId, forKey: .orderId)
         try container.encodeIfPresent(self.userId, forKey: .userId)
         try container.encodeIfPresent(self.noteText, forKey: .noteText)
-        try container.encodeIfPresent(Int(self.dateTimeStamp.timeIntervalSince1970), forKey: .dateTimeStamp)
+        try container.encodeIfPresent(Int64(self.dateTimeStamp.timeIntervalSince1970), forKey: .dateTimeStamp)
         try container.encodeIfPresent(self.customerLogin, forKey: .customerLogin)
         try container.encodeIfPresent(self.businessTitle, forKey: .businessTitle)
         try container.encodeIfPresent(self.adminUser, forKey: .adminUser)

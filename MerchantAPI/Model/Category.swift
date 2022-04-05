@@ -12,32 +12,46 @@ public class Category : Model {
 
     /// Model field id.
     var id : Int
+
     /// Model field parent_id.
     var parentId : Int
+
     /// Model field agrpcount.
     var availabilityGroupCount : Int
+
     /// Model field depth.
     var depth : Int
+
     /// Model field disp_order.
     var displayOrder : Int
+
     /// Model field page_id.
     var pageId : Int
+
     /// Model field code.
     var code : String
+
     /// Model field name.
     var name : String
+
     /// Model field page_title.
     var pageTitle : String
+
     /// Model field active.
     var active : Bool
+
     /// Model field dt_created.
     var dateTimeCreated : Date
+
     /// Model field dt_updated.
     var dateTimeUpdated : Date
+
     /// Model field page_code.
     var pageCode : String
+
     /// Model field parent_category.
     var parentCategory : String
+
     /// Model field uris.
     var uris : [Uri]
 
@@ -113,8 +127,8 @@ public class Category : Model {
         self.name = try container.decodeIfPresent(String.self, forKey: .name) ?? ""
         self.pageTitle = try container.decodeIfPresent(String.self, forKey: .pageTitle) ?? ""
         self.active = try container.decodeIfPresent(Bool.self, forKey: .active) ?? false
-        self.dateTimeCreated = Date(timeIntervalSince1970: Double(try container.decodeIfPresent(Int.self, forKey: .dateTimeCreated) ?? 0))
-        self.dateTimeUpdated = Date(timeIntervalSince1970: Double(try container.decodeIfPresent(Int.self, forKey: .dateTimeUpdated) ?? 0))
+        self.dateTimeCreated = Date(timeIntervalSince1970: Double(try container.decodeIfPresent(Int64.self, forKey: .dateTimeCreated) ?? 0))
+        self.dateTimeUpdated = Date(timeIntervalSince1970: Double(try container.decodeIfPresent(Int64.self, forKey: .dateTimeUpdated) ?? 0))
         self.pageCode = try container.decodeIfPresent(String.self, forKey: .pageCode) ?? ""
         self.parentCategory = try container.decodeIfPresent(String.self, forKey: .parentCategory) ?? ""
         self.uris = try container.decodeIfPresent([Uri].self, forKey: .uris) ?? []
@@ -144,8 +158,8 @@ public class Category : Model {
         try container.encodeIfPresent(self.name, forKey: .name)
         try container.encodeIfPresent(self.pageTitle, forKey: .pageTitle)
         try container.encodeIfPresent(self.active, forKey: .active)
-        try container.encodeIfPresent(Int(self.dateTimeCreated.timeIntervalSince1970), forKey: .dateTimeCreated)
-        try container.encodeIfPresent(Int(self.dateTimeUpdated.timeIntervalSince1970), forKey: .dateTimeUpdated)
+        try container.encodeIfPresent(Int64(self.dateTimeCreated.timeIntervalSince1970), forKey: .dateTimeCreated)
+        try container.encodeIfPresent(Int64(self.dateTimeUpdated.timeIntervalSince1970), forKey: .dateTimeUpdated)
         try container.encodeIfPresent(self.pageCode, forKey: .pageCode)
         try container.encodeIfPresent(self.parentCategory, forKey: .parentCategory)
         try container.encodeIfPresent(self.uris, forKey: .uris)

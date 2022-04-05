@@ -12,12 +12,16 @@ public class AvailabilityGroupShippingMethod : Model {
 
     /// Model field mod_code.
     var moduleCode : String
+
     /// Model field meth_code.
     var methodCode : String
+
     /// Model field method_name.
     var methodName : String
+
     /// Model field assigned.
     var assigned : Bool
+
     /**
      CodingKeys used to map the model when encoding and decoding.
 
