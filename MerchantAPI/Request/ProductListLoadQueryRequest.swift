@@ -16,6 +16,13 @@ import FoundationNetworking
  - SeeAlso: https://docs.miva.com/json-api/functions/productlist_load_query
  */
 public class ProductListLoadQueryRequest : ListQueryRequest {
+    /// Enumeration ProductShow
+    public enum ProductShow : String {
+        case All = "All"
+        case Uncategorized = "Uncategorized"
+        case Active = "Active"
+    }
+
     /**
      The API function name.
 

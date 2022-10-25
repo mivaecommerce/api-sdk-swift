@@ -107,7 +107,7 @@ public class CustomerSubscription : Subscription {
     var paymentCardType : String
 
     /// Model field address_descrip.
-    var addressDescrip : String
+    var addressDescription : String
 
     /// Model field address_fname.
     var addressFirstName : String
@@ -128,13 +128,13 @@ public class CustomerSubscription : Subscription {
     var addressFax : String
 
     /// Model field address_addr.
-    var addressAdress : String
+    var addressAddress : String
 
     /// Model field address_addr1.
-    var addressAddress_1 : String
+    var addressAddress1 : String
 
     /// Model field address_addr2.
-    var addressAddress_2 : String
+    var addressAddress2 : String
 
     /// Model field address_city.
     var addressCity : String
@@ -198,16 +198,16 @@ public class CustomerSubscription : Subscription {
         case imageTypes = "imagetypes"
         case paymentCardLastFour = "paymentcard_lastfour"
         case paymentCardType = "paymentcard_type"
-        case addressDescrip = "address_descrip"
+        case addressDescription = "address_descrip"
         case addressFirstName = "address_fname"
         case addressLastName = "address_lname"
         case addressEmail = "address_email"
         case addressCompany = "address_comp"
         case addressPhone = "address_phone"
         case addressFax = "address_fax"
-        case addressAdress = "address_addr"
-        case addressAddress_1 = "address_addr1"
-        case addressAddress_2 = "address_addr2"
+        case addressAddress = "address_addr"
+        case addressAddress1 = "address_addr1"
+        case addressAddress2 = "address_addr2"
         case addressCity = "address_city"
         case addressState = "address_state"
         case addressZip = "address_zip"
@@ -254,16 +254,16 @@ public class CustomerSubscription : Subscription {
         self.imageTypes = [:]
         self.paymentCardLastFour = ""
         self.paymentCardType = ""
-        self.addressDescrip = ""
+        self.addressDescription = ""
         self.addressFirstName = ""
         self.addressLastName = ""
         self.addressEmail = ""
         self.addressCompany = ""
         self.addressPhone = ""
         self.addressFax = ""
-        self.addressAdress = ""
-        self.addressAddress_1 = ""
-        self.addressAddress_2 = ""
+        self.addressAddress = ""
+        self.addressAddress1 = ""
+        self.addressAddress2 = ""
         self.addressCity = ""
         self.addressState = ""
         self.addressZip = ""
@@ -318,16 +318,16 @@ public class CustomerSubscription : Subscription {
         self.productInventory = try container.decodeIfPresent(Int.self, forKey: .productInventory) ?? 0
         self.paymentCardLastFour = try container.decodeIfPresent(String.self, forKey: .paymentCardLastFour) ?? ""
         self.paymentCardType = try container.decodeIfPresent(String.self, forKey: .paymentCardType) ?? ""
-        self.addressDescrip = try container.decodeIfPresent(String.self, forKey: .addressDescrip) ?? ""
+        self.addressDescription = try container.decodeIfPresent(String.self, forKey: .addressDescription) ?? ""
         self.addressFirstName = try container.decodeIfPresent(String.self, forKey: .addressFirstName) ?? ""
         self.addressLastName = try container.decodeIfPresent(String.self, forKey: .addressLastName) ?? ""
         self.addressEmail = try container.decodeIfPresent(String.self, forKey: .addressEmail) ?? ""
         self.addressCompany = try container.decodeIfPresent(String.self, forKey: .addressCompany) ?? ""
         self.addressPhone = try container.decodeIfPresent(String.self, forKey: .addressPhone) ?? ""
         self.addressFax = try container.decodeIfPresent(String.self, forKey: .addressFax) ?? ""
-        self.addressAdress = try container.decodeIfPresent(String.self, forKey: .addressAdress) ?? ""
-        self.addressAddress_1 = try container.decodeIfPresent(String.self, forKey: .addressAddress_1) ?? ""
-        self.addressAddress_2 = try container.decodeIfPresent(String.self, forKey: .addressAddress_2) ?? ""
+        self.addressAddress = try container.decodeIfPresent(String.self, forKey: .addressAddress) ?? ""
+        self.addressAddress1 = try container.decodeIfPresent(String.self, forKey: .addressAddress1) ?? ""
+        self.addressAddress2 = try container.decodeIfPresent(String.self, forKey: .addressAddress2) ?? ""
         self.addressCity = try container.decodeIfPresent(String.self, forKey: .addressCity) ?? ""
         self.addressState = try container.decodeIfPresent(String.self, forKey: .addressState) ?? ""
         self.addressZip = try container.decodeIfPresent(String.self, forKey: .addressZip) ?? ""
@@ -394,16 +394,16 @@ public class CustomerSubscription : Subscription {
         try container.encodeIfPresent(self.productInventory, forKey: .productInventory)
         try container.encodeIfPresent(self.paymentCardLastFour, forKey: .paymentCardLastFour)
         try container.encodeIfPresent(self.paymentCardType, forKey: .paymentCardType)
-        try container.encodeIfPresent(self.addressDescrip, forKey: .addressDescrip)
+        try container.encodeIfPresent(self.addressDescription, forKey: .addressDescription)
         try container.encodeIfPresent(self.addressFirstName, forKey: .addressFirstName)
         try container.encodeIfPresent(self.addressLastName, forKey: .addressLastName)
         try container.encodeIfPresent(self.addressEmail, forKey: .addressEmail)
         try container.encodeIfPresent(self.addressCompany, forKey: .addressCompany)
         try container.encodeIfPresent(self.addressPhone, forKey: .addressPhone)
         try container.encodeIfPresent(self.addressFax, forKey: .addressFax)
-        try container.encodeIfPresent(self.addressAdress, forKey: .addressAdress)
-        try container.encodeIfPresent(self.addressAddress_1, forKey: .addressAddress_1)
-        try container.encodeIfPresent(self.addressAddress_2, forKey: .addressAddress_2)
+        try container.encodeIfPresent(self.addressAddress, forKey: .addressAddress)
+        try container.encodeIfPresent(self.addressAddress1, forKey: .addressAddress1)
+        try container.encodeIfPresent(self.addressAddress2, forKey: .addressAddress2)
         try container.encodeIfPresent(self.addressCity, forKey: .addressCity)
         try container.encodeIfPresent(self.addressState, forKey: .addressState)
         try container.encodeIfPresent(self.addressZip, forKey: .addressZip)
@@ -716,8 +716,8 @@ public class CustomerSubscription : Subscription {
      - Returns:  String
 
      */
-    public func getAddressDescrip() -> String {
-        return self.addressDescrip
+    public func getAddressDescription() -> String {
+        return self.addressDescription
     }
 
     /**
@@ -786,8 +786,8 @@ public class CustomerSubscription : Subscription {
      - Returns:  String
 
      */
-    public func getAddressAdress() -> String {
-        return self.addressAdress
+    public func getAddressAddress() -> String {
+        return self.addressAddress
     }
 
     /**
@@ -796,8 +796,8 @@ public class CustomerSubscription : Subscription {
      - Returns:  String
 
      */
-    public func getAddressAddress_1() -> String {
-        return self.addressAddress_1
+    public func getAddressAddress1() -> String {
+        return self.addressAddress1
     }
 
     /**
@@ -806,8 +806,8 @@ public class CustomerSubscription : Subscription {
      - Returns:  String
 
      */
-    public func getAddressAddress_2() -> String {
-        return self.addressAddress_2
+    public func getAddressAddress2() -> String {
+        return self.addressAddress2
     }
 
     /**

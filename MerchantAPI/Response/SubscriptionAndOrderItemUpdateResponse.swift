@@ -16,11 +16,18 @@ import FoundationNetworking
  - SeeAlso: https://docs.miva.com/json-api/functions/subscriptionandorderitem_update
  */
 public class SubscriptionAndOrderItemUpdateResponse : Response {
-    /// Response field total.
-    var total : Optional<Decimal> = nil
 
-    /// Response field formatted_total.
-    var formattedTotal : Optional<String> = nil
+    /// The response model
+    public var orderTotal : Optional<OrderTotal> = nil
+
+    /**
+     Getter for orderTotal.
+
+     - Returns: OrderTotal
+     */
+    public func getOrderTotal() -> Optional<OrderTotal> {
+        return self.orderTotal
+    }
 
     /**
      CodingKeys used to map the model when decoding.
@@ -28,8 +35,7 @@ public class SubscriptionAndOrderItemUpdateResponse : Response {
      - SeeAlso: Decodable
      */
     private enum CodingKeys: String, CodingKey {
-        case total
-        case formattedTotal = "formatted_total"
+        case orderTotal = "data"
     }
 
     /**
@@ -41,26 +47,7 @@ public class SubscriptionAndOrderItemUpdateResponse : Response {
     public required init(from decoder: Decoder) throws {
         let container  = try decoder.container(keyedBy : CodingKeys.self)
 
-        self.total = try container.decodeIfPresent(Decimal.self, forKey: .total)
-        self.formattedTotal = try container.decodeIfPresent(String.self, forKey: .formattedTotal)
+        self.orderTotal = try container.decodeIfPresent(OrderTotal.self, forKey: .orderTotal)
         try super.init(from : decoder)
-    }
-
-    /**
-     Get total.
-
-     - Returns: Decimal
-    */
-    func getTotal() -> Decimal {
-        return self.total ?? 0.00
-    }
-
-    /**
-     Get formatted_total.
-
-     - Returns: string
-    */
-    func getFormattedTotal() -> String {
-        return self.formattedTotal ?? ""
     }
 }

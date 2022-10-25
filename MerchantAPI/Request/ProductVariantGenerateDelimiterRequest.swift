@@ -16,6 +16,14 @@ import FoundationNetworking
  - SeeAlso: https://docs.miva.com/json-api/functions/productvariant_generate_delimiter
  */
 public class ProductVariantGenerateDelimiterRequest : Request {
+
+    /// Enumeration VariantPricingMethod
+    public enum VariantPricingMethod : String {
+        case Master = "master"
+        case Specific = "specific"
+        case Sum = "sum"
+    }
+
     /**
      The API function name.
 
@@ -36,6 +44,9 @@ public class ProductVariantGenerateDelimiterRequest : Request {
         return RequestScope.Store;
     }
 
+    /// Request field Delimiter.
+    var delimiter : Optional<String> = nil
+
     /// Request field Product_ID.
     var productId : Optional<Int> = nil
 
@@ -46,10 +57,7 @@ public class ProductVariantGenerateDelimiterRequest : Request {
     var editProduct : Optional<String> = nil
 
     /// Request field Pricing_Method.
-    var pricingMethod : Optional<Int> = nil
-
-    /// Request field Delimiter.
-    var delimiter : Optional<String> = nil
+    var pricingMethod : Optional<String> = nil
 
     /**
      CodingKeys used to map the request when encoding.
@@ -58,11 +66,11 @@ public class ProductVariantGenerateDelimiterRequest : Request {
      */
     private enum CodingKeys: String, CodingKey {
         case function = "Function"
+        case delimiter = "Delimiter"
         case productId = "Product_ID"
         case productCode = "Product_Code"
         case editProduct = "Edit_Product"
         case pricingMethod = "Pricing_Method"
-        case delimiter = "Delimiter"
     }
 
     /**
@@ -104,8 +112,8 @@ public class ProductVariantGenerateDelimiterRequest : Request {
             try container.encode(self.editProduct, forKey: .editProduct)
         }
 
-        try container.encodeIfPresent(self.pricingMethod, forKey: .pricingMethod)
         try container.encodeIfPresent(self.delimiter, forKey: .delimiter)
+        try container.encodeIfPresent(self.pricingMethod, forKey: .pricingMethod)
 
         try super.encode(to : encoder)
     }
@@ -158,6 +166,15 @@ public class ProductVariantGenerateDelimiterRequest : Request {
     }
 
     /**
+     Getter for Delimiter.
+
+     - Returns:  Optional<String>
+     */
+    public func getDelimiter() -> Optional<String> {
+        return self.delimiter
+    }
+
+    /**
      Getter for Product_ID.
 
      - Returns:  Optional<Int>
@@ -187,19 +204,23 @@ public class ProductVariantGenerateDelimiterRequest : Request {
     /**
      Getter for Pricing_Method.
 
-     - Returns:  Optional<Int>
+     - Returns:  Optional<String>
      */
-    public func getPricingMethod() -> Optional<Int> {
+    public func getPricingMethod() -> Optional<String> {
         return self.pricingMethod
     }
 
     /**
-     Getter for Delimiter.
+     Setter for Delimiter.
 
-     - Returns:  Optional<String>
+     - Parameters:
+        - value: Optional<String>
+     - Returns:  Self
      */
-    public func getDelimiter() -> Optional<String> {
-        return self.delimiter
+    @discardableResult
+    public func setDelimiter(_ value: Optional<String>) -> Self {
+        self.delimiter = value
+        return self
     }
 
     /**
@@ -245,25 +266,39 @@ public class ProductVariantGenerateDelimiterRequest : Request {
      Setter for Pricing_Method.
 
      - Parameters:
-        - value: Optional<Int>
+        - value: Optional<String>
      - Returns:  Self
      */
     @discardableResult
-    public func setPricingMethod(_ value: Optional<Int>) -> Self {
+    public func setPricingMethod(_ value: Optional<String>) -> Self {
         self.pricingMethod = value
         return self
     }
 
     /**
-     Setter for Delimiter.
+     Setter for Pricing_Method via int (backwards compatibility)
 
      - Parameters:
-        - value: Optional<String>
+        - value: Optional<int>
      - Returns:  Self
      */
     @discardableResult
-    public func setDelimiter(_ value: Optional<String>) -> Self {
-        self.delimiter = value
+    public func setPricingMethod(_ value: Optional<Int>) -> Self {
+        if let value = value {
+            self.pricingMethod = String(value)
+        }
         return self
     }
-}
+
+    /**
+     Setter for Pricing_Method via Enum
+
+     - Parameters:
+        - value: VariantPricingMethod
+     - Returns:  Self
+     */
+    @discardableResult
+    public func setPricingMethod(_ value: VariantPricingMethod) -> Self {
+        self.pricingMethod = value.rawValue
+        return self
+    }}

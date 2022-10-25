@@ -16,6 +16,13 @@ import FoundationNetworking
  - SeeAlso: https://docs.miva.com/json-api/functions/inventoryproductsettings_update
  */
 public class InventoryProductSettingsUpdateRequest : Request {
+    /// Enumeration InventoryChoice
+    public enum InventoryChoice : String {
+        case Default = "d"
+        case Yes = "y"
+        case No = "n"
+    }
+
     /**
      The API function name.
 

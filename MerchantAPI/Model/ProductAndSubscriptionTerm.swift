@@ -20,7 +20,7 @@ public class ProductAndSubscriptionTerm : Product {
     var termTerm : Int
 
     /// Model field term_descrip.
-    var termDescrip : String
+    var termDescription : String
 
     /// Model field term_n.
     var termN : Int
@@ -43,7 +43,7 @@ public class ProductAndSubscriptionTerm : Product {
         case termId = "term_id"
         case termFrequency = "term_frequency"
         case termTerm = "term_term"
-        case termDescrip = "term_descrip"
+        case termDescription = "term_descrip"
         case termN = "term_n"
         case termFixedDayOfWeek = "term_fixed_dow"
         case termFixedDayOfMonth = "term_fixed_dom"
@@ -57,7 +57,7 @@ public class ProductAndSubscriptionTerm : Product {
         self.termId = 0
         self.termFrequency = ""
         self.termTerm = 0
-        self.termDescrip = ""
+        self.termDescription = ""
         self.termN = 0
         self.termFixedDayOfWeek = 0
         self.termFixedDayOfMonth = 0
@@ -80,7 +80,7 @@ public class ProductAndSubscriptionTerm : Product {
         self.termId = try container.decodeIfPresent(Int.self, forKey: .termId) ?? 0
         self.termFrequency = try container.decodeIfPresent(String.self, forKey: .termFrequency) ?? ""
         self.termTerm = try container.decodeIfPresent(Int.self, forKey: .termTerm) ?? 0
-        self.termDescrip = try container.decodeIfPresent(String.self, forKey: .termDescrip) ?? ""
+        self.termDescription = try container.decodeIfPresent(String.self, forKey: .termDescription) ?? ""
         self.termN = try container.decodeIfPresent(Int.self, forKey: .termN) ?? 0
         self.termFixedDayOfWeek = try container.decodeIfPresent(Int.self, forKey: .termFixedDayOfWeek) ?? 0
         self.termFixedDayOfMonth = try container.decodeIfPresent(Int.self, forKey: .termFixedDayOfMonth) ?? 0
@@ -103,7 +103,7 @@ public class ProductAndSubscriptionTerm : Product {
         try container.encodeIfPresent(self.termId, forKey: .termId)
         try container.encodeIfPresent(self.termFrequency, forKey: .termFrequency)
         try container.encodeIfPresent(self.termTerm, forKey: .termTerm)
-        try container.encodeIfPresent(self.termDescrip, forKey: .termDescrip)
+        try container.encodeIfPresent(self.termDescription, forKey: .termDescription)
         try container.encodeIfPresent(self.termN, forKey: .termN)
         try container.encodeIfPresent(self.termFixedDayOfWeek, forKey: .termFixedDayOfWeek)
         try container.encodeIfPresent(self.termFixedDayOfMonth, forKey: .termFixedDayOfMonth)
@@ -148,8 +148,8 @@ public class ProductAndSubscriptionTerm : Product {
      - Returns:  String
 
      */
-    public func getTermDescrip() -> String {
-        return self.termDescrip
+    public func getTermDescription() -> String {
+        return self.termDescription
     }
 
     /**

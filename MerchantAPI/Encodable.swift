@@ -10,7 +10,8 @@
 import Foundation
 
 /// The float precision when encoding decimal values to json
-public var MERCHANTAPI_FLOAT_ENCODE_PRECISION = 2
+public var MERCHANTAPI_FLOAT_PRECISION = 2
+public var MERCHANTAPI_FLOAT_ENCODE_PRECISION = MERCHANTAPI_FLOAT_PRECISION
 
 /// Allows for encoding of any encodable value
 /// SeeAlso: https://forums.swift.org/t/how-to-encode-objects-of-unknown-type/12253/5
@@ -28,12 +29,8 @@ public struct AnyEncodable : Encodable {
     public init(_ value: Encodable) {
         self.value = value
 
-        if self.value is Decimal {
-            let rounded = Decimal.roundForEncoding(value: self.value as? Decimal, precision: MERCHANTAPI_FLOAT_ENCODE_PRECISION)
-
-            if rounded != nil {
-                self.value = rounded
-            }
+        if let dec = self.value as? Decimal {
+            self.value = dec.rounded()
         }
     }
 
@@ -71,14 +68,16 @@ extension Decimal {
          - precision: Int
      - Returns: Decimal
      */
-    public static func roundForEncoding(value: Optional<Decimal>, precision: Int) -> Optional<Decimal> {
+    public func rounded(precision: Int = MERCHANTAPI_FLOAT_PRECISION) -> Decimal {
+        var value = self
+        var ret = value
+        NSDecimalRound(&ret, &value, precision, NSDecimalNumber.RoundingMode.plain)
+        return ret
+    }
+    
+    public static func roundForEncoding(value: Optional<Decimal>, precision: Int = MERCHANTAPI_FLOAT_ENCODE_PRECISION) -> Optional<Decimal> {
         if let value = value {
-            var value   = value
-            var ret     = value
-
-            NSDecimalRound(&ret, &value, precision, NSDecimalNumber.RoundingMode.plain)
-
-            return ret
+            return value.rounded(precision: precision)
         }
 
         return nil

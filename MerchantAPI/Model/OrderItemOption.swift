@@ -61,6 +61,9 @@ public class OrderItemOption : Model {
     /// Model field opt_prompt.
     var optionPrompt : String
 
+    /// Model field discounts.
+    var discounts : [OrderItemOptionDiscount]
+
     /**
      CodingKeys used to map the model when decoding.
 
@@ -84,6 +87,7 @@ public class OrderItemOption : Model {
         case optionDataLong = "data_long"
         case attributePrompt = "attr_prompt"
         case optionPrompt = "opt_prompt"
+        case discounts
     }
 
     /**
@@ -120,6 +124,7 @@ public class OrderItemOption : Model {
         self.optionDataLong = ""
         self.attributePrompt = ""
         self.optionPrompt = ""
+        self.discounts = []
 
         super.init()
     }
@@ -152,6 +157,7 @@ public class OrderItemOption : Model {
         self.optionDataLong = try container.decodeIfPresent(String.self, forKey: .optionDataLong) ?? ""
         self.attributePrompt = try container.decodeIfPresent(String.self, forKey: .attributePrompt) ?? ""
         self.optionPrompt = try container.decodeIfPresent(String.self, forKey: .optionPrompt) ?? ""
+        self.discounts = try container.decodeIfPresent([OrderItemOptionDiscount].self, forKey: .discounts) ?? []
 
         try super.init(from : decoder)
     }
@@ -336,6 +342,15 @@ public class OrderItemOption : Model {
      */
     public func getOptionPrompt() -> String {
         return self.optionPrompt
+    }
+
+    /**
+     Getter for discounts.
+
+     - Returns:  [OrderItemOptionDiscount]
+     */
+    public func getDiscounts() -> [OrderItemOptionDiscount] {
+        return self.discounts
     }
 
     /**

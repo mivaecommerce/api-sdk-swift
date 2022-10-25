@@ -50,7 +50,7 @@ public class OrderPayment : Model {
     var dateTimeStamp : Date
 
     /// Model field expires.
-    var expires : String
+    var expires : Date
 
     /// Model field pay_id.
     var paymentId : Int
@@ -107,7 +107,7 @@ public class OrderPayment : Model {
         self.available = Decimal(0.00)
         self.formattedAvailable = ""
         self.dateTimeStamp = Date(timeIntervalSince1970: 0)
-        self.expires = ""
+        self.expires = Date(timeIntervalSince1970: 0)
         self.paymentId = 0
         self.paymentSecId = 0
         self.decryptStatus = ""
@@ -138,7 +138,7 @@ public class OrderPayment : Model {
         self.available = try container.decodeIfPresent(Decimal.self, forKey: .available) ?? Decimal(0.00)
         self.formattedAvailable = try container.decodeIfPresent(String.self, forKey: .formattedAvailable) ?? ""
         self.dateTimeStamp = Date(timeIntervalSince1970: Double(try container.decodeIfPresent(Int64.self, forKey: .dateTimeStamp) ?? 0))
-        self.expires = try container.decodeIfPresent(String.self, forKey: .expires) ?? ""
+        self.expires = Date(timeIntervalSince1970: Double(try container.decodeIfPresent(Int64.self, forKey: .expires) ?? 0))
         self.paymentId = try container.decodeIfPresent(Int.self, forKey: .paymentId) ?? 0
         self.paymentSecId = try container.decodeIfPresent(Int.self, forKey: .paymentSecId) ?? 0
         self.decryptStatus = try container.decodeIfPresent(String.self, forKey: .decryptStatus) ?? ""
@@ -169,7 +169,7 @@ public class OrderPayment : Model {
         try container.encodeIfPresent(Decimal.roundForEncoding(value: self.available, precision: MERCHANTAPI_FLOAT_ENCODE_PRECISION), forKey: .available)
         try container.encodeIfPresent(self.formattedAvailable, forKey: .formattedAvailable)
         try container.encodeIfPresent(Int64(self.dateTimeStamp.timeIntervalSince1970), forKey: .dateTimeStamp)
-        try container.encodeIfPresent(self.expires, forKey: .expires)
+        try container.encodeIfPresent(Int64(self.expires.timeIntervalSince1970), forKey: .expires)
         try container.encodeIfPresent(self.paymentId, forKey: .paymentId)
         try container.encodeIfPresent(self.paymentSecId, forKey: .paymentSecId)
         try container.encodeIfPresent(self.decryptStatus, forKey: .decryptStatus)
@@ -266,10 +266,8 @@ public class OrderPayment : Model {
     /**
      Getter for expires.
 
-     - Returns:  String
-
-     */
-    public func getExpires() -> String {
+     - Returns:  Date     */
+    public func getExpires() -> Date {
         return self.expires
     }
 

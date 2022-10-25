@@ -16,6 +16,12 @@ import FoundationNetworking
  - SeeAlso: https://docs.miva.com/json-api/functions/categorylist_load_query
  */
 public class CategoryListLoadQueryRequest : ListQueryRequest {
+    /// Enumeration CategoryShow
+    public enum CategoryShow : String {
+        case All = "All"
+        case Active = "Active"
+    }
+
     /**
      The API function name.
 

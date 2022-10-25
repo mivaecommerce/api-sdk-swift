@@ -16,8 +16,18 @@ import FoundationNetworking
  - SeeAlso: https://docs.miva.com/json-api/functions/printqueuejob_insert
  */
 public class PrintQueueJobInsertResponse : Response {
-    /// Response field id.
-    var id : Optional<Int> = nil
+
+    /// The response model
+    public var printQueueJob : Optional<PrintQueueJob> = nil
+
+    /**
+     Getter for printQueueJob.
+
+     - Returns: PrintQueueJob
+     */
+    public func getPrintQueueJob() -> Optional<PrintQueueJob> {
+        return self.printQueueJob
+    }
 
     /**
      CodingKeys used to map the model when decoding.
@@ -25,8 +35,7 @@ public class PrintQueueJobInsertResponse : Response {
      - SeeAlso: Decodable
      */
     private enum CodingKeys: String, CodingKey {
-        case id
-        case data
+        case printQueueJob = "data"
     }
 
     /**
@@ -38,20 +47,7 @@ public class PrintQueueJobInsertResponse : Response {
     public required init(from decoder: Decoder) throws {
         let container  = try decoder.container(keyedBy : CodingKeys.self)
 
-        if container.contains(.data) {
-            let datacontainer = try container.nestedContainer(keyedBy: CodingKeys.self, forKey: .data)
-            self.id = try datacontainer.decodeIfPresent(Int.self, forKey: .id)
-        }
-
+        self.printQueueJob = try container.decodeIfPresent(PrintQueueJob.self, forKey: .printQueueJob)
         try super.init(from : decoder)
-    }
-
-    /**
-     Get id.
-
-     - Returns: Int
-    */
-    func getId() -> Int {
-        return self.id ?? 0
     }
 }

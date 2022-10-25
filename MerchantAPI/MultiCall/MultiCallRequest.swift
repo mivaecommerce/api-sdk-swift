@@ -113,10 +113,22 @@ public class MultiCallRequest : Request {
                 
         for request in self.requests {
             if request is MultiCallOperation {
-                try operations.encode(request as! MultiCallOperation)
+                let r = request as! MultiCallOperation
+                
+                for sr in r.requests {
+                    if sr.client == nil {
+                        sr.setClient(client: client)
+                    }
+                }
+                
+                try operations.encode(r)
             } else {
                 let r = request as! Request
                 r.encoderOptions.encodeTimestamp = false
+
+                if r.client == nil {
+                    r.setClient(client: client)
+                }
                 
                 try operations.encode(r)
             }

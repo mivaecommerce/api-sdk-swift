@@ -16,6 +16,14 @@ import FoundationNetworking
  - SeeAlso: https://docs.miva.com/json-api/functions/productvariant_generate
  */
 public class ProductVariantGenerateRequest : Request {
+
+    /// Enumeration VariantPricingMethod
+    public enum VariantPricingMethod : String {
+        case Master = "master"
+        case Specific = "specific"
+        case Sum = "sum"
+    }
+
     /**
      The API function name.
 
@@ -46,7 +54,7 @@ public class ProductVariantGenerateRequest : Request {
     var editProduct : Optional<String> = nil
 
     /// Request field Pricing_Method.
-    var pricingMethod : Optional<Int> = nil
+    var pricingMethod : Optional<String> = nil
 
     /**
      CodingKeys used to map the request when encoding.
@@ -182,9 +190,9 @@ public class ProductVariantGenerateRequest : Request {
     /**
      Getter for Pricing_Method.
 
-     - Returns:  Optional<Int>
+     - Returns:  Optional<String>
      */
-    public func getPricingMethod() -> Optional<Int> {
+    public func getPricingMethod() -> Optional<String> {
         return self.pricingMethod
     }
 
@@ -231,12 +239,39 @@ public class ProductVariantGenerateRequest : Request {
      Setter for Pricing_Method.
 
      - Parameters:
-        - value: Optional<Int>
+        - value: Optional<String>
+     - Returns:  Self
+     */
+    @discardableResult
+    public func setPricingMethod(_ value: Optional<String>) -> Self {
+        self.pricingMethod = value
+        return self
+    }
+
+    /**
+     Setter for Pricing_Method via int (backwards compatibility)
+
+     - Parameters:
+        - value: Optional<int>
      - Returns:  Self
      */
     @discardableResult
     public func setPricingMethod(_ value: Optional<Int>) -> Self {
-        self.pricingMethod = value
+        if let value = value {
+            self.pricingMethod = String(value)
+        }
         return self
     }
-}
+
+    /**
+     Setter for Pricing_Method via Enum
+
+     - Parameters:
+        - value: VariantPricingMethod
+     - Returns:  Self
+     */
+    @discardableResult
+    public func setPricingMethod(_ value: VariantPricingMethod) -> Self {
+        self.pricingMethod = value.rawValue
+        return self
+    }}

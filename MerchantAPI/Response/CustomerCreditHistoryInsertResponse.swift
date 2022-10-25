@@ -17,4 +17,37 @@ import FoundationNetworking
  */
 public class CustomerCreditHistoryInsertResponse : Response {
 
+    /// The response model
+    public var customerCreditHistory : Optional<CustomerCreditHistory> = nil
+
+    /**
+     Getter for customerCreditHistory.
+
+     - Returns: CustomerCreditHistory
+     */
+    public func getCustomerCreditHistory() -> Optional<CustomerCreditHistory> {
+        return self.customerCreditHistory
+    }
+
+    /**
+     CodingKeys used to map the model when decoding.
+
+     - SeeAlso: Decodable
+     */
+    private enum CodingKeys: String, CodingKey {
+        case customerCreditHistory = "data"
+    }
+
+    /**
+     Construct an instance from a decoder instance.
+
+     - Throws: Error when unable to decode.
+     - SeeAlso: Decodable
+     */
+    public required init(from decoder: Decoder) throws {
+        let container  = try decoder.container(keyedBy : CodingKeys.self)
+
+        self.customerCreditHistory = try container.decodeIfPresent(CustomerCreditHistory.self, forKey: .customerCreditHistory)
+        try super.init(from : decoder)
+    }
 }

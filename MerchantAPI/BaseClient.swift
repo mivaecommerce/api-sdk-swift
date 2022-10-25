@@ -58,7 +58,7 @@ public class BaseClient {
      */
     public init(url : String, authenticator: Authenticator, requireTimestamps : Bool = true, defaultStoreCode : Optional<String> = nil, session : Optional<URLSession> = nil ) {
         self.url                 = URL(string: url.trimmingCharacters(in: .whitespaces))!
-        self.session             = session ?? URLSession(configuration: .default)
+        self.session             = session ?? URLSession.shared
         self.authenticator       = authenticator
         self.requireTimestamps   = requireTimestamps
         self.defaultStoreCode    = defaultStoreCode
@@ -94,7 +94,7 @@ public class BaseClient {
         }
 
         sendLowLevel(json: json, headers: headers) { httpData, httpResponse, httpError in
-            guard let httpData = httpData, httpError == nil else {
+            guard let httpData = httpData, httpError == nil else {                
                 callback(request, nil, httpError)
                 return
             }
@@ -144,20 +144,26 @@ public class BaseClient {
         }
 
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-        request.addValue(try! generateAuthHeader(data: json), forHTTPHeaderField: "X-Miva-API-Authorization")
-
+        
+        do {
+            request.addValue(try generateAuthHeader(data: json), forHTTPHeaderField: "X-Miva-API-Authorization")
+        } catch {
+            callback(nil, nil, error)
+            return
+        }
+        
         request.httpMethod = "POST"
         request.httpBody   = json.data(using: .utf8)
-
+        
         let task = self.session.dataTask(with: request) { data, response, error in
             guard let data = data, error == nil else {
-                callback(nil, response, error)
+                callback(data, response, error)
                 return
             }
             
             callback(data, response, nil)
         }
-
+        
         task.resume()
     }
 

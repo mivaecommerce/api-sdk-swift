@@ -16,8 +16,18 @@ import FoundationNetworking
  - SeeAlso: https://docs.miva.com/json-api/functions/pricegroup_insert
  */
 public class PriceGroupInsertResponse : Response {
-    /// Response field id.
-    var id : Optional<Int> = nil
+
+    /// The response model
+    public var priceGroup : Optional<PriceGroup> = nil
+
+    /**
+     Getter for priceGroup.
+
+     - Returns: PriceGroup
+     */
+    public func getPriceGroup() -> Optional<PriceGroup> {
+        return self.priceGroup
+    }
 
     /**
      CodingKeys used to map the model when decoding.
@@ -25,7 +35,7 @@ public class PriceGroupInsertResponse : Response {
      - SeeAlso: Decodable
      */
     private enum CodingKeys: String, CodingKey {
-        case id
+        case priceGroup = "data"
     }
 
     /**
@@ -37,16 +47,7 @@ public class PriceGroupInsertResponse : Response {
     public required init(from decoder: Decoder) throws {
         let container  = try decoder.container(keyedBy : CodingKeys.self)
 
-        self.id = try container.decodeIfPresent(Int.self, forKey: .id)
+        self.priceGroup = try container.decodeIfPresent(PriceGroup.self, forKey: .priceGroup)
         try super.init(from : decoder)
-    }
-
-    /**
-     Get id.
-
-     - Returns: Int
-    */
-    func getId() -> Int {
-        return self.id ?? 0
     }
 }

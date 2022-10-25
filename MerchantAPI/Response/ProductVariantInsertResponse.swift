@@ -16,11 +16,18 @@ import FoundationNetworking
  - SeeAlso: https://docs.miva.com/json-api/functions/productvariant_insert
  */
 public class ProductVariantInsertResponse : Response {
-    /// Response field product_id.
-    var productId : Optional<Int> = nil
 
-    /// Response field variant_id.
-    var variantId : Optional<Int> = nil
+    /// The response model
+    public var productVariant : Optional<ProductVariant> = nil
+
+    /**
+     Getter for productVariant.
+
+     - Returns: ProductVariant
+     */
+    public func getProductVariant() -> Optional<ProductVariant> {
+        return self.productVariant
+    }
 
     /**
      CodingKeys used to map the model when decoding.
@@ -28,9 +35,7 @@ public class ProductVariantInsertResponse : Response {
      - SeeAlso: Decodable
      */
     private enum CodingKeys: String, CodingKey {
-        case productId = "product_id"
-        case data
-        case variantId = "variant_id"
+        case productVariant = "data"
     }
 
     /**
@@ -42,30 +47,7 @@ public class ProductVariantInsertResponse : Response {
     public required init(from decoder: Decoder) throws {
         let container  = try decoder.container(keyedBy : CodingKeys.self)
 
-        if container.contains(.data) {
-            let datacontainer = try container.nestedContainer(keyedBy: CodingKeys.self, forKey: .data)
-            self.productId = try datacontainer.decodeIfPresent(Int.self, forKey: .productId)
-            self.variantId = try datacontainer.decodeIfPresent(Int.self, forKey: .variantId)
-        }
-
+        self.productVariant = try container.decodeIfPresent(ProductVariant.self, forKey: .productVariant)
         try super.init(from : decoder)
-    }
-
-    /**
-     Get product_id.
-
-     - Returns: Int
-    */
-    func getProductId() -> Int {
-        return self.productId ?? 0
-    }
-
-    /**
-     Get variant_id.
-
-     - Returns: Int
-    */
-    func getVariantId() -> Int {
-        return self.variantId ?? 0
     }
 }

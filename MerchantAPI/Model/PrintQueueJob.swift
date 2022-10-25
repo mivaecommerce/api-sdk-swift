@@ -34,9 +34,6 @@ public class PrintQueueJob : Model {
     /// Model field dt_created.
     var dateTimeCreated : Date
 
-    /// Model field printqueue_descrip.
-    var printQueueDescription : String
-
     /// Model field user_name.
     var userName : String
 
@@ -60,7 +57,6 @@ public class PrintQueueJob : Model {
         case jobFormat = "job_fmt"
         case jobData = "job_data"
         case dateTimeCreated = "dt_created"
-        case printQueueDescription = "printqueue_descrip"
         case userName = "user_name"
         case storeCode = "store_code"
         case storeName = "store_name"
@@ -78,7 +74,6 @@ public class PrintQueueJob : Model {
         self.jobFormat = ""
         self.jobData = ""
         self.dateTimeCreated = Date(timeIntervalSince1970: 0)
-        self.printQueueDescription = ""
         self.userName = ""
         self.storeCode = ""
         self.storeName = ""
@@ -105,7 +100,6 @@ public class PrintQueueJob : Model {
         self.jobFormat = try container.decodeIfPresent(String.self, forKey: .jobFormat) ?? ""
         self.jobData = try container.decodeIfPresent(String.self, forKey: .jobData) ?? ""
         self.dateTimeCreated = Date(timeIntervalSince1970: Double(try container.decodeIfPresent(Int64.self, forKey: .dateTimeCreated) ?? 0))
-        self.printQueueDescription = try container.decodeIfPresent(String.self, forKey: .printQueueDescription) ?? ""
         self.userName = try container.decodeIfPresent(String.self, forKey: .userName) ?? ""
         self.storeCode = try container.decodeIfPresent(String.self, forKey: .storeCode) ?? ""
         self.storeName = try container.decodeIfPresent(String.self, forKey: .storeName) ?? ""
@@ -132,7 +126,6 @@ public class PrintQueueJob : Model {
         try container.encodeIfPresent(self.jobFormat, forKey: .jobFormat)
         try container.encodeIfPresent(self.jobData, forKey: .jobData)
         try container.encodeIfPresent(Int64(self.dateTimeCreated.timeIntervalSince1970), forKey: .dateTimeCreated)
-        try container.encodeIfPresent(self.printQueueDescription, forKey: .printQueueDescription)
         try container.encodeIfPresent(self.userName, forKey: .userName)
         try container.encodeIfPresent(self.storeCode, forKey: .storeCode)
         try container.encodeIfPresent(self.storeName, forKey: .storeName)
@@ -216,16 +209,6 @@ public class PrintQueueJob : Model {
      - Returns:  Date     */
     public func getDateTimeCreated() -> Date {
         return self.dateTimeCreated
-    }
-
-    /**
-     Getter for printqueue_descrip.
-
-     - Returns:  String
-
-     */
-    public func getPrintQueueDescription() -> String {
-        return self.printQueueDescription
     }
 
     /**

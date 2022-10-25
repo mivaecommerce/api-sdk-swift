@@ -18,15 +18,15 @@ import FoundationNetworking
 public class OrderItemAddResponse : Response {
 
     /// The response model
-    public var orderTotal : Optional<OrderTotal> = nil
+    public var orderTotalAndItem : Optional<OrderTotalAndItem> = nil
 
     /**
-     Getter for orderTotal.
+     Getter for orderTotalAndItem.
 
-     - Returns: OrderTotal
+     - Returns: OrderTotalAndItem
      */
-    public func getOrderTotal() -> Optional<OrderTotal> {
-        return self.orderTotal
+    public func getOrderTotalAndItem() -> Optional<OrderTotalAndItem> {
+        return self.orderTotalAndItem
     }
 
     /**
@@ -35,7 +35,7 @@ public class OrderItemAddResponse : Response {
      - SeeAlso: Decodable
      */
     private enum CodingKeys: String, CodingKey {
-        case orderTotal = "data"
+        case orderTotalAndItem = "data"
     }
 
     /**
@@ -47,7 +47,7 @@ public class OrderItemAddResponse : Response {
     public required init(from decoder: Decoder) throws {
         let container  = try decoder.container(keyedBy : CodingKeys.self)
 
-        self.orderTotal = try container.decodeIfPresent(OrderTotal.self, forKey: .orderTotal)
+        self.orderTotalAndItem = try container.decodeIfPresent(OrderTotalAndItem.self, forKey: .orderTotalAndItem)
         try super.init(from : decoder)
     }
 }

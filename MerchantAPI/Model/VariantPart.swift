@@ -13,6 +13,9 @@ public class VariantPart : Model {
     /// Model field part_id.
     var partId : Optional<Int>
 
+    /// Model field part_code.
+    var partCode : Optional<String>
+
     /// Model field quantity.
     var quantity : Optional<Int>
 
@@ -23,6 +26,7 @@ public class VariantPart : Model {
      */
     private enum CodingKeys: String, CodingKey {
         case partId = "part_id"
+        case partCode = "part_code"
         case quantity
     }
 
@@ -31,6 +35,7 @@ public class VariantPart : Model {
      */
     public override init() {
         self.partId = nil
+        self.partCode = nil
         self.quantity = nil
 
         super.init()
@@ -48,6 +53,7 @@ public class VariantPart : Model {
         let container  = try decoder.container(keyedBy: CodingKeys.self)
 
         self.partId = try container.decodeIfPresent(Int.self, forKey: .partId) ?? nil
+        self.partCode = try container.decodeIfPresent(String.self, forKey: .partCode) ?? nil
         self.quantity = try container.decodeIfPresent(Int.self, forKey: .quantity) ?? nil
 
         try super.init(from : decoder)
@@ -65,6 +71,7 @@ public class VariantPart : Model {
         var container = encoder.container(keyedBy: CodingKeys.self)
 
         try container.encodeIfPresent(self.partId, forKey: .partId)
+        try container.encodeIfPresent(self.partCode, forKey: .partCode)
         try container.encodeIfPresent(self.quantity, forKey: .quantity)
 
         try super.encode(to: encoder)
@@ -78,6 +85,16 @@ public class VariantPart : Model {
      */
     public func getPartId() -> Optional<Int> {
         return self.partId
+    }
+
+    /**
+     Getter for part_code.
+
+     - Returns:  Optional<String>
+
+     */
+    public func getPartCode() -> Optional<String> {
+        return self.partCode
     }
 
     /**
@@ -100,6 +117,19 @@ public class VariantPart : Model {
     @discardableResult
     public func setPartId(_ value: Int) -> Self {
         self.partId = value
+        return self
+    }
+
+    /**
+     Setter for part_code.
+
+     - Parameters:
+        - value: String
+     - Returns:  Self
+     */
+    @discardableResult
+    public func setPartCode(_ value: String) -> Self {
+        self.partCode = value
         return self
     }
 

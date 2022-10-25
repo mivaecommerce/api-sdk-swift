@@ -13,11 +13,11 @@ public struct Version {
     public static var VERSION_MAJOR = 2
 
     /// The minor version of this release.
-    public static var VERSION_MINOR = 1
+    public static var VERSION_MINOR = 2
 
     /// The patch version of this release.
     public static var VERSION_PATCH = 0
 
     // The version of this release as a String.
-    public static var VERSION_STRING = "2.1.0"
+    public static var VERSION_STRING = "2.2.0"
 }

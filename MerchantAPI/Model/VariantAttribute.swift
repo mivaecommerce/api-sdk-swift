@@ -19,6 +19,15 @@ public class VariantAttribute : Model {
     /// Model field option_id.
     var optionId : Optional<Int>
 
+    /// Model field attr_code.
+    var attributeCode : Optional<String>
+
+    /// Model field attmpat_code.
+    var attributeTemplateAttributeCode : Optional<String>
+
+    /// Model field option_code.
+    var optionCode : Optional<String>
+
     /**
      CodingKeys used to map the model when encoding and decoding.
 
@@ -28,6 +37,9 @@ public class VariantAttribute : Model {
         case attributeId = "attr_id"
         case attributeTemplateAttributeId = "attmpat_id"
         case optionId = "option_id"
+        case attributeCode = "attr_code"
+        case attributeTemplateAttributeCode = "attmpat_code"
+        case optionCode = "option_code"
     }
 
     /**
@@ -37,6 +49,9 @@ public class VariantAttribute : Model {
         self.attributeId = nil
         self.attributeTemplateAttributeId = nil
         self.optionId = nil
+        self.attributeCode = nil
+        self.attributeTemplateAttributeCode = nil
+        self.optionCode = nil
 
         super.init()
     }
@@ -55,6 +70,9 @@ public class VariantAttribute : Model {
         self.attributeId = try container.decodeIfPresent(Int.self, forKey: .attributeId) ?? nil
         self.attributeTemplateAttributeId = try container.decodeIfPresent(Int.self, forKey: .attributeTemplateAttributeId) ?? nil
         self.optionId = try container.decodeIfPresent(Int.self, forKey: .optionId) ?? nil
+        self.attributeCode = try container.decodeIfPresent(String.self, forKey: .attributeCode) ?? nil
+        self.attributeTemplateAttributeCode = try container.decodeIfPresent(String.self, forKey: .attributeTemplateAttributeCode) ?? nil
+        self.optionCode = try container.decodeIfPresent(String.self, forKey: .optionCode) ?? nil
 
         try super.init(from : decoder)
     }
@@ -73,6 +91,9 @@ public class VariantAttribute : Model {
         try container.encodeIfPresent(self.attributeId, forKey: .attributeId)
         try container.encodeIfPresent(self.attributeTemplateAttributeId, forKey: .attributeTemplateAttributeId)
         try container.encodeIfPresent(self.optionId, forKey: .optionId)
+        try container.encodeIfPresent(self.attributeCode, forKey: .attributeCode)
+        try container.encodeIfPresent(self.attributeTemplateAttributeCode, forKey: .attributeTemplateAttributeCode)
+        try container.encodeIfPresent(self.optionCode, forKey: .optionCode)
 
         try super.encode(to: encoder)
     }
@@ -105,6 +126,36 @@ public class VariantAttribute : Model {
      */
     public func getOptionId() -> Optional<Int> {
         return self.optionId
+    }
+
+    /**
+     Getter for attr_code.
+
+     - Returns:  Optional<String>
+
+     */
+    public func getAttributeCode() -> Optional<String> {
+        return self.attributeCode
+    }
+
+    /**
+     Getter for attmpat_code.
+
+     - Returns:  Optional<String>
+
+     */
+    public func getAttributeTemplateAttributeCode() -> Optional<String> {
+        return self.attributeTemplateAttributeCode
+    }
+
+    /**
+     Getter for option_code.
+
+     - Returns:  Optional<String>
+
+     */
+    public func getOptionCode() -> Optional<String> {
+        return self.optionCode
     }
 
     /**
@@ -143,6 +194,45 @@ public class VariantAttribute : Model {
     @discardableResult
     public func setOptionId(_ value: Int) -> Self {
         self.optionId = value
+        return self
+    }
+
+    /**
+     Setter for attr_code.
+
+     - Parameters:
+        - value: String
+     - Returns:  Self
+     */
+    @discardableResult
+    public func setAttributeCode(_ value: String) -> Self {
+        self.attributeCode = value
+        return self
+    }
+
+    /**
+     Setter for attmpat_code.
+
+     - Parameters:
+        - value: String
+     - Returns:  Self
+     */
+    @discardableResult
+    public func setAttributeTemplateAttributeCode(_ value: String) -> Self {
+        self.attributeTemplateAttributeCode = value
+        return self
+    }
+
+    /**
+     Setter for option_code.
+
+     - Parameters:
+        - value: String
+     - Returns:  Self
+     */
+    @discardableResult
+    public func setOptionCode(_ value: String) -> Self {
+        self.optionCode = value
         return self
     }
 }

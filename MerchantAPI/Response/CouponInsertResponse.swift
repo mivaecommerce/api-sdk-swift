@@ -16,8 +16,18 @@ import FoundationNetworking
  - SeeAlso: https://docs.miva.com/json-api/functions/coupon_insert
  */
 public class CouponInsertResponse : Response {
-    /// Response field id.
-    var id : Optional<Int> = nil
+
+    /// The response model
+    public var coupon : Optional<Coupon> = nil
+
+    /**
+     Getter for coupon.
+
+     - Returns: Coupon
+     */
+    public func getCoupon() -> Optional<Coupon> {
+        return self.coupon
+    }
 
     /**
      CodingKeys used to map the model when decoding.
@@ -25,8 +35,7 @@ public class CouponInsertResponse : Response {
      - SeeAlso: Decodable
      */
     private enum CodingKeys: String, CodingKey {
-        case id
-        case data
+        case coupon = "data"
     }
 
     /**
@@ -38,20 +47,7 @@ public class CouponInsertResponse : Response {
     public required init(from decoder: Decoder) throws {
         let container  = try decoder.container(keyedBy : CodingKeys.self)
 
-        if container.contains(.data) {
-            let datacontainer = try container.nestedContainer(keyedBy: CodingKeys.self, forKey: .data)
-            self.id = try datacontainer.decodeIfPresent(Int.self, forKey: .id)
-        }
-
+        self.coupon = try container.decodeIfPresent(Coupon.self, forKey: .coupon)
         try super.init(from : decoder)
-    }
-
-    /**
-     Get id.
-
-     - Returns: Int
-    */
-    func getId() -> Int {
-        return self.id ?? 0
     }
 }

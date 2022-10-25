@@ -16,6 +16,14 @@ import FoundationNetworking
  - SeeAlso: https://docs.miva.com/json-api/functions/orderlist_load_query
  */
 public class OrderListLoadQueryRequest : ListQueryRequest {
+    /// Enumeration PayStatusFilter
+    public enum PayStatusFilter : String {
+        case AuthOnly = "auth_0_capt"
+        case PartialCapture = "partial_capt"
+        case CapturedNotShipped = "capt_not_ship"
+        case ShippedNotCaptured = "ship_not_capt"
+    }
+
     /**
      The API function name.
 
