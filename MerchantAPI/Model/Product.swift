@@ -106,6 +106,9 @@ public class Product : Model {
     /// Model field imagetypes.
     var imageTypes : Dictionary<String, Int32>
 
+    /// Model field disp_order.
+    var displayOrder : Int
+
     /**
      CodingKeys used to map the model when encoding and decoding.
 
@@ -144,6 +147,7 @@ public class Product : Model {
         case attributes
         case url
         case imageTypes = "imagetypes"
+        case displayOrder = "disp_order"
     }
 
     /**
@@ -182,6 +186,7 @@ public class Product : Model {
         self.attributes = []
         self.url = ""
         self.imageTypes = [:]
+        self.displayOrder = 0
 
         super.init()
     }
@@ -213,8 +218,8 @@ public class Product : Model {
         self.active = try container.decodeIfPresent(Bool.self, forKey: .active) ?? false
         self.pageTitle = try container.decodeIfPresent(String.self, forKey: .pageTitle) ?? ""
         self.taxable = try container.decodeIfPresent(Bool.self, forKey: .taxable) ?? false
-        self.dateTimeCreated = Date(timeIntervalSince1970: Double(try container.decodeIfPresent(Int64.self, forKey: .dateTimeCreated) ?? 0))
-        self.dateTimeUpdate = Date(timeIntervalSince1970: Double(try container.decodeIfPresent(Int64.self, forKey: .dateTimeUpdate) ?? 0))
+        self.dateTimeCreated = try container.decodeIfPresent(DateTime.self, forKey: .dateTimeCreated)?.timeT ?? Date(timeIntervalSince1970: 0)
+        self.dateTimeUpdate = try container.decodeIfPresent(DateTime.self, forKey: .dateTimeUpdate)?.timeT ?? Date(timeIntervalSince1970: 0)
         self.productInventorySettings = try container.decodeIfPresent(ProductInventorySettings.self, forKey: .productInventorySettings) ?? ProductInventorySettings()
         self.productInventoryActive = try container.decodeIfPresent(Bool.self, forKey: .productInventoryActive) ?? false
         self.productInventory = try container.decodeIfPresent(Int.self, forKey: .productInventory) ?? 0
@@ -228,6 +233,7 @@ public class Product : Model {
         self.productImageData = try container.decodeIfPresent([ProductImageData].self, forKey: .productImageData) ?? []
         self.attributes = try container.decodeIfPresent([ProductAttribute].self, forKey: .attributes) ?? []
         self.url = try container.decodeIfPresent(String.self, forKey: .url) ?? ""
+        self.displayOrder = try container.decodeIfPresent(Int.self, forKey: .displayOrder) ?? 0
 
         self.imageTypes = [:]
         let imageTypesContainer = try decoder.container(keyedBy: RuntimeCodingKey.self)
@@ -286,6 +292,7 @@ public class Product : Model {
         try container.encodeIfPresent(self.productImageData, forKey: .productImageData)
         try container.encodeIfPresent(self.attributes, forKey: .attributes)
         try container.encodeIfPresent(self.url, forKey: .url)
+        try container.encodeIfPresent(self.displayOrder, forKey: .displayOrder)
 
         try super.encode(to: encoder)
     }
@@ -574,5 +581,15 @@ public class Product : Model {
      */
     public func getUrl() -> String {
         return self.url
+    }
+
+    /**
+     Getter for disp_order.
+
+     - Returns:  Int
+
+     */
+    public func getDisplayOrder() -> Int {
+        return self.displayOrder
     }
 }

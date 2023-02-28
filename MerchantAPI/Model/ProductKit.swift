@@ -11,19 +11,19 @@ import Foundation
 public class ProductKit : Model {
 
     /// Model field attr_id.
-    var attrId : Int
+    var attributeId : Int
 
     /// Model field attr_type.
-    var attrType : String
+    var attributeType : String
 
     /// Model field attr_code.
-    var attrCode : String
+    var attributeCode : String
 
     /// Model field attr_prompt.
-    var attrPrompt : String
+    var attributePrompt : String
 
     /// Model field attmpat_id.
-    var attmpatId : Int
+    var attributeTemplateAttributeId : Int
 
     /// Model field option_id.
     var optionId : Int
@@ -34,6 +34,9 @@ public class ProductKit : Model {
     /// Model field option_prompt.
     var optionPrompt : String
 
+    /// Model field option_disp_order.
+    var optionDisplayOrder : Int
+
     /// Model field parts.
     var parts : [ProductKitPart]
 
@@ -43,14 +46,15 @@ public class ProductKit : Model {
      - SeeAlso: Codable
      */
     private enum CodingKeys: String, CodingKey {
-        case attrId = "attr_id"
-        case attrType = "attr_type"
-        case attrCode = "attr_code"
-        case attrPrompt = "attr_prompt"
-        case attmpatId = "attmpat_id"
+        case attributeId = "attr_id"
+        case attributeType = "attr_type"
+        case attributeCode = "attr_code"
+        case attributePrompt = "attr_prompt"
+        case attributeTemplateAttributeId = "attmpat_id"
         case optionId = "option_id"
         case optionCode = "option_code"
         case optionPrompt = "option_prompt"
+        case optionDisplayOrder = "option_disp_order"
         case parts
     }
 
@@ -58,14 +62,15 @@ public class ProductKit : Model {
      ProductKit Constructor.
      */
     public override init() {
-        self.attrId = 0
-        self.attrType = ""
-        self.attrCode = ""
-        self.attrPrompt = ""
-        self.attmpatId = 0
+        self.attributeId = 0
+        self.attributeType = ""
+        self.attributeCode = ""
+        self.attributePrompt = ""
+        self.attributeTemplateAttributeId = 0
         self.optionId = 0
         self.optionCode = ""
         self.optionPrompt = ""
+        self.optionDisplayOrder = 0
         self.parts = []
 
         super.init()
@@ -82,14 +87,15 @@ public class ProductKit : Model {
     public required init(from decoder: Decoder) throws {
         let container  = try decoder.container(keyedBy: CodingKeys.self)
 
-        self.attrId = try container.decodeIfPresent(Int.self, forKey: .attrId) ?? 0
-        self.attrType = try container.decodeIfPresent(String.self, forKey: .attrType) ?? ""
-        self.attrCode = try container.decodeIfPresent(String.self, forKey: .attrCode) ?? ""
-        self.attrPrompt = try container.decodeIfPresent(String.self, forKey: .attrPrompt) ?? ""
-        self.attmpatId = try container.decodeIfPresent(Int.self, forKey: .attmpatId) ?? 0
+        self.attributeId = try container.decodeIfPresent(Int.self, forKey: .attributeId) ?? 0
+        self.attributeType = try container.decodeIfPresent(String.self, forKey: .attributeType) ?? ""
+        self.attributeCode = try container.decodeIfPresent(String.self, forKey: .attributeCode) ?? ""
+        self.attributePrompt = try container.decodeIfPresent(String.self, forKey: .attributePrompt) ?? ""
+        self.attributeTemplateAttributeId = try container.decodeIfPresent(Int.self, forKey: .attributeTemplateAttributeId) ?? 0
         self.optionId = try container.decodeIfPresent(Int.self, forKey: .optionId) ?? 0
         self.optionCode = try container.decodeIfPresent(String.self, forKey: .optionCode) ?? ""
         self.optionPrompt = try container.decodeIfPresent(String.self, forKey: .optionPrompt) ?? ""
+        self.optionDisplayOrder = try container.decodeIfPresent(Int.self, forKey: .optionDisplayOrder) ?? 0
         self.parts = try container.decodeIfPresent([ProductKitPart].self, forKey: .parts) ?? []
 
         try super.init(from : decoder)
@@ -106,14 +112,15 @@ public class ProductKit : Model {
     public override func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
 
-        try container.encodeIfPresent(self.attrId, forKey: .attrId)
-        try container.encodeIfPresent(self.attrType, forKey: .attrType)
-        try container.encodeIfPresent(self.attrCode, forKey: .attrCode)
-        try container.encodeIfPresent(self.attrPrompt, forKey: .attrPrompt)
-        try container.encodeIfPresent(self.attmpatId, forKey: .attmpatId)
+        try container.encodeIfPresent(self.attributeId, forKey: .attributeId)
+        try container.encodeIfPresent(self.attributeType, forKey: .attributeType)
+        try container.encodeIfPresent(self.attributeCode, forKey: .attributeCode)
+        try container.encodeIfPresent(self.attributePrompt, forKey: .attributePrompt)
+        try container.encodeIfPresent(self.attributeTemplateAttributeId, forKey: .attributeTemplateAttributeId)
         try container.encodeIfPresent(self.optionId, forKey: .optionId)
         try container.encodeIfPresent(self.optionCode, forKey: .optionCode)
         try container.encodeIfPresent(self.optionPrompt, forKey: .optionPrompt)
+        try container.encodeIfPresent(self.optionDisplayOrder, forKey: .optionDisplayOrder)
         try container.encodeIfPresent(self.parts, forKey: .parts)
 
         try super.encode(to: encoder)
@@ -125,8 +132,8 @@ public class ProductKit : Model {
      - Returns:  Int
 
      */
-    public func getAttrId() -> Int {
-        return self.attrId
+    public func getAttributeId() -> Int {
+        return self.attributeId
     }
 
     /**
@@ -135,8 +142,8 @@ public class ProductKit : Model {
      - Returns:  String
 
      */
-    public func getAttrType() -> String {
-        return self.attrType
+    public func getAttributeType() -> String {
+        return self.attributeType
     }
 
     /**
@@ -145,8 +152,8 @@ public class ProductKit : Model {
      - Returns:  String
 
      */
-    public func getAttrCode() -> String {
-        return self.attrCode
+    public func getAttributeCode() -> String {
+        return self.attributeCode
     }
 
     /**
@@ -155,8 +162,8 @@ public class ProductKit : Model {
      - Returns:  String
 
      */
-    public func getAttrPrompt() -> String {
-        return self.attrPrompt
+    public func getAttributePrompt() -> String {
+        return self.attributePrompt
     }
 
     /**
@@ -165,8 +172,8 @@ public class ProductKit : Model {
      - Returns:  Int
 
      */
-    public func getAttmpatId() -> Int {
-        return self.attmpatId
+    public func getAttributeTemplateAttributeId() -> Int {
+        return self.attributeTemplateAttributeId
     }
 
     /**
@@ -197,6 +204,16 @@ public class ProductKit : Model {
      */
     public func getOptionPrompt() -> String {
         return self.optionPrompt
+    }
+
+    /**
+     Getter for option_disp_order.
+
+     - Returns:  Int
+
+     */
+    public func getOptionDisplayOrder() -> Int {
+        return self.optionDisplayOrder
     }
 
     /**

@@ -114,6 +114,9 @@ public class PriceGroupInsertRequest : Request {
     /// Request field Priority.
     var priority : Optional<Int> = nil
 
+    /// Request field Exclusions.
+    var exclusions : [PriceGroupExclusion] = []
+
     /// User set request fields
     var moduleFields : [String:AnyEncodable] = [:]
 
@@ -150,6 +153,7 @@ public class PriceGroupInsertRequest : Request {
         case basketMinWeight = "Basket_Min_Weight"
         case basketMaxWeight = "Basket_Max_Weight"
         case priority = "Priority"
+        case exclusions = "Exclusions"
     }
 
     /**
@@ -208,6 +212,7 @@ public class PriceGroupInsertRequest : Request {
         try container.encodeIfPresent(Decimal.roundForEncoding(value: self.basketMinWeight, precision: MERCHANTAPI_FLOAT_ENCODE_PRECISION), forKey: .basketMinWeight)
         try container.encodeIfPresent(Decimal.roundForEncoding(value: self.basketMaxWeight, precision: MERCHANTAPI_FLOAT_ENCODE_PRECISION), forKey: .basketMaxWeight)
         try container.encodeIfPresent(self.priority, forKey: .priority)
+        try container.encodeIfPresent(self.exclusions, forKey: .exclusions)
 
         var moduleFieldsContainer = encoder.container(keyedBy: RuntimeCodingKey.self)
 
@@ -284,12 +289,36 @@ public class PriceGroupInsertRequest : Request {
     }
 
     /**
+     Enum Getter for CustomerScope.
+
+     - Returns:  Optional<PriceGroup.Eligibility>
+     */
+    public func getCustomerScope() -> Optional<PriceGroup.Eligibility> {
+        if let v = self.customerScope {
+            return PriceGroup.Eligibility(rawValue: v) ?? nil
+        }
+        return nil;
+    }
+
+    /**
      Getter for Rate.
 
      - Returns:  Optional<String>
      */
     public func getRate() -> Optional<String> {
         return self.rate
+    }
+
+    /**
+     Enum Getter for Rate.
+
+     - Returns:  Optional<PriceGroup.DiscountType>
+     */
+    public func getRate() -> Optional<PriceGroup.DiscountType> {
+        if let v = self.rate {
+            return PriceGroup.DiscountType(rawValue: v) ?? nil
+        }
+        return nil;
     }
 
     /**
@@ -500,6 +529,15 @@ public class PriceGroupInsertRequest : Request {
     }
 
     /**
+     Getter for Exclusions.
+
+     - Returns:  [PriceGroupExclusion]
+     */
+    public func getExclusions() -> [PriceGroupExclusion] {
+        return self.exclusions
+    }
+
+    /**
      Get user set request fields.
 
      - Returns:  [String:AnyEncodable]
@@ -535,6 +573,19 @@ public class PriceGroupInsertRequest : Request {
     }
 
     /**
+     Enum Setter for CustomerScope.
+
+     - Parameters:
+        - value: PriceGroup.Eligibility
+     - Returns:  Self
+     */
+    @discardableResult
+    public func setCustomerScope(_ value: PriceGroup.Eligibility) -> Self {
+        self.customerScope = value.rawValue
+        return self
+    }
+
+    /**
      Setter for Rate.
 
      - Parameters:
@@ -544,6 +595,19 @@ public class PriceGroupInsertRequest : Request {
     @discardableResult
     public func setRate(_ value: Optional<String>) -> Self {
         self.rate = value
+        return self
+    }
+
+    /**
+     Enum Setter for Rate.
+
+     - Parameters:
+        - value: PriceGroup.DiscountType
+     - Returns:  Self
+     */
+    @discardableResult
+    public func setRate(_ value: PriceGroup.DiscountType) -> Self {
+        self.rate = value.rawValue
         return self
     }
 
@@ -857,6 +921,35 @@ public class PriceGroupInsertRequest : Request {
     @discardableResult
     public func setModuleField<T:Encodable>(_ name: String, _ value: T) -> Self {
         self.moduleFields[name] = AnyEncodable(value)
+        return self
+    }
+
+    /**
+     Add a PriceGroupExclusion.
+
+     - Parameters:
+        - priceGroupExclusion: PriceGroupExclusion
+     - Returns: Self
+     */
+    @discardableResult
+    public func addPriceGroupExclusion(_ priceGroupExclusion : PriceGroupExclusion) -> Self {
+        self.exclusions.append(priceGroupExclusion)
+        return self
+    }
+
+    /**
+     Add an array of PriceGroupExclusion.
+
+     - Parameters:
+        - exclusions: [PriceGroupExclusion]
+     - Returns: Self
+     */
+    @discardableResult
+    public func addExclusions(_ exclusions: [PriceGroupExclusion]) -> Self {
+        for e in exclusions {
+            self.exclusions.append(e);
+        }
+
         return self
     }
 }

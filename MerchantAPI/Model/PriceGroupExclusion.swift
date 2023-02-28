@@ -98,6 +98,18 @@ public class PriceGroupExclusion : Model {
     }
 
     /**
+     Enum Getter for scope.
+
+     - Returns:  Optional<ExclusionScope>
+     */
+    public func getScope() -> Optional<ExclusionScope> {
+        if let v = self.scope {
+            return ExclusionScope(rawValue: v) ?? nil
+        }
+        return nil;
+    }
+
+    /**
      Setter for id.
 
      - Parameters:
@@ -120,6 +132,19 @@ public class PriceGroupExclusion : Model {
     @discardableResult
     public func setScope(_ value: String) -> Self {
         self.scope = value
+        return self
+    }
+
+    /**
+     Enum Getter for scope.
+
+     - Parameters:
+        - value: ExclusionScope
+     - Returns:  Self
+     */
+    @discardableResult
+    public func setScope(_ value: ExclusionScope) -> Self {
+        self.scope = value.rawValue
         return self
     }
 }

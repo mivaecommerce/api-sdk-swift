@@ -226,6 +226,15 @@ public class AttributeTemplateAttribute : Model {
     }
 
     /**
+     Enum Getter for type.
+
+     - Returns:  Optional<TemplateAttributeType>
+     */
+    public func getType() -> Optional<TemplateAttributeType> {
+        return TemplateAttributeType(rawValue: self.type) ?? nil
+    }
+
+    /**
      Getter for prompt.
 
      - Returns:  String

@@ -98,8 +98,8 @@ public class Coupon : Model {
         self.code = try container.decodeIfPresent(String.self, forKey: .code) ?? ""
         self.description = try container.decodeIfPresent(String.self, forKey: .description) ?? ""
         self.customerScope = try container.decodeIfPresent(String.self, forKey: .customerScope) ?? ""
-        self.dateTimeStart = Date(timeIntervalSince1970: Double(try container.decodeIfPresent(Int64.self, forKey: .dateTimeStart) ?? 0))
-        self.dateTimeEnd = Date(timeIntervalSince1970: Double(try container.decodeIfPresent(Int64.self, forKey: .dateTimeEnd) ?? 0))
+        self.dateTimeStart = try container.decodeIfPresent(DateTime.self, forKey: .dateTimeStart)?.timeT ?? Date(timeIntervalSince1970: 0)
+        self.dateTimeEnd = try container.decodeIfPresent(DateTime.self, forKey: .dateTimeEnd)?.timeT ?? Date(timeIntervalSince1970: 0)
         self.maxUse = try container.decodeIfPresent(Int.self, forKey: .maxUse) ?? 0
         self.maxPer = try container.decodeIfPresent(Int.self, forKey: .maxPer) ?? 0
         self.active = try container.decodeIfPresent(Bool.self, forKey: .active) ?? false
@@ -171,6 +171,15 @@ public class Coupon : Model {
      */
     public func getCustomerScope() -> String {
         return self.customerScope
+    }
+
+    /**
+     Enum Getter for custscope.
+
+     - Returns:  Optional<CustomerScope>
+     */
+    public func getCustomerScope() -> Optional<CustomerScope> {
+        return CustomerScope(rawValue: self.customerScope) ?? nil
     }
 
     /**

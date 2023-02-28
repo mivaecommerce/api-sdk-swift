@@ -300,9 +300,9 @@ public class Customer : Model {
         self.orderTotal = try container.decodeIfPresent(Decimal.self, forKey: .orderTotal) ?? Decimal(0.00)
         self.formattedOrderTotal = try container.decodeIfPresent(String.self, forKey: .formattedOrderTotal) ?? ""
         self.noteCount = try container.decodeIfPresent(Int.self, forKey: .noteCount) ?? 0
-        self.createdOn = Date(timeIntervalSince1970: Double(try container.decodeIfPresent(Int64.self, forKey: .createdOn) ?? 0))
-        self.lastLogin = Date(timeIntervalSince1970: Double(try container.decodeIfPresent(Int64.self, forKey: .lastLogin) ?? 0))
-        self.passwordChangeDateTime = Date(timeIntervalSince1970: Double(try container.decodeIfPresent(Int64.self, forKey: .passwordChangeDateTime) ?? 0))
+        self.createdOn = try container.decodeIfPresent(DateTime.self, forKey: .createdOn)?.timeT ?? Date(timeIntervalSince1970: 0)
+        self.lastLogin = try container.decodeIfPresent(DateTime.self, forKey: .lastLogin)?.timeT ?? Date(timeIntervalSince1970: 0)
+        self.passwordChangeDateTime = try container.decodeIfPresent(DateTime.self, forKey: .passwordChangeDateTime)?.timeT ?? Date(timeIntervalSince1970: 0)
         self.credit = try container.decodeIfPresent(Decimal.self, forKey: .credit) ?? Decimal(0.00)
         self.formattedCredit = try container.decodeIfPresent(String.self, forKey: .formattedCredit) ?? ""
         self.businessTitle = try container.decodeIfPresent(String.self, forKey: .businessTitle) ?? ""

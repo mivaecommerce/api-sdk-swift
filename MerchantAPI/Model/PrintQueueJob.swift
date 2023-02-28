@@ -99,7 +99,7 @@ public class PrintQueueJob : Model {
         self.description = try container.decodeIfPresent(String.self, forKey: .description) ?? ""
         self.jobFormat = try container.decodeIfPresent(String.self, forKey: .jobFormat) ?? ""
         self.jobData = try container.decodeIfPresent(String.self, forKey: .jobData) ?? ""
-        self.dateTimeCreated = Date(timeIntervalSince1970: Double(try container.decodeIfPresent(Int64.self, forKey: .dateTimeCreated) ?? 0))
+        self.dateTimeCreated = try container.decodeIfPresent(DateTime.self, forKey: .dateTimeCreated)?.timeT ?? Date(timeIntervalSince1970: 0)
         self.userName = try container.decodeIfPresent(String.self, forKey: .userName) ?? ""
         self.storeCode = try container.decodeIfPresent(String.self, forKey: .storeCode) ?? ""
         self.storeName = try container.decodeIfPresent(String.self, forKey: .storeName) ?? ""

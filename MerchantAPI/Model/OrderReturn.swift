@@ -77,8 +77,8 @@ public class OrderReturn : Model {
         self.orderId = try container.decodeIfPresent(Int.self, forKey: .orderId) ?? 0
         self.code = try container.decodeIfPresent(String.self, forKey: .code) ?? ""
         self.status = try container.decodeIfPresent(Int.self, forKey: .status) ?? 0
-        self.dateTimeIssued = Date(timeIntervalSince1970: Double(try container.decodeIfPresent(Int64.self, forKey: .dateTimeIssued) ?? 0))
-        self.dateTimeReceived = Date(timeIntervalSince1970: Double(try container.decodeIfPresent(Int64.self, forKey: .dateTimeReceived) ?? 0))
+        self.dateTimeIssued = try container.decodeIfPresent(DateTime.self, forKey: .dateTimeIssued)?.timeT ?? Date(timeIntervalSince1970: 0)
+        self.dateTimeReceived = try container.decodeIfPresent(DateTime.self, forKey: .dateTimeReceived)?.timeT ?? Date(timeIntervalSince1970: 0)
 
         try super.init(from : decoder)
     }
@@ -142,6 +142,15 @@ public class OrderReturn : Model {
      */
     public func getStatus() -> Int {
         return self.status
+    }
+
+    /**
+     Enum Getter for status.
+
+     - Returns:  Optional<OrderReturnStatus>
+     */
+    public func getStatus() -> Optional<OrderReturnStatus> {
+        return OrderReturnStatus(rawValue: self.status) ?? nil
     }
 
     /**

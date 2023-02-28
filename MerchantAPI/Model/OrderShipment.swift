@@ -219,6 +219,15 @@ public class OrderShipment : Model {
     }
 
     /**
+     Enum Getter for status.
+
+     - Returns:  Optional<OrderShipmentStatus>
+     */
+    public func getStatus() -> Optional<OrderShipmentStatus> {
+        return OrderShipmentStatus(rawValue: self.status) ?? nil
+    }
+
+    /**
      Getter for labelcount.
 
      - Returns:  Int

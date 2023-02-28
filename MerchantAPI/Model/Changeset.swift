@@ -85,7 +85,7 @@ public class Changeset : Model {
         self.id = try container.decodeIfPresent(Int.self, forKey: .id) ?? 0
         self.branchId = try container.decodeIfPresent(Int.self, forKey: .branchId) ?? 0
         self.userId = try container.decodeIfPresent(Int.self, forKey: .userId) ?? 0
-        self.dateTimeStamp = Date(timeIntervalSince1970: Double(try container.decodeIfPresent(Int64.self, forKey: .dateTimeStamp) ?? 0))
+        self.dateTimeStamp = try container.decodeIfPresent(DateTime.self, forKey: .dateTimeStamp)?.timeT ?? Date(timeIntervalSince1970: 0)
         self.notes = try container.decodeIfPresent(String.self, forKey: .notes) ?? ""
         self.userName = try container.decodeIfPresent(String.self, forKey: .userName) ?? ""
         self.userIcon = try container.decodeIfPresent(String.self, forKey: .userIcon) ?? ""

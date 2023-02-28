@@ -17,4 +17,37 @@ import FoundationNetworking
  */
 public class OrderItemSplitResponse : Response {
 
+    /// The response model
+    public var splitOrderItem : Optional<SplitOrderItem> = nil
+
+    /**
+     Getter for splitOrderItem.
+
+     - Returns: SplitOrderItem
+     */
+    public func getSplitOrderItem() -> Optional<SplitOrderItem> {
+        return self.splitOrderItem
+    }
+
+    /**
+     CodingKeys used to map the model when decoding.
+
+     - SeeAlso: Decodable
+     */
+    private enum CodingKeys: String, CodingKey {
+        case splitOrderItem = "data"
+    }
+
+    /**
+     Construct an instance from a decoder instance.
+
+     - Throws: Error when unable to decode.
+     - SeeAlso: Decodable
+     */
+    public required init(from decoder: Decoder) throws {
+        let container  = try decoder.container(keyedBy : CodingKeys.self)
+
+        self.splitOrderItem = try container.decodeIfPresent(SplitOrderItem.self, forKey: .splitOrderItem)
+        try super.init(from : decoder)
+    }
 }

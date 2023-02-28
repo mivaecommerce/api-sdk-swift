@@ -22,6 +22,9 @@ public class ProductVariant : Model {
     /// Model field dimensions.
     var dimensions : [ProductVariantDimension]
 
+    /// Model field attributes.
+    var attributes : [ProductVariantAttribute]
+
     /**
      CodingKeys used to map the model when encoding and decoding.
 
@@ -32,6 +35,7 @@ public class ProductVariant : Model {
         case variantId = "variant_id"
         case parts
         case dimensions
+        case attributes
     }
 
     /**
@@ -42,6 +46,7 @@ public class ProductVariant : Model {
         self.variantId = 0
         self.parts = []
         self.dimensions = []
+        self.attributes = []
 
         super.init()
     }
@@ -61,6 +66,7 @@ public class ProductVariant : Model {
         self.variantId = try container.decodeIfPresent(Int.self, forKey: .variantId) ?? 0
         self.parts = try container.decodeIfPresent([ProductVariantPart].self, forKey: .parts) ?? []
         self.dimensions = try container.decodeIfPresent([ProductVariantDimension].self, forKey: .dimensions) ?? []
+        self.attributes = try container.decodeIfPresent([ProductVariantAttribute].self, forKey: .attributes) ?? []
 
         try super.init(from : decoder)
     }
@@ -80,6 +86,7 @@ public class ProductVariant : Model {
         try container.encodeIfPresent(self.variantId, forKey: .variantId)
         try container.encodeIfPresent(self.parts, forKey: .parts)
         try container.encodeIfPresent(self.dimensions, forKey: .dimensions)
+        try container.encodeIfPresent(self.attributes, forKey: .attributes)
 
         try super.encode(to: encoder)
     }
@@ -120,5 +127,14 @@ public class ProductVariant : Model {
      */
     public func getDimensions() -> [ProductVariantDimension] {
         return self.dimensions
+    }
+
+    /**
+     Getter for attributes.
+
+     - Returns:  [ProductVariantAttribute]
+     */
+    public func getAttributes() -> [ProductVariantAttribute] {
+        return self.attributes
     }
 }

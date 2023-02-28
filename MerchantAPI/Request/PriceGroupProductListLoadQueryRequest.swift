@@ -16,6 +16,7 @@ import FoundationNetworking
  - SeeAlso: https://docs.miva.com/json-api/functions/pricegroupproductlist_load_query
  */
 public class PriceGroupProductListLoadQueryRequest : ListQueryRequest {
+
     /// Enumeration ProductShow
     public enum ProductShow : String {
         case All = "All"

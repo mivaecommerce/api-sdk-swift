@@ -59,10 +59,6 @@ public class ProductKitListLoadQueryRequest : ListQueryRequest {
                 "attr_code",
                 "attr_prompt",
                 "option_code",
-                "option_prompt",
-                "attr_code",
-                "attr_prompt",
-                "option_code",
                 "option_prompt"
             ]
         }

@@ -127,8 +127,8 @@ public class Category : Model {
         self.name = try container.decodeIfPresent(String.self, forKey: .name) ?? ""
         self.pageTitle = try container.decodeIfPresent(String.self, forKey: .pageTitle) ?? ""
         self.active = try container.decodeIfPresent(Bool.self, forKey: .active) ?? false
-        self.dateTimeCreated = Date(timeIntervalSince1970: Double(try container.decodeIfPresent(Int64.self, forKey: .dateTimeCreated) ?? 0))
-        self.dateTimeUpdated = Date(timeIntervalSince1970: Double(try container.decodeIfPresent(Int64.self, forKey: .dateTimeUpdated) ?? 0))
+        self.dateTimeCreated = try container.decodeIfPresent(DateTime.self, forKey: .dateTimeCreated)?.timeT ?? Date(timeIntervalSince1970: 0)
+        self.dateTimeUpdated = try container.decodeIfPresent(DateTime.self, forKey: .dateTimeUpdated)?.timeT ?? Date(timeIntervalSince1970: 0)
         self.pageCode = try container.decodeIfPresent(String.self, forKey: .pageCode) ?? ""
         self.parentCategory = try container.decodeIfPresent(String.self, forKey: .parentCategory) ?? ""
         self.uris = try container.decodeIfPresent([Uri].self, forKey: .uris) ?? []

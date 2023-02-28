@@ -513,19 +513,39 @@ public class VariableValue : Codable {
             throw DecodingError.typeMismatch(CustomFieldValue.self, DecodingError.Context(codingPath: encoder.codingPath, debugDescription: "Expected a primitive value, array, or dictionary of values"))
         }
     }
+    
+    subscript(index: Int) -> Optional<VariableValue> {
+        get {
+            if self.isArray() {
+                return self.getArrayValue()?[index] ?? nil
+            }
+            
+            return nil
+        }
+    }
+    
+    subscript(index: String) -> Optional<VariableValue> {
+        get {
+            if self.isDictionary() {
+                return self.getDictionaryValue()?[index] ?? nil
+            }
+            
+            return nil
+        }
+    }
 }
 
 
 /// DateTimeStruct data model. Represents a DateTime in JSON_DateTime structure format
-public class DateTimeStruct : Codable {
+public class DateTime : Codable {
     var timeT : Date
-    var year : Int
-    var month : Int
-    var day : Int
-    var hour : Int
-    var minute : Int
-    var second : Int
-    var timezone : Int
+    var year : Int = 0
+    var month : Int = 0
+    var day : Int = 0
+    var hour : Int = 0
+    var minute : Int = 0
+    var second : Int = 0
+    var timezone : Int = 0
 
     /**
      CodingKeys used to map the model when encoding and decoding.
@@ -552,6 +572,16 @@ public class DateTimeStruct : Codable {
      - SeeAlso: Decodable
      */
     public required init(from decoder: Decoder) throws {
+        let singleValue = try? decoder.singleValueContainer()
+        
+        if singleValue != nil {
+            let dvalue = try? singleValue?.decode(Int64.self)
+            if dvalue != nil {
+                self.timeT = Date(timeIntervalSince1970: Double(dvalue ?? 0))
+                return
+            }
+        }
+        
         let container  = try decoder.container(keyedBy: CodingKeys.self)
         
         self.timeT = Date(timeIntervalSince1970: Double(try container.decodeIfPresent(Int64.self, forKey: .timeT) ?? 0))
@@ -561,6 +591,10 @@ public class DateTimeStruct : Codable {
         self.hour = try container.decode(Int.self, forKey: .hour)
         self.minute = try container.decode(Int.self, forKey: .minute)
         self.second = try container.decode(Int.self, forKey: .second)
-        self.timezone = try container.decode(Int.self, forKey: .timezone)       
+        self.timezone = try container.decode(Int.self, forKey: .timezone)
     }
+}
+
+public class DateTimeStruct : DateTime {
+    
 }

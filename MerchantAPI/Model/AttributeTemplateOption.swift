@@ -13,6 +13,9 @@ public class AttributeTemplateOption : Model {
     /// Model field id.
     var id : Int
 
+    /// Model field attemp_id.
+    var attributeTemplateId : Int
+
     /// Model field attmpat_id.
     var attributeTemplateAttributeId : Int
 
@@ -72,6 +75,7 @@ public class AttributeTemplateOption : Model {
      */
     public override init() {
         self.id = 0
+        self.attributeTemplateId = 0
         self.attributeTemplateAttributeId = 0
         self.displayOrder = 0
         self.code = ""
@@ -99,6 +103,7 @@ public class AttributeTemplateOption : Model {
         let container  = try decoder.container(keyedBy: CodingKeys.self)
 
         self.id = try container.decodeIfPresent(Int.self, forKey: .id) ?? 0
+        self.attributeTemplateId = try container.decodeIfPresent(Int.self, forKey: .attributeTemplateId) ?? 0
         self.attributeTemplateAttributeId = try container.decodeIfPresent(Int.self, forKey: .attributeTemplateAttributeId) ?? 0
         self.displayOrder = try container.decodeIfPresent(Int.self, forKey: .displayOrder) ?? 0
         self.code = try container.decodeIfPresent(String.self, forKey: .code) ?? ""
@@ -126,6 +131,7 @@ public class AttributeTemplateOption : Model {
         var container = encoder.container(keyedBy: CodingKeys.self)
 
         try container.encodeIfPresent(self.id, forKey: .id)
+        try container.encodeIfPresent(self.attributeTemplateId, forKey: .attributeTemplateId)
         try container.encodeIfPresent(self.attributeTemplateAttributeId, forKey: .attributeTemplateAttributeId)
         try container.encodeIfPresent(self.displayOrder, forKey: .displayOrder)
         try container.encodeIfPresent(self.code, forKey: .code)
@@ -149,6 +155,16 @@ public class AttributeTemplateOption : Model {
      */
     public func getId() -> Int {
         return self.id
+    }
+
+    /**
+     Getter for attemp_id.
+
+     - Returns:  Int
+
+     */
+    public func getAttributeTemplateId() -> Int {
+        return self.attributeTemplateId
     }
 
     /**

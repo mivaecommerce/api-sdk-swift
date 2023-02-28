@@ -197,6 +197,18 @@ public class ProductVariantGenerateRequest : Request {
     }
 
     /**
+     Enum Getter for Pricing_Method.
+
+     - Returns:  Optional<VariantPricingMethod>
+     */
+    public func getPricingMethod() -> Optional<VariantPricingMethod> {
+        if let v = self.pricingMethod {
+            return VariantPricingMethod(rawValue: v) ?? nil
+        }
+        return nil;
+    }
+
+    /**
      Setter for Product_ID.
 
      - Parameters:
@@ -249,6 +261,19 @@ public class ProductVariantGenerateRequest : Request {
     }
 
     /**
+     Enum Setter for Pricing_Method.
+
+     - Parameters:
+        - value: VariantPricingMethod
+     - Returns:  Self
+     */
+    @discardableResult
+    public func setPricingMethod(_ value: VariantPricingMethod) -> Self {
+        self.pricingMethod = value.rawValue
+        return self
+    }
+
+    /**
      Setter for Pricing_Method via int (backwards compatibility)
 
      - Parameters:
@@ -260,18 +285,5 @@ public class ProductVariantGenerateRequest : Request {
         if let value = value {
             self.pricingMethod = String(value)
         }
-        return self
-    }
-
-    /**
-     Setter for Pricing_Method via Enum
-
-     - Parameters:
-        - value: VariantPricingMethod
-     - Returns:  Self
-     */
-    @discardableResult
-    public func setPricingMethod(_ value: VariantPricingMethod) -> Self {
-        self.pricingMethod = value.rawValue
         return self
     }}

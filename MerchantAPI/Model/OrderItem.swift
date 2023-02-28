@@ -101,9 +101,6 @@ public class OrderItem : Model {
     /// Model field options.
     var options : [OrderItemOption]
 
-    /// Model field subscription
-    var subscription : OrderItemSubscription
-
     /// Model field total.
     var total : Decimal
 
@@ -115,6 +112,12 @@ public class OrderItem : Model {
 
     /// Model field shpmnt_id.
     var shipmentId : Int
+
+    /// Model field subscription
+    var subscription : OrderItemSubscription
+
+    /// Model field product_id.
+    var productId : Int
 
     /**
      CodingKeys used to map the model when encoding and decoding.
@@ -147,11 +150,12 @@ public class OrderItem : Model {
         case shipment
         case discounts
         case options
-        case subscription
         case total
         case trackingType = "tracktype"
         case trackingNumber = "tracknum"
         case shipmentId = "shpmnt_id"
+        case subscription
+        case productId = "product_id"
     }
 
     /**
@@ -183,11 +187,12 @@ public class OrderItem : Model {
         self.shipment = OrderShipment()
         self.discounts = []
         self.options = []
-        self.subscription = OrderItemSubscription()
         self.total = Decimal(0.00)
         self.trackingType = nil
         self.trackingNumber = nil
         self.shipmentId = 0
+        self.subscription = OrderItemSubscription()
+        self.productId = 0
 
         super.init()
     }
@@ -210,9 +215,9 @@ public class OrderItem : Model {
         self.subscriptionTermId = try container.decodeIfPresent(Int.self, forKey: .subscriptionTermId) ?? 0
         self.rmaId = try container.decodeIfPresent(Int.self, forKey: .rmaId) ?? 0
         self.rmaCode = try container.decodeIfPresent(String.self, forKey: .rmaCode) ?? ""
-        self.rmaDataTimeIssued = Date(timeIntervalSince1970: Double(try container.decodeIfPresent(Int64.self, forKey: .rmaDataTimeIssued) ?? 0))
-        self.rmaDateTimeReceived = Date(timeIntervalSince1970: Double(try container.decodeIfPresent(Int64.self, forKey: .rmaDateTimeReceived) ?? 0))
-        self.dateInStock = Date(timeIntervalSince1970: Double(try container.decodeIfPresent(Int64.self, forKey: .dateInStock) ?? 0))
+        self.rmaDataTimeIssued = try container.decodeIfPresent(DateTime.self, forKey: .rmaDataTimeIssued)?.timeT ?? Date(timeIntervalSince1970: 0)
+        self.rmaDateTimeReceived = try container.decodeIfPresent(DateTime.self, forKey: .rmaDateTimeReceived)?.timeT ?? Date(timeIntervalSince1970: 0)
+        self.dateInStock = try container.decodeIfPresent(DateTime.self, forKey: .dateInStock)?.timeT ?? Date(timeIntervalSince1970: 0)
         self.code = try container.decodeIfPresent(String.self, forKey: .code) ?? nil
         self.name = try container.decodeIfPresent(String.self, forKey: .name) ?? nil
         self.sku = try container.decodeIfPresent(String.self, forKey: .sku) ?? nil
@@ -228,11 +233,12 @@ public class OrderItem : Model {
         self.shipment = try container.decodeIfPresent(OrderShipment.self, forKey: .shipment) ?? OrderShipment()
         self.discounts = try container.decodeIfPresent([OrderItemDiscount].self, forKey: .discounts) ?? []
         self.options = try container.decodeIfPresent([OrderItemOption].self, forKey: .options) ?? []
-        self.subscription = try container.decodeIfPresent(OrderItemSubscription.self, forKey: .subscription) ?? OrderItemSubscription()
         self.total = try container.decodeIfPresent(Decimal.self, forKey: .total) ?? Decimal(0.00)
         self.trackingType = try container.decodeIfPresent(String.self, forKey: .trackingType) ?? nil
         self.trackingNumber = try container.decodeIfPresent(String.self, forKey: .trackingNumber) ?? nil
         self.shipmentId = try container.decodeIfPresent(Int.self, forKey: .shipmentId) ?? 0
+        self.subscription = try container.decodeIfPresent(OrderItemSubscription.self, forKey: .subscription) ?? OrderItemSubscription()
+        self.productId = try container.decodeIfPresent(Int.self, forKey: .productId) ?? 0
 
         try super.init(from : decoder)
     }
@@ -273,11 +279,12 @@ public class OrderItem : Model {
         try container.encodeIfPresent(self.shipment, forKey: .shipment)
         try container.encodeIfPresent(self.discounts, forKey: .discounts)
         try container.encodeIfPresent(self.options, forKey: .options)
-        try container.encodeIfPresent(self.subscription, forKey: .subscription)
         try container.encodeIfPresent(Decimal.roundForEncoding(value: self.total, precision: MERCHANTAPI_FLOAT_ENCODE_PRECISION), forKey: .total)
         try container.encodeIfPresent(self.trackingType, forKey: .trackingType)
         try container.encodeIfPresent(self.trackingNumber, forKey: .trackingNumber)
         try container.encodeIfPresent(self.shipmentId, forKey: .shipmentId)
+        try container.encodeIfPresent(self.subscription, forKey: .subscription)
+        try container.encodeIfPresent(self.productId, forKey: .productId)
 
         try super.encode(to: encoder)
     }
@@ -310,6 +317,15 @@ public class OrderItem : Model {
      */
     public func getStatus() -> Int {
         return self.status
+    }
+
+    /**
+     Enum Getter for status.
+
+     - Returns:  Optional<OrderItemStatus>
+     */
+    public func getStatus() -> Optional<OrderItemStatus> {
+        return OrderItemStatus(rawValue: self.status) ?? nil
     }
 
     /**
@@ -510,15 +526,6 @@ public class OrderItem : Model {
     }
 
     /**
-     Getter for subscription.
-
-     - Returns:  OrderItemSubscription
-     */
-    public func getSubscription() -> OrderItemSubscription {
-        return self.subscription
-    }
-
-    /**
      Getter for total.
 
      - Returns:  Decimal     */
@@ -554,6 +561,25 @@ public class OrderItem : Model {
      */
     public func getShipmentId() -> Int {
         return self.shipmentId
+    }
+
+    /**
+     Getter for subscription.
+
+     - Returns:  OrderItemSubscription
+     */
+    public func getSubscription() -> OrderItemSubscription {
+        return self.subscription
+    }
+
+    /**
+     Getter for product_id.
+
+     - Returns:  Int
+
+     */
+    public func getProductId() -> Int {
+        return self.productId
     }
 
     /**

@@ -315,6 +315,18 @@ public class AttributeUpdateRequest : Request {
     }
 
     /**
+     Enum Getter for Type.
+
+     - Returns:  Optional<ProductAttribute.ProductAttributeType>
+     */
+    public func getType() -> Optional<ProductAttribute.ProductAttributeType> {
+        if let v = self.type {
+            return ProductAttribute.ProductAttributeType(rawValue: v) ?? nil
+        }
+        return nil;
+    }
+
+    /**
      Getter for Image.
 
      - Returns:  Optional<String>
@@ -491,6 +503,19 @@ public class AttributeUpdateRequest : Request {
     @discardableResult
     public func setType(_ value: Optional<String>) -> Self {
         self.type = value
+        return self
+    }
+
+    /**
+     Enum Setter for Type.
+
+     - Parameters:
+        - value: ProductAttribute.ProductAttributeType
+     - Returns:  Self
+     */
+    @discardableResult
+    public func setType(_ value: ProductAttribute.ProductAttributeType) -> Self {
+        self.type = value.rawValue
         return self
     }
 

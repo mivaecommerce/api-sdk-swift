@@ -430,7 +430,7 @@ public class Order : Model {
         self.status = try container.decodeIfPresent(Int.self, forKey: .status) ?? 0
         self.paymentStatus = try container.decodeIfPresent(Int.self, forKey: .paymentStatus) ?? 0
         self.stockStatus = try container.decodeIfPresent(Int.self, forKey: .stockStatus) ?? 0
-        self.dateInStock = Date(timeIntervalSince1970: Double(try container.decodeIfPresent(Int64.self, forKey: .dateInStock) ?? 0))
+        self.dateInStock = try container.decodeIfPresent(DateTime.self, forKey: .dateInStock)?.timeT ?? Date(timeIntervalSince1970: 0)
         self.orderDate = try container.decodeIfPresent(Int.self, forKey: .orderDate) ?? 0
         self.customerId = try container.decodeIfPresent(Int.self, forKey: .customerId) ?? 0
         self.shipResidential = try container.decodeIfPresent(Bool.self, forKey: .shipResidential) ?? false
@@ -493,7 +493,7 @@ public class Order : Model {
         self.notes = try container.decodeIfPresent([OrderNote].self, forKey: .notes) ?? []
         self.parts = try container.decodeIfPresent([OrderPart].self, forKey: .parts) ?? []
         self.customFieldValues = try container.decodeIfPresent(CustomFieldValues.self, forKey: .customFieldValues) ?? CustomFieldValues()
-        self.dtUpdated = Date(timeIntervalSince1970: Double(try container.decodeIfPresent(Int64.self, forKey: .dtUpdated) ?? 0))
+        self.dtUpdated = try container.decodeIfPresent(DateTime.self, forKey: .dtUpdated)?.timeT ?? Date(timeIntervalSince1970: 0)
         self.shipments = try container.decodeIfPresent([OrderShipment].self, forKey: .shipments) ?? []
         self.returns = try container.decodeIfPresent([OrderReturn].self, forKey: .returns) ?? []
 
@@ -628,6 +628,15 @@ public class Order : Model {
     }
 
     /**
+     Enum Getter for status.
+
+     - Returns:  Optional<OrderStatus>
+     */
+    public func getStatus() -> Optional<OrderStatus> {
+        return OrderStatus(rawValue: self.status) ?? nil
+    }
+
+    /**
      Getter for pay_status.
 
      - Returns:  Int
@@ -638,6 +647,15 @@ public class Order : Model {
     }
 
     /**
+     Enum Getter for pay_status.
+
+     - Returns:  Optional<OrderPaymentStatus>
+     */
+    public func getPaymentStatus() -> Optional<OrderPaymentStatus> {
+        return OrderPaymentStatus(rawValue: self.paymentStatus) ?? nil
+    }
+
+    /**
      Getter for stk_status.
 
      - Returns:  Int
@@ -645,6 +663,15 @@ public class Order : Model {
      */
     public func getStockStatus() -> Int {
         return self.stockStatus
+    }
+
+    /**
+     Enum Getter for stk_status.
+
+     - Returns:  Optional<OrderStockStatus>
+     */
+    public func getStockStatus() -> Optional<OrderStockStatus> {
+        return OrderStockStatus(rawValue: self.stockStatus) ?? nil
     }
 
     /**

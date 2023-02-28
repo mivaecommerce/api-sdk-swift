@@ -189,8 +189,8 @@ public class PriceGroup : Model {
         self.rate = try container.decodeIfPresent(String.self, forKey: .rate) ?? ""
         self.discount = try container.decodeIfPresent(Decimal.self, forKey: .discount) ?? Decimal(0.00)
         self.markup = try container.decodeIfPresent(Decimal.self, forKey: .markup) ?? Decimal(0.00)
-        self.dateTimeStart = Date(timeIntervalSince1970: Double(try container.decodeIfPresent(Int64.self, forKey: .dateTimeStart) ?? 0))
-        self.dateTimeEnd = Date(timeIntervalSince1970: Double(try container.decodeIfPresent(Int64.self, forKey: .dateTimeEnd) ?? 0))
+        self.dateTimeStart = try container.decodeIfPresent(DateTime.self, forKey: .dateTimeStart)?.timeT ?? Date(timeIntervalSince1970: 0)
+        self.dateTimeEnd = try container.decodeIfPresent(DateTime.self, forKey: .dateTimeEnd)?.timeT ?? Date(timeIntervalSince1970: 0)
         self.minimumSubtotal = try container.decodeIfPresent(Decimal.self, forKey: .minimumSubtotal) ?? Decimal(0.00)
         self.maximumSubtotal = try container.decodeIfPresent(Decimal.self, forKey: .maximumSubtotal) ?? Decimal(0.00)
         self.minimumQuantity = try container.decodeIfPresent(Int.self, forKey: .minimumQuantity) ?? 0
@@ -285,6 +285,15 @@ public class PriceGroup : Model {
     }
 
     /**
+     Enum Getter for custscope.
+
+     - Returns:  Optional<Eligibility>
+     */
+    public func getCustomerScope() -> Optional<Eligibility> {
+        return Eligibility(rawValue: self.customerScope) ?? nil
+    }
+
+    /**
      Getter for rate.
 
      - Returns:  String
@@ -292,6 +301,15 @@ public class PriceGroup : Model {
      */
     public func getRate() -> String {
         return self.rate
+    }
+
+    /**
+     Enum Getter for rate.
+
+     - Returns:  Optional<DiscountType>
+     */
+    public func getRate() -> Optional<DiscountType> {
+        return DiscountType(rawValue: self.rate) ?? nil
     }
 
     /**

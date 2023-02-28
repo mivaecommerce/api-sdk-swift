@@ -353,12 +353,36 @@ public class PriceGroupUpdateRequest : Request {
     }
 
     /**
+     Enum Getter for CustomerScope.
+
+     - Returns:  Optional<PriceGroup.Eligibility>
+     */
+    public func getCustomerScope() -> Optional<PriceGroup.Eligibility> {
+        if let v = self.customerScope {
+            return PriceGroup.Eligibility(rawValue: v) ?? nil
+        }
+        return nil;
+    }
+
+    /**
      Getter for Rate.
 
      - Returns:  Optional<String>
      */
     public func getRate() -> Optional<String> {
         return self.rate
+    }
+
+    /**
+     Enum Getter for Rate.
+
+     - Returns:  Optional<PriceGroup.DiscountType>
+     */
+    public func getRate() -> Optional<PriceGroup.DiscountType> {
+        if let v = self.rate {
+            return PriceGroup.DiscountType(rawValue: v) ?? nil
+        }
+        return nil;
     }
 
     /**
@@ -634,6 +658,19 @@ public class PriceGroupUpdateRequest : Request {
     }
 
     /**
+     Enum Setter for CustomerScope.
+
+     - Parameters:
+        - value: PriceGroup.Eligibility
+     - Returns:  Self
+     */
+    @discardableResult
+    public func setCustomerScope(_ value: PriceGroup.Eligibility) -> Self {
+        self.customerScope = value.rawValue
+        return self
+    }
+
+    /**
      Setter for Rate.
 
      - Parameters:
@@ -643,6 +680,19 @@ public class PriceGroupUpdateRequest : Request {
     @discardableResult
     public func setRate(_ value: Optional<String>) -> Self {
         self.rate = value
+        return self
+    }
+
+    /**
+     Enum Setter for Rate.
+
+     - Parameters:
+        - value: PriceGroup.DiscountType
+     - Returns:  Self
+     */
+    @discardableResult
+    public func setRate(_ value: PriceGroup.DiscountType) -> Self {
+        self.rate = value.rawValue
         return self
     }
 

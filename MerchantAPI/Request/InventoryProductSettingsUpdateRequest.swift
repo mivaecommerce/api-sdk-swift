@@ -16,11 +16,12 @@ import FoundationNetworking
  - SeeAlso: https://docs.miva.com/json-api/functions/inventoryproductsettings_update
  */
 public class InventoryProductSettingsUpdateRequest : Request {
+
     /// Enumeration InventoryChoice
     public enum InventoryChoice : String {
-        case Default = "d"
-        case Yes = "y"
-        case No = "n"
+        case Default = "Default"
+        case Yes = "Yes"
+        case No = "No"
     }
 
     /**
@@ -264,6 +265,18 @@ public class InventoryProductSettingsUpdateRequest : Request {
     }
 
     /**
+     Enum Getter for TrackLowStockLevel.
+
+     - Returns:  Optional<InventoryChoice>
+     */
+    public func getTrackLowStockLevel() -> Optional<InventoryChoice> {
+        if let v = self.trackLowStockLevel {
+            return InventoryChoice(rawValue: v) ?? nil
+        }
+        return nil;
+    }
+
+    /**
      Getter for TrackOutOfStockLevel.
 
      - Returns:  Optional<String>
@@ -273,12 +286,36 @@ public class InventoryProductSettingsUpdateRequest : Request {
     }
 
     /**
+     Enum Getter for TrackOutOfStockLevel.
+
+     - Returns:  Optional<InventoryChoice>
+     */
+    public func getTrackOutOfStockLevel() -> Optional<InventoryChoice> {
+        if let v = self.trackOutOfStockLevel {
+            return InventoryChoice(rawValue: v) ?? nil
+        }
+        return nil;
+    }
+
+    /**
      Getter for HideOutOfStockProducts.
 
      - Returns:  Optional<String>
      */
     public func getHideOutOfStockProducts() -> Optional<String> {
         return self.hideOutOfStockProducts
+    }
+
+    /**
+     Enum Getter for HideOutOfStockProducts.
+
+     - Returns:  Optional<InventoryChoice>
+     */
+    public func getHideOutOfStockProducts() -> Optional<InventoryChoice> {
+        if let v = self.hideOutOfStockProducts {
+            return InventoryChoice(rawValue: v) ?? nil
+        }
+        return nil;
     }
 
     /**
@@ -442,6 +479,19 @@ public class InventoryProductSettingsUpdateRequest : Request {
     }
 
     /**
+     Enum Setter for TrackLowStockLevel.
+
+     - Parameters:
+        - value: InventoryChoice
+     - Returns:  Self
+     */
+    @discardableResult
+    public func setTrackLowStockLevel(_ value: InventoryChoice) -> Self {
+        self.trackLowStockLevel = value.rawValue
+        return self
+    }
+
+    /**
      Setter for TrackOutOfStockLevel.
 
      - Parameters:
@@ -455,6 +505,19 @@ public class InventoryProductSettingsUpdateRequest : Request {
     }
 
     /**
+     Enum Setter for TrackOutOfStockLevel.
+
+     - Parameters:
+        - value: InventoryChoice
+     - Returns:  Self
+     */
+    @discardableResult
+    public func setTrackOutOfStockLevel(_ value: InventoryChoice) -> Self {
+        self.trackOutOfStockLevel = value.rawValue
+        return self
+    }
+
+    /**
      Setter for HideOutOfStockProducts.
 
      - Parameters:
@@ -464,6 +527,19 @@ public class InventoryProductSettingsUpdateRequest : Request {
     @discardableResult
     public func setHideOutOfStockProducts(_ value: Optional<String>) -> Self {
         self.hideOutOfStockProducts = value
+        return self
+    }
+
+    /**
+     Enum Setter for HideOutOfStockProducts.
+
+     - Parameters:
+        - value: InventoryChoice
+     - Returns:  Self
+     */
+    @discardableResult
+    public func setHideOutOfStockProducts(_ value: InventoryChoice) -> Self {
+        self.hideOutOfStockProducts = value.rawValue
         return self
     }
 

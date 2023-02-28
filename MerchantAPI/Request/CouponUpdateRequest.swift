@@ -253,6 +253,18 @@ public class CouponUpdateRequest : Request {
     }
 
     /**
+     Enum Getter for CustomerScope.
+
+     - Returns:  Optional<Coupon.CustomerScope>
+     */
+    public func getCustomerScope() -> Optional<Coupon.CustomerScope> {
+        if let v = self.customerScope {
+            return Coupon.CustomerScope(rawValue: v) ?? nil
+        }
+        return nil;
+    }
+
+    /**
      Getter for DateTime_Start.
 
      - Returns:  Optional<Date>
@@ -372,6 +384,19 @@ public class CouponUpdateRequest : Request {
     @discardableResult
     public func setCustomerScope(_ value: Optional<String>) -> Self {
         self.customerScope = value
+        return self
+    }
+
+    /**
+     Enum Setter for CustomerScope.
+
+     - Parameters:
+        - value: Coupon.CustomerScope
+     - Returns:  Self
+     */
+    @discardableResult
+    public func setCustomerScope(_ value: Coupon.CustomerScope) -> Self {
+        self.customerScope = value.rawValue
         return self
     }
 

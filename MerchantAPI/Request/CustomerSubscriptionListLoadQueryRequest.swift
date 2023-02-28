@@ -111,9 +111,7 @@ public class CustomerSubscriptionListLoadQueryRequest : ListQueryRequest {
                 "address_state",
                 "address_zip",
                 "address_cntry",
-                "product_inventory",
-                "product_inventory_active",
-                "product_inventory"
+                "product_inventory_active"
             ]
         }
     }

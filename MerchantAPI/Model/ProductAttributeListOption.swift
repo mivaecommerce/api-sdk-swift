@@ -49,6 +49,9 @@ public class ProductAttributeListOption : Model {
     /// Model field default_opt.
     var defaultOption : Bool
 
+    /// Model field has_variant_parts.
+    var hasVariantParts : Bool
+
     /**
      CodingKeys used to map the model when encoding and decoding.
 
@@ -68,6 +71,7 @@ public class ProductAttributeListOption : Model {
         case weight
         case image
         case defaultOption = "default_opt"
+        case hasVariantParts = "has_variant_parts"
     }
 
     /**
@@ -87,6 +91,7 @@ public class ProductAttributeListOption : Model {
         self.weight = Decimal(0.00)
         self.image = ""
         self.defaultOption = false
+        self.hasVariantParts = false
 
         super.init()
     }
@@ -115,6 +120,7 @@ public class ProductAttributeListOption : Model {
         self.weight = try container.decodeIfPresent(Decimal.self, forKey: .weight) ?? Decimal(0.00)
         self.image = try container.decodeIfPresent(String.self, forKey: .image) ?? ""
         self.defaultOption = try container.decodeIfPresent(Bool.self, forKey: .defaultOption) ?? false
+        self.hasVariantParts = try container.decodeIfPresent(Bool.self, forKey: .hasVariantParts) ?? false
 
         try super.init(from : decoder)
     }
@@ -143,6 +149,7 @@ public class ProductAttributeListOption : Model {
         try container.encodeIfPresent(Decimal.roundForEncoding(value: self.weight, precision: MERCHANTAPI_FLOAT_ENCODE_PRECISION), forKey: .weight)
         try container.encodeIfPresent(self.image, forKey: .image)
         try container.encodeIfPresent(self.defaultOption, forKey: .defaultOption)
+        try container.encodeIfPresent(self.hasVariantParts, forKey: .hasVariantParts)
 
         try super.encode(to: encoder)
     }
@@ -267,5 +274,13 @@ public class ProductAttributeListOption : Model {
      - Returns:  Bool     */
     public func getDefaultOption() -> Bool {
         return self.defaultOption
+    }
+
+    /**
+     Getter for has_variant_parts.
+
+     - Returns:  Bool     */
+    public func getHasVariantParts() -> Bool {
+        return self.hasVariantParts
     }
 }

@@ -200,12 +200,12 @@ public class Subscription : Model {
         self.quantity = try container.decodeIfPresent(Int.self, forKey: .quantity) ?? 0
         self.termRemaining = try container.decodeIfPresent(Int.self, forKey: .termRemaining) ?? 0
         self.termProcessed = try container.decodeIfPresent(Int.self, forKey: .termProcessed) ?? 0
-        self.firstDate = try container.decodeIfPresent(DateTimeStruct.self, forKey: .firstDate)?.timeT ?? Date(timeIntervalSince1970: 0)
-        self.lastDate = try container.decodeIfPresent(DateTimeStruct.self, forKey: .lastDate)?.timeT ?? Date(timeIntervalSince1970: 0)
-        self.nextDate = try container.decodeIfPresent(DateTimeStruct.self, forKey: .nextDate)?.timeT ?? Date(timeIntervalSince1970: 0)
+        self.firstDate = try container.decodeIfPresent(DateTime.self, forKey: .firstDate)?.timeT ?? Date(timeIntervalSince1970: 0)
+        self.lastDate = try container.decodeIfPresent(DateTime.self, forKey: .lastDate)?.timeT ?? Date(timeIntervalSince1970: 0)
+        self.nextDate = try container.decodeIfPresent(DateTime.self, forKey: .nextDate)?.timeT ?? Date(timeIntervalSince1970: 0)
         self.status = try container.decodeIfPresent(String.self, forKey: .status) ?? ""
         self.message = try container.decodeIfPresent(String.self, forKey: .message) ?? ""
-        self.cancelDate = try container.decodeIfPresent(DateTimeStruct.self, forKey: .cancelDate)?.timeT ?? Date(timeIntervalSince1970: 0)
+        self.cancelDate = try container.decodeIfPresent(DateTime.self, forKey: .cancelDate)?.timeT ?? Date(timeIntervalSince1970: 0)
         self.tax = try container.decodeIfPresent(Decimal.self, forKey: .tax) ?? Decimal(0.00)
         self.formattedTax = try container.decodeIfPresent(String.self, forKey: .formattedTax) ?? ""
         self.shipping = try container.decodeIfPresent(Decimal.self, forKey: .shipping) ?? Decimal(0.00)
@@ -215,7 +215,7 @@ public class Subscription : Model {
         self.total = try container.decodeIfPresent(Decimal.self, forKey: .total) ?? Decimal(0.00)
         self.formattedTotal = try container.decodeIfPresent(String.self, forKey: .formattedTotal) ?? ""
         self.authorizationFailureCount = try container.decodeIfPresent(Int.self, forKey: .authorizationFailureCount) ?? 0
-        self.lastAuthorizationFailure = try container.decodeIfPresent(DateTimeStruct.self, forKey: .lastAuthorizationFailure)?.timeT ?? Date(timeIntervalSince1970: 0)
+        self.lastAuthorizationFailure = try container.decodeIfPresent(DateTime.self, forKey: .lastAuthorizationFailure)?.timeT ?? Date(timeIntervalSince1970: 0)
         self.options = try container.decodeIfPresent([SubscriptionOption].self, forKey: .options) ?? []
 
         try super.init(from : decoder)

@@ -16,6 +16,7 @@ import FoundationNetworking
  - SeeAlso: https://docs.miva.com/json-api/functions/productandsubscriptiontermlist_load_query
  */
 public class ProductAndSubscriptionTermListLoadQueryRequest : ListQueryRequest {
+
     /// Enumeration ProductShow
     public enum ProductShow : String {
         case All = "All"

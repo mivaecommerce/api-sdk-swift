@@ -12,7 +12,7 @@ public class Store : Model {
 
     /// Enumeration CacheTypes
     public enum CacheTypes : String {
-        case CacheTypeNone = ""
+        case CacheTypeNone = "none"
         case CacheTypeRedis = "redis"
     }
 
@@ -99,6 +99,9 @@ public class Store : Model {
 
     /// Model field omin_quant.
     var orderMinimumQuantity : Int
+
+    /// Model field omin_price.
+    var orderMinimumPrice : Decimal
 
     /// Model field omin_all.
     var orderMinimumRequiredAll : Bool
@@ -217,6 +220,7 @@ public class Store : Model {
         self.maintenanceTime = 0
         self.maintenanceNoNewCustomersBefore = 0
         self.orderMinimumQuantity = 0
+        self.orderMinimumPrice = Decimal(0.00)
         self.orderMinimumRequiredAll = false
         self.orderMinimumMessage = ""
         self.cryptId = 0
@@ -272,6 +276,7 @@ public class Store : Model {
         self.maintenanceTime = try container.decodeIfPresent(Int.self, forKey: .maintenanceTime) ?? 0
         self.maintenanceNoNewCustomersBefore = try container.decodeIfPresent(Int.self, forKey: .maintenanceNoNewCustomersBefore) ?? 0
         self.orderMinimumQuantity = try container.decodeIfPresent(Int.self, forKey: .orderMinimumQuantity) ?? 0
+        self.orderMinimumPrice = try container.decodeIfPresent(Decimal.self, forKey: .orderMinimumPrice) ?? Decimal(0.00)
         self.orderMinimumRequiredAll = try container.decodeIfPresent(Bool.self, forKey: .orderMinimumRequiredAll) ?? false
         self.orderMinimumMessage = try container.decodeIfPresent(String.self, forKey: .orderMinimumMessage) ?? ""
         self.cryptId = try container.decodeIfPresent(Int.self, forKey: .cryptId) ?? 0
@@ -327,6 +332,7 @@ public class Store : Model {
         try container.encodeIfPresent(self.maintenanceTime, forKey: .maintenanceTime)
         try container.encodeIfPresent(self.maintenanceNoNewCustomersBefore, forKey: .maintenanceNoNewCustomersBefore)
         try container.encodeIfPresent(self.orderMinimumQuantity, forKey: .orderMinimumQuantity)
+        try container.encodeIfPresent(Decimal.roundForEncoding(value: self.orderMinimumPrice, precision: MERCHANTAPI_FLOAT_ENCODE_PRECISION), forKey: .orderMinimumPrice)
         try container.encodeIfPresent(self.orderMinimumRequiredAll, forKey: .orderMinimumRequiredAll)
         try container.encodeIfPresent(self.orderMinimumMessage, forKey: .orderMinimumMessage)
         try container.encodeIfPresent(self.cryptId, forKey: .cryptId)
@@ -624,6 +630,14 @@ public class Store : Model {
     }
 
     /**
+     Getter for omin_price.
+
+     - Returns:  Decimal     */
+    public func getOrderMinimumPrice() -> Decimal {
+        return self.orderMinimumPrice
+    }
+
+    /**
      Getter for omin_all.
 
      - Returns:  Bool     */
@@ -691,6 +705,15 @@ public class Store : Model {
      */
     public func getCacheType() -> String {
         return self.cacheType
+    }
+
+    /**
+     Enum Getter for cache_type.
+
+     - Returns:  Optional<CacheTypes>
+     */
+    public func getCacheType() -> Optional<CacheTypes> {
+        return CacheTypes(rawValue: self.cacheType) ?? nil
     }
 
     /**

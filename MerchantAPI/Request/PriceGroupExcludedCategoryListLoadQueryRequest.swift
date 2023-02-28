@@ -16,6 +16,7 @@ import FoundationNetworking
  - SeeAlso: https://docs.miva.com/json-api/functions/pricegroupexcludedcategorylist_load_query
  */
 public class PriceGroupExcludedCategoryListLoadQueryRequest : ListQueryRequest {
+
     /// Enumeration CategoryShow
     public enum CategoryShow : String {
         case All = "All"

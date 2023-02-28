@@ -10,6 +10,15 @@ import Foundation
 /// Page data model.
 public class Page : Model {
 
+    /// Enumeration PageCacheType
+    public enum PageCacheType : String {
+        case Never = "never"
+        case Provisional = "provisional"
+        case Anonempty = "anonempty"
+        case Allempty = "allempty"
+        case Always = "always"
+    }
+
     /// Model field id.
     var id : Int
 
@@ -28,6 +37,36 @@ public class Page : Model {
     /// Model field ui_id.
     var uiId : Int
 
+    /// Model field templ_id.
+    var templateId : Int
+
+    /// Model field admin.
+    var admin : Bool
+
+    /// Model field layout.
+    var layout : Bool
+
+    /// Model field notes.
+    var notes : String
+
+    /// Model field source.
+    var source : String
+
+    /// Model field settings
+    var settings : VersionSettings
+
+    /// Model field cache.
+    var cache : String
+
+    /// Model field url.
+    var url : String
+
+    /// Model field uris.
+    var uris : [Uri]
+
+    /// Model field CustomField_Values
+    var customFieldValues : CustomFieldValues
+
     /**
      CodingKeys used to map the model when encoding and decoding.
 
@@ -40,6 +79,16 @@ public class Page : Model {
         case name
         case title
         case uiId = "ui_id"
+        case templateId = "templ_id"
+        case admin
+        case layout
+        case notes
+        case source
+        case settings
+        case cache
+        case url
+        case uris
+        case customFieldValues = "CustomField_Values"
     }
 
     /**
@@ -52,6 +101,16 @@ public class Page : Model {
         self.name = ""
         self.title = ""
         self.uiId = 0
+        self.templateId = 0
+        self.admin = false
+        self.layout = false
+        self.notes = ""
+        self.source = ""
+        self.settings = VersionSettings()
+        self.cache = ""
+        self.url = ""
+        self.uris = []
+        self.customFieldValues = CustomFieldValues()
 
         super.init()
     }
@@ -73,6 +132,16 @@ public class Page : Model {
         self.name = try container.decodeIfPresent(String.self, forKey: .name) ?? ""
         self.title = try container.decodeIfPresent(String.self, forKey: .title) ?? ""
         self.uiId = try container.decodeIfPresent(Int.self, forKey: .uiId) ?? 0
+        self.templateId = try container.decodeIfPresent(Int.self, forKey: .templateId) ?? 0
+        self.admin = try container.decodeIfPresent(Bool.self, forKey: .admin) ?? false
+        self.layout = try container.decodeIfPresent(Bool.self, forKey: .layout) ?? false
+        self.notes = try container.decodeIfPresent(String.self, forKey: .notes) ?? ""
+        self.source = try container.decodeIfPresent(String.self, forKey: .source) ?? ""
+        self.settings = try container.decodeIfPresent(VersionSettings.self, forKey: .settings) ?? VersionSettings()
+        self.cache = try container.decodeIfPresent(String.self, forKey: .cache) ?? ""
+        self.url = try container.decodeIfPresent(String.self, forKey: .url) ?? ""
+        self.uris = try container.decodeIfPresent([Uri].self, forKey: .uris) ?? []
+        self.customFieldValues = try container.decodeIfPresent(CustomFieldValues.self, forKey: .customFieldValues) ?? CustomFieldValues()
 
         try super.init(from : decoder)
     }
@@ -94,6 +163,16 @@ public class Page : Model {
         try container.encodeIfPresent(self.name, forKey: .name)
         try container.encodeIfPresent(self.title, forKey: .title)
         try container.encodeIfPresent(self.uiId, forKey: .uiId)
+        try container.encodeIfPresent(self.templateId, forKey: .templateId)
+        try container.encodeIfPresent(self.admin, forKey: .admin)
+        try container.encodeIfPresent(self.layout, forKey: .layout)
+        try container.encodeIfPresent(self.notes, forKey: .notes)
+        try container.encodeIfPresent(self.source, forKey: .source)
+        try container.encodeIfPresent(self.settings, forKey: .settings)
+        try container.encodeIfPresent(self.cache, forKey: .cache)
+        try container.encodeIfPresent(self.url, forKey: .url)
+        try container.encodeIfPresent(self.uris, forKey: .uris)
+        try container.encodeIfPresent(self.customFieldValues, forKey: .customFieldValues)
 
         try super.encode(to: encoder)
     }
@@ -154,5 +233,107 @@ public class Page : Model {
      */
     public func getUiId() -> Int {
         return self.uiId
+    }
+
+    /**
+     Getter for templ_id.
+
+     - Returns:  Int
+
+     */
+    public func getTemplateId() -> Int {
+        return self.templateId
+    }
+
+    /**
+     Getter for admin.
+
+     - Returns:  Bool     */
+    public func getAdmin() -> Bool {
+        return self.admin
+    }
+
+    /**
+     Getter for layout.
+
+     - Returns:  Bool     */
+    public func getLayout() -> Bool {
+        return self.layout
+    }
+
+    /**
+     Getter for notes.
+
+     - Returns:  String
+
+     */
+    public func getNotes() -> String {
+        return self.notes
+    }
+
+    /**
+     Getter for source.
+
+     - Returns:  String
+
+     */
+    public func getSource() -> String {
+        return self.source
+    }
+
+    /**
+     Getter for settings.
+
+     - Returns:  VersionSettings
+     */
+    public func getSettings() -> VersionSettings {
+        return self.settings
+    }
+
+    /**
+     Getter for cache.
+
+     - Returns:  String
+
+     */
+    public func getCache() -> String {
+        return self.cache
+    }
+
+    /**
+     Enum Getter for cache.
+
+     - Returns:  Optional<PageCacheType>
+     */
+    public func getCache() -> Optional<PageCacheType> {
+        return PageCacheType(rawValue: self.cache) ?? nil
+    }
+
+    /**
+     Getter for url.
+
+     - Returns:  String
+
+     */
+    public func getUrl() -> String {
+        return self.url
+    }
+
+    /**
+     Getter for uris.
+
+     - Returns:  [Uri]
+     */
+    public func getUris() -> [Uri] {
+        return self.uris
+    }
+
+    /**
+     Getter for CustomField_Values.
+
+     - Returns:  CustomFieldValues
+     */
+    public func getCustomFieldValues() -> CustomFieldValues {
+        return self.customFieldValues
     }
 }

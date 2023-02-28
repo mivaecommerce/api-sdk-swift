@@ -89,7 +89,7 @@ public class CustomerCreditHistory : Model {
         self.transactionReference = try container.decodeIfPresent(String.self, forKey: .transactionReference) ?? ""
         self.description = try container.decodeIfPresent(String.self, forKey: .description) ?? ""
         self.amount = try container.decodeIfPresent(Decimal.self, forKey: .amount) ?? Decimal(0.00)
-        self.dateTimeStamp = Date(timeIntervalSince1970: Double(try container.decodeIfPresent(Int64.self, forKey: .dateTimeStamp) ?? 0))
+        self.dateTimeStamp = try container.decodeIfPresent(DateTime.self, forKey: .dateTimeStamp)?.timeT ?? Date(timeIntervalSince1970: 0)
         self.userName = try container.decodeIfPresent(String.self, forKey: .userName) ?? ""
 
         try super.init(from : decoder)

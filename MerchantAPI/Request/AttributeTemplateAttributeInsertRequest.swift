@@ -252,6 +252,18 @@ public class AttributeTemplateAttributeInsertRequest : Request {
     }
 
     /**
+     Enum Getter for Type.
+
+     - Returns:  Optional<AttributeTemplateAttribute.TemplateAttributeType>
+     */
+    public func getType() -> Optional<AttributeTemplateAttribute.TemplateAttributeType> {
+        if let v = self.type {
+            return AttributeTemplateAttribute.TemplateAttributeType(rawValue: v) ?? nil
+        }
+        return nil;
+    }
+
+    /**
      Getter for Image.
 
      - Returns:  Optional<String>
@@ -389,6 +401,19 @@ public class AttributeTemplateAttributeInsertRequest : Request {
     @discardableResult
     public func setType(_ value: Optional<String>) -> Self {
         self.type = value
+        return self
+    }
+
+    /**
+     Enum Setter for Type.
+
+     - Parameters:
+        - value: AttributeTemplateAttribute.TemplateAttributeType
+     - Returns:  Self
+     */
+    @discardableResult
+    public func setType(_ value: AttributeTemplateAttribute.TemplateAttributeType) -> Self {
+        self.type = value.rawValue
         return self
     }
 

@@ -93,7 +93,7 @@ public class Note : Model {
         self.orderId = try container.decodeIfPresent(Int.self, forKey: .orderId) ?? 0
         self.userId = try container.decodeIfPresent(Int.self, forKey: .userId) ?? 0
         self.noteText = try container.decodeIfPresent(String.self, forKey: .noteText) ?? ""
-        self.dateTimeStamp = Date(timeIntervalSince1970: Double(try container.decodeIfPresent(Int64.self, forKey: .dateTimeStamp) ?? 0))
+        self.dateTimeStamp = try container.decodeIfPresent(DateTime.self, forKey: .dateTimeStamp)?.timeT ?? Date(timeIntervalSince1970: 0)
         self.customerLogin = try container.decodeIfPresent(String.self, forKey: .customerLogin) ?? ""
         self.businessTitle = try container.decodeIfPresent(String.self, forKey: .businessTitle) ?? ""
         self.adminUser = try container.decodeIfPresent(String.self, forKey: .adminUser) ?? ""

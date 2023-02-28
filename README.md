@@ -21,7 +21,7 @@ For api documentation visit [https://docs.miva.com/json-api](https://docs.miva.c
 To include the bundle in your project via the [package manager](https://swift.org/package-manager/), include in your dependencies of your `Package.swift` file:
 
     dependencies: [
-        .package(url: "https://github.com/mivaecommerce/api-sdk-swift", from: "2.1.0")
+        .package(url: "https://github.com/mivaecommerce/api-sdk-swift", from: "2.3.0")
     ]
 
 ## Via Release Package

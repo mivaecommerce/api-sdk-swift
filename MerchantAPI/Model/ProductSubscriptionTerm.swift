@@ -23,6 +23,7 @@ public class ProductSubscriptionTerm : Model {
         case FixedWeekly = "fixedweekly"
         case FixedMonthly = "fixedmonthly"
         case Dates = "dates"
+        case Monthly = "monthly"
     }
 
     /// Model field id.
@@ -55,6 +56,9 @@ public class ProductSubscriptionTerm : Model {
     /// Model field dates.
     var dates : [ProductSubscriptionTermDate]
 
+    /// Model field disp_order.
+    var displayOrder : Int
+
     /**
      CodingKeys used to map the model when encoding and decoding.
 
@@ -71,6 +75,7 @@ public class ProductSubscriptionTerm : Model {
         case fixedDayOfMonth = "fixed_dom"
         case subscriptionCount = "sub_count"
         case dates
+        case displayOrder = "disp_order"
     }
 
     /**
@@ -87,6 +92,7 @@ public class ProductSubscriptionTerm : Model {
         self.fixedDayOfMonth = 0
         self.subscriptionCount = 0
         self.dates = []
+        self.displayOrder = 0
 
         super.init()
     }
@@ -112,6 +118,7 @@ public class ProductSubscriptionTerm : Model {
         self.fixedDayOfMonth = try container.decodeIfPresent(Int.self, forKey: .fixedDayOfMonth) ?? 0
         self.subscriptionCount = try container.decodeIfPresent(Int.self, forKey: .subscriptionCount) ?? 0
         self.dates = try container.decodeIfPresent([ProductSubscriptionTermDate].self, forKey: .dates) ?? []
+        self.displayOrder = try container.decodeIfPresent(Int.self, forKey: .displayOrder) ?? 0
 
         try super.init(from : decoder)
     }
@@ -137,6 +144,7 @@ public class ProductSubscriptionTerm : Model {
         try container.encodeIfPresent(self.fixedDayOfMonth, forKey: .fixedDayOfMonth)
         try container.encodeIfPresent(self.subscriptionCount, forKey: .subscriptionCount)
         try container.encodeIfPresent(self.dates, forKey: .dates)
+        try container.encodeIfPresent(self.displayOrder, forKey: .displayOrder)
 
         try super.encode(to: encoder)
     }
@@ -169,6 +177,15 @@ public class ProductSubscriptionTerm : Model {
      */
     public func getFrequency() -> String {
         return self.frequency
+    }
+
+    /**
+     Enum Getter for frequency.
+
+     - Returns:  Optional<TermFrequency>
+     */
+    public func getFrequency() -> Optional<TermFrequency> {
+        return TermFrequency(rawValue: self.frequency) ?? nil
     }
 
     /**
@@ -238,5 +255,15 @@ public class ProductSubscriptionTerm : Model {
      */
     public func getDates() -> [ProductSubscriptionTermDate] {
         return self.dates
+    }
+
+    /**
+     Getter for disp_order.
+
+     - Returns:  Int
+
+     */
+    public func getDisplayOrder() -> Int {
+        return self.displayOrder
     }
 }

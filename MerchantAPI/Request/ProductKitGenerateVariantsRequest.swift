@@ -17,12 +17,15 @@ import FoundationNetworking
  */
 public class ProductKitGenerateVariantsRequest : Request {
 
-    /// Enumeration KitVariantPricingMethod
-    public enum KitVariantPricingMethod : String {
+    /// Enumeration VariantPricingMethod
+    public enum VariantPricingMethod : String {
         case Master = "master"
         case Specific = "specific"
         case Sum = "sum"
     }
+    
+    /** Preserve previous name */    
+    typealias KitVariantPricingMethod = VariantPricingMethod
 
     /**
      The API function name.
@@ -195,6 +198,18 @@ public class ProductKitGenerateVariantsRequest : Request {
     }
 
     /**
+     Enum Getter for Pricing_Method.
+
+     - Returns:  Optional<VariantPricingMethod>
+     */
+    public func getPricingMethod() -> Optional<VariantPricingMethod> {
+        if let v = self.pricingMethod {
+            return VariantPricingMethod(rawValue: v) ?? nil
+        }
+        return nil;
+    }
+
+    /**
      Setter for Product_ID.
 
      - Parameters:
@@ -245,6 +260,19 @@ public class ProductKitGenerateVariantsRequest : Request {
         self.pricingMethod = value
         return self
     }
+
+    /**
+     Enum Setter for Pricing_Method.
+
+     - Parameters:
+        - value: VariantPricingMethod
+     - Returns:  Self
+     */
+    @discardableResult
+    public func setPricingMethod(_ value: VariantPricingMethod) -> Self {
+        self.pricingMethod = value.rawValue
+        return self
+    }
     
     /**
      Setter for Pricing_Method via int (backwards compatibility)
@@ -258,18 +286,5 @@ public class ProductKitGenerateVariantsRequest : Request {
         if let value = value {
             self.pricingMethod = String(value)
         }
-        return self
-    }
-
-    /**
-     Setter for Pricing_Method via Enum
-
-     - Parameters:
-        - value: KitVariantPricingMethod
-     - Returns:  Self
-     */
-    @discardableResult
-    public func setPricingMethod(_ value: KitVariantPricingMethod) -> Self {
-        self.pricingMethod = value.rawValue
         return self
     }}

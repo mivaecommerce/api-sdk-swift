@@ -117,7 +117,7 @@ public class ChangesetTemplateVersion : Model {
         self.propertyId = try container.decodeIfPresent(Int.self, forKey: .propertyId) ?? 0
         self.sync = try container.decodeIfPresent(Bool.self, forKey: .sync) ?? false
         self.filename = try container.decodeIfPresent(String.self, forKey: .filename) ?? ""
-        self.dateTimeStamp = Date(timeIntervalSince1970: Double(try container.decodeIfPresent(Int64.self, forKey: .dateTimeStamp) ?? 0))
+        self.dateTimeStamp = try container.decodeIfPresent(DateTime.self, forKey: .dateTimeStamp)?.timeT ?? Date(timeIntervalSince1970: 0)
         self.notes = try container.decodeIfPresent(String.self, forKey: .notes) ?? ""
         self.source = try container.decodeIfPresent(String.self, forKey: .source) ?? ""
         self.settings = try container.decodeIfPresent(VersionSettings.self, forKey: .settings) ?? VersionSettings()

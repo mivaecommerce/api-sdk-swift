@@ -307,8 +307,8 @@ public class CustomerSubscription : Subscription {
         self.productThumbnail = try container.decodeIfPresent(String.self, forKey: .productThumbnail) ?? ""
         self.productImage = try container.decodeIfPresent(String.self, forKey: .productImage) ?? ""
         self.productActive = try container.decodeIfPresent(Bool.self, forKey: .productActive) ?? false
-        self.productDateTimeCreated = Date(timeIntervalSince1970: Double(try container.decodeIfPresent(Int64.self, forKey: .productDateTimeCreated) ?? 0))
-        self.productDateTimeUpdated = Date(timeIntervalSince1970: Double(try container.decodeIfPresent(Int64.self, forKey: .productDateTimeUpdated) ?? 0))
+        self.productDateTimeCreated = try container.decodeIfPresent(DateTime.self, forKey: .productDateTimeCreated)?.timeT ?? Date(timeIntervalSince1970: 0)
+        self.productDateTimeUpdated = try container.decodeIfPresent(DateTime.self, forKey: .productDateTimeUpdated)?.timeT ?? Date(timeIntervalSince1970: 0)
         self.productPageTitle = try container.decodeIfPresent(String.self, forKey: .productPageTitle) ?? ""
         self.productPageId = try container.decodeIfPresent(Int.self, forKey: .productPageId) ?? 0
         self.productPageCode = try container.decodeIfPresent(String.self, forKey: .productPageCode) ?? ""

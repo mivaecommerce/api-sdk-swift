@@ -70,6 +70,9 @@ public class OrderPayment : Model {
     /// Model field data.
     var paymentData : [String]
 
+    /// Model field ip.
+    var ip : String
+
     /**
      CodingKeys used to map the model when encoding and decoding.
 
@@ -92,6 +95,7 @@ public class OrderPayment : Model {
         case decryptError = "decrypt_error"
         case description
         case paymentData = "data"
+        case ip
     }
 
     /**
@@ -114,6 +118,7 @@ public class OrderPayment : Model {
         self.decryptError = ""
         self.description = ""
         self.paymentData = []
+        self.ip = ""
 
         super.init()
     }
@@ -137,14 +142,15 @@ public class OrderPayment : Model {
         self.formattedAmount = try container.decodeIfPresent(String.self, forKey: .formattedAmount) ?? ""
         self.available = try container.decodeIfPresent(Decimal.self, forKey: .available) ?? Decimal(0.00)
         self.formattedAvailable = try container.decodeIfPresent(String.self, forKey: .formattedAvailable) ?? ""
-        self.dateTimeStamp = Date(timeIntervalSince1970: Double(try container.decodeIfPresent(Int64.self, forKey: .dateTimeStamp) ?? 0))
-        self.expires = Date(timeIntervalSince1970: Double(try container.decodeIfPresent(Int64.self, forKey: .expires) ?? 0))
+        self.dateTimeStamp = try container.decodeIfPresent(DateTime.self, forKey: .dateTimeStamp)?.timeT ?? Date(timeIntervalSince1970: 0)
+        self.expires = try container.decodeIfPresent(DateTime.self, forKey: .expires)?.timeT ?? Date(timeIntervalSince1970: 0)
         self.paymentId = try container.decodeIfPresent(Int.self, forKey: .paymentId) ?? 0
         self.paymentSecId = try container.decodeIfPresent(Int.self, forKey: .paymentSecId) ?? 0
         self.decryptStatus = try container.decodeIfPresent(String.self, forKey: .decryptStatus) ?? ""
         self.decryptError = try container.decodeIfPresent(String.self, forKey: .decryptError) ?? ""
         self.description = try container.decodeIfPresent(String.self, forKey: .description) ?? ""
         self.paymentData = try container.decodeIfPresent([String].self, forKey: .paymentData) ?? []
+        self.ip = try container.decodeIfPresent(String.self, forKey: .ip) ?? ""
 
         try super.init(from : decoder)
     }
@@ -175,6 +181,7 @@ public class OrderPayment : Model {
         try container.encodeIfPresent(self.decryptStatus, forKey: .decryptStatus)
         try container.encodeIfPresent(self.decryptError, forKey: .decryptError)
         try container.encodeIfPresent(self.description, forKey: .description)
+        try container.encodeIfPresent(self.ip, forKey: .ip)
 
         try super.encode(to: encoder)
     }
@@ -207,6 +214,15 @@ public class OrderPayment : Model {
      */
     public func getType() -> Int {
         return self.type
+    }
+
+    /**
+     Enum Getter for type.
+
+     - Returns:  Optional<OrderPaymentType>
+     */
+    public func getType() -> Optional<OrderPaymentType> {
+        return OrderPaymentType(rawValue: self.type) ?? nil
     }
 
     /**
@@ -328,5 +344,15 @@ public class OrderPayment : Model {
      */
     public func getPaymentData() -> [String] {
         return self.paymentData
+    }
+
+    /**
+     Getter for ip.
+
+     - Returns:  String
+
+     */
+    public func getIp() -> String {
+        return self.ip
     }
 }

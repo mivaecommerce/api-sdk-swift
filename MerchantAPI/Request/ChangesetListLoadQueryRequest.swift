@@ -59,8 +59,7 @@ public class ChangesetListLoadQueryRequest : ListQueryRequest {
                 "user_id",
                 "user_name",
                 "dtstamp",
-                "notes",
-                "user_name"
+                "notes"
             ]
         }
     }
@@ -79,8 +78,7 @@ public class ChangesetListLoadQueryRequest : ListQueryRequest {
                 "user_id",
                 "user_name",
                 "dtstamp",
-                "notes",
-                "user_name"
+                "notes"
             ]
         }
     }

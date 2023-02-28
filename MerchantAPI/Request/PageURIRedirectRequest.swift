@@ -161,6 +161,18 @@ public class PageURIRedirectRequest : ListQueryRequest {
     }
 
     /**
+     Enum Getter for Destination_Type.
+
+     - Returns:  Optional<Uri.DestinationType>
+     */
+    public func getDestinationType() -> Optional<Uri.DestinationType> {
+        if let v = self.destinationType {
+            return Uri.DestinationType(rawValue: v) ?? nil
+        }
+        return nil;
+    }
+
+    /**
      Getter for Destination.
 
      - Returns:  Optional<String>
@@ -201,6 +213,19 @@ public class PageURIRedirectRequest : ListQueryRequest {
     @discardableResult
     public func setDestinationType(_ value: Optional<String>) -> Self {
         self.destinationType = value
+        return self
+    }
+
+    /**
+     Enum Setter for Destination_Type.
+
+     - Parameters:
+        - value: Uri.DestinationType
+     - Returns:  Self
+     */
+    @discardableResult
+    public func setDestinationType(_ value: Uri.DestinationType) -> Self {
+        self.destinationType = value.rawValue
         return self
     }
 

@@ -10,6 +10,14 @@ import Foundation
 /// CSSResource data model.
 public class CSSResource : Model {
 
+    /// Enumeration ResourceType
+    public enum ResourceType : String {
+        case Combined = "C"
+        case Inline = "I"
+        case External = "E"
+        case Local = "L"
+    }
+
     /// Model field id.
     var id : Int
 
@@ -26,7 +34,7 @@ public class CSSResource : Model {
     var active : Bool
 
     /// Model field file.
-    var file : Int
+    var file : String
 
     /// Model field templ_id.
     var templateId : Int
@@ -59,7 +67,7 @@ public class CSSResource : Model {
         self.type = ""
         self.isGlobal = false
         self.active = false
-        self.file = 0
+        self.file = ""
         self.templateId = 0
         self.attributes = []
 
@@ -82,7 +90,7 @@ public class CSSResource : Model {
         self.type = try container.decodeIfPresent(String.self, forKey: .type) ?? ""
         self.isGlobal = try container.decodeIfPresent(Bool.self, forKey: .isGlobal) ?? false
         self.active = try container.decodeIfPresent(Bool.self, forKey: .active) ?? false
-        self.file = try container.decodeIfPresent(Int.self, forKey: .file) ?? 0
+        self.file = try container.decodeIfPresent(String.self, forKey: .file) ?? ""
         self.templateId = try container.decodeIfPresent(Int.self, forKey: .templateId) ?? 0
         self.attributes = try container.decodeIfPresent([CSSResourceAttribute].self, forKey: .attributes) ?? []
 
@@ -143,6 +151,15 @@ public class CSSResource : Model {
     }
 
     /**
+     Enum Getter for type.
+
+     - Returns:  Optional<ResourceType>
+     */
+    public func getType() -> Optional<ResourceType> {
+        return ResourceType(rawValue: self.type) ?? nil
+    }
+
+    /**
      Getter for is_global.
 
      - Returns:  Bool     */
@@ -161,10 +178,10 @@ public class CSSResource : Model {
     /**
      Getter for file.
 
-     - Returns:  Int
+     - Returns:  String
 
      */
-    public func getFile() -> Int {
+    public func getFile() -> String {
         return self.file
     }
 

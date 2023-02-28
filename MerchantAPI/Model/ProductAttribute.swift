@@ -250,6 +250,15 @@ public class ProductAttribute : Model {
     }
 
     /**
+     Enum Getter for type.
+
+     - Returns:  Optional<ProductAttributeType>
+     */
+    public func getType() -> Optional<ProductAttributeType> {
+        return ProductAttributeType(rawValue: self.type) ?? nil
+    }
+
+    /**
      Getter for prompt.
 
      - Returns:  String
