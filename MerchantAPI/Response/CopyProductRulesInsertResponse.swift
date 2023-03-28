@@ -11,22 +11,22 @@ import FoundationNetworking
 #endif
 
 /**
- API Response for JavaScriptResource_Insert.
+ API Response for CopyProductRules_Insert.
 
- - SeeAlso: https://docs.miva.com/json-api/functions/javascriptresource_insert
+ - SeeAlso: https://docs.miva.com/json-api/functions/copyproductrules_insert
  */
-public class JavaScriptResourceInsertResponse : Response {
+public class CopyProductRulesInsertResponse : Response {
 
     /// The response model
-    public var javaScriptResource : Optional<JavaScriptResource> = nil
+    public var copyProductRule : Optional<CopyProductRule> = nil
 
     /**
-     Getter for javaScriptResource.
+     Getter for copyProductRule.
 
-     - Returns: JavaScriptResource
+     - Returns: CopyProductRule
      */
-    public func getJavaScriptResource() -> Optional<JavaScriptResource> {
-        return self.javaScriptResource
+    public func getCopyProductRule() -> Optional<CopyProductRule> {
+        return self.copyProductRule
     }
 
     /**
@@ -35,7 +35,7 @@ public class JavaScriptResourceInsertResponse : Response {
      - SeeAlso: Decodable
      */
     private enum CodingKeys: String, CodingKey {
-        case javaScriptResource = "data"
+        case copyProductRule = "data"
     }
 
     /**
@@ -47,7 +47,7 @@ public class JavaScriptResourceInsertResponse : Response {
     public required init(from decoder: Decoder) throws {
         let container  = try decoder.container(keyedBy : CodingKeys.self)
 
-        self.javaScriptResource = try container.decodeIfPresent(JavaScriptResource.self, forKey: .javaScriptResource)
+        self.copyProductRule = try container.decodeIfPresent(CopyProductRule.self, forKey: .copyProductRule)
         try super.init(from : decoder)
     }
 }

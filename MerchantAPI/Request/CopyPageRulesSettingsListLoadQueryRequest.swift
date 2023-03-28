@@ -11,19 +11,11 @@ import FoundationNetworking
 #endif
 
 /**
- Handles API Request PriceGroupProductList_Load_Query.
+ Handles API Request CopyPageRulesSettingsList_Load_Query.
 
- - SeeAlso: https://docs.miva.com/json-api/functions/pricegroupproductlist_load_query
+ - SeeAlso: https://docs.miva.com/json-api/functions/copypagerulessettingslist_load_query
  */
-public class PriceGroupProductListLoadQueryRequest : ListQueryRequest {
-
-    /// Enumeration ProductShow
-    public enum ProductShow : String {
-        case All = "All"
-        case Uncategorized = "Uncategorized"
-        case Active = "Active"
-    }
-
+public class CopyPageRulesSettingsListLoadQueryRequest : ListQueryRequest {
     /**
      The API function name.
 
@@ -31,7 +23,7 @@ public class PriceGroupProductListLoadQueryRequest : ListQueryRequest {
      - Returns: String
      */
     override var function : String {
-        return "PriceGroupProductList_Load_Query"
+        return "CopyPageRulesSettingsList_Load_Query"
     }
 
     /**
@@ -44,11 +36,11 @@ public class PriceGroupProductListLoadQueryRequest : ListQueryRequest {
         return RequestScope.Store;
     }
 
-    /// Request field PriceGroup_ID.
-    var priceGroupId : Optional<Int> = nil
+    /// Request field CopyPageRules_ID.
+    var copyPageRulesId : Optional<Int> = nil
 
-    /// Request field PriceGroup_Name.
-    var priceGroupName : Optional<String> = nil
+    /// Request field CopyPageRules_Name.
+    var copyPageRulesName : Optional<String> = nil
 
     /// Request field Assigned.
     var assigned : Optional<Bool> = nil
@@ -65,25 +57,8 @@ public class PriceGroupProductListLoadQueryRequest : ListQueryRequest {
     override var availableSearchFields : [ String ] {
         get {
             return [
-                "id",
                 "code",
-                "sku",
-                "cancat_code",
-                "page_code",
-                "name",
-                "thumbnail",
-                "image",
-                "price",
-                "cost",
-                "descrip",
-                "weight",
-                "taxable",
-                "active",
-                "page_title",
-                "dt_created",
-                "dt_updated",
-                "category",
-                "product_inventory"
+                "module_name"
             ]
         }
     }
@@ -99,49 +74,7 @@ public class PriceGroupProductListLoadQueryRequest : ListQueryRequest {
             return [
                 "id",
                 "code",
-                "sku",
-                "cancat_code",
-                "page_code",
-                "name",
-                "thumbnail",
-                "image",
-                "price",
-                "cost",
-                "descrip",
-                "weight",
-                "taxable",
-                "active",
-                "page_title",
-                "dt_created",
-                "dt_updated"
-            ]
-        }
-    }
-
-    /**
-     The available on demand columns applicable to the request.
-
-     - Returns: An array of strings.
-     - Note: Overrides
-     */
-    override var availableOnDemandColumns : [ String ] {
-        get {
-            return [
-                "descrip",
-                "catcount",
-                "cancat_code",
-                "page_code",
-                "product_inventory",
-                "productinventorysettings",
-                "attributes",
-                "productimagedata",
-                "categories",
-                "productshippingrules",
-                "relatedproducts",
-                "uris",
-                "url",
-                "subscriptionsettings",
-                "subscriptionterms"
+                "module_name"
             ]
         }
     }
@@ -153,8 +86,8 @@ public class PriceGroupProductListLoadQueryRequest : ListQueryRequest {
      */
     private enum CodingKeys: String, CodingKey {
         case function = "Function"
-        case priceGroupId = "PriceGroup_ID"
-        case priceGroupName = "PriceGroup_Name"
+        case copyPageRulesId = "CopyPageRules_ID"
+        case copyPageRulesName = "CopyPageRules_Name"
         case assigned = "Assigned"
         case unassigned = "Unassigned"
     }
@@ -164,17 +97,9 @@ public class PriceGroupProductListLoadQueryRequest : ListQueryRequest {
 
      - Parameters:
         - client: A BaseClient instance.
-        - priceGroup: An optional PriceGroup instance.
      */
-    public init(client: Optional<BaseClient> = nil, priceGroup: Optional<PriceGroup> = nil) {
+    public override init(client: Optional<BaseClient> = nil) {
         super.init(client: client)
-        if let priceGroup = priceGroup {
-            if priceGroup.id > 0 {
-                self.priceGroupId = priceGroup.id
-            } else if priceGroup.name.count > 0 {
-                self.priceGroupName = priceGroup.name
-            }
-        }
     }
 
     /**
@@ -188,10 +113,10 @@ public class PriceGroupProductListLoadQueryRequest : ListQueryRequest {
     public override func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
 
-        if self.priceGroupId != nil {
-            try container.encodeIfPresent(self.priceGroupId, forKey: .priceGroupId)
-        } else if self.priceGroupName != nil {
-            try container.encode(self.priceGroupName, forKey: .priceGroupName)
+        if self.copyPageRulesId != nil {
+            try container.encodeIfPresent(self.copyPageRulesId, forKey: .copyPageRulesId)
+        } else if self.copyPageRulesName != nil {
+            try container.encode(self.copyPageRulesName, forKey: .copyPageRulesName)
         }
 
         try container.encodeIfPresent(self.assigned, forKey: .assigned)
@@ -204,14 +129,14 @@ public class PriceGroupProductListLoadQueryRequest : ListQueryRequest {
      Send the request for a response.
 
      - Parameters:
-        - callback: The callback function with signature (PriceGroupProductListLoadQueryResponse?, Error?).
+        - callback: The callback function with signature (CopyPageRulesSettingsListLoadQueryResponse?, Error?).
      - Note: Overrides
      */
 
-     public override func send(client: Optional<BaseClient> = nil, callback: @escaping (PriceGroupProductListLoadQueryResponse?, Error?) -> ()) throws {
+     public override func send(client: Optional<BaseClient> = nil, callback: @escaping (CopyPageRulesSettingsListLoadQueryResponse?, Error?) -> ()) throws {
         if let client = client ?? self.client {
             client.send(self) { request, response, error in
-                callback(response as? PriceGroupProductListLoadQueryResponse, error)
+                callback(response as? CopyPageRulesSettingsListLoadQueryResponse, error)
             }
         } else {
             throw RequestError.noClientAssigned
@@ -227,14 +152,14 @@ public class PriceGroupProductListLoadQueryRequest : ListQueryRequest {
      - Throws: Error when unable to decode the response data.
      - Note: Overrides
      */
-    public override func createResponse(httpResponse: URLResponse, data : Data) throws -> PriceGroupProductListLoadQueryResponse {
+    public override func createResponse(httpResponse: URLResponse, data : Data) throws -> CopyPageRulesSettingsListLoadQueryResponse {
         let decoder = JSONDecoder()
 
         decoder.userInfo[Response.decoderRequestUserInfoKey]            = self
         decoder.userInfo[Response.decoderHttpResponseDataUserInfoKey]   = httpResponse
         decoder.userInfo[Response.decoderResponseDataUserInfoKey]       = data
 
-        return try decoder.decode(PriceGroupProductListLoadQueryResponse.self, from: data)
+        return try decoder.decode(CopyPageRulesSettingsListLoadQueryResponse.self, from: data)
     }
 
     /**
@@ -244,25 +169,25 @@ public class PriceGroupProductListLoadQueryRequest : ListQueryRequest {
      - Note: Overrides
      */
     override public func getResponseType() -> Response.Type {
-        return PriceGroupProductListLoadQueryResponse.self
+        return CopyPageRulesSettingsListLoadQueryResponse.self
     }
 
     /**
-     Getter for PriceGroup_ID.
+     Getter for CopyPageRules_ID.
 
      - Returns:  Optional<Int>
      */
-    public func getPriceGroupId() -> Optional<Int> {
-        return self.priceGroupId
+    public func getCopyPageRulesId() -> Optional<Int> {
+        return self.copyPageRulesId
     }
 
     /**
-     Getter for PriceGroup_Name.
+     Getter for CopyPageRules_Name.
 
      - Returns:  Optional<String>
      */
-    public func getPriceGroupName() -> Optional<String> {
-        return self.priceGroupName
+    public func getCopyPageRulesName() -> Optional<String> {
+        return self.copyPageRulesName
     }
 
     /**
@@ -284,28 +209,28 @@ public class PriceGroupProductListLoadQueryRequest : ListQueryRequest {
     }
 
     /**
-     Setter for PriceGroup_ID.
+     Setter for CopyPageRules_ID.
 
      - Parameters:
         - value: Optional<Int>
      - Returns:  Self
      */
     @discardableResult
-    public func setPriceGroupId(_ value: Optional<Int>) -> Self {
-        self.priceGroupId = value
+    public func setCopyPageRulesId(_ value: Optional<Int>) -> Self {
+        self.copyPageRulesId = value
         return self
     }
 
     /**
-     Setter for PriceGroup_Name.
+     Setter for CopyPageRules_Name.
 
      - Parameters:
         - value: Optional<String>
      - Returns:  Self
      */
     @discardableResult
-    public func setPriceGroupName(_ value: Optional<String>) -> Self {
-        self.priceGroupName = value
+    public func setCopyPageRulesName(_ value: Optional<String>) -> Self {
+        self.copyPageRulesName = value
         return self
     }
 

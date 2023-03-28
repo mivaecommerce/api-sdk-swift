@@ -39,13 +39,13 @@ public class CopyPageRule : Model {
     var settings : String
 
     /// Model field jsres.
-    var jsres : Bool
+    var javascriptResourceAssignments : Bool
 
     /// Model field cssres.
-    var CSSres : Bool
+    var CSSResourceAssignments : Bool
 
     /// Model field cacheset.
-    var cacheset : Bool
+    var cacheSettings : Bool
 
     /**
      CodingKeys used to map the model when encoding and decoding.
@@ -60,9 +60,9 @@ public class CopyPageRule : Model {
         case template
         case items
         case settings
-        case jsres
-        case CSSres = "cssres"
-        case cacheset
+        case javascriptResourceAssignments = "jsres"
+        case CSSResourceAssignments = "cssres"
+        case cacheSettings = "cacheset"
     }
 
     /**
@@ -76,9 +76,9 @@ public class CopyPageRule : Model {
         self.template = false
         self.items = false
         self.settings = ""
-        self.jsres = false
-        self.CSSres = false
-        self.cacheset = false
+        self.javascriptResourceAssignments = false
+        self.CSSResourceAssignments = false
+        self.cacheSettings = false
 
         super.init()
     }
@@ -101,9 +101,9 @@ public class CopyPageRule : Model {
         self.template = try container.decodeIfPresent(Bool.self, forKey: .template) ?? false
         self.items = try container.decodeIfPresent(Bool.self, forKey: .items) ?? false
         self.settings = try container.decodeIfPresent(String.self, forKey: .settings) ?? ""
-        self.jsres = try container.decodeIfPresent(Bool.self, forKey: .jsres) ?? false
-        self.CSSres = try container.decodeIfPresent(Bool.self, forKey: .CSSres) ?? false
-        self.cacheset = try container.decodeIfPresent(Bool.self, forKey: .cacheset) ?? false
+        self.javascriptResourceAssignments = try container.decodeIfPresent(Bool.self, forKey: .javascriptResourceAssignments) ?? false
+        self.CSSResourceAssignments = try container.decodeIfPresent(Bool.self, forKey: .CSSResourceAssignments) ?? false
+        self.cacheSettings = try container.decodeIfPresent(Bool.self, forKey: .cacheSettings) ?? false
 
         try super.init(from : decoder)
     }
@@ -126,9 +126,9 @@ public class CopyPageRule : Model {
         try container.encodeIfPresent(self.template, forKey: .template)
         try container.encodeIfPresent(self.items, forKey: .items)
         try container.encodeIfPresent(self.settings, forKey: .settings)
-        try container.encodeIfPresent(self.jsres, forKey: .jsres)
-        try container.encodeIfPresent(self.CSSres, forKey: .CSSres)
-        try container.encodeIfPresent(self.cacheset, forKey: .cacheset)
+        try container.encodeIfPresent(self.javascriptResourceAssignments, forKey: .javascriptResourceAssignments)
+        try container.encodeIfPresent(self.CSSResourceAssignments, forKey: .CSSResourceAssignments)
+        try container.encodeIfPresent(self.cacheSettings, forKey: .cacheSettings)
 
         try super.encode(to: encoder)
     }
@@ -199,23 +199,23 @@ public class CopyPageRule : Model {
      Getter for jsres.
 
      - Returns:  Bool     */
-    public func getJsres() -> Bool {
-        return self.jsres
+    public func getJavascriptResourceAssignments() -> Bool {
+        return self.javascriptResourceAssignments
     }
 
     /**
      Getter for cssres.
 
      - Returns:  Bool     */
-    public func getCSSres() -> Bool {
-        return self.CSSres
+    public func getCSSResourceAssignments() -> Bool {
+        return self.CSSResourceAssignments
     }
 
     /**
      Getter for cacheset.
 
      - Returns:  Bool     */
-    public func getCacheset() -> Bool {
-        return self.cacheset
+    public func getCacheSettings() -> Bool {
+        return self.cacheSettings
     }
 }

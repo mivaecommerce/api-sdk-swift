@@ -109,6 +109,12 @@ public class Product : Model {
     /// Model field disp_order.
     var displayOrder : Int
 
+    /// Model field subscriptionsettings
+    var subscriptionSettings : ProductSubscriptionSettings
+
+    /// Model field subscriptionterms.
+    var subscriptionTerms : [ProductSubscriptionTerm]
+
     /**
      CodingKeys used to map the model when encoding and decoding.
 
@@ -148,6 +154,8 @@ public class Product : Model {
         case url
         case imageTypes = "imagetypes"
         case displayOrder = "disp_order"
+        case subscriptionSettings = "subscriptionsettings"
+        case subscriptionTerms = "subscriptionterms"
     }
 
     /**
@@ -187,6 +195,8 @@ public class Product : Model {
         self.url = ""
         self.imageTypes = [:]
         self.displayOrder = 0
+        self.subscriptionSettings = ProductSubscriptionSettings()
+        self.subscriptionTerms = []
 
         super.init()
     }
@@ -234,6 +244,8 @@ public class Product : Model {
         self.attributes = try container.decodeIfPresent([ProductAttribute].self, forKey: .attributes) ?? []
         self.url = try container.decodeIfPresent(String.self, forKey: .url) ?? ""
         self.displayOrder = try container.decodeIfPresent(Int.self, forKey: .displayOrder) ?? 0
+        self.subscriptionSettings = try container.decodeIfPresent(ProductSubscriptionSettings.self, forKey: .subscriptionSettings) ?? ProductSubscriptionSettings()
+        self.subscriptionTerms = try container.decodeIfPresent([ProductSubscriptionTerm].self, forKey: .subscriptionTerms) ?? []
 
         self.imageTypes = [:]
         let imageTypesContainer = try decoder.container(keyedBy: RuntimeCodingKey.self)
@@ -293,6 +305,8 @@ public class Product : Model {
         try container.encodeIfPresent(self.attributes, forKey: .attributes)
         try container.encodeIfPresent(self.url, forKey: .url)
         try container.encodeIfPresent(self.displayOrder, forKey: .displayOrder)
+        try container.encodeIfPresent(self.subscriptionSettings, forKey: .subscriptionSettings)
+        try container.encodeIfPresent(self.subscriptionTerms, forKey: .subscriptionTerms)
 
         try super.encode(to: encoder)
     }
@@ -591,5 +605,23 @@ public class Product : Model {
      */
     public func getDisplayOrder() -> Int {
         return self.displayOrder
+    }
+
+    /**
+     Getter for subscriptionsettings.
+
+     - Returns:  ProductSubscriptionSettings
+     */
+    public func getSubscriptionSettings() -> ProductSubscriptionSettings {
+        return self.subscriptionSettings
+    }
+
+    /**
+     Getter for subscriptionterms.
+
+     - Returns:  [ProductSubscriptionTerm]
+     */
+    public func getSubscriptionTerms() -> [ProductSubscriptionTerm] {
+        return self.subscriptionTerms
     }
 }

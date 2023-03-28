@@ -134,7 +134,9 @@ public class PriceGroupQualifyingProductListLoadQueryRequest : ListQueryRequest 
                 "productshippingrules",
                 "relatedproducts",
                 "uris",
-                "url"
+                "url",
+                "subscriptionsettings",
+                "subscriptionterms"
             ]
         }
     }

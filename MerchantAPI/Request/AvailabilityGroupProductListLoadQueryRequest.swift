@@ -142,7 +142,9 @@ public class AvailabilityGroupProductListLoadQueryRequest : ListQueryRequest {
                 "productshippingrules",
                 "relatedproducts",
                 "uris",
-                "url"
+                "url",
+                "subscriptionsettings",
+                "subscriptionterms"
             ]
         }
     }

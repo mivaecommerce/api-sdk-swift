@@ -11,22 +11,29 @@ import FoundationNetworking
 #endif
 
 /**
- API Response for JavaScriptResource_Insert.
+ API Response for CSSResourceList_Load_Query.
 
- - SeeAlso: https://docs.miva.com/json-api/functions/javascriptresource_insert
+ - SeeAlso: https://docs.miva.com/json-api/functions/cssresourcelist_load_query
  */
-public class JavaScriptResourceInsertResponse : Response {
+public class CSSResourceListLoadQueryResponse : ListQueryResponse {
 
-    /// The response model
-    public var javaScriptResource : Optional<JavaScriptResource> = nil
+    /// Holds a ListQuery result data
+    public var data : ListQueryResult<CSSResource>
+
+    /// Named computed property for data
+    public var CSSResources : [CSSResource] {
+        get {
+            return self.data.records
+        }
+    }
 
     /**
-     Getter for javaScriptResource.
+     Getter for CSSResources.
 
-     - Returns: JavaScriptResource
+     - Returns: [CSSResource]
      */
-    public func getJavaScriptResource() -> Optional<JavaScriptResource> {
-        return self.javaScriptResource
+    public func getCSSResources() -> [CSSResource] {
+        return self.CSSResources
     }
 
     /**
@@ -35,7 +42,7 @@ public class JavaScriptResourceInsertResponse : Response {
      - SeeAlso: Decodable
      */
     private enum CodingKeys: String, CodingKey {
-        case javaScriptResource = "data"
+        case data = "data"
     }
 
     /**
@@ -47,7 +54,7 @@ public class JavaScriptResourceInsertResponse : Response {
     public required init(from decoder: Decoder) throws {
         let container  = try decoder.container(keyedBy : CodingKeys.self)
 
-        self.javaScriptResource = try container.decodeIfPresent(JavaScriptResource.self, forKey: .javaScriptResource)
+        self.data = try container.decodeIfPresent(ListQueryResult<CSSResource>.self, forKey: .data) ?? ListQueryResult<CSSResource>()
         try super.init(from : decoder)
     }
 }

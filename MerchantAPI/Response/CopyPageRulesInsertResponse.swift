@@ -11,22 +11,22 @@ import FoundationNetworking
 #endif
 
 /**
- API Response for JavaScriptResource_Insert.
+ API Response for CopyPageRules_Insert.
 
- - SeeAlso: https://docs.miva.com/json-api/functions/javascriptresource_insert
+ - SeeAlso: https://docs.miva.com/json-api/functions/copypagerules_insert
  */
-public class JavaScriptResourceInsertResponse : Response {
+public class CopyPageRulesInsertResponse : Response {
 
     /// The response model
-    public var javaScriptResource : Optional<JavaScriptResource> = nil
+    public var copyPageRule : Optional<CopyPageRule> = nil
 
     /**
-     Getter for javaScriptResource.
+     Getter for copyPageRule.
 
-     - Returns: JavaScriptResource
+     - Returns: CopyPageRule
      */
-    public func getJavaScriptResource() -> Optional<JavaScriptResource> {
-        return self.javaScriptResource
+    public func getCopyPageRule() -> Optional<CopyPageRule> {
+        return self.copyPageRule
     }
 
     /**
@@ -35,7 +35,7 @@ public class JavaScriptResourceInsertResponse : Response {
      - SeeAlso: Decodable
      */
     private enum CodingKeys: String, CodingKey {
-        case javaScriptResource = "data"
+        case copyPageRule = "data"
     }
 
     /**
@@ -47,7 +47,7 @@ public class JavaScriptResourceInsertResponse : Response {
     public required init(from decoder: Decoder) throws {
         let container  = try decoder.container(keyedBy : CodingKeys.self)
 
-        self.javaScriptResource = try container.decodeIfPresent(JavaScriptResource.self, forKey: .javaScriptResource)
+        self.copyPageRule = try container.decodeIfPresent(CopyPageRule.self, forKey: .copyPageRule)
         try super.init(from : decoder)
     }
 }

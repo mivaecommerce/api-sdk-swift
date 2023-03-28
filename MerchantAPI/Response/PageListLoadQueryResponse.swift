@@ -11,22 +11,29 @@ import FoundationNetworking
 #endif
 
 /**
- API Response for JavaScriptResource_Insert.
+ API Response for PageList_Load_Query.
 
- - SeeAlso: https://docs.miva.com/json-api/functions/javascriptresource_insert
+ - SeeAlso: https://docs.miva.com/json-api/functions/pagelist_load_query
  */
-public class JavaScriptResourceInsertResponse : Response {
+public class PageListLoadQueryResponse : ListQueryResponse {
 
-    /// The response model
-    public var javaScriptResource : Optional<JavaScriptResource> = nil
+    /// Holds a ListQuery result data
+    public var data : ListQueryResult<Page>
+
+    /// Named computed property for data
+    public var pages : [Page] {
+        get {
+            return self.data.records
+        }
+    }
 
     /**
-     Getter for javaScriptResource.
+     Getter for pages.
 
-     - Returns: JavaScriptResource
+     - Returns: [Page]
      */
-    public func getJavaScriptResource() -> Optional<JavaScriptResource> {
-        return self.javaScriptResource
+    public func getPages() -> [Page] {
+        return self.pages
     }
 
     /**
@@ -35,7 +42,7 @@ public class JavaScriptResourceInsertResponse : Response {
      - SeeAlso: Decodable
      */
     private enum CodingKeys: String, CodingKey {
-        case javaScriptResource = "data"
+        case data = "data"
     }
 
     /**
@@ -47,7 +54,7 @@ public class JavaScriptResourceInsertResponse : Response {
     public required init(from decoder: Decoder) throws {
         let container  = try decoder.container(keyedBy : CodingKeys.self)
 
-        self.javaScriptResource = try container.decodeIfPresent(JavaScriptResource.self, forKey: .javaScriptResource)
+        self.data = try container.decodeIfPresent(ListQueryResult<Page>.self, forKey: .data) ?? ListQueryResult<Page>()
         try super.init(from : decoder)
     }
 }

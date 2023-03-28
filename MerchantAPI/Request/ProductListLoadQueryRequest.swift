@@ -127,7 +127,9 @@ public class ProductListLoadQueryRequest : ListQueryRequest {
                 "productshippingrules",
                 "relatedproducts",
                 "uris",
-                "url"
+                "url",
+                "subscriptionsettings",
+                "subscriptionterms"
             ]
         }
     }
