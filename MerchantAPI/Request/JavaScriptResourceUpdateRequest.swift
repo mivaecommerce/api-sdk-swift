@@ -60,6 +60,12 @@ public class JavaScriptResourceUpdateRequest : Request {
     /// Request field JavaScriptResource_Attributes.
     var javaScriptResourceAttributes : [JavaScriptResourceAttribute] = []
 
+    /// Request field JavaScriptResource_Module_Code.
+    var javaScriptResourceModuleCode : Optional<String> = nil
+
+    /// Request field JavaScriptResource_Module_Data.
+    var javaScriptResourceModuleData : Optional<String> = nil
+
     /**
      CodingKeys used to map the request when encoding.
 
@@ -75,6 +81,8 @@ public class JavaScriptResourceUpdateRequest : Request {
         case javaScriptResourceActive = "JavaScriptResource_Active"
         case javaScriptResourceFilePath = "JavaScriptResource_File_Path"
         case javaScriptResourceAttributes = "JavaScriptResource_Attributes"
+        case javaScriptResourceModuleCode = "JavaScriptResource_Module_Code"
+        case javaScriptResourceModuleData = "JavaScriptResource_Module_Data"
     }
 
     /**
@@ -122,6 +130,8 @@ public class JavaScriptResourceUpdateRequest : Request {
         try container.encodeIfPresent(self.javaScriptResourceActive, forKey: .javaScriptResourceActive)
         try container.encodeIfPresent(self.javaScriptResourceFilePath, forKey: .javaScriptResourceFilePath)
         try container.encodeIfPresent(self.javaScriptResourceAttributes, forKey: .javaScriptResourceAttributes)
+        try container.encodeIfPresent(self.javaScriptResourceModuleCode, forKey: .javaScriptResourceModuleCode)
+        try container.encodeIfPresent(self.javaScriptResourceModuleData, forKey: .javaScriptResourceModuleData)
 
         try super.encode(to : encoder)
     }
@@ -258,6 +268,24 @@ public class JavaScriptResourceUpdateRequest : Request {
     }
 
     /**
+     Getter for JavaScriptResource_Module_Code.
+
+     - Returns:  Optional<String>
+     */
+    public func getJavaScriptResourceModuleCode() -> Optional<String> {
+        return self.javaScriptResourceModuleCode
+    }
+
+    /**
+     Getter for JavaScriptResource_Module_Data.
+
+     - Returns:  Optional<String>
+     */
+    public func getJavaScriptResourceModuleData() -> Optional<String> {
+        return self.javaScriptResourceModuleData
+    }
+
+    /**
      Setter for JavaScriptResource_ID.
 
      - Parameters:
@@ -358,6 +386,32 @@ public class JavaScriptResourceUpdateRequest : Request {
     @discardableResult
     public func setJavaScriptResourceFilePath(_ value: Optional<String>) -> Self {
         self.javaScriptResourceFilePath = value
+        return self
+    }
+
+    /**
+     Setter for JavaScriptResource_Module_Code.
+
+     - Parameters:
+        - value: Optional<String>
+     - Returns:  Self
+     */
+    @discardableResult
+    public func setJavaScriptResourceModuleCode(_ value: Optional<String>) -> Self {
+        self.javaScriptResourceModuleCode = value
+        return self
+    }
+
+    /**
+     Setter for JavaScriptResource_Module_Data.
+
+     - Parameters:
+        - value: Optional<String>
+     - Returns:  Self
+     */
+    @discardableResult
+    public func setJavaScriptResourceModuleData(_ value: Optional<String>) -> Self {
+        self.javaScriptResourceModuleData = value
         return self
     }
 

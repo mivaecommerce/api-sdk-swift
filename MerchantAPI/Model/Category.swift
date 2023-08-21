@@ -55,6 +55,9 @@ public class Category : Model {
     /// Model field uris.
     var uris : [Uri]
 
+    /// Model field url.
+    var url : String
+
     /// Model field CustomField_Values
     var customFieldValues : CustomFieldValues
 
@@ -79,6 +82,7 @@ public class Category : Model {
         case pageCode = "page_code"
         case parentCategory = "parent_category"
         case uris
+        case url
         case customFieldValues = "CustomField_Values"
     }
 
@@ -101,6 +105,7 @@ public class Category : Model {
         self.pageCode = ""
         self.parentCategory = ""
         self.uris = []
+        self.url = ""
         self.customFieldValues = CustomFieldValues()
 
         super.init()
@@ -132,6 +137,7 @@ public class Category : Model {
         self.pageCode = try container.decodeIfPresent(String.self, forKey: .pageCode) ?? ""
         self.parentCategory = try container.decodeIfPresent(String.self, forKey: .parentCategory) ?? ""
         self.uris = try container.decodeIfPresent([Uri].self, forKey: .uris) ?? []
+        self.url = try container.decodeIfPresent(String.self, forKey: .url) ?? ""
         self.customFieldValues = try container.decodeIfPresent(CustomFieldValues.self, forKey: .customFieldValues) ?? CustomFieldValues()
 
         try super.init(from : decoder)
@@ -163,6 +169,7 @@ public class Category : Model {
         try container.encodeIfPresent(self.pageCode, forKey: .pageCode)
         try container.encodeIfPresent(self.parentCategory, forKey: .parentCategory)
         try container.encodeIfPresent(self.uris, forKey: .uris)
+        try container.encodeIfPresent(self.url, forKey: .url)
         try container.encodeIfPresent(self.customFieldValues, forKey: .customFieldValues)
 
         try super.encode(to: encoder)
@@ -309,6 +316,16 @@ public class Category : Model {
      */
     public func getUris() -> [Uri] {
         return self.uris
+    }
+
+    /**
+     Getter for url.
+
+     - Returns:  String
+
+     */
+    public func getUrl() -> String {
+        return self.url
     }
 
     /**

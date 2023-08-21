@@ -98,7 +98,8 @@ public class CategoryListLoadQueryRequest : ListQueryRequest {
     override var availableOnDemandColumns : [ String ] {
         get {
             return [
-                "uris"
+                "uris",
+                "url"
             ]
         }
     }

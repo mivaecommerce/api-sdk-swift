@@ -144,11 +144,11 @@ class ListQueryRequestBuilder : ListQueryRequest {
             try container.encode(value, forKey: RuntimeCodingKey(stringValue: key)!)
         }
         
-        var filtersContainer = container.nestedUnkeyedContainer(forKey: RuntimeCodingKey(stringValue: "Filter")!)
-
-        for filter in self.filter.getEntries() {
-            try filtersContainer.encode(filter)
+        if self.filter.getEntries().count > 0 {
+            var filtersContainer = container.nestedUnkeyedContainer(forKey: RuntimeCodingKey(stringValue: "Filter")!)
+            try filtersContainer.encode(self.filter)
         }
+        
         
         try super.encode(to : encoder)
     }

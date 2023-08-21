@@ -16,11 +16,23 @@ public class ChangesetChange : Model {
     /// Model field item_id.
     var itemId : Int
 
+    /// Model field item_user_id.
+    var itemUserId : Int
+
+    /// Model field item_user_name.
+    var itemUserName : String
+
+    /// Model field item_user_icon.
+    var itemUserIcon : String
+
     /// Model field item_version_id.
     var itemVersionId : Int
 
     /// Model field item_identifier.
     var itemIdentifier : String
+
+    /// Model field item_change_type.
+    var itemChangeType : String
 
     /**
      CodingKeys used to map the model when encoding and decoding.
@@ -30,8 +42,12 @@ public class ChangesetChange : Model {
     private enum CodingKeys: String, CodingKey {
         case itemType = "item_type"
         case itemId = "item_id"
+        case itemUserId = "item_user_id"
+        case itemUserName = "item_user_name"
+        case itemUserIcon = "item_user_icon"
         case itemVersionId = "item_version_id"
         case itemIdentifier = "item_identifier"
+        case itemChangeType = "item_change_type"
     }
 
     /**
@@ -40,8 +56,12 @@ public class ChangesetChange : Model {
     public override init() {
         self.itemType = ""
         self.itemId = 0
+        self.itemUserId = 0
+        self.itemUserName = ""
+        self.itemUserIcon = ""
         self.itemVersionId = 0
         self.itemIdentifier = ""
+        self.itemChangeType = ""
 
         super.init()
     }
@@ -59,8 +79,12 @@ public class ChangesetChange : Model {
 
         self.itemType = try container.decodeIfPresent(String.self, forKey: .itemType) ?? ""
         self.itemId = try container.decodeIfPresent(Int.self, forKey: .itemId) ?? 0
+        self.itemUserId = try container.decodeIfPresent(Int.self, forKey: .itemUserId) ?? 0
+        self.itemUserName = try container.decodeIfPresent(String.self, forKey: .itemUserName) ?? ""
+        self.itemUserIcon = try container.decodeIfPresent(String.self, forKey: .itemUserIcon) ?? ""
         self.itemVersionId = try container.decodeIfPresent(Int.self, forKey: .itemVersionId) ?? 0
         self.itemIdentifier = try container.decodeIfPresent(String.self, forKey: .itemIdentifier) ?? ""
+        self.itemChangeType = try container.decodeIfPresent(String.self, forKey: .itemChangeType) ?? ""
 
         try super.init(from : decoder)
     }
@@ -78,8 +102,12 @@ public class ChangesetChange : Model {
 
         try container.encodeIfPresent(self.itemType, forKey: .itemType)
         try container.encodeIfPresent(self.itemId, forKey: .itemId)
+        try container.encodeIfPresent(self.itemUserId, forKey: .itemUserId)
+        try container.encodeIfPresent(self.itemUserName, forKey: .itemUserName)
+        try container.encodeIfPresent(self.itemUserIcon, forKey: .itemUserIcon)
         try container.encodeIfPresent(self.itemVersionId, forKey: .itemVersionId)
         try container.encodeIfPresent(self.itemIdentifier, forKey: .itemIdentifier)
+        try container.encodeIfPresent(self.itemChangeType, forKey: .itemChangeType)
 
         try super.encode(to: encoder)
     }
@@ -105,6 +133,36 @@ public class ChangesetChange : Model {
     }
 
     /**
+     Getter for item_user_id.
+
+     - Returns:  Int
+
+     */
+    public func getItemUserId() -> Int {
+        return self.itemUserId
+    }
+
+    /**
+     Getter for item_user_name.
+
+     - Returns:  String
+
+     */
+    public func getItemUserName() -> String {
+        return self.itemUserName
+    }
+
+    /**
+     Getter for item_user_icon.
+
+     - Returns:  String
+
+     */
+    public func getItemUserIcon() -> String {
+        return self.itemUserIcon
+    }
+
+    /**
      Getter for item_version_id.
 
      - Returns:  Int
@@ -122,5 +180,15 @@ public class ChangesetChange : Model {
      */
     public func getItemIdentifier() -> String {
         return self.itemIdentifier
+    }
+
+    /**
+     Getter for item_change_type.
+
+     - Returns:  String
+
+     */
+    public func getItemChangeType() -> String {
+        return self.itemChangeType
     }
 }

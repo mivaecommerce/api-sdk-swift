@@ -128,10 +128,10 @@ public class ListQueryRequest : Request {
             try onDemandContainer.encode("ondemandcolumns", forKey: .name)
             try onDemandContainer.encode(self.onDemandColumns, forKey: .value)
         }
-
-        for filter in self.filter.getEntries() {
-            try filtersContainer.encode(filter)
-        }
+        
+        if self.filter.getEntries().count > 0 {
+            try filtersContainer.encode(self.filter)
+        }       
 
         if self.customFilters.count > 0 {
             for (k, v) in customFilters {

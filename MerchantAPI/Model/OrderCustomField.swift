@@ -100,6 +100,7 @@ public class OrderCustomField : Model {
         try container.encodeIfPresent(self.searchable, forKey: .searchable)
         try container.encodeIfPresent(self.sortable, forKey: .sortable)
         try container.encodeIfPresent(self.module, forKey: .module)
+        try container.encodeIfPresent(self.choices, forKey: .choices)
 
         try super.encode(to: encoder)
     }

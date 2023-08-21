@@ -119,6 +119,9 @@ public class OrderItem : Model {
     /// Model field product_id.
     var productId : Int
 
+    /// Model field group_id.
+    var groupId : Int
+
     /**
      CodingKeys used to map the model when encoding and decoding.
 
@@ -156,6 +159,7 @@ public class OrderItem : Model {
         case shipmentId = "shpmnt_id"
         case subscription
         case productId = "product_id"
+        case groupId = "group_id"
     }
 
     /**
@@ -193,6 +197,7 @@ public class OrderItem : Model {
         self.shipmentId = 0
         self.subscription = OrderItemSubscription()
         self.productId = 0
+        self.groupId = 0
 
         super.init()
     }
@@ -239,6 +244,7 @@ public class OrderItem : Model {
         self.shipmentId = try container.decodeIfPresent(Int.self, forKey: .shipmentId) ?? 0
         self.subscription = try container.decodeIfPresent(OrderItemSubscription.self, forKey: .subscription) ?? OrderItemSubscription()
         self.productId = try container.decodeIfPresent(Int.self, forKey: .productId) ?? 0
+        self.groupId = try container.decodeIfPresent(Int.self, forKey: .groupId) ?? 0
 
         try super.init(from : decoder)
     }
@@ -285,6 +291,7 @@ public class OrderItem : Model {
         try container.encodeIfPresent(self.shipmentId, forKey: .shipmentId)
         try container.encodeIfPresent(self.subscription, forKey: .subscription)
         try container.encodeIfPresent(self.productId, forKey: .productId)
+        try container.encodeIfPresent(self.groupId, forKey: .groupId)
 
         try super.encode(to: encoder)
     }
@@ -580,6 +587,16 @@ public class OrderItem : Model {
      */
     public func getProductId() -> Int {
         return self.productId
+    }
+
+    /**
+     Getter for group_id.
+
+     - Returns:  Int
+
+     */
+    public func getGroupId() -> Int {
+        return self.groupId
     }
 
     /**

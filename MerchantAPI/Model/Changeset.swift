@@ -113,6 +113,7 @@ public class Changeset : Model {
         try container.encodeIfPresent(self.notes, forKey: .notes)
         try container.encodeIfPresent(self.userName, forKey: .userName)
         try container.encodeIfPresent(self.userIcon, forKey: .userIcon)
+        try container.encodeIfPresent(self.tags, forKey: .tags)
         try container.encodeIfPresent(self.formattedTags, forKey: .formattedTags)
 
         try super.encode(to: encoder)

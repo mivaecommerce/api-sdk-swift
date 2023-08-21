@@ -132,6 +132,8 @@ public class JavaScriptResourceChange : Model {
         try container.encodeIfPresent(self.filePath, forKey: .filePath)
         try container.encodeIfPresent(self.branchlessFilePath, forKey: .branchlessFilePath)
         try container.encodeIfPresent(self.source, forKey: .source)
+        try container.encodeIfPresent(self.linkedPages, forKey: .linkedPages)
+        try container.encodeIfPresent(self.linkedResources, forKey: .linkedResources)
         try container.encodeIfPresent(self.attributes, forKey: .attributes)
         try container.encodeIfPresent(self.notes, forKey: .notes)
 

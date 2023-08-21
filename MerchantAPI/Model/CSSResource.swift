@@ -16,6 +16,9 @@ public class CSSResource : Model {
         case Inline = "I"
         case External = "E"
         case Local = "L"
+        case Module = "M"
+        case ModuleInline = "Y"
+        case ModuleManaged = "Z"
     }
 
     /// Model field id.
@@ -42,6 +45,12 @@ public class CSSResource : Model {
     /// Model field attributes.
     var attributes : [CSSResourceAttribute]
 
+    /// Model field mod_code.
+    var moduleCode : String
+
+    /// Model field mod_data.
+    var moduleData : String
+
     /**
      CodingKeys used to map the model when encoding and decoding.
 
@@ -56,6 +65,8 @@ public class CSSResource : Model {
         case file
         case templateId = "templ_id"
         case attributes
+        case moduleCode = "mod_code"
+        case moduleData = "mod_data"
     }
 
     /**
@@ -70,6 +81,8 @@ public class CSSResource : Model {
         self.file = ""
         self.templateId = 0
         self.attributes = []
+        self.moduleCode = ""
+        self.moduleData = ""
 
         super.init()
     }
@@ -93,6 +106,8 @@ public class CSSResource : Model {
         self.file = try container.decodeIfPresent(String.self, forKey: .file) ?? ""
         self.templateId = try container.decodeIfPresent(Int.self, forKey: .templateId) ?? 0
         self.attributes = try container.decodeIfPresent([CSSResourceAttribute].self, forKey: .attributes) ?? []
+        self.moduleCode = try container.decodeIfPresent(String.self, forKey: .moduleCode) ?? ""
+        self.moduleData = try container.decodeIfPresent(String.self, forKey: .moduleData) ?? ""
 
         try super.init(from : decoder)
     }
@@ -116,6 +131,8 @@ public class CSSResource : Model {
         try container.encodeIfPresent(self.file, forKey: .file)
         try container.encodeIfPresent(self.templateId, forKey: .templateId)
         try container.encodeIfPresent(self.attributes, forKey: .attributes)
+        try container.encodeIfPresent(self.moduleCode, forKey: .moduleCode)
+        try container.encodeIfPresent(self.moduleData, forKey: .moduleData)
 
         try super.encode(to: encoder)
     }
@@ -202,5 +219,25 @@ public class CSSResource : Model {
      */
     public func getAttributes() -> [CSSResourceAttribute] {
         return self.attributes
+    }
+
+    /**
+     Getter for mod_code.
+
+     - Returns:  String
+
+     */
+    public func getModuleCode() -> String {
+        return self.moduleCode
+    }
+
+    /**
+     Getter for mod_data.
+
+     - Returns:  String
+
+     */
+    public func getModuleData() -> String {
+        return self.moduleData
     }
 }

@@ -54,6 +54,12 @@ public class CSSResourceInsertRequest : Request {
     /// Request field CSSResource_Attributes.
     var CSSResourceAttributes : [CSSResourceAttribute] = []
 
+    /// Request field CSSResource_Module_Code.
+    var CSSResourceModuleCode : Optional<String> = nil
+
+    /// Request field CSSResource_Module_Data.
+    var CSSResourceModuleData : Optional<String> = nil
+
     /**
      CodingKeys used to map the request when encoding.
 
@@ -67,6 +73,8 @@ public class CSSResourceInsertRequest : Request {
         case CSSResourceActive = "CSSResource_Active"
         case CSSResourceFilePath = "CSSResource_File_Path"
         case CSSResourceAttributes = "CSSResource_Attributes"
+        case CSSResourceModuleCode = "CSSResource_Module_Code"
+        case CSSResourceModuleData = "CSSResource_Module_Data"
     }
 
     /**
@@ -96,6 +104,8 @@ public class CSSResourceInsertRequest : Request {
         try container.encodeIfPresent(self.CSSResourceActive, forKey: .CSSResourceActive)
         try container.encodeIfPresent(self.CSSResourceFilePath, forKey: .CSSResourceFilePath)
         try container.encodeIfPresent(self.CSSResourceAttributes, forKey: .CSSResourceAttributes)
+        try container.encodeIfPresent(self.CSSResourceModuleCode, forKey: .CSSResourceModuleCode)
+        try container.encodeIfPresent(self.CSSResourceModuleData, forKey: .CSSResourceModuleData)
 
         try super.encode(to : encoder)
     }
@@ -214,6 +224,24 @@ public class CSSResourceInsertRequest : Request {
     }
 
     /**
+     Getter for CSSResource_Module_Code.
+
+     - Returns:  Optional<String>
+     */
+    public func getCSSResourceModuleCode() -> Optional<String> {
+        return self.CSSResourceModuleCode
+    }
+
+    /**
+     Getter for CSSResource_Module_Data.
+
+     - Returns:  Optional<String>
+     */
+    public func getCSSResourceModuleData() -> Optional<String> {
+        return self.CSSResourceModuleData
+    }
+
+    /**
      Setter for CSSResource_Code.
 
      - Parameters:
@@ -288,6 +316,32 @@ public class CSSResourceInsertRequest : Request {
     @discardableResult
     public func setCSSResourceFilePath(_ value: Optional<String>) -> Self {
         self.CSSResourceFilePath = value
+        return self
+    }
+
+    /**
+     Setter for CSSResource_Module_Code.
+
+     - Parameters:
+        - value: Optional<String>
+     - Returns:  Self
+     */
+    @discardableResult
+    public func setCSSResourceModuleCode(_ value: Optional<String>) -> Self {
+        self.CSSResourceModuleCode = value
+        return self
+    }
+
+    /**
+     Setter for CSSResource_Module_Data.
+
+     - Parameters:
+        - value: Optional<String>
+     - Returns:  Self
+     */
+    @discardableResult
+    public func setCSSResourceModuleData(_ value: Optional<String>) -> Self {
+        self.CSSResourceModuleData = value
         return self
     }
 

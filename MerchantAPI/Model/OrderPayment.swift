@@ -68,10 +68,13 @@ public class OrderPayment : Model {
     var description : String
 
     /// Model field data.
-    var paymentData : [String]
+    var paymentData : [String:String]
 
     /// Model field ip.
     var ip : String
+
+    /// Model field module
+    var module : Module
 
     /**
      CodingKeys used to map the model when encoding and decoding.
@@ -96,6 +99,7 @@ public class OrderPayment : Model {
         case description
         case paymentData = "data"
         case ip
+        case module
     }
 
     /**
@@ -117,8 +121,9 @@ public class OrderPayment : Model {
         self.decryptStatus = ""
         self.decryptError = ""
         self.description = ""
-        self.paymentData = []
+        self.paymentData = [:]
         self.ip = ""
+        self.module = Module()
 
         super.init()
     }
@@ -149,8 +154,9 @@ public class OrderPayment : Model {
         self.decryptStatus = try container.decodeIfPresent(String.self, forKey: .decryptStatus) ?? ""
         self.decryptError = try container.decodeIfPresent(String.self, forKey: .decryptError) ?? ""
         self.description = try container.decodeIfPresent(String.self, forKey: .description) ?? ""
-        self.paymentData = try container.decodeIfPresent([String].self, forKey: .paymentData) ?? []
+        self.paymentData = try container.decodeIfPresent([String:String].self, forKey: .paymentData) ?? [:]
         self.ip = try container.decodeIfPresent(String.self, forKey: .ip) ?? ""
+        self.module = try container.decodeIfPresent(Module.self, forKey: .module) ?? Module()
 
         try super.init(from : decoder)
     }
@@ -181,7 +187,9 @@ public class OrderPayment : Model {
         try container.encodeIfPresent(self.decryptStatus, forKey: .decryptStatus)
         try container.encodeIfPresent(self.decryptError, forKey: .decryptError)
         try container.encodeIfPresent(self.description, forKey: .description)
+        try container.encodeIfPresent(self.paymentData, forKey: .paymentData)
         try container.encodeIfPresent(self.ip, forKey: .ip)
+        try container.encodeIfPresent(self.module, forKey: .module)
 
         try super.encode(to: encoder)
     }
@@ -340,9 +348,9 @@ public class OrderPayment : Model {
     /**
      Getter for data.
 
-     - Returns:  [String]
+     - Returns:  [String:String]
      */
-    public func getPaymentData() -> [String] {
+    public func getPaymentData() -> [String:String] {
         return self.paymentData
     }
 
@@ -354,5 +362,14 @@ public class OrderPayment : Model {
      */
     public func getIp() -> String {
         return self.ip
+    }
+
+    /**
+     Getter for module.
+
+     - Returns:  Module
+     */
+    public func getModule() -> Module {
+        return self.module
     }
 }

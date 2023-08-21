@@ -78,6 +78,8 @@ public class ResourceGroupChange : Model {
 
         try container.encodeIfPresent(self.resourceGroupId, forKey: .resourceGroupId)
         try container.encodeIfPresent(self.resourceGroupCode, forKey: .resourceGroupCode)
+        try container.encodeIfPresent(self.linkedCSSResources, forKey: .linkedCSSResources)
+        try container.encodeIfPresent(self.linkedJavaScriptResources, forKey: .linkedJavaScriptResources)
 
         try super.encode(to: encoder)
     }

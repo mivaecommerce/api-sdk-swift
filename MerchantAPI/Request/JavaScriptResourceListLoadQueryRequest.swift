@@ -49,7 +49,9 @@ public class JavaScriptResourceListLoadQueryRequest : ListQueryRequest {
                 "type",
                 "is_global",
                 "active",
-                "file"
+                "file",
+                "mod_code",
+                "mod_data"
             ]
         }
     }
@@ -68,7 +70,9 @@ public class JavaScriptResourceListLoadQueryRequest : ListQueryRequest {
                 "type",
                 "is_global",
                 "active",
-                "file"
+                "file",
+                "mod_code",
+                "mod_data"
             ]
         }
     }

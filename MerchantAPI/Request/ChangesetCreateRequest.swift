@@ -66,6 +66,9 @@ public class ChangesetCreateRequest : Request {
     /// Request field Property_Changes.
     var propertyChanges : [PropertyChange] = []
 
+    /// Request field Module_Changes.
+    var moduleChanges : [ModuleChange] = []
+
     /**
      CodingKeys used to map the request when encoding.
 
@@ -83,6 +86,7 @@ public class ChangesetCreateRequest : Request {
         case CSSResourceChanges = "CSSResource_Changes"
         case javaScriptResourceChanges = "JavaScriptResource_Changes"
         case propertyChanges = "Property_Changes"
+        case moduleChanges = "Module_Changes"
     }
 
     /**
@@ -130,6 +134,7 @@ public class ChangesetCreateRequest : Request {
         try container.encodeIfPresent(self.CSSResourceChanges, forKey: .CSSResourceChanges)
         try container.encodeIfPresent(self.javaScriptResourceChanges, forKey: .javaScriptResourceChanges)
         try container.encodeIfPresent(self.propertyChanges, forKey: .propertyChanges)
+        try container.encodeIfPresent(self.moduleChanges, forKey: .moduleChanges)
 
         try super.encode(to : encoder)
     }
@@ -269,6 +274,15 @@ public class ChangesetCreateRequest : Request {
      */
     public func getPropertyChanges() -> [PropertyChange] {
         return self.propertyChanges
+    }
+
+    /**
+     Getter for Module_Changes.
+
+     - Returns:  [ModuleChange]
+     */
+    public func getModuleChanges() -> [ModuleChange] {
+        return self.moduleChanges
     }
 
     /**
@@ -476,6 +490,35 @@ public class ChangesetCreateRequest : Request {
     public func addPropertyChanges(_ propertyChanges: [PropertyChange]) -> Self {
         for p in propertyChanges {
             self.propertyChanges.append(p);
+        }
+
+        return self
+    }
+
+    /**
+     Add a ModuleChange.
+
+     - Parameters:
+        - moduleChange: ModuleChange
+     - Returns: Self
+     */
+    @discardableResult
+    public func addModuleChange(_ moduleChange : ModuleChange) -> Self {
+        self.moduleChanges.append(moduleChange)
+        return self
+    }
+
+    /**
+     Add an array of ModuleChange.
+
+     - Parameters:
+        - moduleChanges: [ModuleChange]
+     - Returns: Self
+     */
+    @discardableResult
+    public func addModuleChanges(_ moduleChanges: [ModuleChange]) -> Self {
+        for m in moduleChanges {
+            self.moduleChanges.append(m);
         }
 
         return self

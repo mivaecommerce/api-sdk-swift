@@ -139,6 +139,12 @@ public class Store : Model {
     /// Model field redisex.
     var redisExpiration : Int
 
+    /// Model field boxpack_id.
+    var boxPackingId : Int
+
+    /// Model field addrval_id.
+    var addressValidationId : Int
+
     /**
      CodingKeys used to map the model when encoding and decoding.
 
@@ -186,6 +192,8 @@ public class Store : Model {
         case redisPort = "redisport"
         case redisTimeout = "redisto"
         case redisExpiration = "redisex"
+        case boxPackingId = "boxpack_id"
+        case addressValidationId = "addrval_id"
     }
 
     /**
@@ -233,6 +241,8 @@ public class Store : Model {
         self.redisPort = 0
         self.redisTimeout = 0
         self.redisExpiration = 0
+        self.boxPackingId = 0
+        self.addressValidationId = 0
 
         super.init()
     }
@@ -289,6 +299,8 @@ public class Store : Model {
         self.redisPort = try container.decodeIfPresent(Int.self, forKey: .redisPort) ?? 0
         self.redisTimeout = try container.decodeIfPresent(Int.self, forKey: .redisTimeout) ?? 0
         self.redisExpiration = try container.decodeIfPresent(Int.self, forKey: .redisExpiration) ?? 0
+        self.boxPackingId = try container.decodeIfPresent(Int.self, forKey: .boxPackingId) ?? 0
+        self.addressValidationId = try container.decodeIfPresent(Int.self, forKey: .addressValidationId) ?? 0
 
         try super.init(from : decoder)
     }
@@ -345,6 +357,8 @@ public class Store : Model {
         try container.encodeIfPresent(self.redisPort, forKey: .redisPort)
         try container.encodeIfPresent(self.redisTimeout, forKey: .redisTimeout)
         try container.encodeIfPresent(self.redisExpiration, forKey: .redisExpiration)
+        try container.encodeIfPresent(self.boxPackingId, forKey: .boxPackingId)
+        try container.encodeIfPresent(self.addressValidationId, forKey: .addressValidationId)
 
         try super.encode(to: encoder)
     }
@@ -754,5 +768,25 @@ public class Store : Model {
      */
     public func getRedisExpiration() -> Int {
         return self.redisExpiration
+    }
+
+    /**
+     Getter for boxpack_id.
+
+     - Returns:  Int
+
+     */
+    public func getBoxPackingId() -> Int {
+        return self.boxPackingId
+    }
+
+    /**
+     Getter for addrval_id.
+
+     - Returns:  Int
+
+     */
+    public func getAddressValidationId() -> Int {
+        return self.addressValidationId
     }
 }

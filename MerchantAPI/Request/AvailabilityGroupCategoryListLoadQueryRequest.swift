@@ -113,7 +113,8 @@ public class AvailabilityGroupCategoryListLoadQueryRequest : ListQueryRequest {
     override var availableOnDemandColumns : [ String ] {
         get {
             return [
-                "uris"
+                "uris",
+                "url"
             ]
         }
     }

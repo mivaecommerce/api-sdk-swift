@@ -113,7 +113,8 @@ public class PriceGroupCategoryListLoadQueryRequest : ListQueryRequest {
     override var availableOnDemandColumns : [ String ] {
         get {
             return [
-                "uris"
+                "uris",
+                "url"
             ]
         }
     }

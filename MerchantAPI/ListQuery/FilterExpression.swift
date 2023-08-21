@@ -16,7 +16,7 @@ public struct FilterExpressionOperation {
 }
 
 // Used internally in FilterExpression
-public class FilterExpressionEntry : Encodable {
+public class FilterExpressionEntry {
     /// The owner of the entry
     var parent      : FilterExpression
 
@@ -57,64 +57,6 @@ public class FilterExpressionEntry : Encodable {
         self.type       = type
         self.operation  = nil
         self.expression = expression
-    }
-
-    /**
-     CodingKeys used for encoding the request.
-
-     - SeeAlso: Encodable
-     */
-    enum CodingKeys: String, CodingKey {
-        case field
-        case op = "operator"
-        case value
-        case name
-    }
-
-    /**
-     Encodes the expression into an Encoder instance as an array.
-
-     - SeeAlso: Encodable
-     - Throws: When unable to encode the filters.
-     */
-    public func encode(to encoder: Encoder) throws {
-        if let expression = self.expression {
-            var container = encoder.container(keyedBy: CodingKeys.self)
-
-            try container.encode(self.type.rawValue, forKey: .name)
-
-            var subwhereContainer = container.nestedUnkeyedContainer(forKey: .value)
-
-            for subwhere in expression.getEntries() {
-                try subwhereContainer.encode(subwhere)
-            }
-        } else if let operation = self.operation {
-            if self.parent.isChild() {
-                var container = encoder.container(keyedBy: CodingKeys.self)
-
-                try container.encode(self.type.rawValue, forKey: .field)
-                try container.encode(FilterExpression.SearchOperator.SUBWHERE.rawValue, forKey: .op)
-
-                var valueContainer = container.nestedUnkeyedContainer(forKey: .value)
-
-                var valueEntry = valueContainer.nestedContainer(keyedBy: CodingKeys.self)
-
-                try valueEntry.encode(operation.left, forKey: .field)
-                try valueEntry.encode(operation.op.rawValue, forKey: .op)
-                try valueEntry.encode(operation.right, forKey: .value)
-            } else {
-                var container = encoder.container(keyedBy: CodingKeys.self)
-
-                try container.encode(operation.type.rawValue, forKey: .name)
-
-                var valueContainer  = container.nestedUnkeyedContainer(forKey: .value)
-                var valueEntry      = valueContainer.nestedContainer(keyedBy: CodingKeys.self)
-
-                try valueEntry.encode(operation.left, forKey: .field)
-                try valueEntry.encode(operation.op.rawValue, forKey: .op)
-                try valueEntry.encode(operation.right, forKey: .value)
-            }
-        }
     }
 }
 
@@ -159,7 +101,7 @@ extension String: FilterValue {
 
  - SeeAlso: ListQueryRequest
  */
-public class FilterExpression {
+public class FilterExpression : Encodable {
 
     /// Available search types.
     public enum SearchType : String {
@@ -273,7 +215,7 @@ public class FilterExpression {
 
         self.entries.append(FilterExpressionEntry(
             parent: self,
-            type: SearchType.FilterSearchAnd,
+            type: type,
             operation: FilterExpressionOperation(left: field, right: value?.toFilterValue(), op: op, type: type)
         ))
 
@@ -307,7 +249,7 @@ public class FilterExpression {
 
         self.entries.append(FilterExpressionEntry(
             parent: self,
-            type: SearchType.FilterSearchAnd,
+            type: type,
             operation: FilterExpressionOperation(left: field, right: _values.joined(separator: ","), op: op, type: type)
        ))
 
@@ -323,11 +265,7 @@ public class FilterExpression {
      */
     @discardableResult
     public func andX(_ expression : FilterExpression) -> Self {
-        expression.parent = self
-
-        self.entries.append(FilterExpressionEntry(parent: self, type: SearchType.FilterSearchAnd, expression: expression))
-
-        return self
+        return self.subX(SearchType.FilterSearchAnd, expression)
     }
 
     /**
@@ -339,13 +277,22 @@ public class FilterExpression {
      */
     @discardableResult
     public func orX(_ expression : FilterExpression) -> Self {
+        return self.subX(SearchType.FilterSearchOr, expression)
+    }
+
+    /**
+     Nest a FilterExpression as the specified type.
+
+     - Parameters:
+     - type: The FilterExpression to insert.
+     - expression: The FilterExpression to insert.
+     - Returns: Self
+     */
+    @discardableResult
+    public func subX(_ type: SearchType, _ expression : FilterExpression) -> Self {
         expression.parent = self
 
-        self.entries.append(FilterExpressionEntry(
-            parent: expression,
-            type: SearchType.FilterSearchOr,
-            expression: expression
-        ))
+        self.entries.append(FilterExpressionEntry(parent: self, type: type, expression: expression))
 
         return self
     }
@@ -923,4 +870,74 @@ public class FilterExpression {
     public func orNotIn<T:FilterValue>(_ field: String, values: [T]) -> Self {
         return self.add(field : field, op : SearchOperator.NOT_IN, values : values, type : SearchType.FilterSearchOr)
     }
+
+    /**
+     CodingKeys used for encoding the request.
+
+     - SeeAlso: Encodable
+     */
+    enum CodingKeys: String, CodingKey {
+        case field
+        case op = "operator"
+        case value
+        case name
+    }
+
+    /**
+      Encoder errors
+     */
+    enum EncoderError: Error {
+        case invalidExpressionEntry
+    }
+
+    /**
+     Encodes the expression into an Encoder instance as an array.
+
+     - SeeAlso: Encodable
+     - Throws: When unable to encode the filters.
+     */
+    public func encode(to encoder: Encoder) throws {
+        var rootEntry  = encoder.container(keyedBy: CodingKeys.self)
+        try rootEntry.encode(SearchType.FilterSearch.rawValue, forKey: .name)
+        try self.encodeLowLevel(self, to: encoder, rootEntry.nestedUnkeyedContainer(forKey: .value))
+    }
+
+    private func encodeLowLevel(_ expression: FilterExpression, to encoder: Encoder, _ container: UnkeyedEncodingContainer) throws {
+        var lastType = ""
+        var container = container
+
+        for entry in expression.entries {
+            if let expr = entry.expression {
+                var exprContainer = container.nestedContainer(keyedBy: CodingKeys.self)
+
+                try exprContainer.encode(entry.type.rawValue, forKey: .field)
+                try exprContainer.encode(SearchOperator.SUBWHERE.rawValue, forKey: .op)
+                try self.encodeLowLevel(expr, to: encoder, exprContainer.nestedUnkeyedContainer(forKey: .value))
+            } else if let operation = entry.operation {
+                if expression.isChild() || (lastType.count > 0 && lastType != entry.type.rawValue) {
+                    var subwhereContainer = container.nestedContainer(keyedBy: CodingKeys.self)
+
+                    try subwhereContainer.encode(entry.type.rawValue, forKey: .field)
+                    try subwhereContainer.encode(SearchOperator.SUBWHERE.rawValue, forKey: .op)
+
+                    var subwhereValueContainer = subwhereContainer.nestedUnkeyedContainer(forKey: .value)
+                    var nestedValueContainer = subwhereValueContainer.nestedContainer(keyedBy: CodingKeys.self)
+
+                    try nestedValueContainer.encode(operation.left, forKey: .field)
+                    try nestedValueContainer.encode(operation.op.rawValue, forKey: .op)
+                    try nestedValueContainer.encode(operation.right, forKey: .value)
+                } else {
+                    lastType = entry.type.rawValue
+                    var entryContainer = container.nestedContainer(keyedBy: CodingKeys.self)
+
+                    try entryContainer.encode(operation.left, forKey: .field)
+                    try entryContainer.encode(operation.op.rawValue, forKey: .op)
+                    try entryContainer.encode(operation.right, forKey: .value)
+                }
+            } else {
+                throw EncoderError.invalidExpressionEntry
+            }
+        }
+    }
 }
+

@@ -668,6 +668,10 @@
 		A3630EE824B4FE2C00C7F729 /* MultiCallResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3630DD624B4FE2B00C7F729 /* MultiCallResponse.swift */; };
 		A3630EE924B4FE2C00C7F729 /* MultiCallOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3630DD724B4FE2B00C7F729 /* MultiCallOperation.swift */; };
 		A3630EEA24B4FE2C00C7F729 /* MultiCallRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3630DD824B4FE2B00C7F729 /* MultiCallRequest.swift */; };
+		A36AF1892A742E1800822D4F /* VariableValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = A36AF1882A742E1800822D4F /* VariableValue.swift */; };
+		A36AF1922A74442F00822D4F /* ModuleChange.swift in Sources */ = {isa = PBXBuildFile; fileRef = A36AF1912A74442F00822D4F /* ModuleChange.swift */; };
+		A36AF19A2A781EA800822D4F /* OrderListArchiveRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = A36AF1992A781EA800822D4F /* OrderListArchiveRequest.swift */; };
+		A36AF19C2A781EB200822D4F /* OrderListArchiveResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = A36AF19B2A781EB200822D4F /* OrderListArchiveResponse.swift */; };
 		A379A8D628E776CB00143E1B /* ListQueryRequestBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = A379A8D528E776CB00143E1B /* ListQueryRequestBuilder.swift */; };
 		A395A10D2526872C009253C9 /* Util.swift in Sources */ = {isa = PBXBuildFile; fileRef = A395A10C2526872C009253C9 /* Util.swift */; };
 		A3C541DE24BE4505001E27AB /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3C541DD24BE4505001E27AB /* Logger.swift */; };
@@ -1332,6 +1336,10 @@
 		A3630DD624B4FE2B00C7F729 /* MultiCallResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MultiCallResponse.swift; sourceTree = "<group>"; };
 		A3630DD724B4FE2B00C7F729 /* MultiCallOperation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MultiCallOperation.swift; sourceTree = "<group>"; };
 		A3630DD824B4FE2B00C7F729 /* MultiCallRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MultiCallRequest.swift; sourceTree = "<group>"; };
+		A36AF1882A742E1800822D4F /* VariableValue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VariableValue.swift; sourceTree = "<group>"; };
+		A36AF1912A74442F00822D4F /* ModuleChange.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ModuleChange.swift; sourceTree = "<group>"; };
+		A36AF1992A781EA800822D4F /* OrderListArchiveRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OrderListArchiveRequest.swift; sourceTree = "<group>"; };
+		A36AF19B2A781EB200822D4F /* OrderListArchiveResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OrderListArchiveResponse.swift; sourceTree = "<group>"; };
 		A379A8D528E776CB00143E1B /* ListQueryRequestBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListQueryRequestBuilder.swift; sourceTree = "<group>"; };
 		A395A10C2526872C009253C9 /* Util.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Util.swift; sourceTree = "<group>"; };
 		A3C541DD24BE4505001E27AB /* Logger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Logger.swift; sourceTree = "<group>"; };
@@ -1581,6 +1589,7 @@
 				A31C825D29C4EC1800FE8124 /* OrderItemListRemoveFromShipmentRequest.swift */,
 				A31C819C29C4EC1400FE8124 /* OrderItemSplitRequest.swift */,
 				A31C824329C4EC1700FE8124 /* OrderItemUpdateRequest.swift */,
+				A36AF1992A781EA800822D4F /* OrderListArchiveRequest.swift */,
 				A31C818629C4EC1400FE8124 /* OrderListLoadQueryRequest.swift */,
 				A31C826729C4EC1800FE8124 /* OrderPaymentCaptureRequest.swift */,
 				A31C821A29C4EC1600FE8124 /* OrderPaymentRefundRequest.swift */,
@@ -1859,6 +1868,7 @@
 				A31C83EF29C4EC2F00FE8124 /* OrderItemListRemoveFromShipmentResponse.swift */,
 				A31C842129C4EC3000FE8124 /* OrderItemSplitResponse.swift */,
 				A31C841129C4EC2F00FE8124 /* OrderItemUpdateResponse.swift */,
+				A36AF19B2A781EB200822D4F /* OrderListArchiveResponse.swift */,
 				A31C83A129C4EC2D00FE8124 /* OrderListLoadQueryResponse.swift */,
 				A31C837929C4EC2C00FE8124 /* OrderPaymentCaptureResponse.swift */,
 				A31C83D829C4EC2E00FE8124 /* OrderPaymentRefundResponse.swift */,
@@ -2016,6 +2026,7 @@
 				A31C80E629C4EBC800FE8124 /* KitPart.swift */,
 				A31C808D29C4EBC600FE8124 /* MerchantVersion.swift */,
 				A31C80AB29C4EBC700FE8124 /* Module.swift */,
+				A36AF1912A74442F00822D4F /* ModuleChange.swift */,
 				A31C80A229C4EBC600FE8124 /* Note.swift */,
 				A31C80DF29C4EBC800FE8124 /* Order.swift */,
 				A31C80B229C4EBC700FE8124 /* OrderCharge.swift */,
@@ -2092,6 +2103,7 @@
 				A31C807929C4EBC500FE8124 /* TemplateChange.swift */,
 				A31C80B829C4EBC700FE8124 /* Uri.swift */,
 				A31C809729C4EBC600FE8124 /* UriDetail.swift */,
+				A36AF1882A742E1800822D4F /* VariableValue.swift */,
 				A31C807729C4EBC500FE8124 /* VariantAttribute.swift */,
 				A31C80C229C4EBC700FE8124 /* VariantPart.swift */,
 				A31C807329C4EBC500FE8124 /* VersionSettings.swift */,
@@ -2286,6 +2298,7 @@
 				A31C855229C4EC3200FE8124 /* AttributeTemplateOptionDeleteResponse.swift in Sources */,
 				A31C854A29C4EC3200FE8124 /* OptionLoadCodeResponse.swift in Sources */,
 				A31C853629C4EC3200FE8124 /* ProductURIListLoadQueryResponse.swift in Sources */,
+				A36AF19A2A781EA800822D4F /* OrderListArchiveRequest.swift in Sources */,
 				A31C82C429C4EC1800FE8124 /* CustomerPaymentCardRegisterRequest.swift in Sources */,
 				A31C84F829C4EC3200FE8124 /* PriceGroupQualifyingProductUpdateAssignedResponse.swift in Sources */,
 				A31C831029C4EC1800FE8124 /* ProductListLoadQueryRequest.swift in Sources */,
@@ -2384,6 +2397,7 @@
 				A379A8D628E776CB00143E1B /* ListQueryRequestBuilder.swift in Sources */,
 				A31C812429C4EBC900FE8124 /* OrderShipment.swift in Sources */,
 				A31C852F29C4EC3200FE8124 /* ProductVariantGenerateResponse.swift in Sources */,
+				A36AF1892A742E1800822D4F /* VariableValue.swift in Sources */,
 				A31C853429C4EC3200FE8124 /* PriceGroupBusinessAccountUpdateAssignedResponse.swift in Sources */,
 				A32F01D525119149000CBC16 /* Authenticator.swift in Sources */,
 				A31C829629C4EC1800FE8124 /* PageURIUpdateRequest.swift in Sources */,
@@ -2434,6 +2448,7 @@
 				A31C832D29C4EC1800FE8124 /* OrderShipmentListUpdateRequest.swift in Sources */,
 				A31C812529C4EBC900FE8124 /* CopyPageRulesSettings.swift in Sources */,
 				A31C82B829C4EC1800FE8124 /* NoteInsertRequest.swift in Sources */,
+				A36AF1922A74442F00822D4F /* ModuleChange.swift in Sources */,
 				A31C813A29C4EBC900FE8124 /* ImageType.swift in Sources */,
 				A31C82F329C4EC1800FE8124 /* CSSResourceInsertRequest.swift in Sources */,
 				A31C834229C4EC1800FE8124 /* ProductURIListDeleteRequest.swift in Sources */,
@@ -2602,6 +2617,7 @@
 				A31C82D229C4EC1800FE8124 /* CategoryListLoadQueryRequest.swift in Sources */,
 				A31C811929C4EBC900FE8124 /* OrderItemDiscount.swift in Sources */,
 				A31C80F229C4EBC900FE8124 /* AvailabilityGroupCustomer.swift in Sources */,
+				A36AF19C2A781EB200822D4F /* OrderListArchiveResponse.swift in Sources */,
 				A31C82B229C4EC1800FE8124 /* FeedURIListLoadQueryRequest.swift in Sources */,
 				A31C812829C4EBC900FE8124 /* ProductShippingMethod.swift in Sources */,
 				A31C828529C4EC1800FE8124 /* CustomerAddressUpdateRequest.swift in Sources */,
@@ -3007,7 +3023,7 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				MARKETING_VERSION = 2.4.0;
+				MARKETING_VERSION = 2.5.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.miva.framework.MerchantAPI;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SDKROOT = macosx;
@@ -3038,7 +3054,7 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				MARKETING_VERSION = 2.4.0;
+				MARKETING_VERSION = 2.5.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.miva.framework.MerchantAPI;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SDKROOT = macosx;
