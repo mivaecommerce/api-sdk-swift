@@ -34,6 +34,9 @@ public class Uri : Model {
     /// Model field page_id.
     var pageId : Int
 
+    /// Model field page_code.
+    var pageCode : String
+
     /// Model field cat_id.
     var categoryId : Int
 
@@ -75,6 +78,7 @@ public class Uri : Model {
         case storeId = "store_id"
         case screen
         case pageId = "page_id"
+        case pageCode = "page_code"
         case categoryId = "cat_id"
         case productId = "product_id"
         case feedId = "feed_id"
@@ -96,6 +100,7 @@ public class Uri : Model {
         self.storeId = 0
         self.screen = ""
         self.pageId = 0
+        self.pageCode = ""
         self.categoryId = 0
         self.productId = 0
         self.feedId = 0
@@ -126,6 +131,7 @@ public class Uri : Model {
         self.storeId = try container.decodeIfPresent(Int.self, forKey: .storeId) ?? 0
         self.screen = try container.decodeIfPresent(String.self, forKey: .screen) ?? ""
         self.pageId = try container.decodeIfPresent(Int.self, forKey: .pageId) ?? 0
+        self.pageCode = try container.decodeIfPresent(String.self, forKey: .pageCode) ?? ""
         self.categoryId = try container.decodeIfPresent(Int.self, forKey: .categoryId) ?? 0
         self.productId = try container.decodeIfPresent(Int.self, forKey: .productId) ?? 0
         self.feedId = try container.decodeIfPresent(Int.self, forKey: .feedId) ?? 0
@@ -156,6 +162,7 @@ public class Uri : Model {
         try container.encodeIfPresent(self.storeId, forKey: .storeId)
         try container.encodeIfPresent(self.screen, forKey: .screen)
         try container.encodeIfPresent(self.pageId, forKey: .pageId)
+        try container.encodeIfPresent(self.pageCode, forKey: .pageCode)
         try container.encodeIfPresent(self.categoryId, forKey: .categoryId)
         try container.encodeIfPresent(self.productId, forKey: .productId)
         try container.encodeIfPresent(self.feedId, forKey: .feedId)
@@ -218,6 +225,16 @@ public class Uri : Model {
      */
     public func getPageId() -> Int {
         return self.pageId
+    }
+
+    /**
+     Getter for page_code.
+
+     - Returns:  String
+
+     */
+    public func getPageCode() -> String {
+        return self.pageCode
     }
 
     /**

@@ -76,6 +76,9 @@ public class Product : Model {
     /// Model field cancat_code.
     var canonicalCategoryCode : String
 
+    /// Model field page_id.
+    var pageId : Int
+
     /// Model field page_code.
     var pageCode : String
 
@@ -143,6 +146,7 @@ public class Product : Model {
         case productInventoryActive = "product_inventory_active"
         case productInventory = "product_inventory"
         case canonicalCategoryCode = "cancat_code"
+        case pageId = "page_id"
         case pageCode = "page_code"
         case customFieldValues = "CustomField_Values"
         case uris
@@ -184,6 +188,7 @@ public class Product : Model {
         self.productInventoryActive = false
         self.productInventory = 0
         self.canonicalCategoryCode = ""
+        self.pageId = 0
         self.pageCode = ""
         self.customFieldValues = CustomFieldValues()
         self.uris = []
@@ -234,6 +239,7 @@ public class Product : Model {
         self.productInventoryActive = try container.decodeIfPresent(Bool.self, forKey: .productInventoryActive) ?? false
         self.productInventory = try container.decodeIfPresent(Int.self, forKey: .productInventory) ?? 0
         self.canonicalCategoryCode = try container.decodeIfPresent(String.self, forKey: .canonicalCategoryCode) ?? ""
+        self.pageId = try container.decodeIfPresent(Int.self, forKey: .pageId) ?? 0
         self.pageCode = try container.decodeIfPresent(String.self, forKey: .pageCode) ?? ""
         self.customFieldValues = try container.decodeIfPresent(CustomFieldValues.self, forKey: .customFieldValues) ?? CustomFieldValues()
         self.uris = try container.decodeIfPresent([Uri].self, forKey: .uris) ?? []
@@ -295,6 +301,7 @@ public class Product : Model {
         try container.encodeIfPresent(self.productInventoryActive, forKey: .productInventoryActive)
         try container.encodeIfPresent(self.productInventory, forKey: .productInventory)
         try container.encodeIfPresent(self.canonicalCategoryCode, forKey: .canonicalCategoryCode)
+        try container.encodeIfPresent(self.pageId, forKey: .pageId)
         try container.encodeIfPresent(self.pageCode, forKey: .pageCode)
         try container.encodeIfPresent(self.customFieldValues, forKey: .customFieldValues)
         try container.encodeIfPresent(self.uris, forKey: .uris)
@@ -512,6 +519,16 @@ public class Product : Model {
      */
     public func getCanonicalCategoryCode() -> String {
         return self.canonicalCategoryCode
+    }
+
+    /**
+     Getter for page_id.
+
+     - Returns:  Int
+
+     */
+    public func getPageId() -> Int {
+        return self.pageId
     }
 
     /**

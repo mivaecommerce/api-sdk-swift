@@ -23,9 +23,6 @@ public class ProductKitGenerateVariantsRequest : Request {
         case Specific = "specific"
         case Sum = "sum"
     }
-    
-    /** Preserve previous name */    
-    typealias KitVariantPricingMethod = VariantPricingMethod
 
     /**
      The API function name.

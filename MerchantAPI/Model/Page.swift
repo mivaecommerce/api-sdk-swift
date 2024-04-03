@@ -67,6 +67,9 @@ public class Page : Model {
     /// Model field CustomField_Values
     var customFieldValues : CustomFieldValues
 
+    /// Model field version_id.
+    var versionId : Int
+
     /**
      CodingKeys used to map the model when encoding and decoding.
 
@@ -89,6 +92,7 @@ public class Page : Model {
         case url
         case uris
         case customFieldValues = "CustomField_Values"
+        case versionId = "version_id"
     }
 
     /**
@@ -111,6 +115,7 @@ public class Page : Model {
         self.url = ""
         self.uris = []
         self.customFieldValues = CustomFieldValues()
+        self.versionId = 0
 
         super.init()
     }
@@ -142,6 +147,7 @@ public class Page : Model {
         self.url = try container.decodeIfPresent(String.self, forKey: .url) ?? ""
         self.uris = try container.decodeIfPresent([Uri].self, forKey: .uris) ?? []
         self.customFieldValues = try container.decodeIfPresent(CustomFieldValues.self, forKey: .customFieldValues) ?? CustomFieldValues()
+        self.versionId = try container.decodeIfPresent(Int.self, forKey: .versionId) ?? 0
 
         try super.init(from : decoder)
     }
@@ -173,6 +179,7 @@ public class Page : Model {
         try container.encodeIfPresent(self.url, forKey: .url)
         try container.encodeIfPresent(self.uris, forKey: .uris)
         try container.encodeIfPresent(self.customFieldValues, forKey: .customFieldValues)
+        try container.encodeIfPresent(self.versionId, forKey: .versionId)
 
         try super.encode(to: encoder)
     }
@@ -335,5 +342,15 @@ public class Page : Model {
      */
     public func getCustomFieldValues() -> CustomFieldValues {
         return self.customFieldValues
+    }
+
+    /**
+     Getter for version_id.
+
+     - Returns:  Int
+
+     */
+    public func getVersionId() -> Int {
+        return self.versionId
     }
 }

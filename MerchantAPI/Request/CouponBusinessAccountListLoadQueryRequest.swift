@@ -11,19 +11,11 @@ import FoundationNetworking
 #endif
 
 /**
- Handles API Request PriceGroupQualifyingProductList_Load_Query.
+ Handles API Request CouponBusinessAccountList_Load_Query.
 
- - SeeAlso: https://docs.miva.com/json-api/functions/pricegroupqualifyingproductlist_load_query
+ - SeeAlso: https://docs.miva.com/json-api/functions/couponbusinessaccountlist_load_query
  */
-public class PriceGroupQualifyingProductListLoadQueryRequest : ListQueryRequest {
-
-    /// Enumeration ProductShow
-    public enum ProductShow : String {
-        case All = "All"
-        case Uncategorized = "Uncategorized"
-        case Active = "Active"
-    }
-
+public class CouponBusinessAccountListLoadQueryRequest : ListQueryRequest {
     /**
      The API function name.
 
@@ -31,7 +23,7 @@ public class PriceGroupQualifyingProductListLoadQueryRequest : ListQueryRequest 
      - Returns: String
      */
     override var function : String {
-        return "PriceGroupQualifyingProductList_Load_Query"
+        return "CouponBusinessAccountList_Load_Query"
     }
 
     /**
@@ -44,14 +36,14 @@ public class PriceGroupQualifyingProductListLoadQueryRequest : ListQueryRequest 
         return RequestScope.Store;
     }
 
-    /// Request field PriceGroup_ID.
-    var priceGroupId : Optional<Int> = nil
+    /// Request field Coupon_ID.
+    var couponId : Optional<Int> = nil
 
-    /// Request field Edit_PriceGroup.
-    var editPriceGroup : Optional<String> = nil
+    /// Request field Edit_Coupon.
+    var editCoupon : Optional<String> = nil
 
-    /// Request field PriceGroup_Name.
-    var priceGroupName : Optional<String> = nil
+    /// Request field Coupon_Code.
+    var couponCode : Optional<String> = nil
 
     /// Request field Assigned.
     var assigned : Optional<Bool> = nil
@@ -68,25 +60,12 @@ public class PriceGroupQualifyingProductListLoadQueryRequest : ListQueryRequest 
     override var availableSearchFields : [ String ] {
         get {
             return [
-                "id",
-                "code",
-                "sku",
-                "cancat_code",
-                "page_code",
-                "name",
-                "thumbnail",
-                "image",
-                "price",
-                "cost",
-                "descrip",
-                "weight",
-                "taxable",
-                "active",
-                "page_title",
-                "dt_created",
-                "dt_updated",
-                "category",
-                "product_inventory"
+                "title",
+                "note_count",
+                "tax_exempt",
+                "order_cnt",
+                "order_avg",
+                "order_tot"
             ]
         }
     }
@@ -101,50 +80,12 @@ public class PriceGroupQualifyingProductListLoadQueryRequest : ListQueryRequest 
         get {
             return [
                 "id",
-                "code",
-                "sku",
-                "cancat_code",
-                "page_code",
-                "name",
-                "thumbnail",
-                "image",
-                "price",
-                "cost",
-                "descrip",
-                "weight",
-                "taxable",
-                "active",
-                "page_title",
-                "dt_created",
-                "dt_updated"
-            ]
-        }
-    }
-
-    /**
-     The available on demand columns applicable to the request.
-
-     - Returns: An array of strings.
-     - Note: Overrides
-     */
-    override var availableOnDemandColumns : [ String ] {
-        get {
-            return [
-                "descrip",
-                "catcount",
-                "cancat_code",
-                "page_code",
-                "product_inventory",
-                "productinventorysettings",
-                "attributes",
-                "productimagedata",
-                "categories",
-                "productshippingrules",
-                "relatedproducts",
-                "uris",
-                "url",
-                "subscriptionsettings",
-                "subscriptionterms"
+                "title",
+                "note_count",
+                "tax_exempt",
+                "order_cnt",
+                "order_avg",
+                "order_tot"
             ]
         }
     }
@@ -156,9 +97,9 @@ public class PriceGroupQualifyingProductListLoadQueryRequest : ListQueryRequest 
      */
     private enum CodingKeys: String, CodingKey {
         case function = "Function"
-        case priceGroupId = "PriceGroup_ID"
-        case editPriceGroup = "Edit_PriceGroup"
-        case priceGroupName = "PriceGroup_Name"
+        case couponId = "Coupon_ID"
+        case editCoupon = "Edit_Coupon"
+        case couponCode = "Coupon_Code"
         case assigned = "Assigned"
         case unassigned = "Unassigned"
     }
@@ -168,13 +109,15 @@ public class PriceGroupQualifyingProductListLoadQueryRequest : ListQueryRequest 
 
      - Parameters:
         - client: A BaseClient instance.
-        - priceGroup: An optional PriceGroup instance.
+        - coupon: An optional Coupon instance.
      */
-    public init(client: Optional<BaseClient> = nil, priceGroup: Optional<PriceGroup> = nil) {
+    public init(client: Optional<BaseClient> = nil, coupon: Optional<Coupon> = nil) {
         super.init(client: client)
-        if let priceGroup = priceGroup {
-            if priceGroup.id > 0 {
-                self.priceGroupId = priceGroup.id
+        if let coupon = coupon {
+            if coupon.id > 0 {
+                self.couponId = coupon.id
+            } else if coupon.code.count > 0 {
+                self.editCoupon = coupon.code
             }
         }
     }
@@ -190,12 +133,12 @@ public class PriceGroupQualifyingProductListLoadQueryRequest : ListQueryRequest 
     public override func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
 
-        if self.priceGroupId != nil {
-            try container.encodeIfPresent(self.priceGroupId, forKey: .priceGroupId)
-        } else if self.editPriceGroup != nil {
-            try container.encode(self.editPriceGroup, forKey: .editPriceGroup)
-        } else if self.priceGroupName != nil {
-            try container.encode(self.priceGroupName, forKey: .priceGroupName)
+        if self.couponId != nil {
+            try container.encodeIfPresent(self.couponId, forKey: .couponId)
+        } else if self.editCoupon != nil {
+            try container.encode(self.editCoupon, forKey: .editCoupon)
+        } else if self.couponCode != nil {
+            try container.encode(self.couponCode, forKey: .couponCode)
         }
 
         try container.encodeIfPresent(self.assigned, forKey: .assigned)
@@ -208,14 +151,14 @@ public class PriceGroupQualifyingProductListLoadQueryRequest : ListQueryRequest 
      Send the request for a response.
 
      - Parameters:
-        - callback: The callback function with signature (PriceGroupQualifyingProductListLoadQueryResponse?, Error?).
+        - callback: The callback function with signature (CouponBusinessAccountListLoadQueryResponse?, Error?).
      - Note: Overrides
      */
 
-     public override func send(client: Optional<BaseClient> = nil, callback: @escaping (PriceGroupQualifyingProductListLoadQueryResponse?, Error?) -> ()) throws {
+     public override func send(client: Optional<BaseClient> = nil, callback: @escaping (CouponBusinessAccountListLoadQueryResponse?, Error?) -> ()) throws {
         if let client = client ?? self.client {
             client.send(self) { request, response, error in
-                callback(response as? PriceGroupQualifyingProductListLoadQueryResponse, error)
+                callback(response as? CouponBusinessAccountListLoadQueryResponse, error)
             }
         } else {
             throw RequestError.noClientAssigned
@@ -231,14 +174,14 @@ public class PriceGroupQualifyingProductListLoadQueryRequest : ListQueryRequest 
      - Throws: Error when unable to decode the response data.
      - Note: Overrides
      */
-    public override func createResponse(httpResponse: URLResponse, data : Data) throws -> PriceGroupQualifyingProductListLoadQueryResponse {
+    public override func createResponse(httpResponse: URLResponse, data : Data) throws -> CouponBusinessAccountListLoadQueryResponse {
         let decoder = JSONDecoder()
 
         decoder.userInfo[Response.decoderRequestUserInfoKey]            = self
         decoder.userInfo[Response.decoderHttpResponseDataUserInfoKey]   = httpResponse
         decoder.userInfo[Response.decoderResponseDataUserInfoKey]       = data
 
-        return try decoder.decode(PriceGroupQualifyingProductListLoadQueryResponse.self, from: data)
+        return try decoder.decode(CouponBusinessAccountListLoadQueryResponse.self, from: data)
     }
 
     /**
@@ -248,34 +191,34 @@ public class PriceGroupQualifyingProductListLoadQueryRequest : ListQueryRequest 
      - Note: Overrides
      */
     override public func getResponseType() -> Response.Type {
-        return PriceGroupQualifyingProductListLoadQueryResponse.self
+        return CouponBusinessAccountListLoadQueryResponse.self
     }
 
     /**
-     Getter for PriceGroup_ID.
+     Getter for Coupon_ID.
 
      - Returns:  Optional<Int>
      */
-    public func getPriceGroupId() -> Optional<Int> {
-        return self.priceGroupId
+    public func getCouponId() -> Optional<Int> {
+        return self.couponId
     }
 
     /**
-     Getter for Edit_PriceGroup.
+     Getter for Edit_Coupon.
 
      - Returns:  Optional<String>
      */
-    public func getEditPriceGroup() -> Optional<String> {
-        return self.editPriceGroup
+    public func getEditCoupon() -> Optional<String> {
+        return self.editCoupon
     }
 
     /**
-     Getter for PriceGroup_Name.
+     Getter for Coupon_Code.
 
      - Returns:  Optional<String>
      */
-    public func getPriceGroupName() -> Optional<String> {
-        return self.priceGroupName
+    public func getCouponCode() -> Optional<String> {
+        return self.couponCode
     }
 
     /**
@@ -297,41 +240,41 @@ public class PriceGroupQualifyingProductListLoadQueryRequest : ListQueryRequest 
     }
 
     /**
-     Setter for PriceGroup_ID.
+     Setter for Coupon_ID.
 
      - Parameters:
         - value: Optional<Int>
      - Returns:  Self
      */
     @discardableResult
-    public func setPriceGroupId(_ value: Optional<Int>) -> Self {
-        self.priceGroupId = value
+    public func setCouponId(_ value: Optional<Int>) -> Self {
+        self.couponId = value
         return self
     }
 
     /**
-     Setter for Edit_PriceGroup.
+     Setter for Edit_Coupon.
 
      - Parameters:
         - value: Optional<String>
      - Returns:  Self
      */
     @discardableResult
-    public func setEditPriceGroup(_ value: Optional<String>) -> Self {
-        self.editPriceGroup = value
+    public func setEditCoupon(_ value: Optional<String>) -> Self {
+        self.editCoupon = value
         return self
     }
 
     /**
-     Setter for PriceGroup_Name.
+     Setter for Coupon_Code.
 
      - Parameters:
         - value: Optional<String>
      - Returns:  Self
      */
     @discardableResult
-    public func setPriceGroupName(_ value: Optional<String>) -> Self {
-        self.priceGroupName = value
+    public func setCouponCode(_ value: Optional<String>) -> Self {
+        self.couponCode = value
         return self
     }
 

@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 52;
+	objectVersion = 54;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -674,6 +674,27 @@
 		A36AF19C2A781EB200822D4F /* OrderListArchiveResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = A36AF19B2A781EB200822D4F /* OrderListArchiveResponse.swift */; };
 		A379A8D628E776CB00143E1B /* ListQueryRequestBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = A379A8D528E776CB00143E1B /* ListQueryRequestBuilder.swift */; };
 		A395A10D2526872C009253C9 /* Util.swift in Sources */ = {isa = PBXBuildFile; fileRef = A395A10C2526872C009253C9 /* Util.swift */; };
+		A3A90C142B97F41B00F1C45F /* BranchItemVersion.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3A90C132B97F41B00F1C45F /* BranchItemVersion.swift */; };
+		A3A90C162B97F42700F1C45F /* BranchItemVersionListLoadQueryRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3A90C152B97F42700F1C45F /* BranchItemVersionListLoadQueryRequest.swift */; };
+		A3A90C182B97F42E00F1C45F /* BranchItemVersionListLoadQueryResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3A90C172B97F42E00F1C45F /* BranchItemVersionListLoadQueryResponse.swift */; };
+		A3A90C1F2B97F6F900F1C45F /* BranchPageVersion.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3A90C1E2B97F6F900F1C45F /* BranchPageVersion.swift */; };
+		A3A90C212B97F70400F1C45F /* BranchPageVersionListLoadQueryRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3A90C202B97F70400F1C45F /* BranchPageVersionListLoadQueryRequest.swift */; };
+		A3A90C232B97F71400F1C45F /* BranchPageVersionListLoadQueryResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3A90C222B97F71400F1C45F /* BranchPageVersionListLoadQueryResponse.swift */; };
+		A3A90C262B990AEE00F1C45F /* ChangesetItemVersion.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3A90C252B990AEE00F1C45F /* ChangesetItemVersion.swift */; };
+		A3A90C282B990AFB00F1C45F /* ChangesetItemVersionListLoadQueryRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3A90C272B990AFB00F1C45F /* ChangesetItemVersionListLoadQueryRequest.swift */; };
+		A3A90C2A2B990B0600F1C45F /* ChangesetItemVersionListLoadQueryResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3A90C292B990B0600F1C45F /* ChangesetItemVersionListLoadQueryResponse.swift */; };
+		A3A90C2F2B990E0A00F1C45F /* CouponBusinessAccount.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3A90C2E2B990E0A00F1C45F /* CouponBusinessAccount.swift */; };
+		A3A90C322B990E1F00F1C45F /* CouponBusinessAccountListLoadQueryRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3A90C302B990E1F00F1C45F /* CouponBusinessAccountListLoadQueryRequest.swift */; };
+		A3A90C332B990E1F00F1C45F /* CouponBusinessAccountUpdateAssignedRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3A90C312B990E1F00F1C45F /* CouponBusinessAccountUpdateAssignedRequest.swift */; };
+		A3A90C362B990E2D00F1C45F /* CouponBusinessAccountUpdateAssignedResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3A90C342B990E2D00F1C45F /* CouponBusinessAccountUpdateAssignedResponse.swift */; };
+		A3A90C372B990E2D00F1C45F /* CouponBusinessAccountListLoadQueryResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3A90C352B990E2D00F1C45F /* CouponBusinessAccountListLoadQueryResponse.swift */; };
+		A3A90C3E2B991A1300F1C45F /* PageCopyBranchRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3A90C3D2B991A1300F1C45F /* PageCopyBranchRequest.swift */; };
+		A3A90C402B991A2100F1C45F /* PageCopyBranchResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3A90C3F2B991A2100F1C45F /* PageCopyBranchResponse.swift */; };
+		A3A90C452B99360600F1C45F /* ProductVariantPricingUpdateRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3A90C442B99360600F1C45F /* ProductVariantPricingUpdateRequest.swift */; };
+		A3A90C472B99361200F1C45F /* ProductVariantPricingUpdateResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3A90C462B99361200F1C45F /* ProductVariantPricingUpdateResponse.swift */; };
+		A3A90C542B9A466900F1C45F /* ShippingRuleMethod.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3A90C532B9A466900F1C45F /* ShippingRuleMethod.swift */; };
+		A3A90C562B9A467800F1C45F /* ProductShippingRulesUpdateRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3A90C552B9A467800F1C45F /* ProductShippingRulesUpdateRequest.swift */; };
+		A3A90C582B9A468700F1C45F /* ProductShippingRulesUpdateResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3A90C572B9A468700F1C45F /* ProductShippingRulesUpdateResponse.swift */; };
 		A3C541DE24BE4505001E27AB /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3C541DD24BE4505001E27AB /* Logger.swift */; };
 /* End PBXBuildFile section */
 
@@ -1342,6 +1363,27 @@
 		A36AF19B2A781EB200822D4F /* OrderListArchiveResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OrderListArchiveResponse.swift; sourceTree = "<group>"; };
 		A379A8D528E776CB00143E1B /* ListQueryRequestBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListQueryRequestBuilder.swift; sourceTree = "<group>"; };
 		A395A10C2526872C009253C9 /* Util.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Util.swift; sourceTree = "<group>"; };
+		A3A90C132B97F41B00F1C45F /* BranchItemVersion.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BranchItemVersion.swift; sourceTree = "<group>"; };
+		A3A90C152B97F42700F1C45F /* BranchItemVersionListLoadQueryRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BranchItemVersionListLoadQueryRequest.swift; sourceTree = "<group>"; };
+		A3A90C172B97F42E00F1C45F /* BranchItemVersionListLoadQueryResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BranchItemVersionListLoadQueryResponse.swift; sourceTree = "<group>"; };
+		A3A90C1E2B97F6F900F1C45F /* BranchPageVersion.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BranchPageVersion.swift; sourceTree = "<group>"; };
+		A3A90C202B97F70400F1C45F /* BranchPageVersionListLoadQueryRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BranchPageVersionListLoadQueryRequest.swift; sourceTree = "<group>"; };
+		A3A90C222B97F71400F1C45F /* BranchPageVersionListLoadQueryResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BranchPageVersionListLoadQueryResponse.swift; sourceTree = "<group>"; };
+		A3A90C252B990AEE00F1C45F /* ChangesetItemVersion.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChangesetItemVersion.swift; sourceTree = "<group>"; };
+		A3A90C272B990AFB00F1C45F /* ChangesetItemVersionListLoadQueryRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChangesetItemVersionListLoadQueryRequest.swift; sourceTree = "<group>"; };
+		A3A90C292B990B0600F1C45F /* ChangesetItemVersionListLoadQueryResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChangesetItemVersionListLoadQueryResponse.swift; sourceTree = "<group>"; };
+		A3A90C2E2B990E0A00F1C45F /* CouponBusinessAccount.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CouponBusinessAccount.swift; sourceTree = "<group>"; };
+		A3A90C302B990E1F00F1C45F /* CouponBusinessAccountListLoadQueryRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CouponBusinessAccountListLoadQueryRequest.swift; sourceTree = "<group>"; };
+		A3A90C312B990E1F00F1C45F /* CouponBusinessAccountUpdateAssignedRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CouponBusinessAccountUpdateAssignedRequest.swift; sourceTree = "<group>"; };
+		A3A90C342B990E2D00F1C45F /* CouponBusinessAccountUpdateAssignedResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CouponBusinessAccountUpdateAssignedResponse.swift; sourceTree = "<group>"; };
+		A3A90C352B990E2D00F1C45F /* CouponBusinessAccountListLoadQueryResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CouponBusinessAccountListLoadQueryResponse.swift; sourceTree = "<group>"; };
+		A3A90C3D2B991A1300F1C45F /* PageCopyBranchRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PageCopyBranchRequest.swift; sourceTree = "<group>"; };
+		A3A90C3F2B991A2100F1C45F /* PageCopyBranchResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PageCopyBranchResponse.swift; sourceTree = "<group>"; };
+		A3A90C442B99360600F1C45F /* ProductVariantPricingUpdateRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProductVariantPricingUpdateRequest.swift; sourceTree = "<group>"; };
+		A3A90C462B99361200F1C45F /* ProductVariantPricingUpdateResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProductVariantPricingUpdateResponse.swift; sourceTree = "<group>"; };
+		A3A90C532B9A466900F1C45F /* ShippingRuleMethod.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShippingRuleMethod.swift; sourceTree = "<group>"; };
+		A3A90C552B9A467800F1C45F /* ProductShippingRulesUpdateRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProductShippingRulesUpdateRequest.swift; sourceTree = "<group>"; };
+		A3A90C572B9A468700F1C45F /* ProductShippingRulesUpdateResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProductShippingRulesUpdateResponse.swift; sourceTree = "<group>"; };
 		A3C541DD24BE4505001E27AB /* Logger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Logger.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -1406,24 +1448,24 @@
 			isa = PBXGroup;
 			children = (
 				A32F01CD25118EF4000CBC16 /* Authenticator */,
-				A3630DD024B4FE2B00C7F729 /* ListQuery */,
-				A3630E3824B4FE2B00C7F729 /* Model */,
-				A3630DD524B4FE2B00C7F729 /* MultiCall */,
-				A3630D7124B4FE2B00C7F729 /* Request */,
-				A3630DD924B4FE2B00C7F729 /* Response */,
+				A32F01DD2511921B000CBC16 /* BaseClient.swift */,
 				A3630D5424B4FD4800C7F729 /* Client.swift */,
 				A3630D5F24B4FD4900C7F729 /* Encodable.swift */,
+				A3630DD024B4FE2B00C7F729 /* ListQuery */,
+				A3C541DD24BE4505001E27AB /* Logger.swift */,
+				A3630E3824B4FE2B00C7F729 /* Model */,
 				A3630D5924B4FD4900C7F729 /* Model.swift */,
+				A3630DD524B4FE2B00C7F729 /* MultiCall */,
+				A3630D7124B4FE2B00C7F729 /* Request */,
 				A3630D5824B4FD4900C7F729 /* Request.swift */,
 				A3630D5C24B4FD4900C7F729 /* RequestBuilder.swift */,
+				A3630DD924B4FE2B00C7F729 /* Response */,
 				A3630D5E24B4FD4900C7F729 /* Response.swift */,
-				A3630D5D24B4FD4900C7F729 /* Version.swift */,
-				A3C541DD24BE4505001E27AB /* Logger.swift */,
 				A32F01D7251191AD000CBC16 /* SSHAgent.swift */,
-				A32F01D9251191DC000CBC16 /* SSHClient.swift */,
 				A32F01DB251191E6000CBC16 /* SSHAgentClient.swift */,
-				A32F01DD2511921B000CBC16 /* BaseClient.swift */,
+				A32F01D9251191DC000CBC16 /* SSHClient.swift */,
 				A395A10C2526872C009253C9 /* Util.swift */,
+				A3630D5D24B4FD4900C7F729 /* Version.swift */,
 			);
 			path = MerchantAPI;
 			sourceTree = "<group>";
@@ -1473,9 +1515,11 @@
 				A31C825B29C4EC1700FE8124 /* BranchCreateRequest.swift */,
 				A31C824829C4EC1700FE8124 /* BranchCSSResourceVersionListLoadQueryRequest.swift */,
 				A31C826029C4EC1800FE8124 /* BranchDeleteRequest.swift */,
+				A3A90C152B97F42700F1C45F /* BranchItemVersionListLoadQueryRequest.swift */,
 				A31C81B929C4EC1400FE8124 /* BranchJavaScriptResourceVersionListLoadQueryRequest.swift */,
 				A31C827129C4EC1800FE8124 /* BranchListDeleteRequest.swift */,
 				A31C81D229C4EC1500FE8124 /* BranchListLoadQueryRequest.swift */,
+				A3A90C202B97F70400F1C45F /* BranchPageVersionListLoadQueryRequest.swift */,
 				A31C81A729C4EC1400FE8124 /* BranchPropertyVersionListLoadQueryRequest.swift */,
 				A31C81C629C4EC1500FE8124 /* BranchSetPrimaryRequest.swift */,
 				A31C822329C4EC1600FE8124 /* BranchTemplateVersionListLoadQueryRequest.swift */,
@@ -1501,6 +1545,7 @@
 				A31C822529C4EC1600FE8124 /* ChangesetChangeListLoadQueryRequest.swift */,
 				A31C81BB29C4EC1500FE8124 /* ChangesetCreateRequest.swift */,
 				A31C81D729C4EC1500FE8124 /* ChangesetCSSResourceVersionListLoadQueryRequest.swift */,
+				A3A90C272B990AFB00F1C45F /* ChangesetItemVersionListLoadQueryRequest.swift */,
 				A31C81A129C4EC1400FE8124 /* ChangesetJavaScriptResourceVersionListLoadQueryRequest.swift */,
 				A31C825729C4EC1700FE8124 /* ChangesetListLoadQueryRequest.swift */,
 				A31C822929C4EC1700FE8124 /* ChangesetListMergeRequest.swift */,
@@ -1521,6 +1566,8 @@
 				A31C821B29C4EC1600FE8124 /* CopyProductRulesModuleListLoadQueryRequest.swift */,
 				A31C823E29C4EC1700FE8124 /* CopyProductRulesModuleUpdateAssignedRequest.swift */,
 				A31C81AC29C4EC1400FE8124 /* CopyProductRulesUpdateRequest.swift */,
+				A3A90C302B990E1F00F1C45F /* CouponBusinessAccountListLoadQueryRequest.swift */,
+				A3A90C312B990E1F00F1C45F /* CouponBusinessAccountUpdateAssignedRequest.swift */,
 				A31C81D529C4EC1500FE8124 /* CouponCustomerListLoadQueryRequest.swift */,
 				A31C819529C4EC1400FE8124 /* CouponCustomerUpdateAssignedRequest.swift */,
 				A31C81A929C4EC1400FE8124 /* CouponInsertRequest.swift */,
@@ -1600,6 +1647,7 @@
 				A31C818129C4EC1300FE8124 /* OrderShipmentListLoadQueryRequest.swift */,
 				A31C823529C4EC1700FE8124 /* OrderShipmentListUpdateRequest.swift */,
 				A31C818B29C4EC1400FE8124 /* OrderUpdateCustomerInformationRequest.swift */,
+				A3A90C3D2B991A1300F1C45F /* PageCopyBranchRequest.swift */,
 				A31C826529C4EC1800FE8124 /* PageCopyRequest.swift */,
 				A31C81C129C4EC1500FE8124 /* PageDeleteRequest.swift */,
 				A31C81DD29C4EC1500FE8124 /* PageInsertRequest.swift */,
@@ -1648,6 +1696,7 @@
 				A31C824F29C4EC1700FE8124 /* ProductKitVariantCountRequest.swift */,
 				A31C825829C4EC1700FE8124 /* ProductListAdjustInventoryRequest.swift */,
 				A31C821829C4EC1600FE8124 /* ProductListLoadQueryRequest.swift */,
+				A3A90C552B9A467800F1C45F /* ProductShippingRulesUpdateRequest.swift */,
 				A31C81B229C4EC1400FE8124 /* ProductSubscriptionTermListLoadQueryRequest.swift */,
 				A31C826A29C4EC1800FE8124 /* ProductUpdateRequest.swift */,
 				A31C81F529C4EC1600FE8124 /* ProductURIInsertRequest.swift */,
@@ -1661,6 +1710,7 @@
 				A31C823429C4EC1700FE8124 /* ProductVariantListDeleteRequest.swift */,
 				A31C818229C4EC1300FE8124 /* ProductVariantListLoadProductRequest.swift */,
 				A31C81EF29C4EC1500FE8124 /* ProductVariantListLoadQueryRequest.swift */,
+				A3A90C442B99360600F1C45F /* ProductVariantPricingUpdateRequest.swift */,
 				A31C821129C4EC1600FE8124 /* ProductVariantUpdateRequest.swift */,
 				A31C81E029C4EC1500FE8124 /* ProvisionDomainRequest.swift */,
 				A31C820C29C4EC1600FE8124 /* ProvisionStoreRequest.swift */,
@@ -1752,9 +1802,11 @@
 				A31C83B129C4EC2D00FE8124 /* BranchCreateResponse.swift */,
 				A31C83B729C4EC2D00FE8124 /* BranchCSSResourceVersionListLoadQueryResponse.swift */,
 				A31C83C229C4EC2E00FE8124 /* BranchDeleteResponse.swift */,
+				A3A90C172B97F42E00F1C45F /* BranchItemVersionListLoadQueryResponse.swift */,
 				A31C840729C4EC2F00FE8124 /* BranchJavaScriptResourceVersionListLoadQueryResponse.swift */,
 				A31C83CB29C4EC2E00FE8124 /* BranchListDeleteResponse.swift */,
 				A31C83B429C4EC2D00FE8124 /* BranchListLoadQueryResponse.swift */,
+				A3A90C222B97F71400F1C45F /* BranchPageVersionListLoadQueryResponse.swift */,
 				A31C842B29C4EC3000FE8124 /* BranchPropertyVersionListLoadQueryResponse.swift */,
 				A31C841929C4EC3000FE8124 /* BranchSetPrimaryResponse.swift */,
 				A31C837A29C4EC2C00FE8124 /* BranchTemplateVersionListLoadQueryResponse.swift */,
@@ -1780,6 +1832,7 @@
 				A31C841A29C4EC3000FE8124 /* ChangesetChangeListLoadQueryResponse.swift */,
 				A31C839929C4EC2D00FE8124 /* ChangesetCreateResponse.swift */,
 				A31C842E29C4EC3000FE8124 /* ChangesetCSSResourceVersionListLoadQueryResponse.swift */,
+				A3A90C292B990B0600F1C45F /* ChangesetItemVersionListLoadQueryResponse.swift */,
 				A31C841329C4EC3000FE8124 /* ChangesetJavaScriptResourceVersionListLoadQueryResponse.swift */,
 				A31C842629C4EC3000FE8124 /* ChangesetListLoadQueryResponse.swift */,
 				A31C837129C4EC2C00FE8124 /* ChangesetListMergeResponse.swift */,
@@ -1800,6 +1853,8 @@
 				A31C83EC29C4EC2F00FE8124 /* CopyProductRulesModuleListLoadQueryResponse.swift */,
 				A31C843329C4EC3000FE8124 /* CopyProductRulesModuleUpdateAssignedResponse.swift */,
 				A31C839329C4EC2C00FE8124 /* CopyProductRulesUpdateResponse.swift */,
+				A3A90C352B990E2D00F1C45F /* CouponBusinessAccountListLoadQueryResponse.swift */,
+				A3A90C342B990E2D00F1C45F /* CouponBusinessAccountUpdateAssignedResponse.swift */,
 				A31C840929C4EC2F00FE8124 /* CouponCustomerListLoadQueryResponse.swift */,
 				A31C842F29C4EC3000FE8124 /* CouponCustomerUpdateAssignedResponse.swift */,
 				A31C839D29C4EC2D00FE8124 /* CouponInsertResponse.swift */,
@@ -1879,6 +1934,7 @@
 				A31C843A29C4EC3000FE8124 /* OrderShipmentListLoadQueryResponse.swift */,
 				A31C83D129C4EC2E00FE8124 /* OrderShipmentListUpdateResponse.swift */,
 				A31C83ED29C4EC2F00FE8124 /* OrderUpdateCustomerInformationResponse.swift */,
+				A3A90C3F2B991A2100F1C45F /* PageCopyBranchResponse.swift */,
 				A31C83C529C4EC2E00FE8124 /* PageCopyResponse.swift */,
 				A31C840A29C4EC2F00FE8124 /* PageDeleteResponse.swift */,
 				A31C83E129C4EC2E00FE8124 /* PageInsertResponse.swift */,
@@ -1927,6 +1983,7 @@
 				A31C83FB29C4EC2F00FE8124 /* ProductKitVariantCountResponse.swift */,
 				A31C83DA29C4EC2E00FE8124 /* ProductListAdjustInventoryResponse.swift */,
 				A31C83DB29C4EC2E00FE8124 /* ProductListLoadQueryResponse.swift */,
+				A3A90C572B9A468700F1C45F /* ProductShippingRulesUpdateResponse.swift */,
 				A31C844629C4EC3100FE8124 /* ProductSubscriptionTermListLoadQueryResponse.swift */,
 				A31C843829C4EC3000FE8124 /* ProductUpdateResponse.swift */,
 				A31C83DE29C4EC2E00FE8124 /* ProductURIInsertResponse.swift */,
@@ -1940,6 +1997,7 @@
 				A31C83E629C4EC2E00FE8124 /* ProductVariantListDeleteResponse.swift */,
 				A31C844029C4EC3100FE8124 /* ProductVariantListLoadProductResponse.swift */,
 				A31C841D29C4EC3000FE8124 /* ProductVariantListLoadQueryResponse.swift */,
+				A3A90C462B99361200F1C45F /* ProductVariantPricingUpdateResponse.swift */,
 				A31C845029C4EC3100FE8124 /* ProductVariantUpdateResponse.swift */,
 				A31C83CC29C4EC2E00FE8124 /* ProvisionDomainResponse.swift */,
 				A31C83F629C4EC2F00FE8124 /* ProvisionStoreResponse.swift */,
@@ -1981,7 +2039,9 @@
 				A31C80B329C4EBC700FE8124 /* Branch.swift */,
 				A31C80E729C4EBC800FE8124 /* BranchCSSResource.swift */,
 				A31C80D929C4EBC800FE8124 /* BranchCSSResourceVersion.swift */,
+				A3A90C132B97F41B00F1C45F /* BranchItemVersion.swift */,
 				A31C809229C4EBC600FE8124 /* BranchJavaScriptResourceVersion.swift */,
+				A3A90C1E2B97F6F900F1C45F /* BranchPageVersion.swift */,
 				A31C806A29C4EBC500FE8124 /* BranchPropertyVersion.swift */,
 				A31C807529C4EBC500FE8124 /* BranchTemplateVersion.swift */,
 				A31C80A629C4EBC700FE8124 /* BusinessAccount.swift */,
@@ -1992,6 +2052,7 @@
 				A31C80CC29C4EBC800FE8124 /* ChangesetChange.swift */,
 				A31C806B29C4EBC500FE8124 /* ChangesetCSSResource.swift */,
 				A31C80CB29C4EBC800FE8124 /* ChangesetCSSResourceVersion.swift */,
+				A3A90C252B990AEE00F1C45F /* ChangesetItemVersion.swift */,
 				A31C80BE29C4EBC700FE8124 /* ChangesetJavaScriptResourceVersion.swift */,
 				A31C80DA29C4EBC800FE8124 /* ChangesetPropertyVersion.swift */,
 				A31C80F029C4EBC900FE8124 /* ChangesetTemplateVersion.swift */,
@@ -2001,6 +2062,7 @@
 				A31C807D29C4EBC500FE8124 /* CopyProductRulesCustomField.swift */,
 				A31C80EC29C4EBC800FE8124 /* CopyProductRulesModule.swift */,
 				A31C806D29C4EBC500FE8124 /* Coupon.swift */,
+				A3A90C2E2B990E0A00F1C45F /* CouponBusinessAccount.swift */,
 				A31C80DB29C4EBC800FE8124 /* CouponCustomer.swift */,
 				A31C80CF29C4EBC800FE8124 /* CouponPriceGroup.swift */,
 				A31C80EE29C4EBC900FE8124 /* CSSResource.swift */,
@@ -2094,6 +2156,7 @@
 				A31C807129C4EBC500FE8124 /* ResourceAttribute.swift */,
 				A31C80AE29C4EBC700FE8124 /* ResourceGroup.swift */,
 				A31C807229C4EBC500FE8124 /* ResourceGroupChange.swift */,
+				A3A90C532B9A466900F1C45F /* ShippingRuleMethod.swift */,
 				A31C80ED29C4EBC900FE8124 /* SplitOrderItem.swift */,
 				A31C80E529C4EBC800FE8124 /* Store.swift */,
 				A31C80EF29C4EBC900FE8124 /* Subscription.swift */,
@@ -2209,6 +2272,7 @@
 			files = (
 				A31C854329C4EC3200FE8124 /* OptionListLoadAttributeResponse.swift in Sources */,
 				A31C852C29C4EC3200FE8124 /* PriceGroupQualifyingProductListLoadQueryResponse.swift in Sources */,
+				A3A90C2A2B990B0600F1C45F /* ChangesetItemVersionListLoadQueryResponse.swift in Sources */,
 				A31C813029C4EBC900FE8124 /* BusinessAccount.swift in Sources */,
 				A31C827A29C4EC1800FE8124 /* ProductVariantListLoadProductRequest.swift in Sources */,
 				A31C855329C4EC3200FE8124 /* CategoryURIRedirectResponse.swift in Sources */,
@@ -2276,8 +2340,10 @@
 				A31C84D329C4EC3200FE8124 /* ProductListLoadQueryResponse.swift in Sources */,
 				A31C849F29C4EC3200FE8124 /* AvailabilityGroupUpdateResponse.swift in Sources */,
 				A31C827F29C4EC1800FE8124 /* CategoryDeleteRequest.swift in Sources */,
+				A3A90C3E2B991A1300F1C45F /* PageCopyBranchRequest.swift in Sources */,
 				A31C836429C4EC1800FE8124 /* SubscriptionShippingMethodListLoadQueryRequest.swift in Sources */,
 				A31C811229C4EBC900FE8124 /* OrderProductAttribute.swift in Sources */,
+				A3A90C542B9A466900F1C45F /* ShippingRuleMethod.swift in Sources */,
 				A3630EE824B4FE2C00C7F729 /* MultiCallResponse.swift in Sources */,
 				A31C854429C4EC3200FE8124 /* JavaScriptResourceListLoadQueryResponse.swift in Sources */,
 				A31C814A29C4EBC900FE8124 /* AttributeTemplateOption.swift in Sources */,
@@ -2297,6 +2363,7 @@
 				A31C810029C4EBC900FE8124 /* SubscriptionOption.swift in Sources */,
 				A31C855229C4EC3200FE8124 /* AttributeTemplateOptionDeleteResponse.swift in Sources */,
 				A31C854A29C4EC3200FE8124 /* OptionLoadCodeResponse.swift in Sources */,
+				A3A90C562B9A467800F1C45F /* ProductShippingRulesUpdateRequest.swift in Sources */,
 				A31C853629C4EC3200FE8124 /* ProductURIListLoadQueryResponse.swift in Sources */,
 				A36AF19A2A781EA800822D4F /* OrderListArchiveRequest.swift in Sources */,
 				A31C82C429C4EC1800FE8124 /* CustomerPaymentCardRegisterRequest.swift in Sources */,
@@ -2308,6 +2375,7 @@
 				A31C817829C4EBC900FE8124 /* CSSResource.swift in Sources */,
 				A31C84CE29C4EC3200FE8124 /* CategoryUpdateResponse.swift in Sources */,
 				A31C816F29C4EBC900FE8124 /* Store.swift in Sources */,
+				A3A90C452B99360600F1C45F /* ProductVariantPricingUpdateRequest.swift in Sources */,
 				A31C830729C4EC1800FE8124 /* AttributeTemplateAttributeUpdateRequest.swift in Sources */,
 				A31C810B29C4EBC900FE8124 /* PrintQueueJob.swift in Sources */,
 				A31C850129C4EC3200FE8124 /* CouponCustomerListLoadQueryResponse.swift in Sources */,
@@ -2328,6 +2396,7 @@
 				A31C84C529C4EC3200FE8124 /* OptionSetDefaultResponse.swift in Sources */,
 				A32F01DE2511921B000CBC16 /* BaseClient.swift in Sources */,
 				A31C84AD29C4EC3200FE8124 /* OrderDeleteResponse.swift in Sources */,
+				A3A90C362B990E2D00F1C45F /* CouponBusinessAccountUpdateAssignedResponse.swift in Sources */,
 				A31C847029C4EC3200FE8124 /* OrderItemListBackOrderResponse.swift in Sources */,
 				A32F01CF25119114000CBC16 /* TokenAuthenticator.swift in Sources */,
 				A31C84E929C4EC3200FE8124 /* BranchCopyResponse.swift in Sources */,
@@ -2360,8 +2429,10 @@
 				A31C84B329C4EC3200FE8124 /* PaymentMethodListLoadResponse.swift in Sources */,
 				A31C835729C4EC1800FE8124 /* BusinessAccountListDeleteRequest.swift in Sources */,
 				A31C836229C4EC1800FE8124 /* ProductUpdateRequest.swift in Sources */,
+				A3A90C402B991A2100F1C45F /* PageCopyBranchResponse.swift in Sources */,
 				A31C851B29C4EC3200FE8124 /* SubscriptionAndOrderItemUpdateResponse.swift in Sources */,
 				A31C828629C4EC1800FE8124 /* AttributeTemplateOptionDeleteRequest.swift in Sources */,
+				A3A90C182B97F42E00F1C45F /* BranchItemVersionListLoadQueryResponse.swift in Sources */,
 				A31C815929C4EBC900FE8124 /* CouponPriceGroup.swift in Sources */,
 				A31C846C29C4EC3200FE8124 /* ProductVariantInsertResponse.swift in Sources */,
 				A31C816629C4EBC900FE8124 /* AvailabilityGroupShippingMethod.swift in Sources */,
@@ -2414,6 +2485,7 @@
 				A31C851929C4EC3200FE8124 /* OrderItemSplitResponse.swift in Sources */,
 				A31C82CA29C4EC1800FE8124 /* BranchListLoadQueryRequest.swift in Sources */,
 				A31C833929C4EC1800FE8124 /* OrderReturnListReceivedRequest.swift in Sources */,
+				A3A90C1F2B97F6F900F1C45F /* BranchPageVersion.swift in Sources */,
 				A31C82C029C4EC1800FE8124 /* JavaScriptResourceInsertRequest.swift in Sources */,
 				A31C829229C4EC1800FE8124 /* ProductVariantInsertRequest.swift in Sources */,
 				A31C816E29C4EBC900FE8124 /* ProductShippingRules.swift in Sources */,
@@ -2429,6 +2501,7 @@
 				A31C831B29C4EC1800FE8124 /* BranchTemplateVersionListLoadQueryRequest.swift in Sources */,
 				A31C813629C4EBC900FE8124 /* ProductAttributeListTemplate.swift in Sources */,
 				A31C848029C4EC3200FE8124 /* FeedURIListDeleteResponse.swift in Sources */,
+				A3A90C162B97F42700F1C45F /* BranchItemVersionListLoadQueryRequest.swift in Sources */,
 				A31C84FB29C4EC3200FE8124 /* AvailabilityGroupCustomerUpdateAssignedResponse.swift in Sources */,
 				A31C810329C4EBC900FE8124 /* TemplateChange.swift in Sources */,
 				A31C833529C4EC1800FE8124 /* AttributeTemplateAttributeListLoadQueryRequest.swift in Sources */,
@@ -2501,6 +2574,7 @@
 				A31C82C529C4EC1800FE8124 /* ProductInsertRequest.swift in Sources */,
 				A31C82AE29C4EC1800FE8124 /* OptionListLoadAttributeRequest.swift in Sources */,
 				A31C82DB29C4EC1800FE8124 /* AttributeTemplateProductUpdateAssignedRequest.swift in Sources */,
+				A3A90C282B990AFB00F1C45F /* ChangesetItemVersionListLoadQueryRequest.swift in Sources */,
 				A31C84F329C4EC3200FE8124 /* ProductKitVariantCountResponse.swift in Sources */,
 				A31C853E29C4EC3200FE8124 /* ProductSubscriptionTermListLoadQueryResponse.swift in Sources */,
 				A31C84A929C4EC3200FE8124 /* BranchCreateResponse.swift in Sources */,
@@ -2517,6 +2591,7 @@
 				A31C84E129C4EC3200FE8124 /* URIDeleteResponse.swift in Sources */,
 				A31C853529C4EC3200FE8124 /* AttributeTemplateOptionListLoadAttributeResponse.swift in Sources */,
 				A31C815B29C4EBC900FE8124 /* PropertyVersion.swift in Sources */,
+				A3A90C372B990E2D00F1C45F /* CouponBusinessAccountListLoadQueryResponse.swift in Sources */,
 				A31C816229C4EBC900FE8124 /* ProductVariantAttribute.swift in Sources */,
 				A31C836029C4EC1800FE8124 /* CopyPageRulesListDeleteRequest.swift in Sources */,
 				A31C812029C4EBC900FE8124 /* OrderItemSubscription.swift in Sources */,
@@ -2567,6 +2642,7 @@
 				A31C84D229C4EC3200FE8124 /* ProductListAdjustInventoryResponse.swift in Sources */,
 				A31C817529C4EBC900FE8124 /* OrderTotalAndItem.swift in Sources */,
 				A31C814F29C4EBC900FE8124 /* AvailabilityGroupBusinessAccount.swift in Sources */,
+				A3A90C262B990AEE00F1C45F /* ChangesetItemVersion.swift in Sources */,
 				A31C82AA29C4EC1800FE8124 /* ProductSubscriptionTermListLoadQueryRequest.swift in Sources */,
 				A31C82E429C4EC1800FE8124 /* PriceGroupCustomerListLoadQueryRequest.swift in Sources */,
 				A31C851829C4EC3200FE8124 /* CustomerPriceGroupListLoadQueryResponse.swift in Sources */,
@@ -2592,6 +2668,7 @@
 				A31C815129C4EBC900FE8124 /* OrderReturn.swift in Sources */,
 				A31C854E29C4EC3200FE8124 /* ModuleResponse.swift in Sources */,
 				A31C853129C4EC3200FE8124 /* RelatedProductUpdateAssignedResponse.swift in Sources */,
+				A3A90C472B99361200F1C45F /* ProductVariantPricingUpdateResponse.swift in Sources */,
 				A31C848C29C4EC3200FE8124 /* NoteListLoadQueryResponse.swift in Sources */,
 				A31C84B429C4EC3200FE8124 /* AttributeLoadCodeResponse.swift in Sources */,
 				A31C850C29C4EC3200FE8124 /* CouponPriceGroupUpdateAssignedResponse.swift in Sources */,
@@ -2648,6 +2725,7 @@
 				A31C82E229C4EC1800FE8124 /* AttributeUpdateRequest.swift in Sources */,
 				A31C810D29C4EBC900FE8124 /* CSSResourceVersion.swift in Sources */,
 				A31C82F229C4EC1800FE8124 /* PriceGroupProductListLoadQueryRequest.swift in Sources */,
+				A3A90C582B9A468700F1C45F /* ProductShippingRulesUpdateResponse.swift in Sources */,
 				A31C814429C4EBC900FE8124 /* PriceGroupCustomer.swift in Sources */,
 				A31C84D929C4EC3200FE8124 /* PageInsertResponse.swift in Sources */,
 				A31C829E29C4EC1800FE8124 /* AvailabilityGroupCustomerListLoadQueryRequest.swift in Sources */,
@@ -2687,11 +2765,13 @@
 				A31C850B29C4EC3200FE8124 /* ChangesetJavaScriptResourceVersionListLoadQueryResponse.swift in Sources */,
 				A31C830B29C4EC1800FE8124 /* CopyPageRulesUpdateRequest.swift in Sources */,
 				A31C82A429C4EC1800FE8124 /* CopyProductRulesUpdateRequest.swift in Sources */,
+				A3A90C212B97F70400F1C45F /* BranchPageVersionListLoadQueryRequest.swift in Sources */,
 				A31C84B229C4EC3200FE8124 /* PriceGroupExcludedCategoryListLoadQueryResponse.swift in Sources */,
 				A31C811729C4EBC900FE8124 /* MerchantVersion.swift in Sources */,
 				A31C814129C4EBC900FE8124 /* OrderItem.swift in Sources */,
 				A3630D6424B4FD4900C7F729 /* Request.swift in Sources */,
 				A31C84DF29C4EC3200FE8124 /* CategoryDeleteResponse.swift in Sources */,
+				A3A90C142B97F41B00F1C45F /* BranchItemVersion.swift in Sources */,
 				A31C815229C4EBC900FE8124 /* DiscountModuleCapabilities.swift in Sources */,
 				A31C84DC29C4EC3200FE8124 /* CopyPageRulesInsertResponse.swift in Sources */,
 				A31C848429C4EC3200FE8124 /* PriceGroupCustomerListLoadQueryResponse.swift in Sources */,
@@ -2762,6 +2842,7 @@
 				A31C82AB29C4EC1800FE8124 /* ProductURIUpdateRequest.swift in Sources */,
 				A31C833B29C4EC1800FE8124 /* OrderItemUpdateRequest.swift in Sources */,
 				A31C84F029C4EC3200FE8124 /* AttributeTemplateAttributeListLoadQueryResponse.swift in Sources */,
+				A3A90C232B97F71400F1C45F /* BranchPageVersionListLoadQueryResponse.swift in Sources */,
 				A31C827729C4EC1800FE8124 /* AllOrderPaymentListLoadQueryRequest.swift in Sources */,
 				A31C849729C4EC3200FE8124 /* FeedURIListLoadQueryResponse.swift in Sources */,
 				A31C830E29C4EC1800FE8124 /* AttributeTemplateAttributeInsertRequest.swift in Sources */,
@@ -2789,6 +2870,7 @@
 				A31C811F29C4EBC900FE8124 /* CustomerSubscription.swift in Sources */,
 				A31C835C29C4EC1800FE8124 /* CategoryURIListDeleteRequest.swift in Sources */,
 				A31C831829C4EC1800FE8124 /* CouponListLoadQueryRequest.swift in Sources */,
+				A3A90C332B990E1F00F1C45F /* CouponBusinessAccountUpdateAssignedRequest.swift in Sources */,
 				A31C834A29C4EC1800FE8124 /* CopyPageRulesListLoadQueryRequest.swift in Sources */,
 				A3630EE524B4FE2C00C7F729 /* ListQueryRequest.swift in Sources */,
 				A31C835B29C4EC1800FE8124 /* CustomerSubscriptionListLoadQueryRequest.swift in Sources */,
@@ -2806,6 +2888,7 @@
 				A31C848D29C4EC3200FE8124 /* CopyPageRulesListLoadQueryResponse.swift in Sources */,
 				A31C848A29C4EC3200FE8124 /* AttributeInsertResponse.swift in Sources */,
 				A31C828B29C4EC1800FE8124 /* AttributeLoadCodeRequest.swift in Sources */,
+				A3A90C2F2B990E0A00F1C45F /* CouponBusinessAccount.swift in Sources */,
 				A31C854F29C4EC3200FE8124 /* MivaMerchantVersionResponse.swift in Sources */,
 				A31C851329C4EC3200FE8124 /* AttributeTemplateProductUpdateAssignedResponse.swift in Sources */,
 				A31C849429C4EC3200FE8124 /* PageURIInsertResponse.swift in Sources */,
@@ -2872,6 +2955,7 @@
 				A31C834029C4EC1800FE8124 /* BranchCSSResourceVersionListLoadQueryRequest.swift in Sources */,
 				A3C541DE24BE4505001E27AB /* Logger.swift in Sources */,
 				A31C816129C4EBC900FE8124 /* AvailabilityGroupCategory.swift in Sources */,
+				A3A90C322B990E1F00F1C45F /* CouponBusinessAccountListLoadQueryRequest.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3023,7 +3107,7 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				MARKETING_VERSION = 2.5.0;
+				MARKETING_VERSION = 2.6.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.miva.framework.MerchantAPI;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SDKROOT = macosx;
@@ -3054,7 +3138,7 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				MARKETING_VERSION = 2.5.0;
+				MARKETING_VERSION = 2.6.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.miva.framework.MerchantAPI;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SDKROOT = macosx;

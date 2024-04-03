@@ -26,6 +26,14 @@ public class VariableValue : Codable {
 
     /// The type of value
     var type : ValueType = .Unknown
+    
+    /**
+     Nil constructor
+     */
+    public init() {
+        self.value = nil
+        self.type = ValueType.Null
+    }
 
     /**
      Int constructor

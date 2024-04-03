@@ -66,6 +66,15 @@ public class PageUpdateRequest : Request {
     /// Request field CustomField_Values.
     var customFieldValues : CustomFieldValues
 
+    /// Request field Branch_ID.
+    var branchId : Optional<Int> = nil
+
+    /// Request field Edit_Branch.
+    var editBranch : Optional<String> = nil
+
+    /// Request field Branch_Name.
+    var branchName : Optional<String> = nil
+
     /**
      CodingKeys used to map the request when encoding.
 
@@ -83,6 +92,9 @@ public class PageUpdateRequest : Request {
         case changesetNotes = "Changeset_Notes"
         case pageUri = "Page_URI"
         case customFieldValues = "CustomField_Values"
+        case branchId = "Branch_ID"
+        case editBranch = "Edit_Branch"
+        case branchName = "Branch_Name"
     }
 
     /**
@@ -124,6 +136,14 @@ public class PageUpdateRequest : Request {
             try container.encode(self.editPage, forKey: .editPage)
         } else if self.pageCode != nil {
             try container.encode(self.pageCode, forKey: .pageCode)
+        }
+
+        if self.branchId != nil {
+            try container.encodeIfPresent(self.branchId, forKey: .branchId)
+        } else if self.editBranch != nil {
+            try container.encode(self.editBranch, forKey: .editBranch)
+        } else if self.branchName != nil {
+            try container.encode(self.branchName, forKey: .branchName)
         }
 
         try container.encodeIfPresent(self.pageCode, forKey: .pageCode)
@@ -288,6 +308,33 @@ public class PageUpdateRequest : Request {
     }
 
     /**
+     Getter for Branch_ID.
+
+     - Returns:  Optional<Int>
+     */
+    public func getBranchId() -> Optional<Int> {
+        return self.branchId
+    }
+
+    /**
+     Getter for Edit_Branch.
+
+     - Returns:  Optional<String>
+     */
+    public func getEditBranch() -> Optional<String> {
+        return self.editBranch
+    }
+
+    /**
+     Getter for Branch_Name.
+
+     - Returns:  Optional<String>
+     */
+    public func getBranchName() -> Optional<String> {
+        return self.branchName
+    }
+
+    /**
      Setter for Page_ID.
 
      - Parameters:
@@ -414,6 +461,45 @@ public class PageUpdateRequest : Request {
     @discardableResult
     public func setPageUri(_ value: Optional<String>) -> Self {
         self.pageUri = value
+        return self
+    }
+
+    /**
+     Setter for Branch_ID.
+
+     - Parameters:
+        - value: Optional<Int>
+     - Returns:  Self
+     */
+    @discardableResult
+    public func setBranchId(_ value: Optional<Int>) -> Self {
+        self.branchId = value
+        return self
+    }
+
+    /**
+     Setter for Edit_Branch.
+
+     - Parameters:
+        - value: Optional<String>
+     - Returns:  Self
+     */
+    @discardableResult
+    public func setEditBranch(_ value: Optional<String>) -> Self {
+        self.editBranch = value
+        return self
+    }
+
+    /**
+     Setter for Branch_Name.
+
+     - Parameters:
+        - value: Optional<String>
+     - Returns:  Self
+     */
+    @discardableResult
+    public func setBranchName(_ value: Optional<String>) -> Self {
+        self.branchName = value
         return self
     }
 }

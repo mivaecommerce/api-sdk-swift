@@ -11,11 +11,11 @@ import FoundationNetworking
 #endif
 
 /**
- Handles API Request Page_Delete.
+ Handles API Request BranchPageVersionList_Load_Query.
 
- - SeeAlso: https://docs.miva.com/json-api/functions/page_delete
+ - SeeAlso: https://docs.miva.com/json-api/functions/branchpageversionlist_load_query
  */
-public class PageDeleteRequest : Request {
+public class BranchPageVersionListLoadQueryRequest : ListQueryRequest {
     /**
      The API function name.
 
@@ -23,7 +23,7 @@ public class PageDeleteRequest : Request {
      - Returns: String
      */
     override var function : String {
-        return "Page_Delete"
+        return "BranchPageVersionList_Load_Query"
     }
 
     /**
@@ -36,15 +36,6 @@ public class PageDeleteRequest : Request {
         return RequestScope.Store;
     }
 
-    /// Request field Page_ID.
-    var pageId : Optional<Int> = nil
-
-    /// Request field Edit_Page.
-    var editPage : Optional<String> = nil
-
-    /// Request field Page_Code.
-    var pageCode : Optional<String> = nil
-
     /// Request field Branch_ID.
     var branchId : Optional<Int> = nil
 
@@ -54,6 +45,79 @@ public class PageDeleteRequest : Request {
     /// Request field Branch_Name.
     var branchName : Optional<String> = nil
 
+    /// Request field Changeset_ID.
+    var changesetId : Optional<Int> = nil
+
+    /**
+     The available search fields applicable to the request.
+
+     - Returns: An array of strings.
+     - Note: Overrides
+     */
+    override var availableSearchFields : [ String ] {
+        get {
+            return [
+                "id",
+                "page_id",
+                "user_id",
+                "user_name",
+                "code",
+                "name",
+                "secure",
+                "title",
+                "cache",
+                "admin",
+                "layout",
+                "templ_id",
+                "source_user_id",
+                "source_user_name"
+            ]
+        }
+    }
+
+    /**
+     The available sort fields applicable to the request.
+
+     - Returns: An array of strings.
+     - Note: Overrides
+     */
+    override var availableSortFields : [ String ] {
+        get {
+            return [
+                "id",
+                "page_id",
+                "user_id",
+                "user_name",
+                "code",
+                "name",
+                "secure",
+                "title",
+                "cache",
+                "admin",
+                "layout",
+                "templ_id",
+                "source_user_id",
+                "source_user_name"
+            ]
+        }
+    }
+
+    /**
+     The available on demand columns applicable to the request.
+
+     - Returns: An array of strings.
+     - Note: Overrides
+     */
+    override var availableOnDemandColumns : [ String ] {
+        get {
+            return [
+                "notes",
+                "source",
+                "settings"
+            ]
+        }
+    }
+
     /**
      CodingKeys used to map the request when encoding.
 
@@ -61,12 +125,10 @@ public class PageDeleteRequest : Request {
      */
     private enum CodingKeys: String, CodingKey {
         case function = "Function"
-        case pageId = "Page_ID"
-        case editPage = "Edit_Page"
-        case pageCode = "Page_Code"
         case branchId = "Branch_ID"
         case editBranch = "Edit_Branch"
         case branchName = "Branch_Name"
+        case changesetId = "Changeset_ID"
     }
 
     /**
@@ -74,17 +136,15 @@ public class PageDeleteRequest : Request {
 
      - Parameters:
         - client: A BaseClient instance.
-        - page: An optional Page instance.
+        - branch: An optional Branch instance.
      */
-    public init(client: Optional<BaseClient> = nil, page: Optional<Page> = nil) {
+    public init(client: Optional<BaseClient> = nil, branch: Optional<Branch> = nil) {
         super.init(client: client)
-        if let page = page {
-            if page.id > 0 {
-                self.pageId = page.id
-            } else if page.code.count > 0 {
-                self.editPage = page.code
-            } else if page.code.count > 0 {
-                self.pageCode = page.code
+        if let branch = branch {
+            if branch.id > 0 {
+                self.branchId = branch.id
+            } else if branch.name.count > 0 {
+                self.editBranch = branch.name
             }
         }
     }
@@ -99,14 +159,6 @@ public class PageDeleteRequest : Request {
      */
     public override func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
-
-        if self.pageId != nil {
-            try container.encodeIfPresent(self.pageId, forKey: .pageId)
-        } else if self.editPage != nil {
-            try container.encode(self.editPage, forKey: .editPage)
-        } else if self.pageCode != nil {
-            try container.encode(self.pageCode, forKey: .pageCode)
-        }
 
         if self.branchId != nil {
             try container.encodeIfPresent(self.branchId, forKey: .branchId)
@@ -123,14 +175,14 @@ public class PageDeleteRequest : Request {
      Send the request for a response.
 
      - Parameters:
-        - callback: The callback function with signature (PageDeleteResponse?, Error?).
+        - callback: The callback function with signature (BranchPageVersionListLoadQueryResponse?, Error?).
      - Note: Overrides
      */
 
-     public override func send(client: Optional<BaseClient> = nil, callback: @escaping (PageDeleteResponse?, Error?) -> ()) throws {
+     public override func send(client: Optional<BaseClient> = nil, callback: @escaping (BranchPageVersionListLoadQueryResponse?, Error?) -> ()) throws {
         if let client = client ?? self.client {
             client.send(self) { request, response, error in
-                callback(response as? PageDeleteResponse, error)
+                callback(response as? BranchPageVersionListLoadQueryResponse, error)
             }
         } else {
             throw RequestError.noClientAssigned
@@ -146,14 +198,14 @@ public class PageDeleteRequest : Request {
      - Throws: Error when unable to decode the response data.
      - Note: Overrides
      */
-    public override func createResponse(httpResponse: URLResponse, data : Data) throws -> PageDeleteResponse {
+    public override func createResponse(httpResponse: URLResponse, data : Data) throws -> BranchPageVersionListLoadQueryResponse {
         let decoder = JSONDecoder()
 
         decoder.userInfo[Response.decoderRequestUserInfoKey]            = self
         decoder.userInfo[Response.decoderHttpResponseDataUserInfoKey]   = httpResponse
         decoder.userInfo[Response.decoderResponseDataUserInfoKey]       = data
 
-        return try decoder.decode(PageDeleteResponse.self, from: data)
+        return try decoder.decode(BranchPageVersionListLoadQueryResponse.self, from: data)
     }
 
     /**
@@ -163,34 +215,7 @@ public class PageDeleteRequest : Request {
      - Note: Overrides
      */
     override public func getResponseType() -> Response.Type {
-        return PageDeleteResponse.self
-    }
-
-    /**
-     Getter for Page_ID.
-
-     - Returns:  Optional<Int>
-     */
-    public func getPageId() -> Optional<Int> {
-        return self.pageId
-    }
-
-    /**
-     Getter for Edit_Page.
-
-     - Returns:  Optional<String>
-     */
-    public func getEditPage() -> Optional<String> {
-        return self.editPage
-    }
-
-    /**
-     Getter for Page_Code.
-
-     - Returns:  Optional<String>
-     */
-    public func getPageCode() -> Optional<String> {
-        return self.pageCode
+        return BranchPageVersionListLoadQueryResponse.self
     }
 
     /**
@@ -221,42 +246,12 @@ public class PageDeleteRequest : Request {
     }
 
     /**
-     Setter for Page_ID.
+     Getter for Changeset_ID.
 
-     - Parameters:
-        - value: Optional<Int>
-     - Returns:  Self
+     - Returns:  Optional<Int>
      */
-    @discardableResult
-    public func setPageId(_ value: Optional<Int>) -> Self {
-        self.pageId = value
-        return self
-    }
-
-    /**
-     Setter for Edit_Page.
-
-     - Parameters:
-        - value: Optional<String>
-     - Returns:  Self
-     */
-    @discardableResult
-    public func setEditPage(_ value: Optional<String>) -> Self {
-        self.editPage = value
-        return self
-    }
-
-    /**
-     Setter for Page_Code.
-
-     - Parameters:
-        - value: Optional<String>
-     - Returns:  Self
-     */
-    @discardableResult
-    public func setPageCode(_ value: Optional<String>) -> Self {
-        self.pageCode = value
-        return self
+    public func getChangesetId() -> Optional<Int> {
+        return self.changesetId
     }
 
     /**
@@ -295,6 +290,19 @@ public class PageDeleteRequest : Request {
     @discardableResult
     public func setBranchName(_ value: Optional<String>) -> Self {
         self.branchName = value
+        return self
+    }
+
+    /**
+     Setter for Changeset_ID.
+
+     - Parameters:
+        - value: Optional<Int>
+     - Returns:  Self
+     */
+    @discardableResult
+    public func setChangesetId(_ value: Optional<Int>) -> Self {
+        self.changesetId = value
         return self
     }
 }

@@ -37,6 +37,9 @@ public class Module : Model {
     /// Model field active.
     var active : Bool
 
+    /// Model field priority.
+    var priority : Int
+
     /**
      CodingKeys used to map the model when encoding and decoding.
 
@@ -52,6 +55,7 @@ public class Module : Model {
         case module
         case referenceCount = "refcount"
         case active
+        case priority
     }
 
     /**
@@ -67,6 +71,7 @@ public class Module : Model {
         self.module = ""
         self.referenceCount = 0
         self.active = false
+        self.priority = 0
 
         super.init()
     }
@@ -91,6 +96,7 @@ public class Module : Model {
         self.module = try container.decodeIfPresent(String.self, forKey: .module) ?? ""
         self.referenceCount = try container.decodeIfPresent(Int.self, forKey: .referenceCount) ?? 0
         self.active = try container.decodeIfPresent(Bool.self, forKey: .active) ?? false
+        self.priority = try container.decodeIfPresent(Int.self, forKey: .priority) ?? 0
 
         try super.init(from : decoder)
     }
@@ -115,6 +121,7 @@ public class Module : Model {
         try container.encodeIfPresent(self.module, forKey: .module)
         try container.encodeIfPresent(self.referenceCount, forKey: .referenceCount)
         try container.encodeIfPresent(self.active, forKey: .active)
+        try container.encodeIfPresent(self.priority, forKey: .priority)
 
         try super.encode(to: encoder)
     }
@@ -205,5 +212,15 @@ public class Module : Model {
      - Returns:  Bool     */
     public func getActive() -> Bool {
         return self.active
+    }
+
+    /**
+     Getter for priority.
+
+     - Returns:  Int
+
+     */
+    public func getPriority() -> Int {
+        return self.priority
     }
 }
