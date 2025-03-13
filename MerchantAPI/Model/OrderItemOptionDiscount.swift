@@ -107,7 +107,7 @@ public class OrderItemOptionDiscount : Model {
         try container.encodeIfPresent(self.priceGroupId, forKey: .priceGroupId)
         try container.encodeIfPresent(self.display, forKey: .display)
         try container.encodeIfPresent(self.description, forKey: .description)
-        try container.encodeIfPresent(Decimal.roundForEncoding(value: self.discount, precision: MERCHANTAPI_FLOAT_ENCODE_PRECISION), forKey: .discount)
+        try container.encodeIfPresent(Decimal.roundForEncoding(value: self.discount, precision: 8), forKey: .discount)
 
         try super.encode(to: encoder)
     }

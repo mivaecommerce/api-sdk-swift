@@ -48,11 +48,20 @@ public class ProductAttribute : Model {
     /// Model field price.
     var price : Decimal
 
+    /// Model field formatted_price.
+    var formattedPrice : String
+
     /// Model field cost.
     var cost : Decimal
 
+    /// Model field formatted_cost.
+    var formattedCost : String
+
     /// Model field weight.
     var weight : Decimal
+
+    /// Model field formatted_weight.
+    var formattedWeight : String
 
     /// Model field required.
     var isRequired : Bool
@@ -84,8 +93,11 @@ public class ProductAttribute : Model {
         case type
         case prompt
         case price
+        case formattedPrice = "formatted_price"
         case cost
+        case formattedCost = "formatted_cost"
         case weight
+        case formattedWeight = "formatted_weight"
         case isRequired = "required"
         case inventory
         case image
@@ -106,8 +118,11 @@ public class ProductAttribute : Model {
         self.type = ""
         self.prompt = ""
         self.price = Decimal(0.00)
+        self.formattedPrice = ""
         self.cost = Decimal(0.00)
+        self.formattedCost = ""
         self.weight = Decimal(0.00)
+        self.formattedWeight = ""
         self.isRequired = false
         self.inventory = false
         self.image = ""
@@ -137,8 +152,11 @@ public class ProductAttribute : Model {
         self.type = try container.decodeIfPresent(String.self, forKey: .type) ?? ""
         self.prompt = try container.decodeIfPresent(String.self, forKey: .prompt) ?? ""
         self.price = try container.decodeIfPresent(Decimal.self, forKey: .price) ?? Decimal(0.00)
+        self.formattedPrice = try container.decodeIfPresent(String.self, forKey: .formattedPrice) ?? ""
         self.cost = try container.decodeIfPresent(Decimal.self, forKey: .cost) ?? Decimal(0.00)
+        self.formattedCost = try container.decodeIfPresent(String.self, forKey: .formattedCost) ?? ""
         self.weight = try container.decodeIfPresent(Decimal.self, forKey: .weight) ?? Decimal(0.00)
+        self.formattedWeight = try container.decodeIfPresent(String.self, forKey: .formattedWeight) ?? ""
         self.isRequired = try container.decodeIfPresent(Bool.self, forKey: .isRequired) ?? false
         self.inventory = try container.decodeIfPresent(Bool.self, forKey: .inventory) ?? false
         self.image = try container.decodeIfPresent(String.self, forKey: .image) ?? ""
@@ -167,9 +185,12 @@ public class ProductAttribute : Model {
         try container.encodeIfPresent(self.code, forKey: .code)
         try container.encodeIfPresent(self.type, forKey: .type)
         try container.encodeIfPresent(self.prompt, forKey: .prompt)
-        try container.encodeIfPresent(Decimal.roundForEncoding(value: self.price, precision: MERCHANTAPI_FLOAT_ENCODE_PRECISION), forKey: .price)
-        try container.encodeIfPresent(Decimal.roundForEncoding(value: self.cost, precision: MERCHANTAPI_FLOAT_ENCODE_PRECISION), forKey: .cost)
-        try container.encodeIfPresent(Decimal.roundForEncoding(value: self.weight, precision: MERCHANTAPI_FLOAT_ENCODE_PRECISION), forKey: .weight)
+        try container.encodeIfPresent(Decimal.roundForEncoding(value: self.price, precision: 8), forKey: .price)
+        try container.encodeIfPresent(self.formattedPrice, forKey: .formattedPrice)
+        try container.encodeIfPresent(Decimal.roundForEncoding(value: self.cost, precision: 8), forKey: .cost)
+        try container.encodeIfPresent(self.formattedCost, forKey: .formattedCost)
+        try container.encodeIfPresent(Decimal.roundForEncoding(value: self.weight, precision: 8), forKey: .weight)
+        try container.encodeIfPresent(self.formattedWeight, forKey: .formattedWeight)
         try container.encodeIfPresent(self.isRequired, forKey: .isRequired)
         try container.encodeIfPresent(self.inventory, forKey: .inventory)
         try container.encodeIfPresent(self.image, forKey: .image)
@@ -277,6 +298,16 @@ public class ProductAttribute : Model {
     }
 
     /**
+     Getter for formatted_price.
+
+     - Returns:  String
+
+     */
+    public func getFormattedPrice() -> String {
+        return self.formattedPrice
+    }
+
+    /**
      Getter for cost.
 
      - Returns:  Decimal     */
@@ -285,11 +316,31 @@ public class ProductAttribute : Model {
     }
 
     /**
+     Getter for formatted_cost.
+
+     - Returns:  String
+
+     */
+    public func getFormattedCost() -> String {
+        return self.formattedCost
+    }
+
+    /**
      Getter for weight.
 
      - Returns:  Decimal     */
     public func getWeight() -> Decimal {
         return self.weight
+    }
+
+    /**
+     Getter for formatted_weight.
+
+     - Returns:  String
+
+     */
+    public func getFormattedWeight() -> String {
+        return self.formattedWeight
     }
 
     /**

@@ -79,7 +79,7 @@ public class OrderPaymentCaptureRequest : Request {
         var container = encoder.container(keyedBy: CodingKeys.self)
 
         try container.encodeIfPresent(self.orderPaymentId, forKey: .orderPaymentId)
-        try container.encodeIfPresent(Decimal.roundForEncoding(value: self.amount, precision: MERCHANTAPI_FLOAT_ENCODE_PRECISION), forKey: .amount)
+        try container.encodeIfPresent(Decimal.roundForEncoding(value: self.amount, precision: 2), forKey: .amount)
 
         try super.encode(to : encoder)
     }

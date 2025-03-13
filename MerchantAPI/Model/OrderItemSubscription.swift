@@ -8,13 +8,16 @@
 import Foundation
 
 /// OrderItemSubscription data model.
-public class OrderItemSubscription : Subscription {
+public class OrderItemSubscription : BaseSubscription {
 
     /// Model field method.
     var method : String
 
     /// Model field productsubscriptionterm
     var productSubscriptionTerm : ProductSubscriptionTerm
+
+    /// Model field options.
+    var options : [SubscriptionOption]
 
     /**
      CodingKeys used to map the model when encoding and decoding.
@@ -24,6 +27,7 @@ public class OrderItemSubscription : Subscription {
     private enum CodingKeys: String, CodingKey {
         case method
         case productSubscriptionTerm = "productsubscriptionterm"
+        case options
     }
 
     /**
@@ -32,6 +36,7 @@ public class OrderItemSubscription : Subscription {
     public override init() {
         self.method = ""
         self.productSubscriptionTerm = ProductSubscriptionTerm()
+        self.options = []
 
         super.init()
     }
@@ -49,6 +54,7 @@ public class OrderItemSubscription : Subscription {
 
         self.method = try container.decodeIfPresent(String.self, forKey: .method) ?? ""
         self.productSubscriptionTerm = try container.decodeIfPresent(ProductSubscriptionTerm.self, forKey: .productSubscriptionTerm) ?? ProductSubscriptionTerm()
+        self.options = try container.decodeIfPresent([SubscriptionOption].self, forKey: .options) ?? []
 
         try super.init(from : decoder)
     }
@@ -66,6 +72,7 @@ public class OrderItemSubscription : Subscription {
 
         try container.encodeIfPresent(self.method, forKey: .method)
         try container.encodeIfPresent(self.productSubscriptionTerm, forKey: .productSubscriptionTerm)
+        try container.encodeIfPresent(self.options, forKey: .options)
 
         try super.encode(to: encoder)
     }
@@ -87,5 +94,14 @@ public class OrderItemSubscription : Subscription {
      */
     public func getProductSubscriptionTerm() -> ProductSubscriptionTerm {
         return self.productSubscriptionTerm
+    }
+
+    /**
+     Getter for options.
+
+     - Returns:  [SubscriptionOption]
+     */
+    public func getOptions() -> [SubscriptionOption] {
+        return self.options
     }
 }

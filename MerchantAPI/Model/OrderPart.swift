@@ -93,7 +93,7 @@ public class OrderPart : Model {
         try container.encodeIfPresent(self.name, forKey: .name)
         try container.encodeIfPresent(self.quantity, forKey: .quantity)
         try container.encodeIfPresent(self.totalQuantity, forKey: .totalQuantity)
-        try container.encodeIfPresent(Decimal.roundForEncoding(value: self.price, precision: MERCHANTAPI_FLOAT_ENCODE_PRECISION), forKey: .price)
+        try container.encodeIfPresent(Decimal.roundForEncoding(value: self.price, precision: 8), forKey: .price)
 
         try super.encode(to: encoder)
     }

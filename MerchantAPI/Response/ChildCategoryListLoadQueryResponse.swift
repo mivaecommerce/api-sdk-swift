@@ -18,10 +18,10 @@ import FoundationNetworking
 public class ChildCategoryListLoadQueryResponse : ListQueryResponse {
 
     /// Holds a ListQuery result data
-    public var data : ListQueryResult<Category>
+    public var data : ListQueryResult<ChildCategory>
 
     /// Named computed property for data
-    public var categories : [Category] {
+    public var categories : [ChildCategory] {
         get {
             return self.data.records
         }
@@ -30,9 +30,9 @@ public class ChildCategoryListLoadQueryResponse : ListQueryResponse {
     /**
      Getter for categories.
 
-     - Returns: [Category]
+     - Returns: [ChildCategory]
      */
-    public func getCategories() -> [Category] {
+    public func getCategories() -> [ChildCategory] {
         return self.categories
     }
 
@@ -54,7 +54,7 @@ public class ChildCategoryListLoadQueryResponse : ListQueryResponse {
     public required init(from decoder: Decoder) throws {
         let container  = try decoder.container(keyedBy : CodingKeys.self)
 
-        self.data = try container.decodeIfPresent(ListQueryResult<Category>.self, forKey: .data) ?? ListQueryResult<Category>()
+        self.data = try container.decodeIfPresent(ListQueryResult<ChildCategory>.self, forKey: .data) ?? ListQueryResult<ChildCategory>()
         try super.init(from : decoder)
     }
 }

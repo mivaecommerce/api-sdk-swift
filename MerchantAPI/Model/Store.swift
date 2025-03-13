@@ -31,6 +31,9 @@ public class Store : Model {
     /// Model field name.
     var name : String
 
+    /// Model field icon.
+    var icon : String
+
     /// Model field owner.
     var owner : String
 
@@ -66,6 +69,15 @@ public class Store : Model {
 
     /// Model field wtunitcode.
     var weightUnitCode : String
+
+    /// Model field wtdispmix.
+    var displayMixedWeightUnits : Bool
+
+    /// Model field wtdisplow.
+    var displayWeightLessThan : Bool
+
+    /// Model field wtdispdig.
+    var weightDigits : Int
 
     /// Model field dmunitcode.
     var dimensionUnits : String
@@ -127,6 +139,18 @@ public class Store : Model {
     /// Model field cache_type.
     var cacheType : String
 
+    /// Model field cache_exp.
+    var cacheExpiration : Int
+
+    /// Model field cache_ver.
+    var cacheVersion : Int
+
+    /// Model field cache_comp.
+    var cacheCompression : Bool
+
+    /// Model field cacheset.
+    var cacheSet : Int
+
     /// Model field redishost.
     var redisHost : String
 
@@ -145,6 +169,27 @@ public class Store : Model {
     /// Model field addrval_id.
     var addressValidationId : Int
 
+    /// Model field deferbask.
+    var deferBaskets : Bool
+
+    /// Model field trackhits.
+    var trackPageHits : Bool
+
+    /// Model field mnt_ips.
+    var maintenanceAllowedIps : String
+
+    /// Model field branch_id.
+    var branchId : Int
+
+    /// Model field charset.
+    var characterSet : String
+
+    /// Model field schtsk_adv.
+    var scheduledTaskAdvance : Int
+
+    /// Model field schtsk_min.
+    var scheduledTaskTimeout : Int
+
     /**
      CodingKeys used to map the model when encoding and decoding.
 
@@ -156,6 +201,7 @@ public class Store : Model {
         case code
         case license
         case name
+        case icon
         case owner
         case email
         case company
@@ -168,6 +214,9 @@ public class Store : Model {
         case country
         case weightUnits = "wtunits"
         case weightUnitCode = "wtunitcode"
+        case displayMixedWeightUnits = "wtdispmix"
+        case displayWeightLessThan = "wtdisplow"
+        case weightDigits = "wtdispdig"
         case dimensionUnits = "dmunitcode"
         case basketExpiration = "baskexp"
         case priceGroupOverlapResolution = "pgrp_ovlp"
@@ -188,12 +237,23 @@ public class Store : Model {
         case requireFreeOrderShipping = "req_frship"
         case itemModuleUninstallable = "item_adel"
         case cacheType = "cache_type"
+        case cacheExpiration = "cache_exp"
+        case cacheVersion = "cache_ver"
+        case cacheCompression = "cache_comp"
+        case cacheSet = "cacheset"
         case redisHost = "redishost"
         case redisPort = "redisport"
         case redisTimeout = "redisto"
         case redisExpiration = "redisex"
         case boxPackingId = "boxpack_id"
         case addressValidationId = "addrval_id"
+        case deferBaskets = "deferbask"
+        case trackPageHits = "trackhits"
+        case maintenanceAllowedIps = "mnt_ips"
+        case branchId = "branch_id"
+        case characterSet = "charset"
+        case scheduledTaskAdvance = "schtsk_adv"
+        case scheduledTaskTimeout = "schtsk_min"
     }
 
     /**
@@ -205,6 +265,7 @@ public class Store : Model {
         self.code = ""
         self.license = ""
         self.name = ""
+        self.icon = ""
         self.owner = ""
         self.email = ""
         self.company = ""
@@ -217,6 +278,9 @@ public class Store : Model {
         self.country = ""
         self.weightUnits = ""
         self.weightUnitCode = ""
+        self.displayMixedWeightUnits = false
+        self.displayWeightLessThan = false
+        self.weightDigits = 0
         self.dimensionUnits = ""
         self.basketExpiration = 0
         self.priceGroupOverlapResolution = ""
@@ -237,12 +301,23 @@ public class Store : Model {
         self.requireFreeOrderShipping = false
         self.itemModuleUninstallable = false
         self.cacheType = ""
+        self.cacheExpiration = 0
+        self.cacheVersion = 0
+        self.cacheCompression = false
+        self.cacheSet = 0
         self.redisHost = ""
         self.redisPort = 0
         self.redisTimeout = 0
         self.redisExpiration = 0
         self.boxPackingId = 0
         self.addressValidationId = 0
+        self.deferBaskets = false
+        self.trackPageHits = false
+        self.maintenanceAllowedIps = ""
+        self.branchId = 0
+        self.characterSet = ""
+        self.scheduledTaskAdvance = 0
+        self.scheduledTaskTimeout = 0
 
         super.init()
     }
@@ -263,6 +338,7 @@ public class Store : Model {
         self.code = try container.decodeIfPresent(String.self, forKey: .code) ?? ""
         self.license = try container.decodeIfPresent(String.self, forKey: .license) ?? ""
         self.name = try container.decodeIfPresent(String.self, forKey: .name) ?? ""
+        self.icon = try container.decodeIfPresent(String.self, forKey: .icon) ?? ""
         self.owner = try container.decodeIfPresent(String.self, forKey: .owner) ?? ""
         self.email = try container.decodeIfPresent(String.self, forKey: .email) ?? ""
         self.company = try container.decodeIfPresent(String.self, forKey: .company) ?? ""
@@ -275,6 +351,9 @@ public class Store : Model {
         self.country = try container.decodeIfPresent(String.self, forKey: .country) ?? ""
         self.weightUnits = try container.decodeIfPresent(String.self, forKey: .weightUnits) ?? ""
         self.weightUnitCode = try container.decodeIfPresent(String.self, forKey: .weightUnitCode) ?? ""
+        self.displayMixedWeightUnits = try container.decodeIfPresent(Bool.self, forKey: .displayMixedWeightUnits) ?? false
+        self.displayWeightLessThan = try container.decodeIfPresent(Bool.self, forKey: .displayWeightLessThan) ?? false
+        self.weightDigits = try container.decodeIfPresent(Int.self, forKey: .weightDigits) ?? 0
         self.dimensionUnits = try container.decodeIfPresent(String.self, forKey: .dimensionUnits) ?? ""
         self.basketExpiration = try container.decodeIfPresent(Int.self, forKey: .basketExpiration) ?? 0
         self.priceGroupOverlapResolution = try container.decodeIfPresent(String.self, forKey: .priceGroupOverlapResolution) ?? ""
@@ -295,12 +374,23 @@ public class Store : Model {
         self.requireFreeOrderShipping = try container.decodeIfPresent(Bool.self, forKey: .requireFreeOrderShipping) ?? false
         self.itemModuleUninstallable = try container.decodeIfPresent(Bool.self, forKey: .itemModuleUninstallable) ?? false
         self.cacheType = try container.decodeIfPresent(String.self, forKey: .cacheType) ?? ""
+        self.cacheExpiration = try container.decodeIfPresent(Int.self, forKey: .cacheExpiration) ?? 0
+        self.cacheVersion = try container.decodeIfPresent(Int.self, forKey: .cacheVersion) ?? 0
+        self.cacheCompression = try container.decodeIfPresent(Bool.self, forKey: .cacheCompression) ?? false
+        self.cacheSet = try container.decodeIfPresent(Int.self, forKey: .cacheSet) ?? 0
         self.redisHost = try container.decodeIfPresent(String.self, forKey: .redisHost) ?? ""
         self.redisPort = try container.decodeIfPresent(Int.self, forKey: .redisPort) ?? 0
         self.redisTimeout = try container.decodeIfPresent(Int.self, forKey: .redisTimeout) ?? 0
         self.redisExpiration = try container.decodeIfPresent(Int.self, forKey: .redisExpiration) ?? 0
         self.boxPackingId = try container.decodeIfPresent(Int.self, forKey: .boxPackingId) ?? 0
         self.addressValidationId = try container.decodeIfPresent(Int.self, forKey: .addressValidationId) ?? 0
+        self.deferBaskets = try container.decodeIfPresent(Bool.self, forKey: .deferBaskets) ?? false
+        self.trackPageHits = try container.decodeIfPresent(Bool.self, forKey: .trackPageHits) ?? false
+        self.maintenanceAllowedIps = try container.decodeIfPresent(String.self, forKey: .maintenanceAllowedIps) ?? ""
+        self.branchId = try container.decodeIfPresent(Int.self, forKey: .branchId) ?? 0
+        self.characterSet = try container.decodeIfPresent(String.self, forKey: .characterSet) ?? ""
+        self.scheduledTaskAdvance = try container.decodeIfPresent(Int.self, forKey: .scheduledTaskAdvance) ?? 0
+        self.scheduledTaskTimeout = try container.decodeIfPresent(Int.self, forKey: .scheduledTaskTimeout) ?? 0
 
         try super.init(from : decoder)
     }
@@ -321,6 +411,7 @@ public class Store : Model {
         try container.encodeIfPresent(self.code, forKey: .code)
         try container.encodeIfPresent(self.license, forKey: .license)
         try container.encodeIfPresent(self.name, forKey: .name)
+        try container.encodeIfPresent(self.icon, forKey: .icon)
         try container.encodeIfPresent(self.owner, forKey: .owner)
         try container.encodeIfPresent(self.email, forKey: .email)
         try container.encodeIfPresent(self.company, forKey: .company)
@@ -333,6 +424,9 @@ public class Store : Model {
         try container.encodeIfPresent(self.country, forKey: .country)
         try container.encodeIfPresent(self.weightUnits, forKey: .weightUnits)
         try container.encodeIfPresent(self.weightUnitCode, forKey: .weightUnitCode)
+        try container.encodeIfPresent(self.displayMixedWeightUnits, forKey: .displayMixedWeightUnits)
+        try container.encodeIfPresent(self.displayWeightLessThan, forKey: .displayWeightLessThan)
+        try container.encodeIfPresent(self.weightDigits, forKey: .weightDigits)
         try container.encodeIfPresent(self.dimensionUnits, forKey: .dimensionUnits)
         try container.encodeIfPresent(self.basketExpiration, forKey: .basketExpiration)
         try container.encodeIfPresent(self.priceGroupOverlapResolution, forKey: .priceGroupOverlapResolution)
@@ -344,7 +438,7 @@ public class Store : Model {
         try container.encodeIfPresent(self.maintenanceTime, forKey: .maintenanceTime)
         try container.encodeIfPresent(self.maintenanceNoNewCustomersBefore, forKey: .maintenanceNoNewCustomersBefore)
         try container.encodeIfPresent(self.orderMinimumQuantity, forKey: .orderMinimumQuantity)
-        try container.encodeIfPresent(Decimal.roundForEncoding(value: self.orderMinimumPrice, precision: MERCHANTAPI_FLOAT_ENCODE_PRECISION), forKey: .orderMinimumPrice)
+        try container.encodeIfPresent(Decimal.roundForEncoding(value: self.orderMinimumPrice, precision: 2), forKey: .orderMinimumPrice)
         try container.encodeIfPresent(self.orderMinimumRequiredAll, forKey: .orderMinimumRequiredAll)
         try container.encodeIfPresent(self.orderMinimumMessage, forKey: .orderMinimumMessage)
         try container.encodeIfPresent(self.cryptId, forKey: .cryptId)
@@ -353,12 +447,23 @@ public class Store : Model {
         try container.encodeIfPresent(self.requireFreeOrderShipping, forKey: .requireFreeOrderShipping)
         try container.encodeIfPresent(self.itemModuleUninstallable, forKey: .itemModuleUninstallable)
         try container.encodeIfPresent(self.cacheType, forKey: .cacheType)
+        try container.encodeIfPresent(self.cacheExpiration, forKey: .cacheExpiration)
+        try container.encodeIfPresent(self.cacheVersion, forKey: .cacheVersion)
+        try container.encodeIfPresent(self.cacheCompression, forKey: .cacheCompression)
+        try container.encodeIfPresent(self.cacheSet, forKey: .cacheSet)
         try container.encodeIfPresent(self.redisHost, forKey: .redisHost)
         try container.encodeIfPresent(self.redisPort, forKey: .redisPort)
         try container.encodeIfPresent(self.redisTimeout, forKey: .redisTimeout)
         try container.encodeIfPresent(self.redisExpiration, forKey: .redisExpiration)
         try container.encodeIfPresent(self.boxPackingId, forKey: .boxPackingId)
         try container.encodeIfPresent(self.addressValidationId, forKey: .addressValidationId)
+        try container.encodeIfPresent(self.deferBaskets, forKey: .deferBaskets)
+        try container.encodeIfPresent(self.trackPageHits, forKey: .trackPageHits)
+        try container.encodeIfPresent(self.maintenanceAllowedIps, forKey: .maintenanceAllowedIps)
+        try container.encodeIfPresent(self.branchId, forKey: .branchId)
+        try container.encodeIfPresent(self.characterSet, forKey: .characterSet)
+        try container.encodeIfPresent(self.scheduledTaskAdvance, forKey: .scheduledTaskAdvance)
+        try container.encodeIfPresent(self.scheduledTaskTimeout, forKey: .scheduledTaskTimeout)
 
         try super.encode(to: encoder)
     }
@@ -411,6 +516,16 @@ public class Store : Model {
      */
     public func getName() -> String {
         return self.name
+    }
+
+    /**
+     Getter for icon.
+
+     - Returns:  String
+
+     */
+    public func getIcon() -> String {
+        return self.icon
     }
 
     /**
@@ -531,6 +646,32 @@ public class Store : Model {
      */
     public func getWeightUnitCode() -> String {
         return self.weightUnitCode
+    }
+
+    /**
+     Getter for wtdispmix.
+
+     - Returns:  Bool     */
+    public func getDisplayMixedWeightUnits() -> Bool {
+        return self.displayMixedWeightUnits
+    }
+
+    /**
+     Getter for wtdisplow.
+
+     - Returns:  Bool     */
+    public func getDisplayWeightLessThan() -> Bool {
+        return self.displayWeightLessThan
+    }
+
+    /**
+     Getter for wtdispdig.
+
+     - Returns:  Int
+
+     */
+    public func getWeightDigits() -> Int {
+        return self.weightDigits
     }
 
     /**
@@ -731,6 +872,44 @@ public class Store : Model {
     }
 
     /**
+     Getter for cache_exp.
+
+     - Returns:  Int
+
+     */
+    public func getCacheExpiration() -> Int {
+        return self.cacheExpiration
+    }
+
+    /**
+     Getter for cache_ver.
+
+     - Returns:  Int
+
+     */
+    public func getCacheVersion() -> Int {
+        return self.cacheVersion
+    }
+
+    /**
+     Getter for cache_comp.
+
+     - Returns:  Bool     */
+    public func getCacheCompression() -> Bool {
+        return self.cacheCompression
+    }
+
+    /**
+     Getter for cacheset.
+
+     - Returns:  Int
+
+     */
+    public func getCacheSet() -> Int {
+        return self.cacheSet
+    }
+
+    /**
      Getter for redishost.
 
      - Returns:  String
@@ -788,5 +967,71 @@ public class Store : Model {
      */
     public func getAddressValidationId() -> Int {
         return self.addressValidationId
+    }
+
+    /**
+     Getter for deferbask.
+
+     - Returns:  Bool     */
+    public func getDeferBaskets() -> Bool {
+        return self.deferBaskets
+    }
+
+    /**
+     Getter for trackhits.
+
+     - Returns:  Bool     */
+    public func getTrackPageHits() -> Bool {
+        return self.trackPageHits
+    }
+
+    /**
+     Getter for mnt_ips.
+
+     - Returns:  String
+
+     */
+    public func getMaintenanceAllowedIps() -> String {
+        return self.maintenanceAllowedIps
+    }
+
+    /**
+     Getter for branch_id.
+
+     - Returns:  Int
+
+     */
+    public func getBranchId() -> Int {
+        return self.branchId
+    }
+
+    /**
+     Getter for charset.
+
+     - Returns:  String
+
+     */
+    public func getCharacterSet() -> String {
+        return self.characterSet
+    }
+
+    /**
+     Getter for schtsk_adv.
+
+     - Returns:  Int
+
+     */
+    public func getScheduledTaskAdvance() -> Int {
+        return self.scheduledTaskAdvance
+    }
+
+    /**
+     Getter for schtsk_min.
+
+     - Returns:  Int
+
+     */
+    public func getScheduledTaskTimeout() -> Int {
+        return self.scheduledTaskTimeout
     }
 }

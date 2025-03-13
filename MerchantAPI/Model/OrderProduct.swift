@@ -28,6 +28,9 @@ public class OrderProduct : Model {
     /// Model field quantity.
     var quantity : Int
 
+    /// Model field tax.
+    var tax : Decimal
+
     /// Model field attributes.
     var attributes : [OrderProductAttribute]
 
@@ -43,6 +46,7 @@ public class OrderProduct : Model {
         case trackingNumber = "tracknum"
         case trackingType = "tracktype"
         case quantity
+        case tax
         case attributes
     }
 
@@ -56,6 +60,7 @@ public class OrderProduct : Model {
         self.trackingNumber = nil
         self.trackingType = nil
         self.quantity = 0
+        self.tax = Decimal(0.00)
         self.attributes = []
 
         super.init()
@@ -78,6 +83,7 @@ public class OrderProduct : Model {
         self.trackingNumber = try container.decodeIfPresent(String.self, forKey: .trackingNumber) ?? nil
         self.trackingType = try container.decodeIfPresent(String.self, forKey: .trackingType) ?? nil
         self.quantity = try container.decodeIfPresent(Int.self, forKey: .quantity) ?? 0
+        self.tax = try container.decodeIfPresent(Decimal.self, forKey: .tax) ?? Decimal(0.00)
         self.attributes = try container.decodeIfPresent([OrderProductAttribute].self, forKey: .attributes) ?? []
 
         try super.init(from : decoder)
@@ -100,6 +106,7 @@ public class OrderProduct : Model {
         try container.encodeIfPresent(self.trackingNumber, forKey: .trackingNumber)
         try container.encodeIfPresent(self.trackingType, forKey: .trackingType)
         try container.encodeIfPresent(self.quantity, forKey: .quantity)
+        try container.encodeIfPresent(Decimal.roundForEncoding(value: self.tax, precision: MERCHANTAPI_FLOAT_ENCODE_PRECISION), forKey: .tax)
         try container.encodeIfPresent(self.attributes, forKey: .attributes)
 
         try super.encode(to: encoder)
@@ -163,6 +170,14 @@ public class OrderProduct : Model {
      */
     public func getQuantity() -> Int {
         return self.quantity
+    }
+
+    /**
+     Getter for tax.
+
+     - Returns:  Decimal     */
+    public func getTax() -> Decimal {
+        return self.tax
     }
 
     /**
@@ -249,6 +264,19 @@ public class OrderProduct : Model {
     @discardableResult
     public func setQuantity(_ value: Int) -> Self {
         self.quantity = value
+        return self
+    }
+
+    /**
+     Setter for tax.
+
+     - Parameters:
+        - value: Decimal
+     - Returns:  Self
+     */
+    @discardableResult
+    public func setTax(_ value: Decimal) -> Self {
+        self.tax = value
         return self
     }
 

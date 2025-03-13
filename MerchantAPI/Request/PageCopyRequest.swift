@@ -72,6 +72,9 @@ public class PageCopyRequest : Request {
     /// Request field Dest_Page_Layout.
     var destinationPageLayout : Optional<Bool> = nil
 
+    /// Request field Dest_Page_Fragment.
+    var destinationPageFragment : Optional<Bool> = nil
+
     /**
      CodingKeys used to map the request when encoding.
 
@@ -91,6 +94,7 @@ public class PageCopyRequest : Request {
         case changesetNotes = "Changeset_Notes"
         case destinationPageName = "Dest_Page_Name"
         case destinationPageLayout = "Dest_Page_Layout"
+        case destinationPageFragment = "Dest_Page_Fragment"
     }
 
     /**
@@ -149,6 +153,7 @@ public class PageCopyRequest : Request {
         try container.encodeIfPresent(self.changesetNotes, forKey: .changesetNotes)
         try container.encodeIfPresent(self.destinationPageName, forKey: .destinationPageName)
         try container.encodeIfPresent(self.destinationPageLayout, forKey: .destinationPageLayout)
+        try container.encodeIfPresent(self.destinationPageFragment, forKey: .destinationPageFragment)
 
         try super.encode(to : encoder)
     }
@@ -309,6 +314,15 @@ public class PageCopyRequest : Request {
     }
 
     /**
+     Getter for Dest_Page_Fragment.
+
+     - Returns:  Optional<Bool>
+     */
+    public func getDestinationPageFragment() -> Optional<Bool> {
+        return self.destinationPageFragment
+    }
+
+    /**
      Setter for Source_Page_ID.
 
      - Parameters:
@@ -448,6 +462,19 @@ public class PageCopyRequest : Request {
     @discardableResult
     public func setDestinationPageLayout(_ value: Optional<Bool>) -> Self {
         self.destinationPageLayout = value
+        return self
+    }
+
+    /**
+     Setter for Dest_Page_Fragment.
+
+     - Parameters:
+        - value: Optional<Bool>
+     - Returns:  Self
+     */
+    @discardableResult
+    public func setDestinationPageFragment(_ value: Optional<Bool>) -> Self {
+        self.destinationPageFragment = value
         return self
     }
 }

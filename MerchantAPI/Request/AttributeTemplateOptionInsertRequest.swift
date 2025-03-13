@@ -143,9 +143,9 @@ public class AttributeTemplateOptionInsertRequest : Request {
         try container.encodeIfPresent(self.code, forKey: .code)
         try container.encodeIfPresent(self.prompt, forKey: .prompt)
         try container.encodeIfPresent(self.image, forKey: .image)
-        try container.encodeIfPresent(Decimal.roundForEncoding(value: self.price, precision: MERCHANTAPI_FLOAT_ENCODE_PRECISION), forKey: .price)
-        try container.encodeIfPresent(Decimal.roundForEncoding(value: self.cost, precision: MERCHANTAPI_FLOAT_ENCODE_PRECISION), forKey: .cost)
-        try container.encodeIfPresent(Decimal.roundForEncoding(value: self.weight, precision: MERCHANTAPI_FLOAT_ENCODE_PRECISION), forKey: .weight)
+        try container.encodeIfPresent(Decimal.roundForEncoding(value: self.price, precision: 8), forKey: .price)
+        try container.encodeIfPresent(Decimal.roundForEncoding(value: self.cost, precision: 8), forKey: .cost)
+        try container.encodeIfPresent(Decimal.roundForEncoding(value: self.weight, precision: 8), forKey: .weight)
         try container.encodeIfPresent(self.defaultOption, forKey: .defaultOption)
 
         try super.encode(to : encoder)

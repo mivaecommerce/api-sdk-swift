@@ -110,9 +110,9 @@ public class BusinessAccount : Model {
         try container.encodeIfPresent(self.title, forKey: .title)
         try container.encodeIfPresent(self.taxExempt, forKey: .taxExempt)
         try container.encodeIfPresent(self.orderCount, forKey: .orderCount)
-        try container.encodeIfPresent(Decimal.roundForEncoding(value: self.orderAverage, precision: MERCHANTAPI_FLOAT_ENCODE_PRECISION), forKey: .orderAverage)
+        try container.encodeIfPresent(Decimal.roundForEncoding(value: self.orderAverage, precision: 2), forKey: .orderAverage)
         try container.encodeIfPresent(self.formattedOrderAverage, forKey: .formattedOrderAverage)
-        try container.encodeIfPresent(Decimal.roundForEncoding(value: self.orderTotal, precision: MERCHANTAPI_FLOAT_ENCODE_PRECISION), forKey: .orderTotal)
+        try container.encodeIfPresent(Decimal.roundForEncoding(value: self.orderTotal, precision: 2), forKey: .orderTotal)
         try container.encodeIfPresent(self.formattedOrderTotal, forKey: .formattedOrderTotal)
         try container.encodeIfPresent(self.noteCount, forKey: .noteCount)
 

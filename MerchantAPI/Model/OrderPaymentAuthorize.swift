@@ -107,13 +107,13 @@ public class OrderPaymentAuthorize : Model {
         var container = encoder.container(keyedBy: CodingKeys.self)
 
         try container.encodeIfPresent(self.valid, forKey: .valid)
-        try container.encodeIfPresent(Decimal.roundForEncoding(value: self.totalAuthorized, precision: MERCHANTAPI_FLOAT_ENCODE_PRECISION), forKey: .totalAuthorized)
+        try container.encodeIfPresent(Decimal.roundForEncoding(value: self.totalAuthorized, precision: 2), forKey: .totalAuthorized)
         try container.encodeIfPresent(self.formattedTotalAuthorized, forKey: .formattedTotalAuthorized)
-        try container.encodeIfPresent(Decimal.roundForEncoding(value: self.totalCaptured, precision: MERCHANTAPI_FLOAT_ENCODE_PRECISION), forKey: .totalCaptured)
+        try container.encodeIfPresent(Decimal.roundForEncoding(value: self.totalCaptured, precision: 2), forKey: .totalCaptured)
         try container.encodeIfPresent(self.formattedTotalCaptured, forKey: .formattedTotalCaptured)
-        try container.encodeIfPresent(Decimal.roundForEncoding(value: self.totalRefunded, precision: MERCHANTAPI_FLOAT_ENCODE_PRECISION), forKey: .totalRefunded)
+        try container.encodeIfPresent(Decimal.roundForEncoding(value: self.totalRefunded, precision: 2), forKey: .totalRefunded)
         try container.encodeIfPresent(self.formattedTotalRefunded, forKey: .formattedTotalRefunded)
-        try container.encodeIfPresent(Decimal.roundForEncoding(value: self.netCaptured, precision: MERCHANTAPI_FLOAT_ENCODE_PRECISION), forKey: .netCaptured)
+        try container.encodeIfPresent(Decimal.roundForEncoding(value: self.netCaptured, precision: 2), forKey: .netCaptured)
         try container.encodeIfPresent(self.formattedNetCaptured, forKey: .formattedNetCaptured)
 
         try super.encode(to: encoder)

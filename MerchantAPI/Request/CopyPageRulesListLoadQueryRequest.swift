@@ -54,7 +54,8 @@ public class CopyPageRulesListLoadQueryRequest : ListQueryRequest {
                 "settings",
                 "jsres",
                 "cssres",
-                "cacheset"
+                "cacheset",
+                "public"
             ]
         }
     }
@@ -77,7 +78,8 @@ public class CopyPageRulesListLoadQueryRequest : ListQueryRequest {
                 "settings",
                 "jsres",
                 "cssres",
-                "cacheset"
+                "cacheset",
+                "public"
             ]
         }
     }

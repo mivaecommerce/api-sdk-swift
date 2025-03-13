@@ -111,8 +111,8 @@ public class OrderItemAddRequest : Request {
         try container.encodeIfPresent(self.name, forKey: .name)
         try container.encodeIfPresent(self.sku, forKey: .sku)
         try container.encodeIfPresent(self.quantity, forKey: .quantity)
-        try container.encodeIfPresent(Decimal.roundForEncoding(value: self.price, precision: MERCHANTAPI_FLOAT_ENCODE_PRECISION), forKey: .price)
-        try container.encodeIfPresent(Decimal.roundForEncoding(value: self.weight, precision: MERCHANTAPI_FLOAT_ENCODE_PRECISION), forKey: .weight)
+        try container.encodeIfPresent(Decimal.roundForEncoding(value: self.price, precision: 8), forKey: .price)
+        try container.encodeIfPresent(Decimal.roundForEncoding(value: self.weight, precision: 8), forKey: .weight)
         try container.encodeIfPresent(self.taxable, forKey: .taxable)
         try container.encodeIfPresent(self.options, forKey: .options)
 

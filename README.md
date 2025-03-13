@@ -32,6 +32,11 @@ You can also download the release package from the Releases page or clone the re
 
 After cloning the repository, you can open the `MerchantAPI.xcodeproj` which includes a Playground for you to play around in. In addition, there are examples provided in the `Examples/` directory.
 
+
+# High Precision Pricing & Weight
+
+Miva Merchant 10.11 added support for high precision pricing and weight. All price and weight fields are already using the decimal type. No additional dependences are required to support this.
+
 # License
 
 This library is licensed under the `Miva SDK License Agreement`.

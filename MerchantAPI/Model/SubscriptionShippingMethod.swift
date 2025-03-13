@@ -85,7 +85,7 @@ public class SubscriptionShippingMethod : Model {
         try container.encodeIfPresent(self.module, forKey: .module)
         try container.encodeIfPresent(self.methodCode, forKey: .methodCode)
         try container.encodeIfPresent(self.methodName, forKey: .methodName)
-        try container.encodeIfPresent(Decimal.roundForEncoding(value: self.price, precision: MERCHANTAPI_FLOAT_ENCODE_PRECISION), forKey: .price)
+        try container.encodeIfPresent(Decimal.roundForEncoding(value: self.price, precision: 2), forKey: .price)
         try container.encodeIfPresent(self.formattedPrice, forKey: .formattedPrice)
 
         try super.encode(to: encoder)

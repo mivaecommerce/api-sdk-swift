@@ -92,7 +92,7 @@ public class OrderCoupon : Model {
         try container.encodeIfPresent(self.couponId, forKey: .couponId)
         try container.encodeIfPresent(self.code, forKey: .code)
         try container.encodeIfPresent(self.description, forKey: .description)
-        try container.encodeIfPresent(Decimal.roundForEncoding(value: self.total, precision: MERCHANTAPI_FLOAT_ENCODE_PRECISION), forKey: .total)
+        try container.encodeIfPresent(Decimal.roundForEncoding(value: self.total, precision: 8), forKey: .total)
         try container.encodeIfPresent(self.assigned, forKey: .assigned)
 
         try super.encode(to: encoder)

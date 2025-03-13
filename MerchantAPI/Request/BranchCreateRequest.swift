@@ -39,6 +39,9 @@ public class BranchCreateRequest : Request {
     /// Request field Parent_Branch_ID.
     var parentBranchId : Optional<Int> = nil
 
+    /// Request field Branch_Create_Session_ID.
+    var branchCreateSessionId : Optional<String> = nil
+
     /// Request field Name.
     var name : Optional<String> = nil
 
@@ -59,6 +62,7 @@ public class BranchCreateRequest : Request {
     private enum CodingKeys: String, CodingKey {
         case function = "Function"
         case parentBranchId = "Parent_Branch_ID"
+        case branchCreateSessionId = "Branch_Create_Session_ID"
         case name = "Name"
         case color = "Color"
         case changesetId = "Changeset_ID"
@@ -96,6 +100,7 @@ public class BranchCreateRequest : Request {
             try container.encodeIfPresent(self.parentBranchId, forKey: .parentBranchId)
         }
 
+        try container.encodeIfPresent(self.branchCreateSessionId, forKey: .branchCreateSessionId)
         try container.encodeIfPresent(self.name, forKey: .name)
         try container.encodeIfPresent(self.color, forKey: .color)
         try container.encodeIfPresent(self.changesetId, forKey: .changesetId)
@@ -161,6 +166,15 @@ public class BranchCreateRequest : Request {
     }
 
     /**
+     Getter for Branch_Create_Session_ID.
+
+     - Returns:  Optional<String>
+     */
+    public func getBranchCreateSessionId() -> Optional<String> {
+        return self.branchCreateSessionId
+    }
+
+    /**
      Getter for Name.
 
      - Returns:  Optional<String>
@@ -206,6 +220,19 @@ public class BranchCreateRequest : Request {
     @discardableResult
     public func setParentBranchId(_ value: Optional<Int>) -> Self {
         self.parentBranchId = value
+        return self
+    }
+
+    /**
+     Setter for Branch_Create_Session_ID.
+
+     - Parameters:
+        - value: Optional<String>
+     - Returns:  Self
+     */
+    @discardableResult
+    public func setBranchCreateSessionId(_ value: Optional<String>) -> Self {
+        self.branchCreateSessionId = value
         return self
     }
 

@@ -54,6 +54,9 @@ public class PageUpdateRequest : Request {
     /// Request field Page_Secure.
     var pageSecure : Optional<Bool> = nil
 
+    /// Request field Page_Public.
+    var pagePublic : Optional<Bool> = nil
+
     /// Request field Page_Cache.
     var pageCache : Optional<String> = nil
 
@@ -88,6 +91,7 @@ public class PageUpdateRequest : Request {
         case pageName = "Page_Name"
         case pageTitle = "Page_Title"
         case pageSecure = "Page_Secure"
+        case pagePublic = "Page_Public"
         case pageCache = "Page_Cache"
         case changesetNotes = "Changeset_Notes"
         case pageUri = "Page_URI"
@@ -150,6 +154,7 @@ public class PageUpdateRequest : Request {
         try container.encodeIfPresent(self.pageName, forKey: .pageName)
         try container.encodeIfPresent(self.pageTitle, forKey: .pageTitle)
         try container.encodeIfPresent(self.pageSecure, forKey: .pageSecure)
+        try container.encodeIfPresent(self.pagePublic, forKey: .pagePublic)
         try container.encodeIfPresent(self.pageCache, forKey: .pageCache)
         try container.encodeIfPresent(self.changesetNotes, forKey: .changesetNotes)
         try container.encodeIfPresent(self.pageUri, forKey: .pageUri)
@@ -257,6 +262,15 @@ public class PageUpdateRequest : Request {
      */
     public func getPageSecure() -> Optional<Bool> {
         return self.pageSecure
+    }
+
+    /**
+     Getter for Page_Public.
+
+     - Returns:  Optional<Bool>
+     */
+    public func getPagePublic() -> Optional<Bool> {
+        return self.pagePublic
     }
 
     /**
@@ -409,6 +423,19 @@ public class PageUpdateRequest : Request {
     @discardableResult
     public func setPageSecure(_ value: Optional<Bool>) -> Self {
         self.pageSecure = value
+        return self
+    }
+
+    /**
+     Setter for Page_Public.
+
+     - Parameters:
+        - value: Optional<Bool>
+     - Returns:  Self
+     */
+    @discardableResult
+    public func setPagePublic(_ value: Optional<Bool>) -> Self {
+        self.pagePublic = value
         return self
     }
 

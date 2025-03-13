@@ -51,6 +51,9 @@ public class CopyPageRulesInsertRequest : Request {
     /// Request field Items.
     var items : Optional<Bool> = nil
 
+    /// Request field Public.
+    var isPublic : Optional<Bool> = nil
+
     /// Request field Settings.
     var settings : Optional<String> = nil
 
@@ -75,6 +78,7 @@ public class CopyPageRulesInsertRequest : Request {
         case title = "Title"
         case template = "Template"
         case items = "Items"
+        case isPublic = "Public"
         case settings = "Settings"
         case javaScriptResourceAssignments = "JavaScriptResourceAssignments"
         case CSSResourceAssignments = "CSSResourceAssignments"
@@ -107,6 +111,7 @@ public class CopyPageRulesInsertRequest : Request {
         try container.encodeIfPresent(self.title, forKey: .title)
         try container.encodeIfPresent(self.template, forKey: .template)
         try container.encodeIfPresent(self.items, forKey: .items)
+        try container.encodeIfPresent(self.isPublic, forKey: .isPublic)
         try container.encodeIfPresent(self.settings, forKey: .settings)
         try container.encodeIfPresent(self.javaScriptResourceAssignments, forKey: .javaScriptResourceAssignments)
         try container.encodeIfPresent(self.CSSResourceAssignments, forKey: .CSSResourceAssignments)
@@ -205,6 +210,15 @@ public class CopyPageRulesInsertRequest : Request {
      */
     public func getItems() -> Optional<Bool> {
         return self.items
+    }
+
+    /**
+     Getter for Public.
+
+     - Returns:  Optional<Bool>
+     */
+    public func getIsPublic() -> Optional<Bool> {
+        return self.isPublic
     }
 
     /**
@@ -317,6 +331,19 @@ public class CopyPageRulesInsertRequest : Request {
     @discardableResult
     public func setItems(_ value: Optional<Bool>) -> Self {
         self.items = value
+        return self
+    }
+
+    /**
+     Setter for Public.
+
+     - Parameters:
+        - value: Optional<Bool>
+     - Returns:  Self
+     */
+    @discardableResult
+    public func setIsPublic(_ value: Optional<Bool>) -> Self {
+        self.isPublic = value
         return self
     }
 

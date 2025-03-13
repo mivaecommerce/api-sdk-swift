@@ -60,7 +60,9 @@ public class PageListLoadQueryRequest : ListQueryRequest {
                 "title",
                 "cache",
                 "admin",
-                "layout"
+                "layout",
+                "public",
+                "fragment"
             ]
         }
     }
@@ -80,7 +82,9 @@ public class PageListLoadQueryRequest : ListQueryRequest {
                 "title",
                 "cache",
                 "admin",
-                "layout"
+                "layout",
+                "public",
+                "fragment"
             ]
         }
     }

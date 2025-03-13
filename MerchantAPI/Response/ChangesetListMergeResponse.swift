@@ -16,6 +16,11 @@ import FoundationNetworking
  - SeeAlso: https://docs.miva.com/json-api/functions/changesetlist_merge
  */
 public class ChangesetListMergeResponse : Response {
+    /// Response field completed.
+    var completed : Optional<Bool> = nil
+
+    /// Response field changesetlist_merge_session_id.
+    var changesetlistMergeSessionId : Optional<String> = nil
 
     /// The response model
     public var changeset : Optional<Changeset> = nil
@@ -35,6 +40,8 @@ public class ChangesetListMergeResponse : Response {
      - SeeAlso: Decodable
      */
     private enum CodingKeys: String, CodingKey {
+        case completed
+        case changesetlistMergeSessionId = "changesetlist_merge_session_id"
         case changeset = "data"
     }
 
@@ -47,7 +54,27 @@ public class ChangesetListMergeResponse : Response {
     public required init(from decoder: Decoder) throws {
         let container  = try decoder.container(keyedBy : CodingKeys.self)
 
+        self.completed = try container.decodeIfPresent(Bool.self, forKey: .completed)
+        self.changesetlistMergeSessionId = try container.decodeIfPresent(String.self, forKey: .changesetlistMergeSessionId)
         self.changeset = try container.decodeIfPresent(Changeset.self, forKey: .changeset)
         try super.init(from : decoder)
+    }
+
+    /**
+     Get completed.
+
+     - Returns: Bool
+    */
+    func getCompleted() -> Bool {
+        return self.completed ?? false
+    }
+
+    /**
+     Get changesetlist_merge_session_id.
+
+     - Returns: string
+    */
+    func getChangesetlistMergeSessionId() -> String {
+        return self.changesetlistMergeSessionId ?? ""
     }
 }

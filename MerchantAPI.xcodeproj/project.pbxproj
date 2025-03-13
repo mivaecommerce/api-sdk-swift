@@ -654,6 +654,7 @@
 		A32F01DA251191DC000CBC16 /* SSHClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = A32F01D9251191DC000CBC16 /* SSHClient.swift */; };
 		A32F01DC251191E6000CBC16 /* SSHAgentClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = A32F01DB251191E6000CBC16 /* SSHAgentClient.swift */; };
 		A32F01DE2511921B000CBC16 /* BaseClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = A32F01DD2511921B000CBC16 /* BaseClient.swift */; };
+		A35AB24A2CFE5CFB00671CAA /* ChildCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = A35AB2482CFE5CFB00671CAA /* ChildCategory.swift */; };
 		A3630D6024B4FD4900C7F729 /* Client.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3630D5424B4FD4800C7F729 /* Client.swift */; };
 		A3630D6424B4FD4900C7F729 /* Request.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3630D5824B4FD4900C7F729 /* Request.swift */; };
 		A3630D6524B4FD4900C7F729 /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3630D5924B4FD4900C7F729 /* Model.swift */; };
@@ -696,6 +697,7 @@
 		A3A90C562B9A467800F1C45F /* ProductShippingRulesUpdateRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3A90C552B9A467800F1C45F /* ProductShippingRulesUpdateRequest.swift */; };
 		A3A90C582B9A468700F1C45F /* ProductShippingRulesUpdateResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3A90C572B9A468700F1C45F /* ProductShippingRulesUpdateResponse.swift */; };
 		A3C541DE24BE4505001E27AB /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3C541DD24BE4505001E27AB /* Logger.swift */; };
+		A3C6AE552CFF9CE300B19016 /* BaseSubscription.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3C6AE542CFF9CE300B19016 /* BaseSubscription.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -1343,6 +1345,7 @@
 		A32F01D9251191DC000CBC16 /* SSHClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SSHClient.swift; sourceTree = "<group>"; };
 		A32F01DB251191E6000CBC16 /* SSHAgentClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SSHAgentClient.swift; sourceTree = "<group>"; };
 		A32F01DD2511921B000CBC16 /* BaseClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseClient.swift; sourceTree = "<group>"; };
+		A35AB2482CFE5CFB00671CAA /* ChildCategory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChildCategory.swift; sourceTree = "<group>"; };
 		A3630D5424B4FD4800C7F729 /* Client.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Client.swift; sourceTree = "<group>"; };
 		A3630D5824B4FD4900C7F729 /* Request.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Request.swift; sourceTree = "<group>"; };
 		A3630D5924B4FD4900C7F729 /* Model.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Model.swift; sourceTree = "<group>"; };
@@ -1385,6 +1388,7 @@
 		A3A90C552B9A467800F1C45F /* ProductShippingRulesUpdateRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProductShippingRulesUpdateRequest.swift; sourceTree = "<group>"; };
 		A3A90C572B9A468700F1C45F /* ProductShippingRulesUpdateResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProductShippingRulesUpdateResponse.swift; sourceTree = "<group>"; };
 		A3C541DD24BE4505001E27AB /* Logger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Logger.swift; sourceTree = "<group>"; };
+		A3C6AE542CFF9CE300B19016 /* BaseSubscription.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseSubscription.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -2036,6 +2040,7 @@
 				A31C806829C4EBC500FE8124 /* AvailabilityGroupCustomer.swift */,
 				A31C80A129C4EBC600FE8124 /* AvailabilityGroupProduct.swift */,
 				A31C80DC29C4EBC800FE8124 /* AvailabilityGroupShippingMethod.swift */,
+				A3C6AE542CFF9CE300B19016 /* BaseSubscription.swift */,
 				A31C80B329C4EBC700FE8124 /* Branch.swift */,
 				A31C80E729C4EBC800FE8124 /* BranchCSSResource.swift */,
 				A31C80D929C4EBC800FE8124 /* BranchCSSResourceVersion.swift */,
@@ -2056,6 +2061,7 @@
 				A31C80BE29C4EBC700FE8124 /* ChangesetJavaScriptResourceVersion.swift */,
 				A31C80DA29C4EBC800FE8124 /* ChangesetPropertyVersion.swift */,
 				A31C80F029C4EBC900FE8124 /* ChangesetTemplateVersion.swift */,
+				A35AB2482CFE5CFB00671CAA /* ChildCategory.swift */,
 				A31C80E829C4EBC800FE8124 /* CopyPageRule.swift */,
 				A31C809B29C4EBC600FE8124 /* CopyPageRulesSettings.swift */,
 				A31C809329C4EBC600FE8124 /* CopyProductRule.swift */,
@@ -2773,6 +2779,7 @@
 				A31C84DF29C4EC3200FE8124 /* CategoryDeleteResponse.swift in Sources */,
 				A3A90C142B97F41B00F1C45F /* BranchItemVersion.swift in Sources */,
 				A31C815229C4EBC900FE8124 /* DiscountModuleCapabilities.swift in Sources */,
+				A3C6AE552CFF9CE300B19016 /* BaseSubscription.swift in Sources */,
 				A31C84DC29C4EC3200FE8124 /* CopyPageRulesInsertResponse.swift in Sources */,
 				A31C848429C4EC3200FE8124 /* PriceGroupCustomerListLoadQueryResponse.swift in Sources */,
 				A31C810A29C4EBC900FE8124 /* OrderCoupon.swift in Sources */,
@@ -2941,6 +2948,7 @@
 				A31C834429C4EC1800FE8124 /* PriceGroupBusinessAccountUpdateAssignedRequest.swift in Sources */,
 				A31C813C29C4EBC900FE8124 /* OrderCharge.swift in Sources */,
 				A31C830029C4EC1800FE8124 /* FeedURIInsertRequest.swift in Sources */,
+				A35AB24A2CFE5CFB00671CAA /* ChildCategory.swift in Sources */,
 				A31C815F29C4EBC900FE8124 /* OrderShipmentUpdate.swift in Sources */,
 				A31C855129C4EC3200FE8124 /* AttributeTemplateAttributeUpdateResponse.swift in Sources */,
 				A31C829929C4EC1800FE8124 /* ChangesetJavaScriptResourceVersionListLoadQueryRequest.swift in Sources */,
@@ -3107,7 +3115,7 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				MARKETING_VERSION = 2.6.0;
+				MARKETING_VERSION = 2.7.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.miva.framework.MerchantAPI;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SDKROOT = macosx;
@@ -3138,7 +3146,7 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				MARKETING_VERSION = 2.6.0;
+				MARKETING_VERSION = 2.7.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.miva.framework.MerchantAPI;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SDKROOT = macosx;

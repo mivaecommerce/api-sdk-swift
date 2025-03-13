@@ -16,6 +16,7 @@ import FoundationNetworking
  - SeeAlso: https://docs.miva.com/json-api/functions/subscriptionlist_load_query
  */
 public class SubscriptionListLoadQueryRequest : ListQueryRequest {
+
     /**
      The API function name.
 

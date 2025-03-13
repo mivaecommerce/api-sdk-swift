@@ -112,7 +112,7 @@ public class CustomerCreditHistory : Model {
         try container.encodeIfPresent(self.orderId, forKey: .orderId)
         try container.encodeIfPresent(self.transactionReference, forKey: .transactionReference)
         try container.encodeIfPresent(self.description, forKey: .description)
-        try container.encodeIfPresent(Decimal.roundForEncoding(value: self.amount, precision: MERCHANTAPI_FLOAT_ENCODE_PRECISION), forKey: .amount)
+        try container.encodeIfPresent(Decimal.roundForEncoding(value: self.amount, precision: 2), forKey: .amount)
         try container.encodeIfPresent(Int64(self.dateTimeStamp.timeIntervalSince1970), forKey: .dateTimeStamp)
         try container.encodeIfPresent(self.userName, forKey: .userName)
 

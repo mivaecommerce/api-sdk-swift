@@ -96,9 +96,9 @@ public class ProductShippingRules : Model {
 
         try container.encodeIfPresent(self.productId, forKey: .productId)
         try container.encodeIfPresent(self.ownPackage, forKey: .ownPackage)
-        try container.encodeIfPresent(Decimal.roundForEncoding(value: self.width, precision: MERCHANTAPI_FLOAT_ENCODE_PRECISION), forKey: .width)
-        try container.encodeIfPresent(Decimal.roundForEncoding(value: self.length, precision: MERCHANTAPI_FLOAT_ENCODE_PRECISION), forKey: .length)
-        try container.encodeIfPresent(Decimal.roundForEncoding(value: self.height, precision: MERCHANTAPI_FLOAT_ENCODE_PRECISION), forKey: .height)
+        try container.encodeIfPresent(Decimal.roundForEncoding(value: self.width, precision: 2), forKey: .width)
+        try container.encodeIfPresent(Decimal.roundForEncoding(value: self.length, precision: 2), forKey: .length)
+        try container.encodeIfPresent(Decimal.roundForEncoding(value: self.height, precision: 2), forKey: .height)
         try container.encodeIfPresent(self.limitMethods, forKey: .limitMethods)
         try container.encodeIfPresent(self.methods, forKey: .methods)
 

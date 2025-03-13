@@ -50,7 +50,7 @@ public class CustomerPaymentCard : Model {
     var country : String
 
     /// Model field lastused.
-    var lastUsed : String
+    var lastUsed : Int
 
     /// Model field token.
     var token : String
@@ -115,7 +115,7 @@ public class CustomerPaymentCard : Model {
         self.state = ""
         self.zip = ""
         self.country = ""
-        self.lastUsed = ""
+        self.lastUsed = 0
         self.token = ""
         self.typeId = 0
         self.referenceCount = 0
@@ -150,7 +150,7 @@ public class CustomerPaymentCard : Model {
         self.state = try container.decodeIfPresent(String.self, forKey: .state) ?? ""
         self.zip = try container.decodeIfPresent(String.self, forKey: .zip) ?? ""
         self.country = try container.decodeIfPresent(String.self, forKey: .country) ?? ""
-        self.lastUsed = try container.decodeIfPresent(String.self, forKey: .lastUsed) ?? ""
+        self.lastUsed = try container.decodeIfPresent(Int.self, forKey: .lastUsed) ?? 0
         self.token = try container.decodeIfPresent(String.self, forKey: .token) ?? ""
         self.typeId = try container.decodeIfPresent(Int.self, forKey: .typeId) ?? 0
         self.referenceCount = try container.decodeIfPresent(Int.self, forKey: .referenceCount) ?? 0
@@ -329,10 +329,10 @@ public class CustomerPaymentCard : Model {
     /**
      Getter for lastused.
 
-     - Returns:  String
+     - Returns:  Int
 
      */
-    public func getLastUsed() -> String {
+    public func getLastUsed() -> Int {
         return self.lastUsed
     }
 

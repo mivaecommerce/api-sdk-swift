@@ -40,6 +40,9 @@ public class OrderItemOption : Model {
     /// Model field weight.
     var weight : Optional<Decimal>
 
+    /// Model field formatted_weight.
+    var formattedWeight : String
+
     /// Model field retail.
     var retail : Optional<Decimal>
 
@@ -80,6 +83,7 @@ public class OrderItemOption : Model {
         case attributeTemplateAttributeId = "attmpat_id"
         case value
         case weight
+        case formattedWeight = "formatted_weight"
         case retail
         case basePrice = "base_price"
         case price
@@ -117,6 +121,7 @@ public class OrderItemOption : Model {
         self.attributeTemplateAttributeId = nil
         self.value = nil
         self.weight = nil
+        self.formattedWeight = ""
         self.retail = nil
         self.basePrice = nil
         self.price = nil
@@ -150,6 +155,7 @@ public class OrderItemOption : Model {
         self.attributeTemplateAttributeId = try container.decodeIfPresent(Int.self, forKey: .attributeTemplateAttributeId) ?? nil
         self.value = try container.decodeIfPresent(String.self, forKey: .value) ?? nil
         self.weight = try container.decodeIfPresent(Decimal.self, forKey: .weight) ?? nil
+        self.formattedWeight = try container.decodeIfPresent(String.self, forKey: .formattedWeight) ?? ""
         self.retail = try container.decodeIfPresent(Decimal.self, forKey: .retail) ?? nil
         self.basePrice = try container.decodeIfPresent(Decimal.self, forKey: .basePrice) ?? nil
         self.price = try container.decodeIfPresent(Decimal.self, forKey: .price) ?? nil
@@ -176,8 +182,8 @@ public class OrderItemOption : Model {
         try container.encodeIfPresent(self.attributeId, forKey: .attributeId)
         try container.encodeIfPresent(self.attributeCode, forKey: .attributeCode)
         try container.encodeIfPresent(self.value, forKey: .value)
-        try container.encodeIfPresent(self.weight, forKey: .weight)
-        try container.encodeIfPresent(self.price, forKey: .price)
+        try container.encodeIfPresent(Decimal.roundForEncoding(value: self.weight, precision: 8), forKey: .weight)
+        try container.encodeIfPresent(Decimal.roundForEncoding(value: self.price, precision: 8), forKey: .price)
 
         try super.encode(to: encoder)
     }
@@ -278,6 +284,16 @@ public class OrderItemOption : Model {
      - Returns:  Optional<Decimal>     */
     public func getWeight() -> Optional<Decimal> {
         return self.weight
+    }
+
+    /**
+     Getter for formatted_weight.
+
+     - Returns:  String
+
+     */
+    public func getFormattedWeight() -> String {
+        return self.formattedWeight
     }
 
     /**

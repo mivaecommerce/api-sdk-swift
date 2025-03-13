@@ -101,7 +101,7 @@ public class PaymentMethod : Model {
         var container = encoder.container(keyedBy: CodingKeys.self)
 
         try container.encodeIfPresent(self.moduleId, forKey: .moduleId)
-        try container.encodeIfPresent(Decimal.roundForEncoding(value: self.moduleApi, precision: MERCHANTAPI_FLOAT_ENCODE_PRECISION), forKey: .moduleApi)
+        try container.encodeIfPresent(Decimal.roundForEncoding(value: self.moduleApi, precision: 2), forKey: .moduleApi)
         try container.encodeIfPresent(self.methodCode, forKey: .methodCode)
         try container.encodeIfPresent(self.methodName, forKey: .methodName)
         try container.encodeIfPresent(self.mivapay, forKey: .mivapay)

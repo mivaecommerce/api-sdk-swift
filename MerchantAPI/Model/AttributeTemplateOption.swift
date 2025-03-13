@@ -46,6 +46,9 @@ public class AttributeTemplateOption : Model {
     /// Model field formatted_cost.
     var formattedCost : String
 
+    /// Model field formatted_weight.
+    var formattedWeight : String
+
     /// Model field default_opt.
     var defaultOpt : Bool
 
@@ -67,6 +70,7 @@ public class AttributeTemplateOption : Model {
         case image
         case formattedPrice = "formatted_price"
         case formattedCost = "formatted_cost"
+        case formattedWeight = "formatted_weight"
         case defaultOpt = "default_opt"
     }
 
@@ -86,6 +90,7 @@ public class AttributeTemplateOption : Model {
         self.image = ""
         self.formattedPrice = ""
         self.formattedCost = ""
+        self.formattedWeight = ""
         self.defaultOpt = false
 
         super.init()
@@ -114,6 +119,7 @@ public class AttributeTemplateOption : Model {
         self.image = try container.decodeIfPresent(String.self, forKey: .image) ?? ""
         self.formattedPrice = try container.decodeIfPresent(String.self, forKey: .formattedPrice) ?? ""
         self.formattedCost = try container.decodeIfPresent(String.self, forKey: .formattedCost) ?? ""
+        self.formattedWeight = try container.decodeIfPresent(String.self, forKey: .formattedWeight) ?? ""
         self.defaultOpt = try container.decodeIfPresent(Bool.self, forKey: .defaultOpt) ?? false
 
         try super.init(from : decoder)
@@ -136,12 +142,13 @@ public class AttributeTemplateOption : Model {
         try container.encodeIfPresent(self.displayOrder, forKey: .displayOrder)
         try container.encodeIfPresent(self.code, forKey: .code)
         try container.encodeIfPresent(self.prompt, forKey: .prompt)
-        try container.encodeIfPresent(Decimal.roundForEncoding(value: self.price, precision: MERCHANTAPI_FLOAT_ENCODE_PRECISION), forKey: .price)
-        try container.encodeIfPresent(Decimal.roundForEncoding(value: self.cost, precision: MERCHANTAPI_FLOAT_ENCODE_PRECISION), forKey: .cost)
-        try container.encodeIfPresent(Decimal.roundForEncoding(value: self.weight, precision: MERCHANTAPI_FLOAT_ENCODE_PRECISION), forKey: .weight)
+        try container.encodeIfPresent(Decimal.roundForEncoding(value: self.price, precision: 8), forKey: .price)
+        try container.encodeIfPresent(Decimal.roundForEncoding(value: self.cost, precision: 8), forKey: .cost)
+        try container.encodeIfPresent(Decimal.roundForEncoding(value: self.weight, precision: 8), forKey: .weight)
         try container.encodeIfPresent(self.image, forKey: .image)
         try container.encodeIfPresent(self.formattedPrice, forKey: .formattedPrice)
         try container.encodeIfPresent(self.formattedCost, forKey: .formattedCost)
+        try container.encodeIfPresent(self.formattedWeight, forKey: .formattedWeight)
         try container.encodeIfPresent(self.defaultOpt, forKey: .defaultOpt)
 
         try super.encode(to: encoder)
@@ -259,6 +266,16 @@ public class AttributeTemplateOption : Model {
      */
     public func getFormattedCost() -> String {
         return self.formattedCost
+    }
+
+    /**
+     Getter for formatted_weight.
+
+     - Returns:  String
+
+     */
+    public func getFormattedWeight() -> String {
+        return self.formattedWeight
     }
 
     /**

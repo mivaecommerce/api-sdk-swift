@@ -46,6 +46,12 @@ public class Page : Model {
     /// Model field layout.
     var layout : Bool
 
+    /// Model field fragment.
+    var fragment : Bool
+
+    /// Model field public.
+    var isPublic : Bool
+
     /// Model field notes.
     var notes : String
 
@@ -85,6 +91,8 @@ public class Page : Model {
         case templateId = "templ_id"
         case admin
         case layout
+        case fragment
+        case isPublic = "public"
         case notes
         case source
         case settings
@@ -108,6 +116,8 @@ public class Page : Model {
         self.templateId = 0
         self.admin = false
         self.layout = false
+        self.fragment = false
+        self.isPublic = false
         self.notes = ""
         self.source = ""
         self.settings = VersionSettings()
@@ -140,6 +150,8 @@ public class Page : Model {
         self.templateId = try container.decodeIfPresent(Int.self, forKey: .templateId) ?? 0
         self.admin = try container.decodeIfPresent(Bool.self, forKey: .admin) ?? false
         self.layout = try container.decodeIfPresent(Bool.self, forKey: .layout) ?? false
+        self.fragment = try container.decodeIfPresent(Bool.self, forKey: .fragment) ?? false
+        self.isPublic = try container.decodeIfPresent(Bool.self, forKey: .isPublic) ?? false
         self.notes = try container.decodeIfPresent(String.self, forKey: .notes) ?? ""
         self.source = try container.decodeIfPresent(String.self, forKey: .source) ?? ""
         self.settings = try container.decodeIfPresent(VersionSettings.self, forKey: .settings) ?? VersionSettings()
@@ -172,6 +184,8 @@ public class Page : Model {
         try container.encodeIfPresent(self.templateId, forKey: .templateId)
         try container.encodeIfPresent(self.admin, forKey: .admin)
         try container.encodeIfPresent(self.layout, forKey: .layout)
+        try container.encodeIfPresent(self.fragment, forKey: .fragment)
+        try container.encodeIfPresent(self.isPublic, forKey: .isPublic)
         try container.encodeIfPresent(self.notes, forKey: .notes)
         try container.encodeIfPresent(self.source, forKey: .source)
         try container.encodeIfPresent(self.settings, forKey: .settings)
@@ -266,6 +280,22 @@ public class Page : Model {
      - Returns:  Bool     */
     public func getLayout() -> Bool {
         return self.layout
+    }
+
+    /**
+     Getter for fragment.
+
+     - Returns:  Bool     */
+    public func getFragment() -> Bool {
+        return self.fragment
+    }
+
+    /**
+     Getter for public.
+
+     - Returns:  Bool     */
+    public func getIsPublic() -> Bool {
+        return self.isPublic
     }
 
     /**

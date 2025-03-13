@@ -16,6 +16,11 @@ import FoundationNetworking
  - SeeAlso: https://docs.miva.com/json-api/functions/branch_copy
  */
 public class BranchCopyResponse : Response {
+    /// Response field completed.
+    var completed : Optional<Bool> = nil
+
+    /// Response field branch_copy_session_id.
+    var branchCopySessionId : Optional<String> = nil
 
     /// The response model
     public var changeset : Optional<Changeset> = nil
@@ -35,6 +40,8 @@ public class BranchCopyResponse : Response {
      - SeeAlso: Decodable
      */
     private enum CodingKeys: String, CodingKey {
+        case completed
+        case branchCopySessionId = "branch_copy_session_id"
         case changeset = "data"
     }
 
@@ -47,7 +54,27 @@ public class BranchCopyResponse : Response {
     public required init(from decoder: Decoder) throws {
         let container  = try decoder.container(keyedBy : CodingKeys.self)
 
+        self.completed = try container.decodeIfPresent(Bool.self, forKey: .completed)
+        self.branchCopySessionId = try container.decodeIfPresent(String.self, forKey: .branchCopySessionId)
         self.changeset = try container.decodeIfPresent(Changeset.self, forKey: .changeset)
         try super.init(from : decoder)
+    }
+
+    /**
+     Get completed.
+
+     - Returns: Bool
+    */
+    func getCompleted() -> Bool {
+        return self.completed ?? false
+    }
+
+    /**
+     Get branch_copy_session_id.
+
+     - Returns: string
+    */
+    func getBranchCopySessionId() -> String {
+        return self.branchCopySessionId ?? ""
     }
 }

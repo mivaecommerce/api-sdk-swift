@@ -51,6 +51,12 @@ public class PageInsertRequest : Request {
     /// Request field Page_Layout.
     var pageLayout : Optional<Bool> = nil
 
+    /// Request field Page_Fragment.
+    var pageFragment : Optional<Bool> = nil
+
+    /// Request field Page_Public.
+    var pagePublic : Optional<Bool> = nil
+
     /// Request field Page_Secure.
     var pageSecure : Optional<Bool> = nil
 
@@ -87,6 +93,8 @@ public class PageInsertRequest : Request {
         case pageTitle = "Page_Title"
         case pageTemplate = "Page_Template"
         case pageLayout = "Page_Layout"
+        case pageFragment = "Page_Fragment"
+        case pagePublic = "Page_Public"
         case pageSecure = "Page_Secure"
         case pageCache = "Page_Cache"
         case changesetNotes = "Changeset_Notes"
@@ -132,6 +140,8 @@ public class PageInsertRequest : Request {
         try container.encodeIfPresent(self.pageTitle, forKey: .pageTitle)
         try container.encodeIfPresent(self.pageTemplate, forKey: .pageTemplate)
         try container.encodeIfPresent(self.pageLayout, forKey: .pageLayout)
+        try container.encodeIfPresent(self.pageFragment, forKey: .pageFragment)
+        try container.encodeIfPresent(self.pagePublic, forKey: .pagePublic)
         try container.encodeIfPresent(self.pageSecure, forKey: .pageSecure)
         try container.encodeIfPresent(self.pageCache, forKey: .pageCache)
         try container.encodeIfPresent(self.changesetNotes, forKey: .changesetNotes)
@@ -231,6 +241,24 @@ public class PageInsertRequest : Request {
      */
     public func getPageLayout() -> Optional<Bool> {
         return self.pageLayout
+    }
+
+    /**
+     Getter for Page_Fragment.
+
+     - Returns:  Optional<Bool>
+     */
+    public func getPageFragment() -> Optional<Bool> {
+        return self.pageFragment
+    }
+
+    /**
+     Getter for Page_Public.
+
+     - Returns:  Optional<Bool>
+     */
+    public func getPagePublic() -> Optional<Bool> {
+        return self.pagePublic
     }
 
     /**
@@ -379,6 +407,32 @@ public class PageInsertRequest : Request {
     @discardableResult
     public func setPageLayout(_ value: Optional<Bool>) -> Self {
         self.pageLayout = value
+        return self
+    }
+
+    /**
+     Setter for Page_Fragment.
+
+     - Parameters:
+        - value: Optional<Bool>
+     - Returns:  Self
+     */
+    @discardableResult
+    public func setPageFragment(_ value: Optional<Bool>) -> Self {
+        self.pageFragment = value
+        return self
+    }
+
+    /**
+     Setter for Page_Public.
+
+     - Parameters:
+        - value: Optional<Bool>
+     - Returns:  Self
+     */
+    @discardableResult
+    public func setPagePublic(_ value: Optional<Bool>) -> Self {
+        self.pagePublic = value
         return self
     }
 

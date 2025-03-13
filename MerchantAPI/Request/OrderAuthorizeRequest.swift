@@ -97,7 +97,7 @@ public class OrderAuthorizeRequest : Request {
 
         try container.encodeIfPresent(self.moduleId, forKey: .moduleId)
         try container.encodeIfPresent(self.moduleData, forKey: .moduleData)
-        try container.encodeIfPresent(Decimal.roundForEncoding(value: self.amount, precision: MERCHANTAPI_FLOAT_ENCODE_PRECISION), forKey: .amount)
+        try container.encodeIfPresent(Decimal.roundForEncoding(value: self.amount, precision: 2), forKey: .amount)
 
         var moduleFieldsContainer = encoder.container(keyedBy: RuntimeCodingKey.self)
 

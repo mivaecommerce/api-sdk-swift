@@ -7,14 +7,11 @@
 
 import Foundation
 
-/// OrderTotal data model.
-public class OrderTotal : Model {
+/// ChildCategory data model.
+public class ChildCategory : Category {
 
-    /// Model field total.
-    var total : Decimal
-
-    /// Model field formatted_total.
-    var formattedTotal : String
+    /// Model field assigned.
+    var assigned : Bool
 
     /**
      CodingKeys used to map the model when encoding and decoding.
@@ -22,22 +19,20 @@ public class OrderTotal : Model {
      - SeeAlso: Codable
      */
     private enum CodingKeys: String, CodingKey {
-        case total
-        case formattedTotal = "formatted_total"
+        case assigned
     }
 
     /**
-     OrderTotal Constructor.
+     ChildCategory Constructor.
      */
     public override init() {
-        self.total = Decimal(0.00)
-        self.formattedTotal = ""
+        self.assigned = false
 
         super.init()
     }
 
     /**
-     OrderTotal Decodable Constructor.
+     ChildCategory Decodable Constructor.
 
      - Parameters:
         - decoder: The Decoder instance.
@@ -47,8 +42,7 @@ public class OrderTotal : Model {
     public required init(from decoder: Decoder) throws {
         let container  = try decoder.container(keyedBy: CodingKeys.self)
 
-        self.total = try container.decodeIfPresent(Decimal.self, forKey: .total) ?? Decimal(0.00)
-        self.formattedTotal = try container.decodeIfPresent(String.self, forKey: .formattedTotal) ?? ""
+        self.assigned = try container.decodeIfPresent(Bool.self, forKey: .assigned) ?? false
 
         try super.init(from : decoder)
     }
@@ -64,27 +58,16 @@ public class OrderTotal : Model {
     public override func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
 
-        try container.encodeIfPresent(Decimal.roundForEncoding(value: self.total, precision: 2), forKey: .total)
-        try container.encodeIfPresent(self.formattedTotal, forKey: .formattedTotal)
+        try container.encodeIfPresent(self.assigned, forKey: .assigned)
 
         try super.encode(to: encoder)
     }
 
     /**
-     Getter for total.
+     Getter for assigned.
 
-     - Returns:  Decimal     */
-    public func getTotal() -> Decimal {
-        return self.total
-    }
-
-    /**
-     Getter for formatted_total.
-
-     - Returns:  String
-
-     */
-    public func getFormattedTotal() -> String {
-        return self.formattedTotal
+     - Returns:  Bool     */
+    public func getAssigned() -> Bool {
+        return self.assigned
     }
 }

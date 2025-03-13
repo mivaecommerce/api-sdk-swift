@@ -8,94 +8,163 @@
 import Foundation
 
 /// Subscription data model.
-public class Subscription : Model {
+public class Subscription : BaseSubscription {
 
-    /// Model field id.
-    var id : Int
+    /// Model field frequency.
+    var frequency : String
 
-    /// Model field order_id.
-    var orderId : Int
+    /// Model field term.
+    var term : Int
 
-    /// Model field line_id.
-    var lineId : Int
+    /// Model field descrip.
+    var description : String
 
-    /// Model field cust_id.
-    var customerId : Int
+    /// Model field n.
+    var n : Int
 
-    /// Model field custpc_id.
-    var customerPaymentCardId : Int
+    /// Model field fixed_dow.
+    var fixedDayOfWeek : Int
 
-    /// Model field product_id.
-    var productId : Int
+    /// Model field fixed_dom.
+    var fixedDayOfMonth : Int
 
-    /// Model field subterm_id.
-    var subscriptionTermId : Int
+    /// Model field sub_count.
+    var subscriptionCount : Int
 
-    /// Model field addr_id.
-    var addressId : Int
+    /// Model field method.
+    var method : String
 
-    /// Model field ship_id.
-    var shipId : Int
+    /// Model field product_code.
+    var productCode : String
 
-    /// Model field ship_data.
-    var shipData : String
+    /// Model field product_name.
+    var productName : String
 
-    /// Model field quantity.
-    var quantity : Int
+    /// Model field product_sku.
+    var productSku : String
 
-    /// Model field termrem.
-    var termRemaining : Int
+    /// Model field product_price.
+    var productPrice : Decimal
 
-    /// Model field termproc.
-    var termProcessed : Int
+    /// Model field product_formatted_price.
+    var productFormattedPrice : String
 
-    /// Model field firstdate.
-    var firstDate : Date
+    /// Model field product_cost.
+    var productCost : Decimal
 
-    /// Model field lastdate.
-    var lastDate : Date
+    /// Model field product_formatted_cost.
+    var productFormattedCost : String
 
-    /// Model field nextdate.
-    var nextDate : Date
+    /// Model field product_weight.
+    var productWeight : Decimal
 
-    /// Model field status.
-    var status : String
+    /// Model field product_formatted_weight.
+    var productFormattedWeight : String
 
-    /// Model field message.
-    var message : String
+    /// Model field product_descrip.
+    var productDescrip : String
 
-    /// Model field cncldate.
-    var cancelDate : Date
+    /// Model field product_taxable.
+    var productTaxable : Bool
 
-    /// Model field tax.
-    var tax : Decimal
+    /// Model field product_thumbnail.
+    var productThumbnail : String
 
-    /// Model field formatted_tax.
-    var formattedTax : String
+    /// Model field product_image.
+    var productImage : String
 
-    /// Model field shipping.
-    var shipping : Decimal
+    /// Model field product_active.
+    var productActive : Bool
 
-    /// Model field formatted_shipping.
-    var formattedShipping : String
+    /// Model field product_dt_created.
+    var productDateTimeCreated : Date
 
-    /// Model field subtotal.
-    var subtotal : Decimal
+    /// Model field product_dt_updated.
+    var productDateTimeUpdated : Date
 
-    /// Model field formatted_subtotal.
-    var formattedSubtotal : String
+    /// Model field product_page_title.
+    var productPageTitle : String
 
-    /// Model field total.
-    var total : Decimal
+    /// Model field product_page_id.
+    var productPageId : Int
 
-    /// Model field formatted_total.
-    var formattedTotal : String
+    /// Model field product_page_code.
+    var productPageCode : String
 
-    /// Model field authfails.
-    var authorizationFailureCount : Int
+    /// Model field product_cancat_id.
+    var productCanonicalCategoryId : Int
 
-    /// Model field lastafail.
-    var lastAuthorizationFailure : Date
+    /// Model field product_cancat_code.
+    var productCanonicalCategoryCode : String
+
+    /// Model field product_inventory_active.
+    var productInventoryActive : Bool
+
+    /// Model field product_inventory.
+    var productInventory : Int
+
+    /// Model field imagetypes.
+    var imageTypes : Dictionary<String, Int32>
+
+    /// Model field paymentcard_lastfour.
+    var paymentCardLastFour : String
+
+    /// Model field paymentcard_type.
+    var paymentCardType : String
+
+    /// Model field address_descrip.
+    var addressDescription : String
+
+    /// Model field address_fname.
+    var addressFirstName : String
+
+    /// Model field address_lname.
+    var addressLastName : String
+
+    /// Model field address_email.
+    var addressEmail : String
+
+    /// Model field address_comp.
+    var addressCompany : String
+
+    /// Model field address_phone.
+    var addressPhone : String
+
+    /// Model field address_fax.
+    var addressFax : String
+
+    /// Model field address_addr.
+    var addressAddress : String
+
+    /// Model field address_addr1.
+    var addressAddress1 : String
+
+    /// Model field address_addr2.
+    var addressAddress2 : String
+
+    /// Model field address_city.
+    var addressCity : String
+
+    /// Model field address_state.
+    var addressState : String
+
+    /// Model field address_zip.
+    var addressZip : String
+
+    /// Model field address_cntry.
+    var addressCountry : String
+
+    /// Model field address_resdntl.
+    var addressResidential : Bool
+
+    /// Model field customer_login.
+    var customerLogin : String
+
+    /// Model field customer_pw_email.
+    var customerPasswordEmail : String
+
+    /// Model field customer_business_title.
+    var customerBusinessTitle : String
 
     /// Model field options.
     var options : [SubscriptionOption]
@@ -106,35 +175,58 @@ public class Subscription : Model {
      - SeeAlso: Codable
      */
     private enum CodingKeys: String, CodingKey {
-        case id
-        case orderId = "order_id"
-        case lineId = "line_id"
-        case customerId = "cust_id"
-        case customerPaymentCardId = "custpc_id"
-        case productId = "product_id"
-        case subscriptionTermId = "subterm_id"
-        case addressId = "addr_id"
-        case shipId = "ship_id"
-        case shipData = "ship_data"
-        case quantity
-        case termRemaining = "termrem"
-        case termProcessed = "termproc"
-        case firstDate = "firstdate"
-        case lastDate = "lastdate"
-        case nextDate = "nextdate"
-        case status
-        case message
-        case cancelDate = "cncldate"
-        case tax
-        case formattedTax = "formatted_tax"
-        case shipping
-        case formattedShipping = "formatted_shipping"
-        case subtotal
-        case formattedSubtotal = "formatted_subtotal"
-        case total
-        case formattedTotal = "formatted_total"
-        case authorizationFailureCount = "authfails"
-        case lastAuthorizationFailure = "lastafail"
+        case frequency
+        case term
+        case description = "descrip"
+        case n
+        case fixedDayOfWeek = "fixed_dow"
+        case fixedDayOfMonth = "fixed_dom"
+        case subscriptionCount = "sub_count"
+        case method
+        case productCode = "product_code"
+        case productName = "product_name"
+        case productSku = "product_sku"
+        case productPrice = "product_price"
+        case productFormattedPrice = "product_formatted_price"
+        case productCost = "product_cost"
+        case productFormattedCost = "product_formatted_cost"
+        case productWeight = "product_weight"
+        case productFormattedWeight = "product_formatted_weight"
+        case productDescrip = "product_descrip"
+        case productTaxable = "product_taxable"
+        case productThumbnail = "product_thumbnail"
+        case productImage = "product_image"
+        case productActive = "product_active"
+        case productDateTimeCreated = "product_dt_created"
+        case productDateTimeUpdated = "product_dt_updated"
+        case productPageTitle = "product_page_title"
+        case productPageId = "product_page_id"
+        case productPageCode = "product_page_code"
+        case productCanonicalCategoryId = "product_cancat_id"
+        case productCanonicalCategoryCode = "product_cancat_code"
+        case productInventoryActive = "product_inventory_active"
+        case productInventory = "product_inventory"
+        case imageTypes = "imagetypes"
+        case paymentCardLastFour = "paymentcard_lastfour"
+        case paymentCardType = "paymentcard_type"
+        case addressDescription = "address_descrip"
+        case addressFirstName = "address_fname"
+        case addressLastName = "address_lname"
+        case addressEmail = "address_email"
+        case addressCompany = "address_comp"
+        case addressPhone = "address_phone"
+        case addressFax = "address_fax"
+        case addressAddress = "address_addr"
+        case addressAddress1 = "address_addr1"
+        case addressAddress2 = "address_addr2"
+        case addressCity = "address_city"
+        case addressState = "address_state"
+        case addressZip = "address_zip"
+        case addressCountry = "address_cntry"
+        case addressResidential = "address_resdntl"
+        case customerLogin = "customer_login"
+        case customerPasswordEmail = "customer_pw_email"
+        case customerBusinessTitle = "customer_business_title"
         case options
     }
 
@@ -142,35 +234,58 @@ public class Subscription : Model {
      Subscription Constructor.
      */
     public override init() {
-        self.id = 0
-        self.orderId = 0
-        self.lineId = 0
-        self.customerId = 0
-        self.customerPaymentCardId = 0
-        self.productId = 0
-        self.subscriptionTermId = 0
-        self.addressId = 0
-        self.shipId = 0
-        self.shipData = ""
-        self.quantity = 0
-        self.termRemaining = 0
-        self.termProcessed = 0
-        self.firstDate = Date(timeIntervalSince1970: 0)
-        self.lastDate = Date(timeIntervalSince1970: 0)
-        self.nextDate = Date(timeIntervalSince1970: 0)
-        self.status = ""
-        self.message = ""
-        self.cancelDate = Date(timeIntervalSince1970: 0)
-        self.tax = Decimal(0.00)
-        self.formattedTax = ""
-        self.shipping = Decimal(0.00)
-        self.formattedShipping = ""
-        self.subtotal = Decimal(0.00)
-        self.formattedSubtotal = ""
-        self.total = Decimal(0.00)
-        self.formattedTotal = ""
-        self.authorizationFailureCount = 0
-        self.lastAuthorizationFailure = Date(timeIntervalSince1970: 0)
+        self.frequency = ""
+        self.term = 0
+        self.description = ""
+        self.n = 0
+        self.fixedDayOfWeek = 0
+        self.fixedDayOfMonth = 0
+        self.subscriptionCount = 0
+        self.method = ""
+        self.productCode = ""
+        self.productName = ""
+        self.productSku = ""
+        self.productPrice = Decimal(0.00)
+        self.productFormattedPrice = ""
+        self.productCost = Decimal(0.00)
+        self.productFormattedCost = ""
+        self.productWeight = Decimal(0.00)
+        self.productFormattedWeight = ""
+        self.productDescrip = ""
+        self.productTaxable = false
+        self.productThumbnail = ""
+        self.productImage = ""
+        self.productActive = false
+        self.productDateTimeCreated = Date(timeIntervalSince1970: 0)
+        self.productDateTimeUpdated = Date(timeIntervalSince1970: 0)
+        self.productPageTitle = ""
+        self.productPageId = 0
+        self.productPageCode = ""
+        self.productCanonicalCategoryId = 0
+        self.productCanonicalCategoryCode = ""
+        self.productInventoryActive = false
+        self.productInventory = 0
+        self.imageTypes = [:]
+        self.paymentCardLastFour = ""
+        self.paymentCardType = ""
+        self.addressDescription = ""
+        self.addressFirstName = ""
+        self.addressLastName = ""
+        self.addressEmail = ""
+        self.addressCompany = ""
+        self.addressPhone = ""
+        self.addressFax = ""
+        self.addressAddress = ""
+        self.addressAddress1 = ""
+        self.addressAddress2 = ""
+        self.addressCity = ""
+        self.addressState = ""
+        self.addressZip = ""
+        self.addressCountry = ""
+        self.addressResidential = false
+        self.customerLogin = ""
+        self.customerPasswordEmail = ""
+        self.customerBusinessTitle = ""
         self.options = []
 
         super.init()
@@ -187,36 +302,70 @@ public class Subscription : Model {
     public required init(from decoder: Decoder) throws {
         let container  = try decoder.container(keyedBy: CodingKeys.self)
 
-        self.id = try container.decodeIfPresent(Int.self, forKey: .id) ?? 0
-        self.orderId = try container.decodeIfPresent(Int.self, forKey: .orderId) ?? 0
-        self.lineId = try container.decodeIfPresent(Int.self, forKey: .lineId) ?? 0
-        self.customerId = try container.decodeIfPresent(Int.self, forKey: .customerId) ?? 0
-        self.customerPaymentCardId = try container.decodeIfPresent(Int.self, forKey: .customerPaymentCardId) ?? 0
-        self.productId = try container.decodeIfPresent(Int.self, forKey: .productId) ?? 0
-        self.subscriptionTermId = try container.decodeIfPresent(Int.self, forKey: .subscriptionTermId) ?? 0
-        self.addressId = try container.decodeIfPresent(Int.self, forKey: .addressId) ?? 0
-        self.shipId = try container.decodeIfPresent(Int.self, forKey: .shipId) ?? 0
-        self.shipData = try container.decodeIfPresent(String.self, forKey: .shipData) ?? ""
-        self.quantity = try container.decodeIfPresent(Int.self, forKey: .quantity) ?? 0
-        self.termRemaining = try container.decodeIfPresent(Int.self, forKey: .termRemaining) ?? 0
-        self.termProcessed = try container.decodeIfPresent(Int.self, forKey: .termProcessed) ?? 0
-        self.firstDate = try container.decodeIfPresent(DateTime.self, forKey: .firstDate)?.timeT ?? Date(timeIntervalSince1970: 0)
-        self.lastDate = try container.decodeIfPresent(DateTime.self, forKey: .lastDate)?.timeT ?? Date(timeIntervalSince1970: 0)
-        self.nextDate = try container.decodeIfPresent(DateTime.self, forKey: .nextDate)?.timeT ?? Date(timeIntervalSince1970: 0)
-        self.status = try container.decodeIfPresent(String.self, forKey: .status) ?? ""
-        self.message = try container.decodeIfPresent(String.self, forKey: .message) ?? ""
-        self.cancelDate = try container.decodeIfPresent(DateTime.self, forKey: .cancelDate)?.timeT ?? Date(timeIntervalSince1970: 0)
-        self.tax = try container.decodeIfPresent(Decimal.self, forKey: .tax) ?? Decimal(0.00)
-        self.formattedTax = try container.decodeIfPresent(String.self, forKey: .formattedTax) ?? ""
-        self.shipping = try container.decodeIfPresent(Decimal.self, forKey: .shipping) ?? Decimal(0.00)
-        self.formattedShipping = try container.decodeIfPresent(String.self, forKey: .formattedShipping) ?? ""
-        self.subtotal = try container.decodeIfPresent(Decimal.self, forKey: .subtotal) ?? Decimal(0.00)
-        self.formattedSubtotal = try container.decodeIfPresent(String.self, forKey: .formattedSubtotal) ?? ""
-        self.total = try container.decodeIfPresent(Decimal.self, forKey: .total) ?? Decimal(0.00)
-        self.formattedTotal = try container.decodeIfPresent(String.self, forKey: .formattedTotal) ?? ""
-        self.authorizationFailureCount = try container.decodeIfPresent(Int.self, forKey: .authorizationFailureCount) ?? 0
-        self.lastAuthorizationFailure = try container.decodeIfPresent(DateTime.self, forKey: .lastAuthorizationFailure)?.timeT ?? Date(timeIntervalSince1970: 0)
+        self.frequency = try container.decodeIfPresent(String.self, forKey: .frequency) ?? ""
+        self.term = try container.decodeIfPresent(Int.self, forKey: .term) ?? 0
+        self.description = try container.decodeIfPresent(String.self, forKey: .description) ?? ""
+        self.n = try container.decodeIfPresent(Int.self, forKey: .n) ?? 0
+        self.fixedDayOfWeek = try container.decodeIfPresent(Int.self, forKey: .fixedDayOfWeek) ?? 0
+        self.fixedDayOfMonth = try container.decodeIfPresent(Int.self, forKey: .fixedDayOfMonth) ?? 0
+        self.subscriptionCount = try container.decodeIfPresent(Int.self, forKey: .subscriptionCount) ?? 0
+        self.method = try container.decodeIfPresent(String.self, forKey: .method) ?? ""
+        self.productCode = try container.decodeIfPresent(String.self, forKey: .productCode) ?? ""
+        self.productName = try container.decodeIfPresent(String.self, forKey: .productName) ?? ""
+        self.productSku = try container.decodeIfPresent(String.self, forKey: .productSku) ?? ""
+        self.productPrice = try container.decodeIfPresent(Decimal.self, forKey: .productPrice) ?? Decimal(0.00)
+        self.productFormattedPrice = try container.decodeIfPresent(String.self, forKey: .productFormattedPrice) ?? ""
+        self.productCost = try container.decodeIfPresent(Decimal.self, forKey: .productCost) ?? Decimal(0.00)
+        self.productFormattedCost = try container.decodeIfPresent(String.self, forKey: .productFormattedCost) ?? ""
+        self.productWeight = try container.decodeIfPresent(Decimal.self, forKey: .productWeight) ?? Decimal(0.00)
+        self.productFormattedWeight = try container.decodeIfPresent(String.self, forKey: .productFormattedWeight) ?? ""
+        self.productDescrip = try container.decodeIfPresent(String.self, forKey: .productDescrip) ?? ""
+        self.productTaxable = try container.decodeIfPresent(Bool.self, forKey: .productTaxable) ?? false
+        self.productThumbnail = try container.decodeIfPresent(String.self, forKey: .productThumbnail) ?? ""
+        self.productImage = try container.decodeIfPresent(String.self, forKey: .productImage) ?? ""
+        self.productActive = try container.decodeIfPresent(Bool.self, forKey: .productActive) ?? false
+        self.productDateTimeCreated = try container.decodeIfPresent(DateTime.self, forKey: .productDateTimeCreated)?.timeT ?? Date(timeIntervalSince1970: 0)
+        self.productDateTimeUpdated = try container.decodeIfPresent(DateTime.self, forKey: .productDateTimeUpdated)?.timeT ?? Date(timeIntervalSince1970: 0)
+        self.productPageTitle = try container.decodeIfPresent(String.self, forKey: .productPageTitle) ?? ""
+        self.productPageId = try container.decodeIfPresent(Int.self, forKey: .productPageId) ?? 0
+        self.productPageCode = try container.decodeIfPresent(String.self, forKey: .productPageCode) ?? ""
+        self.productCanonicalCategoryId = try container.decodeIfPresent(Int.self, forKey: .productCanonicalCategoryId) ?? 0
+        self.productCanonicalCategoryCode = try container.decodeIfPresent(String.self, forKey: .productCanonicalCategoryCode) ?? ""
+        self.productInventoryActive = try container.decodeIfPresent(Bool.self, forKey: .productInventoryActive) ?? false
+        self.productInventory = try container.decodeIfPresent(Int.self, forKey: .productInventory) ?? 0
+        self.paymentCardLastFour = try container.decodeIfPresent(String.self, forKey: .paymentCardLastFour) ?? ""
+        self.paymentCardType = try container.decodeIfPresent(String.self, forKey: .paymentCardType) ?? ""
+        self.addressDescription = try container.decodeIfPresent(String.self, forKey: .addressDescription) ?? ""
+        self.addressFirstName = try container.decodeIfPresent(String.self, forKey: .addressFirstName) ?? ""
+        self.addressLastName = try container.decodeIfPresent(String.self, forKey: .addressLastName) ?? ""
+        self.addressEmail = try container.decodeIfPresent(String.self, forKey: .addressEmail) ?? ""
+        self.addressCompany = try container.decodeIfPresent(String.self, forKey: .addressCompany) ?? ""
+        self.addressPhone = try container.decodeIfPresent(String.self, forKey: .addressPhone) ?? ""
+        self.addressFax = try container.decodeIfPresent(String.self, forKey: .addressFax) ?? ""
+        self.addressAddress = try container.decodeIfPresent(String.self, forKey: .addressAddress) ?? ""
+        self.addressAddress1 = try container.decodeIfPresent(String.self, forKey: .addressAddress1) ?? ""
+        self.addressAddress2 = try container.decodeIfPresent(String.self, forKey: .addressAddress2) ?? ""
+        self.addressCity = try container.decodeIfPresent(String.self, forKey: .addressCity) ?? ""
+        self.addressState = try container.decodeIfPresent(String.self, forKey: .addressState) ?? ""
+        self.addressZip = try container.decodeIfPresent(String.self, forKey: .addressZip) ?? ""
+        self.addressCountry = try container.decodeIfPresent(String.self, forKey: .addressCountry) ?? ""
+        self.addressResidential = try container.decodeIfPresent(Bool.self, forKey: .addressResidential) ?? false
+        self.customerLogin = try container.decodeIfPresent(String.self, forKey: .customerLogin) ?? ""
+        self.customerPasswordEmail = try container.decodeIfPresent(String.self, forKey: .customerPasswordEmail) ?? ""
+        self.customerBusinessTitle = try container.decodeIfPresent(String.self, forKey: .customerBusinessTitle) ?? ""
         self.options = try container.decodeIfPresent([SubscriptionOption].self, forKey: .options) ?? []
+
+        self.imageTypes = [:]
+        let imageTypesContainer = try decoder.container(keyedBy: RuntimeCodingKey.self)
+
+        for key in imageTypesContainer.allKeys {
+            if key.stringValue.starts(with: "imagetype:") {
+                let imageType = String(key.stringValue[key.stringValue.index(after: key.stringValue.firstIndex(of: ":")!)...])
+                let imageId = try imageTypesContainer.decode(Int32.self, forKey: key)
+                
+                self.imageTypes[imageType] = imageId;
+            }
+        }
 
         try super.init(from : decoder)
     }
@@ -232,310 +381,552 @@ public class Subscription : Model {
     public override func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
 
-        try container.encodeIfPresent(self.id, forKey: .id)
-        try container.encodeIfPresent(self.orderId, forKey: .orderId)
-        try container.encodeIfPresent(self.lineId, forKey: .lineId)
-        try container.encodeIfPresent(self.customerId, forKey: .customerId)
-        try container.encodeIfPresent(self.customerPaymentCardId, forKey: .customerPaymentCardId)
-        try container.encodeIfPresent(self.productId, forKey: .productId)
-        try container.encodeIfPresent(self.subscriptionTermId, forKey: .subscriptionTermId)
-        try container.encodeIfPresent(self.addressId, forKey: .addressId)
-        try container.encodeIfPresent(self.shipId, forKey: .shipId)
-        try container.encodeIfPresent(self.shipData, forKey: .shipData)
-        try container.encodeIfPresent(self.quantity, forKey: .quantity)
-        try container.encodeIfPresent(self.termRemaining, forKey: .termRemaining)
-        try container.encodeIfPresent(self.termProcessed, forKey: .termProcessed)
-        try container.encodeIfPresent(Int64(self.firstDate.timeIntervalSince1970), forKey: .firstDate)
-        try container.encodeIfPresent(Int64(self.lastDate.timeIntervalSince1970), forKey: .lastDate)
-        try container.encodeIfPresent(Int64(self.nextDate.timeIntervalSince1970), forKey: .nextDate)
-        try container.encodeIfPresent(self.status, forKey: .status)
-        try container.encodeIfPresent(self.message, forKey: .message)
-        try container.encodeIfPresent(Int64(self.cancelDate.timeIntervalSince1970), forKey: .cancelDate)
-        try container.encodeIfPresent(Decimal.roundForEncoding(value: self.tax, precision: MERCHANTAPI_FLOAT_ENCODE_PRECISION), forKey: .tax)
-        try container.encodeIfPresent(self.formattedTax, forKey: .formattedTax)
-        try container.encodeIfPresent(Decimal.roundForEncoding(value: self.shipping, precision: MERCHANTAPI_FLOAT_ENCODE_PRECISION), forKey: .shipping)
-        try container.encodeIfPresent(self.formattedShipping, forKey: .formattedShipping)
-        try container.encodeIfPresent(Decimal.roundForEncoding(value: self.subtotal, precision: MERCHANTAPI_FLOAT_ENCODE_PRECISION), forKey: .subtotal)
-        try container.encodeIfPresent(self.formattedSubtotal, forKey: .formattedSubtotal)
-        try container.encodeIfPresent(Decimal.roundForEncoding(value: self.total, precision: MERCHANTAPI_FLOAT_ENCODE_PRECISION), forKey: .total)
-        try container.encodeIfPresent(self.formattedTotal, forKey: .formattedTotal)
-        try container.encodeIfPresent(self.authorizationFailureCount, forKey: .authorizationFailureCount)
-        try container.encodeIfPresent(Int64(self.lastAuthorizationFailure.timeIntervalSince1970), forKey: .lastAuthorizationFailure)
+        try container.encodeIfPresent(self.frequency, forKey: .frequency)
+        try container.encodeIfPresent(self.term, forKey: .term)
+        try container.encodeIfPresent(self.description, forKey: .description)
+        try container.encodeIfPresent(self.n, forKey: .n)
+        try container.encodeIfPresent(self.fixedDayOfWeek, forKey: .fixedDayOfWeek)
+        try container.encodeIfPresent(self.fixedDayOfMonth, forKey: .fixedDayOfMonth)
+        try container.encodeIfPresent(self.subscriptionCount, forKey: .subscriptionCount)
+        try container.encodeIfPresent(self.method, forKey: .method)
+        try container.encodeIfPresent(self.productCode, forKey: .productCode)
+        try container.encodeIfPresent(self.productName, forKey: .productName)
+        try container.encodeIfPresent(self.productSku, forKey: .productSku)
+        try container.encodeIfPresent(Decimal.roundForEncoding(value: self.productPrice, precision: 8), forKey: .productPrice)
+        try container.encodeIfPresent(self.productFormattedPrice, forKey: .productFormattedPrice)
+        try container.encodeIfPresent(Decimal.roundForEncoding(value: self.productCost, precision: 8), forKey: .productCost)
+        try container.encodeIfPresent(self.productFormattedCost, forKey: .productFormattedCost)
+        try container.encodeIfPresent(Decimal.roundForEncoding(value: self.productWeight, precision: 8), forKey: .productWeight)
+        try container.encodeIfPresent(self.productFormattedWeight, forKey: .productFormattedWeight)
+        try container.encodeIfPresent(self.productDescrip, forKey: .productDescrip)
+        try container.encodeIfPresent(self.productTaxable, forKey: .productTaxable)
+        try container.encodeIfPresent(self.productThumbnail, forKey: .productThumbnail)
+        try container.encodeIfPresent(self.productImage, forKey: .productImage)
+        try container.encodeIfPresent(self.productActive, forKey: .productActive)
+        try container.encodeIfPresent(Int64(self.productDateTimeCreated.timeIntervalSince1970), forKey: .productDateTimeCreated)
+        try container.encodeIfPresent(Int64(self.productDateTimeUpdated.timeIntervalSince1970), forKey: .productDateTimeUpdated)
+        try container.encodeIfPresent(self.productPageTitle, forKey: .productPageTitle)
+        try container.encodeIfPresent(self.productPageId, forKey: .productPageId)
+        try container.encodeIfPresent(self.productPageCode, forKey: .productPageCode)
+        try container.encodeIfPresent(self.productCanonicalCategoryId, forKey: .productCanonicalCategoryId)
+        try container.encodeIfPresent(self.productCanonicalCategoryCode, forKey: .productCanonicalCategoryCode)
+        try container.encodeIfPresent(self.productInventoryActive, forKey: .productInventoryActive)
+        try container.encodeIfPresent(self.productInventory, forKey: .productInventory)
+        try container.encodeIfPresent(self.paymentCardLastFour, forKey: .paymentCardLastFour)
+        try container.encodeIfPresent(self.paymentCardType, forKey: .paymentCardType)
+        try container.encodeIfPresent(self.addressDescription, forKey: .addressDescription)
+        try container.encodeIfPresent(self.addressFirstName, forKey: .addressFirstName)
+        try container.encodeIfPresent(self.addressLastName, forKey: .addressLastName)
+        try container.encodeIfPresent(self.addressEmail, forKey: .addressEmail)
+        try container.encodeIfPresent(self.addressCompany, forKey: .addressCompany)
+        try container.encodeIfPresent(self.addressPhone, forKey: .addressPhone)
+        try container.encodeIfPresent(self.addressFax, forKey: .addressFax)
+        try container.encodeIfPresent(self.addressAddress, forKey: .addressAddress)
+        try container.encodeIfPresent(self.addressAddress1, forKey: .addressAddress1)
+        try container.encodeIfPresent(self.addressAddress2, forKey: .addressAddress2)
+        try container.encodeIfPresent(self.addressCity, forKey: .addressCity)
+        try container.encodeIfPresent(self.addressState, forKey: .addressState)
+        try container.encodeIfPresent(self.addressZip, forKey: .addressZip)
+        try container.encodeIfPresent(self.addressCountry, forKey: .addressCountry)
+        try container.encodeIfPresent(self.addressResidential, forKey: .addressResidential)
+        try container.encodeIfPresent(self.customerLogin, forKey: .customerLogin)
+        try container.encodeIfPresent(self.customerPasswordEmail, forKey: .customerPasswordEmail)
+        try container.encodeIfPresent(self.customerBusinessTitle, forKey: .customerBusinessTitle)
         try container.encodeIfPresent(self.options, forKey: .options)
 
         try super.encode(to: encoder)
     }
 
     /**
-     Getter for id.
-
-     - Returns:  Int
-
-     */
-    public func getId() -> Int {
-        return self.id
-    }
-
-    /**
-     Getter for order_id.
-
-     - Returns:  Int
-
-     */
-    public func getOrderId() -> Int {
-        return self.orderId
-    }
-
-    /**
-     Getter for line_id.
-
-     - Returns:  Int
-
-     */
-    public func getLineId() -> Int {
-        return self.lineId
-    }
-
-    /**
-     Getter for cust_id.
-
-     - Returns:  Int
-
-     */
-    public func getCustomerId() -> Int {
-        return self.customerId
-    }
-
-    /**
-     Getter for custpc_id.
-
-     - Returns:  Int
-
-     */
-    public func getCustomerPaymentCardId() -> Int {
-        return self.customerPaymentCardId
-    }
-
-    /**
-     Getter for product_id.
-
-     - Returns:  Int
-
-     */
-    public func getProductId() -> Int {
-        return self.productId
-    }
-
-    /**
-     Getter for subterm_id.
-
-     - Returns:  Int
-
-     */
-    public func getSubscriptionTermId() -> Int {
-        return self.subscriptionTermId
-    }
-
-    /**
-     Getter for addr_id.
-
-     - Returns:  Int
-
-     */
-    public func getAddressId() -> Int {
-        return self.addressId
-    }
-
-    /**
-     Getter for ship_id.
-
-     - Returns:  Int
-
-     */
-    public func getShipId() -> Int {
-        return self.shipId
-    }
-
-    /**
-     Getter for ship_data.
+     Getter for frequency.
 
      - Returns:  String
 
      */
-    public func getShipData() -> String {
-        return self.shipData
+    public func getFrequency() -> String {
+        return self.frequency
     }
 
     /**
-     Getter for quantity.
+     Getter for term.
 
      - Returns:  Int
 
      */
-    public func getQuantity() -> Int {
-        return self.quantity
+    public func getTerm() -> Int {
+        return self.term
     }
 
     /**
-     Getter for termrem.
-
-     - Returns:  Int
-
-     */
-    public func getTermRemaining() -> Int {
-        return self.termRemaining
-    }
-
-    /**
-     Getter for termproc.
-
-     - Returns:  Int
-
-     */
-    public func getTermProcessed() -> Int {
-        return self.termProcessed
-    }
-
-    /**
-     Getter for firstdate.
-
-     - Returns:  Date     */
-    public func getFirstDate() -> Date {
-        return self.firstDate
-    }
-
-    /**
-     Getter for lastdate.
-
-     - Returns:  Date     */
-    public func getLastDate() -> Date {
-        return self.lastDate
-    }
-
-    /**
-     Getter for nextdate.
-
-     - Returns:  Date     */
-    public func getNextDate() -> Date {
-        return self.nextDate
-    }
-
-    /**
-     Getter for status.
+     Getter for descrip.
 
      - Returns:  String
 
      */
-    public func getStatus() -> String {
-        return self.status
+    public func getDescription() -> String {
+        return self.description
     }
 
     /**
-     Getter for message.
+     Getter for n.
+
+     - Returns:  Int
+
+     */
+    public func getN() -> Int {
+        return self.n
+    }
+
+    /**
+     Getter for fixed_dow.
+
+     - Returns:  Int
+
+     */
+    public func getFixedDayOfWeek() -> Int {
+        return self.fixedDayOfWeek
+    }
+
+    /**
+     Getter for fixed_dom.
+
+     - Returns:  Int
+
+     */
+    public func getFixedDayOfMonth() -> Int {
+        return self.fixedDayOfMonth
+    }
+
+    /**
+     Getter for sub_count.
+
+     - Returns:  Int
+
+     */
+    public func getSubscriptionCount() -> Int {
+        return self.subscriptionCount
+    }
+
+    /**
+     Getter for method.
 
      - Returns:  String
 
      */
-    public func getMessage() -> String {
-        return self.message
+    public func getMethod() -> String {
+        return self.method
     }
 
     /**
-     Getter for cncldate.
+     Getter for product_code.
 
-     - Returns:  Date     */
-    public func getCancelDate() -> Date {
-        return self.cancelDate
+     - Returns:  String
+
+     */
+    public func getProductCode() -> String {
+        return self.productCode
     }
 
     /**
-     Getter for tax.
+     Getter for product_name.
+
+     - Returns:  String
+
+     */
+    public func getProductName() -> String {
+        return self.productName
+    }
+
+    /**
+     Getter for product_sku.
+
+     - Returns:  String
+
+     */
+    public func getProductSku() -> String {
+        return self.productSku
+    }
+
+    /**
+     Getter for product_price.
 
      - Returns:  Decimal     */
-    public func getTax() -> Decimal {
-        return self.tax
+    public func getProductPrice() -> Decimal {
+        return self.productPrice
     }
 
     /**
-     Getter for formatted_tax.
+     Getter for product_formatted_price.
 
      - Returns:  String
 
      */
-    public func getFormattedTax() -> String {
-        return self.formattedTax
+    public func getProductFormattedPrice() -> String {
+        return self.productFormattedPrice
     }
 
     /**
-     Getter for shipping.
+     Getter for product_cost.
 
      - Returns:  Decimal     */
-    public func getShipping() -> Decimal {
-        return self.shipping
+    public func getProductCost() -> Decimal {
+        return self.productCost
     }
 
     /**
-     Getter for formatted_shipping.
+     Getter for product_formatted_cost.
 
      - Returns:  String
 
      */
-    public func getFormattedShipping() -> String {
-        return self.formattedShipping
+    public func getProductFormattedCost() -> String {
+        return self.productFormattedCost
     }
 
     /**
-     Getter for subtotal.
+     Getter for product_weight.
 
      - Returns:  Decimal     */
-    public func getSubtotal() -> Decimal {
-        return self.subtotal
+    public func getProductWeight() -> Decimal {
+        return self.productWeight
     }
 
     /**
-     Getter for formatted_subtotal.
+     Getter for product_formatted_weight.
 
      - Returns:  String
 
      */
-    public func getFormattedSubtotal() -> String {
-        return self.formattedSubtotal
+    public func getProductFormattedWeight() -> String {
+        return self.productFormattedWeight
     }
 
     /**
-     Getter for total.
-
-     - Returns:  Decimal     */
-    public func getTotal() -> Decimal {
-        return self.total
-    }
-
-    /**
-     Getter for formatted_total.
+     Getter for product_descrip.
 
      - Returns:  String
 
      */
-    public func getFormattedTotal() -> String {
-        return self.formattedTotal
+    public func getProductDescrip() -> String {
+        return self.productDescrip
     }
 
     /**
-     Getter for authfails.
+     Getter for product_taxable.
+
+     - Returns:  Bool     */
+    public func getProductTaxable() -> Bool {
+        return self.productTaxable
+    }
+
+    /**
+     Getter for product_thumbnail.
+
+     - Returns:  String
+
+     */
+    public func getProductThumbnail() -> String {
+        return self.productThumbnail
+    }
+
+    /**
+     Getter for product_image.
+
+     - Returns:  String
+
+     */
+    public func getProductImage() -> String {
+        return self.productImage
+    }
+
+    /**
+     Getter for product_active.
+
+     - Returns:  Bool     */
+    public func getProductActive() -> Bool {
+        return self.productActive
+    }
+
+    /**
+     Getter for product_dt_created.
+
+     - Returns:  Date     */
+    public func getProductDateTimeCreated() -> Date {
+        return self.productDateTimeCreated
+    }
+
+    /**
+     Getter for product_dt_updated.
+
+     - Returns:  Date     */
+    public func getProductDateTimeUpdated() -> Date {
+        return self.productDateTimeUpdated
+    }
+
+    /**
+     Getter for product_page_title.
+
+     - Returns:  String
+
+     */
+    public func getProductPageTitle() -> String {
+        return self.productPageTitle
+    }
+
+    /**
+     Getter for product_page_id.
 
      - Returns:  Int
 
      */
-    public func getAuthorizationFailureCount() -> Int {
-        return self.authorizationFailureCount
+    public func getProductPageId() -> Int {
+        return self.productPageId
     }
 
     /**
-     Getter for lastafail.
+     Getter for product_page_code.
 
-     - Returns:  Date     */
-    public func getLastAuthorizationFailure() -> Date {
-        return self.lastAuthorizationFailure
+     - Returns:  String
+
+     */
+    public func getProductPageCode() -> String {
+        return self.productPageCode
+    }
+
+    /**
+     Getter for product_cancat_id.
+
+     - Returns:  Int
+
+     */
+    public func getProductCanonicalCategoryId() -> Int {
+        return self.productCanonicalCategoryId
+    }
+
+    /**
+     Getter for product_cancat_code.
+
+     - Returns:  String
+
+     */
+    public func getProductCanonicalCategoryCode() -> String {
+        return self.productCanonicalCategoryCode
+    }
+
+    /**
+     Getter for product_inventory_active.
+
+     - Returns:  Bool     */
+    public func getProductInventoryActive() -> Bool {
+        return self.productInventoryActive
+    }
+
+    /**
+     Getter for product_inventory.
+
+     - Returns:  Int
+
+     */
+    public func getProductInventory() -> Int {
+        return self.productInventory
+    }
+
+    /**
+     Getter for paymentcard_lastfour.
+
+     - Returns:  String
+
+     */
+    public func getPaymentCardLastFour() -> String {
+        return self.paymentCardLastFour
+    }
+
+    /**
+     Getter for paymentcard_type.
+
+     - Returns:  String
+
+     */
+    public func getPaymentCardType() -> String {
+        return self.paymentCardType
+    }
+
+    /**
+     Getter for address_descrip.
+
+     - Returns:  String
+
+     */
+    public func getAddressDescription() -> String {
+        return self.addressDescription
+    }
+
+    /**
+     Getter for address_fname.
+
+     - Returns:  String
+
+     */
+    public func getAddressFirstName() -> String {
+        return self.addressFirstName
+    }
+
+    /**
+     Getter for address_lname.
+
+     - Returns:  String
+
+     */
+    public func getAddressLastName() -> String {
+        return self.addressLastName
+    }
+
+    /**
+     Getter for address_email.
+
+     - Returns:  String
+
+     */
+    public func getAddressEmail() -> String {
+        return self.addressEmail
+    }
+
+    /**
+     Getter for address_comp.
+
+     - Returns:  String
+
+     */
+    public func getAddressCompany() -> String {
+        return self.addressCompany
+    }
+
+    /**
+     Getter for address_phone.
+
+     - Returns:  String
+
+     */
+    public func getAddressPhone() -> String {
+        return self.addressPhone
+    }
+
+    /**
+     Getter for address_fax.
+
+     - Returns:  String
+
+     */
+    public func getAddressFax() -> String {
+        return self.addressFax
+    }
+
+    /**
+     Getter for address_addr.
+
+     - Returns:  String
+
+     */
+    public func getAddressAddress() -> String {
+        return self.addressAddress
+    }
+
+    /**
+     Getter for address_addr1.
+
+     - Returns:  String
+
+     */
+    public func getAddressAddress1() -> String {
+        return self.addressAddress1
+    }
+
+    /**
+     Getter for address_addr2.
+
+     - Returns:  String
+
+     */
+    public func getAddressAddress2() -> String {
+        return self.addressAddress2
+    }
+
+    /**
+     Getter for address_city.
+
+     - Returns:  String
+
+     */
+    public func getAddressCity() -> String {
+        return self.addressCity
+    }
+
+    /**
+     Getter for address_state.
+
+     - Returns:  String
+
+     */
+    public func getAddressState() -> String {
+        return self.addressState
+    }
+
+    /**
+     Getter for address_zip.
+
+     - Returns:  String
+
+     */
+    public func getAddressZip() -> String {
+        return self.addressZip
+    }
+
+    /**
+     Getter for address_cntry.
+
+     - Returns:  String
+
+     */
+    public func getAddressCountry() -> String {
+        return self.addressCountry
+    }
+
+    /**
+     Getter for address_resdntl.
+
+     - Returns:  Bool     */
+    public func getAddressResidential() -> Bool {
+        return self.addressResidential
+    }
+
+    /**
+     Getter for customer_login.
+
+     - Returns:  String
+
+     */
+    public func getCustomerLogin() -> String {
+        return self.customerLogin
+    }
+
+    /**
+     Getter for customer_pw_email.
+
+     - Returns:  String
+
+     */
+    public func getCustomerPasswordEmail() -> String {
+        return self.customerPasswordEmail
+    }
+
+    /**
+     Getter for customer_business_title.
+
+     - Returns:  String
+
+     */
+    public func getCustomerBusinessTitle() -> String {
+        return self.customerBusinessTitle
     }
 
     /**

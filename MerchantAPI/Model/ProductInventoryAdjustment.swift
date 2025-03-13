@@ -20,7 +20,7 @@ public class ProductInventoryAdjustment : Model {
     var productSku : Optional<String>
 
     /// Model field adjustment.
-    var adjustment : Decimal
+    var adjustment : Int
 
     /**
      CodingKeys used to map the model when encoding and decoding.
@@ -41,7 +41,7 @@ public class ProductInventoryAdjustment : Model {
         self.productId = nil
         self.productCode = nil
         self.productSku = nil
-        self.adjustment = Decimal(0.00)
+        self.adjustment = 0
 
         super.init()
     }
@@ -60,7 +60,7 @@ public class ProductInventoryAdjustment : Model {
         self.productId = try container.decodeIfPresent(Int.self, forKey: .productId) ?? nil
         self.productCode = try container.decodeIfPresent(String.self, forKey: .productCode) ?? nil
         self.productSku = try container.decodeIfPresent(String.self, forKey: .productSku) ?? nil
-        self.adjustment = try container.decodeIfPresent(Decimal.self, forKey: .adjustment) ?? Decimal(0.00)
+        self.adjustment = try container.decodeIfPresent(Int.self, forKey: .adjustment) ?? 0
 
         try super.init(from : decoder)
     }
@@ -79,7 +79,7 @@ public class ProductInventoryAdjustment : Model {
         try container.encodeIfPresent(self.productId, forKey: .productId)
         try container.encodeIfPresent(self.productCode, forKey: .productCode)
         try container.encodeIfPresent(self.productSku, forKey: .productSku)
-        try container.encodeIfPresent(Decimal.roundForEncoding(value: self.adjustment, precision: MERCHANTAPI_FLOAT_ENCODE_PRECISION), forKey: .adjustment)
+        try container.encodeIfPresent(self.adjustment, forKey: .adjustment)
 
         try super.encode(to: encoder)
     }
@@ -117,8 +117,10 @@ public class ProductInventoryAdjustment : Model {
     /**
      Getter for adjustment.
 
-     - Returns:  Decimal     */
-    public func getAdjustment() -> Decimal {
+     - Returns:  Int
+
+     */
+    public func getAdjustment() -> Int {
         return self.adjustment
     }
 
@@ -165,11 +167,11 @@ public class ProductInventoryAdjustment : Model {
      Setter for adjustment.
 
      - Parameters:
-        - value: Decimal
+        - value: Optional<Int>
      - Returns:  Self
      */
     @discardableResult
-    public func setAdjustment(_ value: Decimal) -> Self {
+    public func setAdjustment(_ value: Int) -> Self {
         self.adjustment = value
         return self
     }

@@ -42,8 +42,14 @@ public class ChangesetListMergeRequest : Request {
     /// Request field Destination_Branch_ID.
     var destinationBranchId : Optional<Int> = nil
 
+    /// Request field ChangesetList_Merge_Session_ID.
+    var changesetListMergeSessionId : Optional<String> = nil
+
     /// Request field Notes.
     var notes : Optional<String> = nil
+
+    /// Request field Tags.
+    var tags : Optional<String> = nil
 
     /**
      CodingKeys used to map the request when encoding.
@@ -54,7 +60,9 @@ public class ChangesetListMergeRequest : Request {
         case function = "Function"
         case sourceChangesetIds = "Source_Changeset_IDs"
         case destinationBranchId = "Destination_Branch_ID"
+        case changesetListMergeSessionId = "ChangesetList_Merge_Session_ID"
         case notes = "Notes"
+        case tags = "Tags"
     }
 
     /**
@@ -89,7 +97,9 @@ public class ChangesetListMergeRequest : Request {
         }
 
         try container.encodeIfPresent(self.sourceChangesetIds, forKey: .sourceChangesetIds)
+        try container.encodeIfPresent(self.changesetListMergeSessionId, forKey: .changesetListMergeSessionId)
         try container.encodeIfPresent(self.notes, forKey: .notes)
+        try container.encodeIfPresent(self.tags, forKey: .tags)
 
         try super.encode(to : encoder)
     }
@@ -151,12 +161,30 @@ public class ChangesetListMergeRequest : Request {
     }
 
     /**
+     Getter for ChangesetList_Merge_Session_ID.
+
+     - Returns:  Optional<String>
+     */
+    public func getChangesetListMergeSessionId() -> Optional<String> {
+        return self.changesetListMergeSessionId
+    }
+
+    /**
      Getter for Notes.
 
      - Returns:  Optional<String>
      */
     public func getNotes() -> Optional<String> {
         return self.notes
+    }
+
+    /**
+     Getter for Tags.
+
+     - Returns:  Optional<String>
+     */
+    public func getTags() -> Optional<String> {
+        return self.tags
     }
 
     /**
@@ -173,6 +201,19 @@ public class ChangesetListMergeRequest : Request {
     }
 
     /**
+     Setter for ChangesetList_Merge_Session_ID.
+
+     - Parameters:
+        - value: Optional<String>
+     - Returns:  Self
+     */
+    @discardableResult
+    public func setChangesetListMergeSessionId(_ value: Optional<String>) -> Self {
+        self.changesetListMergeSessionId = value
+        return self
+    }
+
+    /**
      Setter for Notes.
 
      - Parameters:
@@ -182,6 +223,19 @@ public class ChangesetListMergeRequest : Request {
     @discardableResult
     public func setNotes(_ value: Optional<String>) -> Self {
         self.notes = value
+        return self
+    }
+
+    /**
+     Setter for Tags.
+
+     - Parameters:
+        - value: Optional<String>
+     - Returns:  Self
+     */
+    @discardableResult
+    public func setTags(_ value: Optional<String>) -> Self {
+        self.tags = value
         return self
     }
 

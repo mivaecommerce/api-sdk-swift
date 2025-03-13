@@ -16,6 +16,11 @@ import FoundationNetworking
  - SeeAlso: https://docs.miva.com/json-api/functions/branch_create
  */
 public class BranchCreateResponse : Response {
+    /// Response field completed.
+    var completed : Optional<Bool> = nil
+
+    /// Response field branch_create_session_id.
+    var branchCreateSessionId : Optional<String> = nil
 
     /// The response model
     public var branch : Optional<Branch> = nil
@@ -35,6 +40,8 @@ public class BranchCreateResponse : Response {
      - SeeAlso: Decodable
      */
     private enum CodingKeys: String, CodingKey {
+        case completed
+        case branchCreateSessionId = "branch_create_session_id"
         case branch = "data"
     }
 
@@ -47,7 +54,27 @@ public class BranchCreateResponse : Response {
     public required init(from decoder: Decoder) throws {
         let container  = try decoder.container(keyedBy : CodingKeys.self)
 
+        self.completed = try container.decodeIfPresent(Bool.self, forKey: .completed)
+        self.branchCreateSessionId = try container.decodeIfPresent(String.self, forKey: .branchCreateSessionId)
         self.branch = try container.decodeIfPresent(Branch.self, forKey: .branch)
         try super.init(from : decoder)
+    }
+
+    /**
+     Get completed.
+
+     - Returns: Bool
+    */
+    func getCompleted() -> Bool {
+        return self.completed ?? false
+    }
+
+    /**
+     Get branch_create_session_id.
+
+     - Returns: string
+    */
+    func getBranchCreateSessionId() -> String {
+        return self.branchCreateSessionId ?? ""
     }
 }

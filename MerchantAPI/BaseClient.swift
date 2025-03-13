@@ -138,13 +138,27 @@ public class BaseClient {
      */
     public func sendLowLevel(json: String, headers: Dictionary<String, String> = Dictionary<String, String>(), callback: @escaping (Data?, URLResponse?, Error?) -> ()) {
         var request = URLRequest(url: self.url)
-
+#if os(Linux)
+        var ua = "MerchantAPI/" + Version.VERSION_STRING + " swift/" + Version.getSwiftVersion() + " Linux"
+#else
+        var ua = "MerchantAPI/" + Version.VERSION_STRING + " swift/" + Version.getSwiftVersion() + " " + ProcessInfo().operatingSystemVersionString
+#endif
+        
         for header in headers {
+            if header.key.caseInsensitiveCompare("User-Agent") == .orderedSame {
+                if header.value.count > 0 {
+                    ua = header.value
+                }
+
+                continue
+            }
+            
             request.addValue(header.value, forHTTPHeaderField: header.key)
         }
 
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-        
+        request.addValue(ua, forHTTPHeaderField: "User-Agent")
+
         do {
             request.addValue(try generateAuthHeader(data: json), forHTTPHeaderField: "X-Miva-API-Authorization")
         } catch {

@@ -49,6 +49,9 @@ public class Product : Model {
     /// Model field weight.
     var weight : Decimal
 
+    /// Model field formatted_weight.
+    var formattedWeight : String
+
     /// Model field active.
     var active : Bool
 
@@ -137,6 +140,7 @@ public class Product : Model {
         case description = "descrip"
         case categoryCount = "catcount"
         case weight
+        case formattedWeight = "formatted_weight"
         case active
         case pageTitle = "page_title"
         case taxable
@@ -179,6 +183,7 @@ public class Product : Model {
         self.description = ""
         self.categoryCount = 0
         self.weight = Decimal(0.00)
+        self.formattedWeight = ""
         self.active = false
         self.pageTitle = ""
         self.taxable = false
@@ -230,6 +235,7 @@ public class Product : Model {
         self.description = try container.decodeIfPresent(String.self, forKey: .description) ?? ""
         self.categoryCount = try container.decodeIfPresent(Int.self, forKey: .categoryCount) ?? 0
         self.weight = try container.decodeIfPresent(Decimal.self, forKey: .weight) ?? Decimal(0.00)
+        self.formattedWeight = try container.decodeIfPresent(String.self, forKey: .formattedWeight) ?? ""
         self.active = try container.decodeIfPresent(Bool.self, forKey: .active) ?? false
         self.pageTitle = try container.decodeIfPresent(String.self, forKey: .pageTitle) ?? ""
         self.taxable = try container.decodeIfPresent(Bool.self, forKey: .taxable) ?? false
@@ -285,13 +291,14 @@ public class Product : Model {
         try container.encodeIfPresent(self.name, forKey: .name)
         try container.encodeIfPresent(self.thumbnail, forKey: .thumbnail)
         try container.encodeIfPresent(self.image, forKey: .image)
-        try container.encodeIfPresent(Decimal.roundForEncoding(value: self.price, precision: MERCHANTAPI_FLOAT_ENCODE_PRECISION), forKey: .price)
+        try container.encodeIfPresent(Decimal.roundForEncoding(value: self.price, precision: 8), forKey: .price)
         try container.encodeIfPresent(self.formattedPrice, forKey: .formattedPrice)
-        try container.encodeIfPresent(Decimal.roundForEncoding(value: self.cost, precision: MERCHANTAPI_FLOAT_ENCODE_PRECISION), forKey: .cost)
+        try container.encodeIfPresent(Decimal.roundForEncoding(value: self.cost, precision: 8), forKey: .cost)
         try container.encodeIfPresent(self.formattedCost, forKey: .formattedCost)
         try container.encodeIfPresent(self.description, forKey: .description)
         try container.encodeIfPresent(self.categoryCount, forKey: .categoryCount)
-        try container.encodeIfPresent(Decimal.roundForEncoding(value: self.weight, precision: MERCHANTAPI_FLOAT_ENCODE_PRECISION), forKey: .weight)
+        try container.encodeIfPresent(Decimal.roundForEncoding(value: self.weight, precision: 8), forKey: .weight)
+        try container.encodeIfPresent(self.formattedWeight, forKey: .formattedWeight)
         try container.encodeIfPresent(self.active, forKey: .active)
         try container.encodeIfPresent(self.pageTitle, forKey: .pageTitle)
         try container.encodeIfPresent(self.taxable, forKey: .taxable)
@@ -440,6 +447,16 @@ public class Product : Model {
      - Returns:  Decimal     */
     public func getWeight() -> Decimal {
         return self.weight
+    }
+
+    /**
+     Getter for formatted_weight.
+
+     - Returns:  String
+
+     */
+    public func getFormattedWeight() -> String {
+        return self.formattedWeight
     }
 
     /**

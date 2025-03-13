@@ -74,6 +74,12 @@ public class OrderItem : Model {
     /// Model field price.
     var price : Optional<Decimal>
 
+    /// Model field total.
+    var total : Decimal
+
+    /// Model field formatted_total.
+    var formattedTotal : String
+
     /// Model field tax.
     var tax : Optional<Decimal>
 
@@ -82,6 +88,9 @@ public class OrderItem : Model {
 
     /// Model field weight.
     var weight : Optional<Decimal>
+
+    /// Model field formatted_weight.
+    var formattedWeight : String
 
     /// Model field taxable.
     var taxable : Optional<Bool>
@@ -100,9 +109,6 @@ public class OrderItem : Model {
 
     /// Model field options.
     var options : [OrderItemOption]
-
-    /// Model field total.
-    var total : Decimal
 
     /// Model field tracktype.
     var trackingType : Optional<String>
@@ -144,16 +150,18 @@ public class OrderItem : Model {
         case retail
         case basePrice = "base_price"
         case price
+        case total
+        case formattedTotal = "formatted_total"
         case tax
         case formattedTax = "formatted_tax"
         case weight
+        case formattedWeight = "formatted_weight"
         case taxable
         case upsold
         case quantity
         case shipment
         case discounts
         case options
-        case total
         case trackingType = "tracktype"
         case trackingNumber = "tracknum"
         case shipmentId = "shpmnt_id"
@@ -182,16 +190,18 @@ public class OrderItem : Model {
         self.retail = Decimal(0.00)
         self.basePrice = Decimal(0.00)
         self.price = nil
+        self.total = Decimal(0.00)
+        self.formattedTotal = ""
         self.tax = nil
         self.formattedTax = ""
         self.weight = nil
+        self.formattedWeight = ""
         self.taxable = nil
         self.upsold = nil
         self.quantity = nil
         self.shipment = OrderShipment()
         self.discounts = []
         self.options = []
-        self.total = Decimal(0.00)
         self.trackingType = nil
         self.trackingNumber = nil
         self.shipmentId = 0
@@ -229,16 +239,18 @@ public class OrderItem : Model {
         self.retail = try container.decodeIfPresent(Decimal.self, forKey: .retail) ?? Decimal(0.00)
         self.basePrice = try container.decodeIfPresent(Decimal.self, forKey: .basePrice) ?? Decimal(0.00)
         self.price = try container.decodeIfPresent(Decimal.self, forKey: .price) ?? nil
+        self.total = try container.decodeIfPresent(Decimal.self, forKey: .total) ?? Decimal(0.00)
+        self.formattedTotal = try container.decodeIfPresent(String.self, forKey: .formattedTotal) ?? ""
         self.tax = try container.decodeIfPresent(Decimal.self, forKey: .tax) ?? nil
         self.formattedTax = try container.decodeIfPresent(String.self, forKey: .formattedTax) ?? ""
         self.weight = try container.decodeIfPresent(Decimal.self, forKey: .weight) ?? nil
+        self.formattedWeight = try container.decodeIfPresent(String.self, forKey: .formattedWeight) ?? ""
         self.taxable = try container.decodeIfPresent(Bool.self, forKey: .taxable) ?? nil
         self.upsold = try container.decodeIfPresent(Bool.self, forKey: .upsold) ?? nil
         self.quantity = try container.decodeIfPresent(Int.self, forKey: .quantity) ?? nil
         self.shipment = try container.decodeIfPresent(OrderShipment.self, forKey: .shipment) ?? OrderShipment()
         self.discounts = try container.decodeIfPresent([OrderItemDiscount].self, forKey: .discounts) ?? []
         self.options = try container.decodeIfPresent([OrderItemOption].self, forKey: .options) ?? []
-        self.total = try container.decodeIfPresent(Decimal.self, forKey: .total) ?? Decimal(0.00)
         self.trackingType = try container.decodeIfPresent(String.self, forKey: .trackingType) ?? nil
         self.trackingNumber = try container.decodeIfPresent(String.self, forKey: .trackingNumber) ?? nil
         self.shipmentId = try container.decodeIfPresent(Int.self, forKey: .shipmentId) ?? 0
@@ -273,19 +285,21 @@ public class OrderItem : Model {
         try container.encodeIfPresent(self.code, forKey: .code)
         try container.encodeIfPresent(self.name, forKey: .name)
         try container.encodeIfPresent(self.sku, forKey: .sku)
-        try container.encodeIfPresent(Decimal.roundForEncoding(value: self.retail, precision: MERCHANTAPI_FLOAT_ENCODE_PRECISION), forKey: .retail)
-        try container.encodeIfPresent(Decimal.roundForEncoding(value: self.basePrice, precision: MERCHANTAPI_FLOAT_ENCODE_PRECISION), forKey: .basePrice)
-        try container.encodeIfPresent(Decimal.roundForEncoding(value: self.price, precision: MERCHANTAPI_FLOAT_ENCODE_PRECISION), forKey: .price)
-        try container.encodeIfPresent(Decimal.roundForEncoding(value: self.tax, precision: MERCHANTAPI_FLOAT_ENCODE_PRECISION), forKey: .tax)
+        try container.encodeIfPresent(Decimal.roundForEncoding(value: self.retail, precision: 8), forKey: .retail)
+        try container.encodeIfPresent(Decimal.roundForEncoding(value: self.basePrice, precision: 8), forKey: .basePrice)
+        try container.encodeIfPresent(Decimal.roundForEncoding(value: self.price, precision: 8), forKey: .price)
+        try container.encodeIfPresent(Decimal.roundForEncoding(value: self.total, precision: 2), forKey: .total)
+        try container.encodeIfPresent(self.formattedTotal, forKey: .formattedTotal)
+        try container.encodeIfPresent(Decimal.roundForEncoding(value: self.tax, precision: 2), forKey: .tax)
         try container.encodeIfPresent(self.formattedTax, forKey: .formattedTax)
-        try container.encodeIfPresent(Decimal.roundForEncoding(value: self.weight, precision: MERCHANTAPI_FLOAT_ENCODE_PRECISION), forKey: .weight)
+        try container.encodeIfPresent(Decimal.roundForEncoding(value: self.weight, precision: 8), forKey: .weight)
+        try container.encodeIfPresent(self.formattedWeight, forKey: .formattedWeight)
         try container.encodeIfPresent(self.taxable, forKey: .taxable)
         try container.encodeIfPresent(self.upsold, forKey: .upsold)
         try container.encodeIfPresent(self.quantity, forKey: .quantity)
         try container.encodeIfPresent(self.shipment, forKey: .shipment)
         try container.encodeIfPresent(self.discounts, forKey: .discounts)
         try container.encodeIfPresent(self.options, forKey: .options)
-        try container.encodeIfPresent(Decimal.roundForEncoding(value: self.total, precision: MERCHANTAPI_FLOAT_ENCODE_PRECISION), forKey: .total)
         try container.encodeIfPresent(self.trackingType, forKey: .trackingType)
         try container.encodeIfPresent(self.trackingNumber, forKey: .trackingNumber)
         try container.encodeIfPresent(self.shipmentId, forKey: .shipmentId)
@@ -454,6 +468,24 @@ public class OrderItem : Model {
     }
 
     /**
+     Getter for total.
+
+     - Returns:  Decimal     */
+    public func getTotal() -> Decimal {
+        return self.total
+    }
+
+    /**
+     Getter for formatted_total.
+
+     - Returns:  String
+
+     */
+    public func getFormattedTotal() -> String {
+        return self.formattedTotal
+    }
+
+    /**
      Getter for tax.
 
      - Returns:  Optional<Decimal>     */
@@ -477,6 +509,16 @@ public class OrderItem : Model {
      - Returns:  Optional<Decimal>     */
     public func getWeight() -> Optional<Decimal> {
         return self.weight
+    }
+
+    /**
+     Getter for formatted_weight.
+
+     - Returns:  String
+
+     */
+    public func getFormattedWeight() -> String {
+        return self.formattedWeight
     }
 
     /**
@@ -530,14 +572,6 @@ public class OrderItem : Model {
      */
     public func getOptions() -> [OrderItemOption] {
         return self.options
-    }
-
-    /**
-     Getter for total.
-
-     - Returns:  Decimal     */
-    public func getTotal() -> Decimal {
-        return self.total
     }
 
     /**

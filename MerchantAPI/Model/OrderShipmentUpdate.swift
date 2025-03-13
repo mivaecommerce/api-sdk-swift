@@ -86,7 +86,7 @@ public class OrderShipmentUpdate : Model {
         try container.encodeIfPresent(self.markShipped, forKey: .markShipped)
         try container.encodeIfPresent(self.trackingNumber, forKey: .trackingNumber)
         try container.encodeIfPresent(self.trackingType, forKey: .trackingType)
-        try container.encodeIfPresent(Decimal.roundForEncoding(value: self.cost, precision: MERCHANTAPI_FLOAT_ENCODE_PRECISION), forKey: .cost)
+        try container.encodeIfPresent(Decimal.roundForEncoding(value: self.cost, precision: 2), forKey: .cost)
 
         try super.encode(to: encoder)
     }

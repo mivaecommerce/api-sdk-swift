@@ -39,8 +39,14 @@ public class BranchCopyRequest : Request {
     /// Request field Source_Branch_ID.
     var sourceBranchId : Optional<Int> = nil
 
+    /// Request field Source_Changeset_ID.
+    var sourceChangesetId : Optional<Int> = nil
+
     /// Request field Destination_Branch_ID.
     var destinationBranchId : Optional<Int> = nil
+
+    /// Request field Branch_Copy_Session_ID.
+    var branchCopySessionId : Optional<String> = nil
 
     /// Request field Notes.
     var notes : Optional<String> = nil
@@ -53,7 +59,9 @@ public class BranchCopyRequest : Request {
     private enum CodingKeys: String, CodingKey {
         case function = "Function"
         case sourceBranchId = "Source_Branch_ID"
+        case sourceChangesetId = "Source_Changeset_ID"
         case destinationBranchId = "Destination_Branch_ID"
+        case branchCopySessionId = "Branch_Copy_Session_ID"
         case notes = "Notes"
     }
 
@@ -92,6 +100,8 @@ public class BranchCopyRequest : Request {
             try container.encodeIfPresent(self.destinationBranchId, forKey: .destinationBranchId)
         }
 
+        try container.encodeIfPresent(self.sourceChangesetId, forKey: .sourceChangesetId)
+        try container.encodeIfPresent(self.branchCopySessionId, forKey: .branchCopySessionId)
         try container.encodeIfPresent(self.notes, forKey: .notes)
 
         try super.encode(to : encoder)
@@ -154,12 +164,30 @@ public class BranchCopyRequest : Request {
     }
 
     /**
+     Getter for Source_Changeset_ID.
+
+     - Returns:  Optional<Int>
+     */
+    public func getSourceChangesetId() -> Optional<Int> {
+        return self.sourceChangesetId
+    }
+
+    /**
      Getter for Destination_Branch_ID.
 
      - Returns:  Optional<Int>
      */
     public func getDestinationBranchId() -> Optional<Int> {
         return self.destinationBranchId
+    }
+
+    /**
+     Getter for Branch_Copy_Session_ID.
+
+     - Returns:  Optional<String>
+     */
+    public func getBranchCopySessionId() -> Optional<String> {
+        return self.branchCopySessionId
     }
 
     /**
@@ -185,6 +213,19 @@ public class BranchCopyRequest : Request {
     }
 
     /**
+     Setter for Source_Changeset_ID.
+
+     - Parameters:
+        - value: Optional<Int>
+     - Returns:  Self
+     */
+    @discardableResult
+    public func setSourceChangesetId(_ value: Optional<Int>) -> Self {
+        self.sourceChangesetId = value
+        return self
+    }
+
+    /**
      Setter for Destination_Branch_ID.
 
      - Parameters:
@@ -194,6 +235,19 @@ public class BranchCopyRequest : Request {
     @discardableResult
     public func setDestinationBranchId(_ value: Optional<Int>) -> Self {
         self.destinationBranchId = value
+        return self
+    }
+
+    /**
+     Setter for Branch_Copy_Session_ID.
+
+     - Parameters:
+        - value: Optional<String>
+     - Returns:  Self
+     */
+    @discardableResult
+    public func setBranchCopySessionId(_ value: Optional<String>) -> Self {
+        self.branchCopySessionId = value
         return self
     }
 

@@ -17,7 +17,7 @@ public class ModuleChange : Model {
     var moduleOperation : Optional<String>
 
     /// Model field Module_Data
-    var moduleData : VariableValue
+    var moduleData : Optional<VariableValue>
 
     /**
      CodingKeys used to map the model when encoding and decoding.
@@ -36,7 +36,7 @@ public class ModuleChange : Model {
     public override init() {
         self.moduleCode = nil
         self.moduleOperation = nil
-        self.moduleData = VariableValue()
+        self.moduleData = nil
 
         super.init()
     }
@@ -54,7 +54,7 @@ public class ModuleChange : Model {
 
         self.moduleCode = try container.decodeIfPresent(String.self, forKey: .moduleCode) ?? nil
         self.moduleOperation = try container.decodeIfPresent(String.self, forKey: .moduleOperation) ?? nil
-        self.moduleData = try container.decodeIfPresent(VariableValue.self, forKey: .moduleData) ?? VariableValue()
+        self.moduleData = try container.decodeIfPresent(VariableValue.self, forKey: .moduleData) ?? nil
 
         try super.init(from : decoder)
     }
@@ -102,7 +102,7 @@ public class ModuleChange : Model {
 
      - Returns:  VariableValue
      */
-    public func getModuleData() -> VariableValue {
+    public func getModuleData() -> Optional<VariableValue> {
         return self.moduleData
     }
 

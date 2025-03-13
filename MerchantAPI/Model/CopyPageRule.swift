@@ -47,6 +47,9 @@ public class CopyPageRule : Model {
     /// Model field cacheset.
     var cacheSettings : Bool
 
+    /// Model field public.
+    var isPublic : Bool
+
     /**
      CodingKeys used to map the model when encoding and decoding.
 
@@ -63,6 +66,7 @@ public class CopyPageRule : Model {
         case javascriptResourceAssignments = "jsres"
         case CSSResourceAssignments = "cssres"
         case cacheSettings = "cacheset"
+        case isPublic = "public"
     }
 
     /**
@@ -79,6 +83,7 @@ public class CopyPageRule : Model {
         self.javascriptResourceAssignments = false
         self.CSSResourceAssignments = false
         self.cacheSettings = false
+        self.isPublic = false
 
         super.init()
     }
@@ -104,6 +109,7 @@ public class CopyPageRule : Model {
         self.javascriptResourceAssignments = try container.decodeIfPresent(Bool.self, forKey: .javascriptResourceAssignments) ?? false
         self.CSSResourceAssignments = try container.decodeIfPresent(Bool.self, forKey: .CSSResourceAssignments) ?? false
         self.cacheSettings = try container.decodeIfPresent(Bool.self, forKey: .cacheSettings) ?? false
+        self.isPublic = try container.decodeIfPresent(Bool.self, forKey: .isPublic) ?? false
 
         try super.init(from : decoder)
     }
@@ -129,6 +135,7 @@ public class CopyPageRule : Model {
         try container.encodeIfPresent(self.javascriptResourceAssignments, forKey: .javascriptResourceAssignments)
         try container.encodeIfPresent(self.CSSResourceAssignments, forKey: .CSSResourceAssignments)
         try container.encodeIfPresent(self.cacheSettings, forKey: .cacheSettings)
+        try container.encodeIfPresent(self.isPublic, forKey: .isPublic)
 
         try super.encode(to: encoder)
     }
@@ -217,5 +224,13 @@ public class CopyPageRule : Model {
      - Returns:  Bool     */
     public func getCacheSettings() -> Bool {
         return self.cacheSettings
+    }
+
+    /**
+     Getter for public.
+
+     - Returns:  Bool     */
+    public func getIsPublic() -> Bool {
+        return self.isPublic
     }
 }

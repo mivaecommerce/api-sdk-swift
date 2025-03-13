@@ -128,9 +128,9 @@ public class ProductShippingRulesUpdateRequest : Request {
 
         try container.encodeIfPresent(self.shipsInOwnPackaging, forKey: .shipsInOwnPackaging)
         try container.encodeIfPresent(self.limitShippingMethods, forKey: .limitShippingMethods)
-        try container.encodeIfPresent(Decimal.roundForEncoding(value: self.width, precision: MERCHANTAPI_FLOAT_ENCODE_PRECISION), forKey: .width)
-        try container.encodeIfPresent(Decimal.roundForEncoding(value: self.length, precision: MERCHANTAPI_FLOAT_ENCODE_PRECISION), forKey: .length)
-        try container.encodeIfPresent(Decimal.roundForEncoding(value: self.height, precision: MERCHANTAPI_FLOAT_ENCODE_PRECISION), forKey: .height)
+        try container.encodeIfPresent(Decimal.roundForEncoding(value: self.width, precision: 2), forKey: .width)
+        try container.encodeIfPresent(Decimal.roundForEncoding(value: self.length, precision: 2), forKey: .length)
+        try container.encodeIfPresent(Decimal.roundForEncoding(value: self.height, precision: 2), forKey: .height)
         try container.encodeIfPresent(self.shippingMethods, forKey: .shippingMethods)
 
         try super.encode(to : encoder)

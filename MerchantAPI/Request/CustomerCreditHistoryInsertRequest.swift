@@ -106,7 +106,7 @@ public class CustomerCreditHistoryInsertRequest : Request {
             try container.encode(self.customerLogin, forKey: .customerLogin)
         }
 
-        try container.encodeIfPresent(Decimal.roundForEncoding(value: self.amount, precision: MERCHANTAPI_FLOAT_ENCODE_PRECISION), forKey: .amount)
+        try container.encodeIfPresent(Decimal.roundForEncoding(value: self.amount, precision: 2), forKey: .amount)
         try container.encodeIfPresent(self.description, forKey: .description)
         try container.encodeIfPresent(self.transactionReference, forKey: .transactionReference)
 

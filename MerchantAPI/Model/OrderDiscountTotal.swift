@@ -86,7 +86,7 @@ public class OrderDiscountTotal : Model {
         try container.encodeIfPresent(self.priceGroupId, forKey: .priceGroupId)
         try container.encodeIfPresent(self.name, forKey: .name)
         try container.encodeIfPresent(self.description, forKey: .description)
-        try container.encodeIfPresent(Decimal.roundForEncoding(value: self.total, precision: MERCHANTAPI_FLOAT_ENCODE_PRECISION), forKey: .total)
+        try container.encodeIfPresent(Decimal.roundForEncoding(value: self.total, precision: 8), forKey: .total)
 
         try super.encode(to: encoder)
     }

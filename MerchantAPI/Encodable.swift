@@ -10,7 +10,10 @@
 import Foundation
 
 /// The float precision when encoding decimal values to json
+@available(*, deprecated)
 public var MERCHANTAPI_FLOAT_PRECISION = 2
+
+@available(*, deprecated)
 public var MERCHANTAPI_FLOAT_ENCODE_PRECISION = MERCHANTAPI_FLOAT_PRECISION
 
 /// Allows for encoding of any encodable value
@@ -68,16 +71,16 @@ extension Decimal {
          - precision: Int
      - Returns: Decimal
      */
-    public func rounded(precision: Int = MERCHANTAPI_FLOAT_PRECISION) -> Decimal {
+    public func rounded(precision: Int = 2, roundingMode: NSDecimalNumber.RoundingMode = .plain) -> Decimal {
         var value = self
         var ret = value
-        NSDecimalRound(&ret, &value, precision, NSDecimalNumber.RoundingMode.plain)
+        NSDecimalRound(&ret, &value, precision, roundingMode)
         return ret
     }
 
-    public static func roundForEncoding(value: Optional<Decimal>, precision: Int = MERCHANTAPI_FLOAT_ENCODE_PRECISION) -> Optional<Decimal> {
+    public static func roundForEncoding(value: Optional<Decimal>, precision: Int = 2, roundingMode: NSDecimalNumber.RoundingMode = .plain) -> Optional<Decimal> {
         if let value = value {
-            return value.rounded(precision: precision)
+            return value.rounded(precision: precision, roundingMode: roundingMode)
         }
 
         return nil

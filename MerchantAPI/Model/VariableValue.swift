@@ -26,14 +26,6 @@ public class VariableValue : Codable {
 
     /// The type of value
     var type : ValueType = .Unknown
-    
-    /**
-     Nil constructor
-     */
-    public init() {
-        self.value = nil
-        self.type = ValueType.Null
-    }
 
     /**
      Int constructor
@@ -409,6 +401,16 @@ public class VariableValue : Codable {
      */
     public func toFloat() -> Optional<Float> {
         return self.value as? Float ?? nil
+    }
+
+    /**
+     Get the underlying primitive value as a decimal, if the value is primitive and can be converted or nil
+
+      - Returns:
+         - Optional<Decimal>
+     */
+    public func toDecimal() -> Optional<Decimal> {
+        return self.value as? Decimal ?? nil
     }
 
     /**
